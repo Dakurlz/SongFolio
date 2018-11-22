@@ -17,7 +17,7 @@ services:
     image: mysql:5.7
     container_name: mysql-mvc
     environment:
-      MYSQL_DATABASE: mvcdocker
+      MYSQL_DATABASE: songfolio
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
       MYSQL_PASSWORD: password
