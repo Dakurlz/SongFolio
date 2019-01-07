@@ -1,13 +1,15 @@
 <?php
 class Users extends BaseSQL{
 
-	public $id = null;
-	public $firstname;
-	public $lastname;
-	public $email;
-	public $pwd;
-	public $status = 0;
-	public $role = 1;
+  public $user_id = null;
+  public $user_username;
+	public $user_firstname;
+	public $user_lastname;
+	public $user_email;
+	public $user_password;
+  public $user_status = 0;
+  public $user_date_visit;
+	public $user_role = 1;
 
 	public function __construct(){
 		parent::__construct();
@@ -16,27 +18,32 @@ class Users extends BaseSQL{
 	public function setId($id){
 		$this->id=$id;
 		//Alimentation de l'objet (this) depuis la bdd ou l'id correspond
-		$this->getOneBy(["id"=>$id], true);
-	}
+		$this->getOneBy(["user_id"=>$id], true);
+  }
+  public function setUsername($username){
+    $this->user_username=trim($user_username);
+  }
 	public function setFirstname($firstname){
-		$this->firstname=ucwords(strtolower(trim($firstname)));
+		$this->user_firstname=ucwords(strtolower(trim($user_firstname)));
 	}
 	public function setLastname($lastname){
-		$this->lastname=strtoupper(trim($lastname));
+		$this->user_lastname=strtoupper(trim($lastname));
 	}
 	public function setEmail($email){
-		$this->email=strtolower(trim($email));
+		$this->user_email=strtolower(trim($email));
 	}
 	public function setPwd($pwd){
-		$this->pwd=password_hash($pwd, PASSWORD_DEFAULT);
+		$this->user_password=password_hash($pwd, PASSWORD_DEFAULT);
 	}
 	public function setStatus($status){
-		$this->status=$status;
+		$this->user_status=$status;
 	}
 	public function setRole($role){
-		$this->role=$role;
+		$this->user_role=$role;
 	}
-
+	public function setDateVisit($dateVisit){
+		$this->user_date_visit=trim($dateVisit);
+	}
 
 	public function getFormRegister (){
 		return [
