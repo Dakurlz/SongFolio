@@ -1,7 +1,7 @@
 <?php
 
 define("DBHOST", "database");
-define("DBNAME", "mvcdocker");
+define("DBNAME", "songfolio");
 define("DBUSER", "root");
 define("DBPASSWORD", "password");
 
