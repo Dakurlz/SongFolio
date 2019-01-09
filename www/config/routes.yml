@@ -1,3 +1,23 @@
 "/":
   controller: Pages
   action: default
+
+"/creation_de_compte":
+  controller: Users
+  action: register
+
+"/enregistrement_de_compte":
+  controller: Users
+  action: save
+
+"/mot_de_passe_oublie":
+  controller: Users
+  action: forgetPassword
+
+"/connexion":
+  controller: Users
+  action: login
+
+"/liste_des_utilisateurs":
+  controller: Users
+  action: default

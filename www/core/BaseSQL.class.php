@@ -3,8 +3,9 @@ class BaseSQL{
 
     private $pdo;
     private $table;
+    private $data = [];
 
-    public function __construct(){
+    public function __construct($id){
         //avec un singleton c'est mieux
         try{
             $this->pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME,DBUSER,DBPASSWORD);
@@ -14,10 +15,26 @@ class BaseSQL{
         }
 
         $this->table = get_called_class();
+		
+		if($id){
+			$this->getOneBy(["id"=>$id], true);
+		}
+    }
+
+    public function __get($attr){
+        return $this->data[$attr];
+    }
+
+    public function __set($attr, $value){
+		if(method_exists($this, 'normalize')){
+			$this->data[$attr] = $this->normalize($attr, $value);
+		}else{
+			$this->data[$attr] = $value;
+		}
     }
 
     public function save(){
-        $columns = $this->getColumns();
+        $columns = $this->data;
 
         if( is_null($columns["id"]) ){
             //INSERT
@@ -48,13 +65,14 @@ class BaseSQL{
 
         $query = $this->pdo->prepare($sql);
 
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute( $where );
+
         if($object){
-            $query->setFetchMode(PDO::FETCH_INTO, $this);
-        }else{
-            $query->setFetchMode(PDO::FETCH_INTO, $this);
+            $this->data = $query->fetch();
+            return $this->data;
         }
 
-        $query->execute( $where );
         return $query->fetch();
     }
 
