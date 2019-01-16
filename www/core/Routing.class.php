@@ -1,63 +1,37 @@
 <?php
 class Routing{
 
-	public static $routeFile = "routes.yml";
+    public static function getRoute($slug){
 
-	public static function getRoute($slug){
+        //Récupération de toutes les routes dans le fichier yml
+        $routes = yaml_parse_file('config/routes.yml');
+        if( !empty($routes[$slug]) ){
 
-		//Récupération de toutes les routes se trouvant dans notre yml
-		$routes = yaml_parse_file(self::$routeFile);
-		//Est ce que la route existe
-		if( !empty($routes[$slug]) ){
+            if(empty($routes[$slug]["controller"]) || empty($routes[$slug]["action"]))
+                die("Il y a une erreur dans le routes.yml");
 
-			//On vérifie qu'il n'y a pas une mauvaise écrite des routes dans le fichier
-			if(empty($routes[$slug]["controller"]) || empty($routes[$slug]["action"])){
-				die("Il y a une erreur dans le routes.yml");
-			}
+            $c = ucfirst($routes[$slug]["controller"])."Controller";
+            $a = $routes[$slug]["action"]."Action";
+            $cPath = 'controllers/'.$c.'.class.php';
 
-			//Ajout des suffixes
-			$c = ucfirst( $routes[$slug]["controller"] )."Controller";
-			$a = $routes[$slug]["action"]."Action";
-			//Précision du chemin pour acceder au controller
-			$cPath = "controllers/".$c.".class.php";
+        }else{
+            return null;
+        }
 
-		}else{
-			//Aucune route ne correspondx
-			return null;
-		}
+        return ["a" => $a, "c" => $c, "cPath" => $cPath];
+    }
 
-		return ["c"=>$c,"a"=>$a,"cPath"=>$cPath];
-	}
+    public static function getSlug($c=null, $a=null){
 
+        //Récupération de toutes les routes dans le fichier yml
+        $routes = yaml_parse_file('config/routes.yml');
+        foreach($routes as $slug => $route){
 
+            if( !empty($route["controller"]) && !empty($route["action"]) && ucfirst($route["controller"]) == ucfirst($c) && $route["action"] == $a)
+                return $slug;
 
-	public static function getSlug($c=null, $a=null){
+        }
 
-		$routes = yaml_parse_file(self::$routeFile);
-
-		foreach ($routes as $slug => $cAnda) {
-			if( !empty($cAnda["controller"]) && 
-				!empty($cAnda["action"]) &&  
-				$cAnda["controller"] == $c && 
-				$cAnda["action"] == $a)
-			{
-				return $slug;
-			}
-		}
-		return null;		
-	}
-
-
-
-
+        return null;
+    }
 }
-
-
-
-
-
-
-
-
-
-
