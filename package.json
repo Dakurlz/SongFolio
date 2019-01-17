@@ -1,7 +1,6 @@
 {
   "name": "styleguy",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "node-sass": "^4.11.0"
@@ -9,8 +8,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "node-sass --watch scss -o scss"
+    "watch": "node-sass --watch www/public/scss -o www/public/scss"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }
