@@ -1,3 +1,52 @@
 *{
   box-sizing:border-box;
 }
+
+body{
+  margin:0;
+  font-family: $font-text;
+  color: $color-text;
+  font-size:15px;
+}
+
+img{
+  max-width:100%;
+}
+
+h1, h2, h3, h4, h5{
+  font-family:$font-title;
+  font-size:1.3rem;
+}
+
+a{
+  color: $color-primary;
+}
+
+.muted{
+  color:$color-muted;
+}
+
+/* BASICS */
+.all-height {
+  height: 100%;
+}
+.all-width {
+  width: 100%;
+}
+
+.lexical{
+  position:absolute;
+  bottom:20px;
+  width:80%;
+  left:10%;
+  color: $color-muted;
+}
+
+.chevron:after{
+  content:">";
+  display:inline-block;
+  position:relative;
+  font-size:1.3em;
+  top:4px;
+  left:5px;
+}

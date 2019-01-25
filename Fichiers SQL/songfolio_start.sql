@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `albums`
 --
 
-CREATE TABLE `albums` (
+CREATE TABLE `Albums` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `albums` (
 -- Structure de la table `categories`
 --
 
-CREATE TABLE `categories` (
+CREATE TABLE `Categories` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` int(250) NOT NULL
@@ -58,7 +58,7 @@ CREATE TABLE `categories` (
 -- Structure de la table `comments`
 --
 
-CREATE TABLE `comments` (
+CREATE TABLE `Comments` (
   `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
   `page` int(11) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE `comments` (
 -- Structure de la table `groups`
 --
 
-CREATE TABLE `groups` (
+CREATE TABLE `Groups` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -85,7 +85,7 @@ CREATE TABLE `groups` (
 -- Structure de la table `lyrics`
 --
 
-CREATE TABLE `lyrics` (
+CREATE TABLE `Lyrics` (
   `id` int(11) NOT NULL,
   `date_published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(350) NOT NULL
@@ -97,7 +97,7 @@ CREATE TABLE `lyrics` (
 -- Structure de la table `pages`
 --
 
-CREATE TABLE `pages` (
+CREATE TABLE `Pages` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `slug` int(50) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE `pages` (
 -- Structure de la table `permissions`
 --
 
-CREATE TABLE `permissions` (
+CREATE TABLE `Permissions` (
   `id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
@@ -129,7 +129,7 @@ CREATE TABLE `permissions` (
 -- Structure de la table `settings`
 --
 
-CREATE TABLE `settings` (
+CREATE TABLE `Settings` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `name` varchar(150) NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE `settings` (
 -- Structure de la table `slugs`
 --
 
-CREATE TABLE `slugs` (
+CREATE TABLE `Slugs` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -153,7 +153,7 @@ CREATE TABLE `slugs` (
 -- Structure de la table `songs`
 --
 
-CREATE TABLE `songs` (
+CREATE TABLE `Songs` (
   `id` int(11) NOT NULL,
   `album` int(11) NOT NULL,
   `slug` int(11) NOT NULL,
@@ -169,7 +169,7 @@ CREATE TABLE `songs` (
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `Users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `firstname` varchar(50) NOT NULL,
@@ -190,67 +190,67 @@ CREATE TABLE `users` (
 --
 -- Index pour la table `albums`
 --
-ALTER TABLE `albums`
+ALTER TABLE `Albums`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `categories`
 --
-ALTER TABLE `categories`
+ALTER TABLE `Categories`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `comments`
 --
-ALTER TABLE `comments`
+ALTER TABLE `Comments`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `groups`
 --
-ALTER TABLE `groups`
+ALTER TABLE `Groups`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `lyrics`
 --
-ALTER TABLE `lyrics`
+ALTER TABLE `Lyrics`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `pages`
 --
-ALTER TABLE `pages`
+ALTER TABLE `Pages`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `permissions`
 --
-ALTER TABLE `permissions`
+ALTER TABLE `Permissions`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `settings`
 --
-ALTER TABLE `settings`
+ALTER TABLE `Settings`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `slugs`
 --
-ALTER TABLE `slugs`
+ALTER TABLE `Slugs`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `songs`
 --
-ALTER TABLE `songs`
+ALTER TABLE `Songs`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `users`
 --
-ALTER TABLE `users`
+ALTER TABLE `Users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -260,67 +260,67 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT pour la table `albums`
 --
-ALTER TABLE `albums`
+ALTER TABLE `Albums`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `categories`
 --
-ALTER TABLE `categories`
+ALTER TABLE `Categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `comments`
 --
-ALTER TABLE `comments`
+ALTER TABLE `Comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `groups`
 --
-ALTER TABLE `groups`
+ALTER TABLE `Groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `lyrics`
 --
-ALTER TABLE `lyrics`
+ALTER TABLE `Lyrics`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `pages`
 --
-ALTER TABLE `pages`
+ALTER TABLE `Pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `permissions`
 --
-ALTER TABLE `permissions`
+ALTER TABLE `Permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `settings`
 --
-ALTER TABLE `settings`
+ALTER TABLE `Settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `slugs`
 --
-ALTER TABLE `slugs`
+ALTER TABLE `Slugs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `songs`
 --
-ALTER TABLE `songs`
+ALTER TABLE `Songs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
-ALTER TABLE `users`
+ALTER TABLE `Users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
