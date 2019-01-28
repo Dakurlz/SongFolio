@@ -1,0 +1,74 @@
+.header-back {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.18);
+  margin-bottom: rem(15);
+  .container {
+    align-items: center;
+
+    &__logo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      & > h1 {
+        color: $main-color;
+        font-size: 36px;
+        margin-right: rem(20);
+        margin: rem(15);
+      }
+      & > h2 {
+        margin: rem(15) 0;
+
+        font-size: 36px;
+        font-weight: 400;
+        color: $color-blue-f;
+      }
+    }
+
+    &__logout {
+      text-align: right;
+      color: $color-black;
+      font-size: 18px;
+      font-weight: 600;
+      transition: all 0.4s;
+
+      &:hover {
+        color: $main-color;
+      }
+    }
+  }
+}
+
+.main-back {
+  .container {
+    &__sidebar {
+      background-color: $black-background;
+      // background-color: aqua;
+
+      &__admin-name {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        & div {
+          color: $color-white;
+          font-size: 20px;
+          display: flex;
+          flex-direction: row;
+
+          & :nth-child(1){
+            margin-right: rem(15);
+          }
+
+        }
+        .logo {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+    &__content {
+      background-color: gold;
+    }
+  }
+}

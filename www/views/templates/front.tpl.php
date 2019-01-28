@@ -7,7 +7,7 @@
     <title>Front</title>
 
     <!--Main css -->
-    <link rel="stylesheet" href="<?php echo BASE_URL."public/scss/style.css?v=".filemtime("public/scss/style.css" ); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>">
 </head>
 <body>
     <header>

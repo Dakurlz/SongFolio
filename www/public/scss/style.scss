@@ -12,18 +12,16 @@
 
 // Components
 @import "components/buttons";
-@import "./components/inputs";
-@import './components/links';
+@import "components/inputs";
+@import "components/links";
 
-// pages
 // Templates
 @import "templates/front";
 @import "templates/back";
 
 // pages
 @import "pages/home";
+@import "pages/login";
 
 
-@import './pages/tpl/back.tpl';
 
-@import "pages/loginAdmin";
