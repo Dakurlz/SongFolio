@@ -7,17 +7,14 @@ class Users extends BaseSQL{
 	
 	public function normalize($attr, $value){
 		switch($attr){
-			case 'firstname' :
-				return ucwords(strtolower(trim($value)));
-			break;
-			case 'lastname' :
-				return strtoupper(trim($value));
+			case 'username' :
+				return ucfirst(strtolower(trim($value)));
 			break;
 			case 'email' :
-				return strtolower(trim($email));
+				return strtolower(trim($value));
 			break;
 			case 'password' :
-				return password_hash($pwd,PASSWORD_DEFAULT);
+				return password_hash($value,PASSWORD_DEFAULT);
 			break;
 		}
 	}
@@ -25,7 +22,7 @@ class Users extends BaseSQL{
     public function getFormRegister(){
         return [
             "config"=>[
-                "action"=>Routing::getSlug("Users","register"),
+                "action"=>Routing::getSlug("Users", "register"),
                 "method"=>"POST",
                 "class"=>"",
                 "id"=>"",
@@ -33,43 +30,45 @@ class Users extends BaseSQL{
                 "submit"=>"S'enregistrer"
             ],
             "data"=>[
-                "firstname"=>[
+                "username"=>[
                     "type"=>"text",
-                    "placeholder"=>"Votre prénom",
+                    "placeholder"=>"Votre pseudo",
                     "class"=>"form-control",
-                    "id"=>"firstname",
-                    "required"=>true
-                ],
-                "lastname"=>[
-                    "type"=>"text",
-                    "placeholder"=>"Votre nom",
-                    "class"=>"form-control",
-                    "id"=>"lastname",
-                    "required"=>true
+                    "id"=>"username",
+                    "required"=>true,
+                    "minlength"=>4,
+                    "maxlength"=>50,
+                    "error"=>"Votre pseudo doit faire entre 4 et 50 caractères"
                 ],
                 "email"=>[
                     "type"=>"email",
                     "placeholder"=>"Votre email",
                     "class"=>"form-control",
                     "id"=>"email",
-                    "required"=>true
+                    "required"=>true,
+                    "minlength"=>7,
+                    "maxlength"=>250,
+                    "error"=>"Votre email est incorrect ou fait plus de 250 caractères"
                 ],
                 "pwd"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe",
                     "class"=>"form-control",
                     "id"=>"pwd",
-                    "required"=>true
+                    "required"=>true,
+                    "minlength"=>6,
+                    "error"=>"Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
                 ],
                 "pwdConfirm"=>[
                     "type"=>"password",
                     "placeholder"=>"Confirmation",
                     "class"=>"form-control",
                     "id"=>"pwdConfirm",
-                    "required"=>true
-                ]
+                    "required"=>true,
+                    "confirm"=>"pwd",
+                    "error"=>"Le mot de passe de confirmation ne correspond pas"
+                ],
             ]
-
         ];
     }
 

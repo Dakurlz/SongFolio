@@ -1,7 +1,6 @@
 {
   "name": "songfolio",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "node-sass": "^4.11.0"
@@ -13,5 +12,6 @@
     "sass-build": "node-sass -r --output-style compressed www/public/scss -o -o www/public/css/"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }

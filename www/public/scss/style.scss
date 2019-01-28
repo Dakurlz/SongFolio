@@ -1,3 +1,8 @@
+// Config
+@import "config/colours";
+@import "config/fonts";
+@import "config/sizes";
+
 @import "global";
 @import "grid";
 @import "flexboxs";
@@ -11,6 +16,13 @@
 @import './components/links';
 
 // pages
+// Templates
+@import "templates/front";
+@import "templates/back";
+
+// pages
+@import "pages/home";
+
 
 @import './pages/tpl/back.tpl';
 

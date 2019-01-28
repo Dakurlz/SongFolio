@@ -6,7 +6,7 @@ class BaseSQL{
     private $data = [];
 
     public function __construct($id){
-        //avec un singleton c'est mieux
+        //Avec un singleton c'est mieux
         try{
             $this->pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME,DBUSER,DBPASSWORD);
 			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -36,7 +36,7 @@ class BaseSQL{
     public function save(){
         $columns = $this->data;
 
-        if( is_null($columns["id"]) ){
+        if( !isset($columns["id"]) || is_null($columns["id"]) ){
             //INSERT
             $sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($columns)).") VALUES (:".implode(",:",array_keys($columns)).")";
 
