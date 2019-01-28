@@ -1,3 +1,14 @@
-*{
-  box-sizing:border-box;
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,800,800i");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+@function rem($pxval) {
+  $base: 16;
+  @return ($pxval / $base) * 1rem;
 }

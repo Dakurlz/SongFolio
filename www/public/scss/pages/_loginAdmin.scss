@@ -1,0 +1,65 @@
+.login-page {
+  background-color: $gris-background;
+  padding: 200px 0;
+
+  .col-lg-12 {
+    display: flex;
+    background-color: $white-background;
+    height: 100%;
+    // height: 460px;
+    border: solid 2px $main-color;
+    border-radius: 20px;
+    padding: 8% 10%;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+
+    &__logo {
+      margin: auto;
+      & > h1 {
+        color: $main-color;
+        text-align: center;
+
+        font-size: 8vw;
+        @media screen and (min-width: 500px) {
+          font-size: 70px;
+        }
+      }
+    }
+
+    &__connection {
+      // width: 49%;
+      padding-left: 5%;
+      margin: auto;
+
+      & > p {
+        font-size: 16px;
+        font-weight: 800;
+      }
+
+      &__linkButton {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: rem(20);
+
+        & .blue-button {
+          width: 40%;
+        }
+
+        & > a {
+          font-size: 14px;
+          font-weight: 600;
+          text-decoration: none;
+          color: rgba(0, 0, 0, 0.5);
+
+          &:hover {
+            color: $main-color;
+          }
+        }
+      }
+    }
+  }
+}

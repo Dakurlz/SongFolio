@@ -3,10 +3,15 @@
 @import "flexboxs";
 
 // Config
-@import "config/colours";
+@import "config/colors";
 
 // Components
 @import "components/buttons";
+@import "./components/inputs";
+@import './components/links';
 
+// pages
 
+@import './pages/tpl/back.tpl';
 
+@import "pages/loginAdmin";

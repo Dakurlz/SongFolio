@@ -1,5 +1,5 @@
 {
-  "name": "styleguy",
+  "name": "songfolio",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "node-sass --watch scss -o scss"
+    "sass": "node-sass -w www/public/scss -o  www/public/css/",
+    "sass-build": "node-sass -r --output-style compressed www/public/scss -o -o www/public/css/"
   },
   "author": "",
   "license": "ISC"

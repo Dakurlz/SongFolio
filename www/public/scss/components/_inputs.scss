@@ -1,0 +1,15 @@
+$border: #E1E1E1;
+
+.input-control{
+  outline: none;
+  width: 100%;
+  background-color: $white-background;
+  border: solid 2px $border;
+  height: 40px;
+  border-radius: 12px;
+  padding: 5px 10px;
+
+  &:focus{
+    border: solid 2px $main-color;
+  }
+}
