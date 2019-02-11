@@ -2156,7 +2156,8 @@ footer {
 
 .header-back {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.18);
-  margin-bottom: 0.9375rem; }
+  margin-bottom: 0.9375rem;
+  background-color: #fff; }
   .header-back .container {
     align-items: center; }
     .header-back .container__logo {
@@ -2183,25 +2184,51 @@ footer {
         color: #02BBAB; }
 
 .main-back .container__sidebar {
-  background-color: #000000; }
+  background-color: #000000;
+  padding: 0; }
   .main-back .container__sidebar__admin-name {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center; }
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1.25rem; }
     .main-back .container__sidebar__admin-name div {
       color: #fff;
       font-size: 20px;
       display: flex;
       flex-direction: row; }
       .main-back .container__sidebar__admin-name div :nth-child(1) {
-        margin-right: 0.9375rem; }
+        margin-right: 0.5rem; }
     .main-back .container__sidebar__admin-name .logo {
-      width: 40px;
-      height: 40px; }
+      width: 35px;
+      height: 35px;
+      margin-right: 1.25rem; }
+  .main-back .container__sidebar__property {
+    padding: 0; }
+    .main-back .container__sidebar__property > li {
+      text-decoration: none; }
+      .main-back .container__sidebar__property > li > a {
+        text-decoration: none; }
+        .main-back .container__sidebar__property > li > a > div {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          padding-left: 1.25rem;
+          transition: all 0.6s; }
+          .main-back .container__sidebar__property > li > a > div:hover {
+            background-color: rgba(229, 229, 229, 0.3);
+            border-left: 12px solid #02BBAB; }
+          .main-back .container__sidebar__property > li > a > div > img {
+            width: 35px;
+            height: 35px;
+            margin-right: 1.25rem; }
+          .main-back .container__sidebar__property > li > a > div > p {
+            color: #E1E1E1;
+            font-size: 24px; }
 
 .main-back .container__content {
-  background-color: gold; }
+  background-color: wheat; }
 
 main section {
   padding: 50px 0; }

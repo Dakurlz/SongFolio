@@ -1,6 +1,14 @@
+@mixin img {
+  width: 35px;
+  height: 35px;
+  margin-right: rem(20);
+}
+
 .header-back {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.18);
   margin-bottom: rem(15);
+  background-color: $white-background;
+
   .container {
     align-items: center;
 
@@ -42,13 +50,14 @@
   .container {
     &__sidebar {
       background-color: $black-background;
-      // background-color: aqua;
+      padding: 0;
 
       &__admin-name {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: flex-start;
         align-items: center;
+        padding-left: rem(20);
 
         & div {
           color: $color-white;
@@ -56,19 +65,51 @@
           display: flex;
           flex-direction: row;
 
-          & :nth-child(1){
-            margin-right: rem(15);
+          & :nth-child(1) {
+            margin-right: rem(8);
           }
-
         }
         .logo {
-          width: 40px;
-          height: 40px;
+          @include img;
+        }
+      }
+
+      &__property {
+        padding: 0;
+
+        & > li {
+          text-decoration: none;
+
+          & > a {
+            text-decoration: none;
+
+            & > div {
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+              padding-left: rem(20);
+              transition: all 0.6s;
+
+              &:hover {
+                background-color: rgba(#e5e5e5, 0.3);
+                border-left: 12px solid $main-color;
+              }
+
+              & > img {
+                @include img;
+              }
+              & > p {
+                color: $color-gray;
+                font-size: 24px;
+              }
+            }
+          }
         }
       }
     }
     &__content {
-      background-color: gold;
+      background-color: wheat;
     }
   }
 }
