@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="../public/css/style.css" />
-    <title>Login Page</title>
-  </head>
-  <body>
+
     <main class="login-page">
       <div class="wrapper">
         <div class="col-lg-12">
@@ -22,13 +13,12 @@
               <p>Mot de passe</p>
               <input class="input-control" type="password" />
               <div class="container__connection__linkButton row ">
-                <a href="#">Mot de passe oublié?</a>
-                <input type="submit" class="blue-button" value="Se connecter" />
+                <a class="link passForgot" href="#">Mot de passe oublié?</a>
+                <a href="<?php echo Routing::getSlug("Admin", "default") ?>" class="button button--blue" >Se connecter</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </main>
-  </body>
-</html>
+  

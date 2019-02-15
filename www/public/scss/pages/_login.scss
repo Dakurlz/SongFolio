@@ -30,7 +30,6 @@
     }
 
     &__connection {
-      // width: 49%;
       padding-left: 5%;
       margin: auto;
 
@@ -45,11 +44,11 @@
         justify-content: space-between;
         margin-top: rem(20);
 
-        & .blue-button {
+        & .button {
           width: 40%;
         }
 
-        & > a {
+        & .passForgot {
           font-size: 14px;
           font-weight: 600;
           text-decoration: none;

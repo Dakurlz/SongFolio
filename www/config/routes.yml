@@ -17,3 +17,15 @@
 "/liste_des_utilisateurs":
   controller: Users
   action: default
+
+"/admin":
+  controller: Admin
+  action: default
+
+"/admin/users":
+  controller: Admin
+  action: loadUser
+
+"/authentication":
+  controller: Admin
+  action: loadAuth

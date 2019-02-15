@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:400,400i,900,900i|Questrial");
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Lato:400,400i,500,500i,900,900i|Questrial");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,800,800i");
 * {
   box-sizing: border-box; }
@@ -2075,32 +2076,50 @@ h1, h2, h3, h4, h5 {
   .last-lg {
     order: 1; } }
 
-.blue-button {
-  background-color: #02BBAB;
-  border: none;
+.button {
+  display: inline-block;
   color: #fff;
   font-weight: 600;
+  padding: .5em;
   width: 100%;
-  height: 40px;
-  outline: none; }
-  .blue-button:hover {
-    border: solid 2px #02BBAB;
-    background-color: #fff;
-    color: #02BBAB; }
+  outline: none;
+  text-decoration: none;
+  font-size: 15px;
+  text-align: center;
+  transition: all 0.5s;
+  border: solid 3px transparent;
+  cursor: pointer; }
+  .button--green {
+    background-color: #00A65A; }
+    .button--green:hover {
+      border: solid 3px #00A65A;
+      background-color: #fff;
+      color: #00A65A; }
+  .button--blue {
+    background-color: #02BBAB; }
+    .button--blue:hover {
+      border: solid 3px #02BBAB;
+      background-color: #fff;
+      color: #02BBAB; }
 
 .input-control {
   outline: none;
   width: 100%;
   background-color: #fff;
-  border: solid 2px #E1E1E1;
-  height: 40px;
+  border: solid 2px #b1abab;
+  height: 42px;
   border-radius: 12px;
   padding: 5px 10px; }
+  .input-control--not-radius {
+    border-radius: 0; }
+  .input-control::placeholder {
+    color: #b1abab; }
   .input-control:focus {
     border: solid 2px #02BBAB; }
 
 .link {
-  text-decoration: none; }
+  text-decoration: none;
+  transition: all 0.5s; }
 
 .close {
   position: absolute;
@@ -2122,6 +2141,104 @@ h1, h2, h3, h4, h5 {
     transform: rotate(45deg); }
   .close:after {
     transform: rotate(-45deg); }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  background-color: #02BBAB;
+  align-items: center;
+  height: 50px; }
+  .header > img {
+    width: 30px;
+    height: 30px;
+    margin-left: 1.25rem; }
+  .header > p {
+    color: #E1E1E1;
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 0.625rem; }
+
+.dropdown {
+  position: relative;
+  display: inline-block; }
+  .dropdown .show {
+    display: block !important; }
+  .dropdown .dropbtn {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer; }
+    .dropdown .dropbtn:not(:only-child)::after {
+      padding-left: 4px;
+      content: " ▾"; }
+    .dropdown .dropbtn:hover, .dropdown .dropbtn:focus {
+      background-color: #2980b9; }
+  .dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    margin-top: 6px;
+    background: linear-gradient(to bottom right, white, #f8f8f8) !important;
+    box-shadow: 0 4px 10px rgba(10, 20, 30, 0.4);
+    z-index: 1; }
+    .dropdown .dropdown-content::after {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: -8px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid white; }
+    .dropdown .dropdown-content > a {
+      display: block;
+      text-decoration: none;
+      padding: 1rem;
+      border-top: 2px solid transparent;
+      background: transparent;
+      color: #4a5666;
+      border-bottom: 1px solid #dde0e7; }
+      .dropdown .dropdown-content > a:hover, .dropdown .dropdown-content > a:focus {
+        background: #e7e9ef;
+        color: #111; }
+
+.table {
+  margin: 1.25rem 1.25rem 3.75rem 1.25rem;
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: auto;
+  border: 1px solid #ddd; }
+  @media only screen and (max-width: 760px) {
+    .table table,
+    .table thead,
+    .table tbody,
+    .table th,
+    .table td,
+    .table tr {
+      display: block; }
+    .table thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px; }
+    .table tr {
+      margin: 0 0 1rem 0; }
+    .table tr:nth-child(odd) {
+      border-bottom: solid 2px #02BBAB;
+      border-top: solid 2px #02BBAB; }
+    .table td {
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 45%; }
+    .table td:before {
+      position: absolute;
+      top: 0;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap; } }
 
 header {
   /*position:fixed;*/
@@ -2249,9 +2366,9 @@ footer {
         color: #02BBAB;
         font-size: 3vw;
         margin-right: 1.25rem;
-        margin: 0.9375rem; }
+        margin: 0.625rem; }
       .header-back .container__logo > h2 {
-        margin: 0.9375rem 0;
+        margin: 0.625rem 0;
         font-size: 2vw;
         font-weight: 400;
         color: #85B6CC; }
@@ -2290,8 +2407,8 @@ footer {
       .main-back .container .sidebar__admin-name div :nth-child(1) {
         margin-right: 0.5rem; }
     .main-back .container .sidebar__admin-name .logo {
-      width: 35px;
-      height: 35px;
+      width: 30px;
+      height: 30px;
       margin-right: 1.25rem; }
   .main-back .container .sidebar__property {
     padding: 0; }
@@ -2311,15 +2428,13 @@ footer {
             background-color: rgba(229, 229, 229, 0.3);
             border-left: 12px solid #02BBAB; }
           .main-back .container .sidebar__property > li > a > div > img {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             margin-right: 1.25rem; }
           .main-back .container .sidebar__property > li > a > div > p {
             color: #E1E1E1;
-            font-size: 24px; }
-
-.main-back .container__content {
-  background-color: wheat; }
+            font-size: 18px;
+            font-weight: 500; }
 
 main section {
   padding: 50px 0; }
@@ -2537,12 +2652,69 @@ main section {
         flex-direction: row;
         justify-content: space-between;
         margin-top: 1.25rem; }
-        .login-page .container__connection__linkButton .blue-button {
+        .login-page .container__connection__linkButton .button {
           width: 40%; }
-        .login-page .container__connection__linkButton > a {
+        .login-page .container__connection__linkButton .passForgot {
           font-size: 14px;
           font-weight: 600;
           text-decoration: none;
           color: rgba(0, 0, 0, 0.5); }
-          .login-page .container__connection__linkButton > a:hover {
+          .login-page .container__connection__linkButton .passForgot:hover {
             color: #02BBAB; }
+
+.admin-users {
+  height: 100%; }
+  .admin-users__main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); }
+    @media (max-width: 480px) {
+      .admin-users__main__search-add-user {
+        flex-direction: column !important; }
+        .admin-users__main__search-add-user__add-user {
+          width: 100% !important;
+          margin: 1.25rem 0; }
+        .admin-users__main__search-add-user__search {
+          width: 100% !important; } }
+    .admin-users__main__search-add-user {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 1.875rem 0;
+      width: 100%;
+      flex-wrap: wrap;
+      padding: 0 1.25rem; }
+      .admin-users__main__search-add-user__add-user {
+        width: 30%; }
+      .admin-users__main__search-add-user__search {
+        display: flex;
+        flex-direction: row;
+        width: 50%; }
+        .admin-users__main__search-add-user__search__input {
+          width: 100%; }
+        .admin-users__main__search-add-user__search__button {
+          width: 50%; }
+    @media only screen and (min-width: 760px) {
+      .admin-users__main__table th,
+      .admin-users__main__table td {
+        text-align: left;
+        padding: 8px; } }
+    @media only screen and (max-width: 760px) {
+      .admin-users__main__table td:nth-of-type(1):before {
+        width: 40%;
+        content: "Nom"; }
+      .admin-users__main__table td:nth-of-type(2):before {
+        content: "Email"; }
+      .admin-users__main__table td:nth-of-type(3):before {
+        content: "Rejoint"; }
+      .admin-users__main__table td:nth-of-type(4):before {
+        content: "Dernière connexion"; }
+      .admin-users__main__table td:nth-of-type(5) {
+        padding: 0 !important; }
+        .admin-users__main__table td:nth-of-type(5) .dropbtn {
+          padding: 10px 100% !important; } }
+    .admin-users__main__table .dropdown-content a:nth-child(1):hover {
+      background: #c1d4f2 !important; }
+    .admin-users__main__table .dropdown-content a:nth-child(2):hover {
+      background: #efb8b8 !important; }

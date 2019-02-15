@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="../../public/js/jquery-3.3.1.min.js"></script>
     <script src="../../public/js/back.js"></script>
-    <link rel="stylesheet" href="../../public/css/style.css" />
+    <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>" />
     <title>Admin</title>
   </head>
   <body>
@@ -23,7 +23,7 @@
             <h2>Admin 1.0</h2>
           </div>
           <a
-            href="#"
+          href="<?php echo Routing::getSlug("Admin", "loadAuth") ?>"
             class="container__logout link col-lg-6 col-sm-6"
             onclick=""
             >Déconexion</a
@@ -44,7 +44,7 @@
           </div>
           <ul class="sidebar__property">
             <li>
-              <a href="#">
+              <a href="<?php echo Routing::getSlug("Admin", "default") ?>">
                 <div>
                   <img src="../../public/img/Home_Icon.svg" />
                   <p>Tableau de board</p>
@@ -56,7 +56,7 @@
                   <p>Pages</p>
                 </div>
               </a>
-              <a href="#">
+              <a href="<?php echo Routing::getSlug("Admin", "loadUser") ?>">
                 <div>
                   <img src="../../public/img/users-silhouettes.svg" />
                   <p>Utilisateurs</p>
@@ -84,7 +84,12 @@
           </ul>
         </nav>
 
-        <div class="container__content col-lg-9 col-md-9  col-12 ">sdfsdf</div>
+        <div class="container__content col-lg-9 col-md-9  col-12 ">
+
+        <?php
+          include $this->v;
+        ?>
+        </div>
       </div>
     </main>
   </body>

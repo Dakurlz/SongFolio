@@ -15,6 +15,9 @@
 @import "components/inputs";
 @import "components/links";
 @import "components/close";
+@import "components/header.back";
+@import "components/dropdown";
+@import "components/table";
 
 // Templates
 @import "templates/front";
@@ -23,6 +26,7 @@
 // pages
 @import "pages/home";
 @import "pages/login";
+@import "pages/users";
 
 
 

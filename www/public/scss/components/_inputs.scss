@@ -1,15 +1,23 @@
-$border: #E1E1E1;
+$border: #b1abab;
 
-.input-control{
+.input-control {
   outline: none;
   width: 100%;
   background-color: $white-background;
   border: solid 2px $border;
-  height: 40px;
+  height: 42px;
   border-radius: 12px;
   padding: 5px 10px;
 
-  &:focus{
+  &--not-radius {
+    border-radius: 0;
+  }
+
+  &::placeholder {
+    color: $border;
+  }
+
+  &:focus {
     border: solid 2px $main-color;
   }
 }

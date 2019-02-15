@@ -1,6 +1,6 @@
 @mixin img {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   margin-right: rem(20);
 }
 
@@ -88,7 +88,7 @@
           display: none !important;
         }
       }
-      &__logout{
+      &__logout {
         font-size: 16px !important;
       }
     }
@@ -111,10 +111,10 @@
         color: $main-color;
         font-size: 3vw;
         margin-right: rem(20);
-        margin: rem(15);
+        margin: rem(10);
       }
       & > h2 {
-        margin: rem(15) 0;
+        margin: rem(10) 0;
         font-size: 2vw;
         font-weight: 400;
         color: $color-blue-f;
@@ -202,7 +202,8 @@
               }
               & > p {
                 color: $color-gray;
-                font-size: 24px;
+                font-size: 18px;
+                font-weight: 500;
               }
             }
           }
@@ -210,8 +211,5 @@
       }
     }
 
-    &__content {
-      background-color: wheat;
-    }
   }
 }
