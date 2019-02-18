@@ -82,20 +82,39 @@ $hover-remove-dropdown: #efb8b8;
         td:nth-of-type(5) {
           padding: 0 !important;
 
-          .dropbtn {
-            padding: 10px 100% !important; 
+          .dropdown {
+            display: inline;
+            .dropbtn {
+              background-color: $color-gray !important;
+            }
+            .dropdown-content {
+              left: 30%;
+              width: 50%;
+            }
           }
+
+          // .dropbtn {
+          //   // padding: 10px 100% !important;
+          //   width: 100% !important;
+          // }
         }
       }
 
-      .dropdown-content {
-        // background: red !important;
-
-        a:nth-child(1):hover {
-          background: $hover-update-dropdown !important;
+      .dropdown {
+        display: inline;
+        .dropbtn {
+          background-color: $color-gray !important;
         }
-        a:nth-child(2):hover {
-          background: $hover-remove-dropdown !important;
+
+        .dropdown-content {
+          // background: red !important;
+
+          a:nth-child(1):hover {
+            background: $hover-update-dropdown !important;
+          }
+          a:nth-child(2):hover {
+            background: $hover-remove-dropdown !important;
+          }
         }
       }
     }

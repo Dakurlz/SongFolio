@@ -2076,7 +2076,7 @@ h1, h2, h3, h4, h5 {
   .last-lg {
     order: 1; } }
 
-.button {
+.btn {
   display: inline-block;
   color: #fff;
   font-weight: 600;
@@ -2089,18 +2089,24 @@ h1, h2, h3, h4, h5 {
   transition: all 0.5s;
   border: solid 3px transparent;
   cursor: pointer; }
-  .button--green {
+  .btn--green {
     background-color: #00A65A; }
-    .button--green:hover {
+    .btn--green:hover {
       border: solid 3px #00A65A;
       background-color: #fff;
       color: #00A65A; }
-  .button--blue {
-    background-color: #02BBAB; }
-    .button--blue:hover {
-      border: solid 3px #02BBAB;
-      background-color: #fff;
-      color: #02BBAB; }
+  .btn-secondary {
+    background-color: #6c757d; }
+  .btn-success {
+    background-color: #00A65A; }
+  .btn-primary {
+    background-color: #B00000; }
+  .btn-danger {
+    background-color: #dc3545; }
+  .btn-info {
+    background-color: #007bff; }
+  .btn-primary {
+    background-color: #B00000; }
 
 .input-control {
   outline: none;
@@ -2108,14 +2114,12 @@ h1, h2, h3, h4, h5 {
   background-color: #fff;
   border: solid 2px #b1abab;
   height: 42px;
-  border-radius: 12px;
+  border-radius: 2px;
   padding: 5px 10px; }
-  .input-control--not-radius {
-    border-radius: 0; }
   .input-control::placeholder {
     color: #b1abab; }
   .input-control:focus {
-    border: solid 2px #02BBAB; }
+    border: solid 2px #B00000; }
 
 .link {
   text-decoration: none;
@@ -2145,7 +2149,7 @@ h1, h2, h3, h4, h5 {
 .header {
   display: flex;
   flex-direction: row;
-  background-color: #02BBAB;
+  background-color: #3f3f3f;
   align-items: center;
   height: 50px; }
   .header > img {
@@ -2153,23 +2157,25 @@ h1, h2, h3, h4, h5 {
     height: 30px;
     margin-left: 1.25rem; }
   .header > p {
-    color: #E1E1E1;
+    color: #fff;
     font-size: 20px;
     font-weight: 500;
     margin-left: 0.625rem; }
 
 .dropdown {
   position: relative;
-  display: inline-block; }
+  display: inline; }
   .dropdown .show {
     display: block !important; }
   .dropdown .dropbtn {
     background-color: #3498db;
-    color: white;
-    padding: 10px 16px;
+    color: #3f3f3f;
     font-size: 16px;
     border: none;
-    cursor: pointer; }
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    text-align: center; }
     .dropdown .dropbtn:not(:only-child)::after {
       padding-left: 4px;
       content: " ▾"; }
@@ -2225,8 +2231,8 @@ h1, h2, h3, h4, h5 {
     .table tr {
       margin: 0 0 1rem 0; }
     .table tr:nth-child(odd) {
-      border-bottom: solid 2px #02BBAB;
-      border-top: solid 2px #02BBAB; }
+      border-bottom: solid 2px #B00000;
+      border-top: solid 2px #B00000; }
     .table td {
       border: none;
       border-bottom: 1px solid #eee;
@@ -2289,7 +2295,7 @@ footer {
   footer .right {
     text-align: right; }
 
-@media (max-width: 961px) {
+@media (max-width: 999px) {
   .toggle-nav {
     display: block !important;
     cursor: pointer;
@@ -2337,7 +2343,14 @@ footer {
       transform: rotate(-45deg); }
   .sidebar {
     position: absolute;
-    left: -100%; } }
+    left: -100%;
+    height: 100% !important; }
+    .sidebar__admin-name,
+    .sidebar .sidebar--item {
+      padding-left: 20% !important; } }
+
+.container-fluid {
+  padding: 0 !important; }
 
 .header-back {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.18);
@@ -2363,7 +2376,7 @@ footer {
       .header-back .container__logo .hamburger {
         display: none; }
       .header-back .container__logo > h1 {
-        color: #02BBAB;
+        color: #B00000;
         font-size: 3vw;
         margin-right: 1.25rem;
         margin: 0.625rem; }
@@ -2371,68 +2384,71 @@ footer {
         margin: 0.625rem 0;
         font-size: 2vw;
         font-weight: 400;
-        color: #85B6CC; }
+        color: #b6b6b6; }
     .header-back .container__logout {
-      text-align: right;
-      color: #000000;
-      font-size: 18px;
-      font-weight: 600;
-      transition: all 0.4s; }
-      .header-back .container__logout:hover {
-        color: #02BBAB; }
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center; }
+      .header-back .container__logout > a {
+        text-align: right;
+        color: #3f3f3f;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.4s; }
 
-.main-back .container .sidebar {
-  background-color: #000000;
+.main-back .row .sidebar {
+  background-color: #3f3f3f;
   padding: 0;
-  min-width: 284px;
-  transition: all 0.8s; }
-  .main-back .container .sidebar--showSidebar {
+  transition: all 0.8s;
+  z-index: 3; }
+  .main-back .row .sidebar--showSidebar {
     transition: all 0.8s;
     display: block !important;
     position: absolute;
     left: 0;
     width: 100%;
     height: 100%; }
-  .main-back .container .sidebar__admin-name {
+  .main-back .row .sidebar__admin-name {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     padding-left: 1.25rem; }
-    .main-back .container .sidebar__admin-name div {
+    .main-back .row .sidebar__admin-name div {
       color: #fff;
       font-size: 20px;
       display: flex;
       flex-direction: row; }
-      .main-back .container .sidebar__admin-name div :nth-child(1) {
+      .main-back .row .sidebar__admin-name div :nth-child(1) {
         margin-right: 0.5rem; }
-    .main-back .container .sidebar__admin-name .logo {
+    .main-back .row .sidebar__admin-name .logo {
       width: 30px;
       height: 30px;
       margin-right: 1.25rem; }
-  .main-back .container .sidebar__property {
+  .main-back .row .sidebar__property {
     padding: 0; }
-    .main-back .container .sidebar__property > li {
+    .main-back .row .sidebar__property > li {
       text-decoration: none; }
-      .main-back .container .sidebar__property > li > a {
+      .main-back .row .sidebar__property > li > a {
         text-decoration: none;
-        color: #02BBAB; }
-        .main-back .container .sidebar__property > li > a > div {
+        color: #B00000; }
+        .main-back .row .sidebar__property > li > a > div {
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
           align-items: center;
           padding-left: 1.25rem;
           transition: all 0.6s; }
-          .main-back .container .sidebar__property > li > a > div:hover {
+          .main-back .row .sidebar__property > li > a > div:hover {
             background-color: rgba(229, 229, 229, 0.3);
-            border-left: 12px solid #02BBAB; }
-          .main-back .container .sidebar__property > li > a > div > img {
+            border-left: 12px solid #B00000; }
+          .main-back .row .sidebar__property > li > a > div > img {
             width: 30px;
             height: 30px;
             margin-right: 1.25rem; }
-          .main-back .container .sidebar__property > li > a > div > p {
-            color: #E1E1E1;
+          .main-back .row .sidebar__property > li > a > div > p {
+            color: #fff;
             font-size: 18px;
             font-weight: 500; }
 
@@ -2620,14 +2636,17 @@ main section {
     border-radius: 200px; }
 
 .login-page {
-  background-color: #F7EFEF;
+  background-color: #E1E1E1;
   padding: 200px 0; }
+  @media (max-width: 425px) {
+    .login-page {
+      padding: 100px 0; } }
   .login-page .col-lg-12 {
     display: flex;
     background-color: #fff;
     height: 100%;
-    border: solid 2px #02BBAB;
-    border-radius: 20px;
+    border: solid 2px #B00000;
+    border-radius: 2px;
     padding: 8% 10%; }
   .login-page .container {
     width: 100%;
@@ -2635,7 +2654,7 @@ main section {
     .login-page .container__logo {
       margin: auto; }
       .login-page .container__logo > h1 {
-        color: #02BBAB;
+        color: #B00000;
         text-align: center;
         font-size: 8vw; }
         @media screen and (min-width: 500px) {
@@ -2651,16 +2670,24 @@ main section {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin-top: 1.25rem; }
-        .login-page .container__connection__linkButton .button {
+        margin-top: 1.25rem;
+        flex-wrap: wrap; }
+        @media (max-width: 425px) {
+          .login-page .container__connection__linkButton {
+            flex-direction: column; }
+            .login-page .container__connection__linkButton .btn {
+              margin-top: 0.625rem;
+              width: 100% !important; } }
+        .login-page .container__connection__linkButton .btn {
           width: 40%; }
         .login-page .container__connection__linkButton .passForgot {
           font-size: 14px;
+          width: 60%;
           font-weight: 600;
           text-decoration: none;
           color: rgba(0, 0, 0, 0.5); }
           .login-page .container__connection__linkButton .passForgot:hover {
-            color: #02BBAB; }
+            color: #B00000; }
 
 .admin-users {
   height: 100%; }
@@ -2712,9 +2739,18 @@ main section {
         content: "Dernière connexion"; }
       .admin-users__main__table td:nth-of-type(5) {
         padding: 0 !important; }
-        .admin-users__main__table td:nth-of-type(5) .dropbtn {
-          padding: 10px 100% !important; } }
-    .admin-users__main__table .dropdown-content a:nth-child(1):hover {
-      background: #c1d4f2 !important; }
-    .admin-users__main__table .dropdown-content a:nth-child(2):hover {
-      background: #efb8b8 !important; }
+        .admin-users__main__table td:nth-of-type(5) .dropdown {
+          display: inline; }
+          .admin-users__main__table td:nth-of-type(5) .dropdown .dropbtn {
+            background-color: #E1E1E1 !important; }
+          .admin-users__main__table td:nth-of-type(5) .dropdown .dropdown-content {
+            left: 30%;
+            width: 50%; } }
+    .admin-users__main__table .dropdown {
+      display: inline; }
+      .admin-users__main__table .dropdown .dropbtn {
+        background-color: #E1E1E1 !important; }
+      .admin-users__main__table .dropdown .dropdown-content a:nth-child(1):hover {
+        background: #c1d4f2 !important; }
+      .admin-users__main__table .dropdown .dropdown-content a:nth-child(2):hover {
+        background: #efb8b8 !important; }

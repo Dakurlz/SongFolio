@@ -14,7 +14,7 @@
               <input class="input-control" type="password" />
               <div class="container__connection__linkButton row ">
                 <a class="link passForgot" href="#">Mot de passe oublié?</a>
-                <a href="<?php echo Routing::getSlug("Admin", "default") ?>" class="button button--blue" >Se connecter</a>
+                <a href="<?php echo Routing::getSlug("Admin", "default") ?>" class="btn btn-primary" >Se connecter</a>
               </div>
             </div>
           </div>

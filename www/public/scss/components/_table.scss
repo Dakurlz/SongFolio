@@ -27,8 +27,8 @@
     }
 
     tr:nth-child(odd) {
-      border-bottom: solid 2px $main-color;
-      border-top: solid 2px $main-color;
+      border-bottom: solid 2px $color-primary;
+      border-top: solid 2px $color-primary;
     }
 
     td {

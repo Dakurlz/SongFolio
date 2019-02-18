@@ -1,4 +1,5 @@
-.button {
+
+.btn {
   display: inline-block;
   color: $color-white;
   font-weight: 600;
@@ -18,18 +19,28 @@
 
     &:hover {
       border: solid 3px $color-green;
-      background-color: $white-background;
+      background-color: $color-white;
       color: $color-green;
     }
   }
 
-  &--blue {
-    background-color: $main-color;
+  &-secondary{
+    background-color: $color-button-secondary;
+  }
+  &-success{
+    background-color: $color-button-success;
+  }
+  &-primary{
+    background-color: $color-button-primary;
+  }
+  &-danger{
+    background-color: $color-button-danger;
+  }
 
-    &:hover {
-      border: solid 3px $main-color;
-      background-color: $white-background;
-      color: $main-color;
-    }
+  &-info{
+    background-color: $color-button-info;
+  }
+  &-primary {
+    background-color: $color-primary;
   }
 }
