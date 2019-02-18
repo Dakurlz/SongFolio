@@ -39,14 +39,14 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <h2>Titre 1</h2>
+                            <h2>New numero 4</h2>
                             <p>Mercredi 12 janvier par Freddie</p>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <h2>Titre 1</h2>
-                            <p>text text text</p>
+                            <h2>News numero 5</h2>
+                            <p>Mercredi 12 janvier par Freddie</p>
                         </a>
                     </li>
                 </ul>

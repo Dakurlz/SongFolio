@@ -50,7 +50,7 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="#premium">Premium</a>
+                        <a href="#premium">Blog</a>
                         <div class="menu-content">
                             <ul>
                                 <li>
@@ -66,7 +66,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#aide">Aide</a>
+                        <a href="#aide">Le groupe</a>
                         <div class="menu-content">
                             <ul>
                                 <li>
@@ -82,7 +82,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#telecharger">Télécharger</a>
+                        <a href="#telecharger">Discographie</a>
                         <div class="menu-content">
                             <ul>
                                 <li>
@@ -98,7 +98,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#inscrire">S'inscrire</a>
+                        <a href="#inscrire">Evenements</a>
                         <div class="menu-content">
                             <ul>
                                 <li>
@@ -114,20 +114,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#connecter">Se connecter</a>
-                        <div class="menu-content">
-                            <ul>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <a href="#connecter">Mon compte</a>
                     </li>
                 </ul>
             </nav>
@@ -148,7 +135,7 @@
                     <ul>
                         <li>
                             <h2>
-                                Menu 1
+                                Notre groupe
                             </h2>
                         </li>
                         <li>
@@ -165,25 +152,7 @@
                     <ul>
                         <li>
                             <h2>
-                                Menu 2
-                            </h2>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-6">
-                    <ul>
-                        <li>
-                            <h2>
-                                Menu 3
+                                Médias
                             </h2>
                         </li>
                         <li>
@@ -201,7 +170,25 @@
                     <ul>
                         <li>
                             <h2>
-                                Menu 3
+                                Liens utiles
+                            </h2>
+                        </li>
+                        <li>
+                            <a href="#">link 1</a>
+                        </li>
+                        <li>
+                            <a href="#">link 1</a>
+                        </li>
+                        <li>
+                            <a href="#">link 1</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-6">
+                    <ul>
+                        <li>
+                            <h2>
+                                Suivez nous
                             </h2>
                         </li>
                         <li>
