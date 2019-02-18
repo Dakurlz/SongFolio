@@ -19,7 +19,7 @@
                     </a>
                 </article>
             </div>
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-xs-6 col-12">
                 <article class="event-half">
                     <a href="" class="event">
                         <h1>Sortie du nouvel album coming soon</h1>
@@ -33,7 +33,7 @@
                     </a>
                 </article>
             </div>
-            <div class="col-lg-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-xs-6 col-12">
                 <article class="event-other">
                 <h1>Autres nouveautés</h1>
                 <ul>
@@ -93,6 +93,9 @@
                 </tr>
                 <?php endfor; ?>
             </table>
+            <div class="col-12 tac">
+                <a href="#" class="chevron">Tous nos singles</a>
+            </div>
         </div>
     </div>
 </section>

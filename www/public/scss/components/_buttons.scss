@@ -1,3 +1,31 @@
+.btn{
+  background-color: #eee;
+  border: 0;
+  border-radius: 2px;
+  color: #444;
+  font-family: $font-text;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 10px 20px;
+  text-align: center;
+  margin: 5px;
+  display: inline-block;
+  text-decoration: none;
+
+  &:hover{
+    text-decoration: underline;
+    background-color: #ddd;
+  }
+  &-primary{
+    background-color:$color-primary;
+    color: white;
+    &:hover{
+      background-color:$color-primary-hover;
+    }
+  }
+}
+
 .blue-button {
   background-color: $main-color;
   border: none;

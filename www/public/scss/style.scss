@@ -2,6 +2,7 @@
 @import "config/colours";
 @import "config/fonts";
 @import "config/sizes";
+@import "config/config";
 
 @import "global";
 @import "grid";
@@ -14,6 +15,7 @@
 @import "components/buttons";
 @import "components/inputs";
 @import "components/links";
+@import "components/titles";
 
 // Templates
 @import "templates/front";
@@ -22,6 +24,7 @@
 // pages
 @import "pages/home";
 @import "pages/login";
+@import "pages/content";
 
 
 
