@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,800,800i");
 * {
   box-sizing: border-box;
+  outline:none;
 }
 
 body {
@@ -30,10 +31,6 @@ h1, h2, h3, h4, h5{
   font-size:1.3rem;
 }
 
-a{
-  color: $color-primary;
-}
-
 .muted{
   color:$color-muted;
 }
@@ -61,4 +58,18 @@ a{
   font-size:1.3em;
   top:4px;
   left:5px;
+}
+
+.hide{
+  display:none!important;
+}
+
+.tac{
+  text-align:center;
+}
+.tar{
+  text-align:right;
+}
+.tal{
+  text-align:left;
 }

@@ -1,0 +1,30 @@
+@mixin basic_h1($text-color, $border-color){
+  color: #000;
+  font-size: 35px;
+  font-family: $font-title;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0 0 10px;
+  border-bottom: 2px solid $border-color;
+  margin: 0 auto;
+}
+
+@mixin basic_h2($text-color){
+  font-family: $font-title;
+  color: $text-color;
+  font-size: 23px;
+  font-weight: 400;
+  padding: 0;
+  margin: 25px auto;
+  clear: both;
+}
+@mixin basic_h2_after($border-color){
+  content: "";
+  display: block;
+  width: 30px;
+  height: 2px;
+  background-color: $border-color;
+  margin-top: 5px;
+}
+

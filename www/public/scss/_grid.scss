@@ -12,9 +12,10 @@ $flexboxgrid-gutter-width: 1rem !default;
 $flexboxgrid-outer-margin: 2rem !default;
 // Columns breakpoints (name breakpoint container-size)
 $flexboxgrid-breakpoints:
-        sm 48em 46rem,
-        md 62em 61rem,
-        lg 75em 71rem !default;
+        xs 38em 35rem,
+        sm 55em 46rem,
+        md 68em 61rem,
+        lg 80em 71rem !default;
 $flexboxgrid-max-width: 1200px !default;
 
 //
@@ -33,8 +34,6 @@ $half-gutter-width: $flexboxgrid-gutter-width * .5;
 .container-fluid {
   margin-right: auto;
   margin-left: auto;
-  padding-right: $flexboxgrid-outer-margin;
-  padding-left: $flexboxgrid-outer-margin;
 }
 
 .row {
@@ -137,7 +136,8 @@ $half-gutter-width: $flexboxgrid-gutter-width * .5;
 }
 
 .container {
-  width: 100%;
+  margin: 0 20px;
+  width: calc( 100% - 40px );
   margin-right: auto;
   margin-left: auto;
   overflow:hidden;

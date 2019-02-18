@@ -17,3 +17,7 @@
 "/liste_des_utilisateurs":
   controller: Users
   action: default
+
+"/contenu":
+  controller: Pages
+  action: content
