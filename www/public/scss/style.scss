@@ -1,5 +1,5 @@
 // Config
-@import "config/colours";
+@import "config/colors";
 @import "config/fonts";
 @import "config/sizes";
 @import "config/config";
@@ -9,13 +9,16 @@
 @import "flexboxs";
 
 // Config
-@import "config/colors";
 
 // Components
 @import "components/buttons";
 @import "components/inputs";
 @import "components/links";
 @import "components/titles";
+@import "components/close";
+@import "components/header.back";
+@import "components/dropdown";
+@import "components/table";
 
 // Templates
 @import "templates/front";
@@ -25,6 +28,7 @@
 @import "pages/home";
 @import "pages/login";
 @import "pages/content";
+@import "pages/users";
 
 
 

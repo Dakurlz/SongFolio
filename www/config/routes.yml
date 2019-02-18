@@ -21,3 +21,14 @@
 "/contenu":
   controller: Pages
   action: content
+"/admin":
+  controller: Admin
+  action: default
+
+"/admin/users":
+  controller: Admin
+  action: loadUser
+
+"/authentication":
+  controller: Admin
+  action: loadAuth

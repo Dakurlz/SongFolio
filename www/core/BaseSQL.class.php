@@ -56,6 +56,16 @@ class BaseSQL{
 
     }
 
+    public function getAllData(){
+        $sql = "SELECT * FROM ".$this->table;
+        var_dump($sql, "sql");
+        $query = $this->pdo->prepare($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute();
+        return $query->fetch();
+
+    }
+
     public function getOneBy(array $where, $object = false){
 
         foreach( $where as $key => $value){

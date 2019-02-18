@@ -1,0 +1,122 @@
+$hover-update-dropdown: #c1d4f2;
+$hover-remove-dropdown: #efb8b8;
+.admin-users {
+  height: 100%;
+
+  @mixin contantPadding {
+    padding: 0 rem(20);
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+
+    @media (max-width: 480px) {
+      &__search-add-user {
+        flex-direction: column !important;
+
+        &__add-user {
+          width: 100% !important;
+          margin: rem(20) 0;
+        }
+
+        &__search {
+          width: 100% !important;
+        }
+      }
+    }
+
+    &__search-add-user {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: rem(30) 0;
+      width: 100%;
+      flex-wrap: wrap;
+      @include contantPadding();
+
+      &__add-user {
+        width: 30%;
+      }
+
+      &__search {
+        display: flex;
+        flex-direction: row;
+        width: 50%;
+
+        &__input {
+          width: 100%;
+        }
+
+        &__button {
+          width: 50%;
+        }
+      }
+    }
+
+    &__table {
+      @media only screen and (min-width: 760px) {
+        th,
+        td {
+          text-align: left;
+          padding: 8px;
+        }
+      }
+
+      @media only screen and (max-width: 760px) {
+        td:nth-of-type(1):before {
+          width: 40%;
+          content: "Nom";
+        }
+        td:nth-of-type(2):before {
+          content: "Email";
+        }
+        td:nth-of-type(3):before {
+          content: "Rejoint";
+        }
+        td:nth-of-type(4):before {
+          content: "Dernière connexion";
+        }
+        td:nth-of-type(5) {
+          padding: 0 !important;
+
+          .dropdown {
+            display: inline;
+            .dropbtn {
+              background-color: $color-gray !important;
+            }
+            .dropdown-content {
+              left: 30%;
+              width: 50%;
+            }
+          }
+
+          // .dropbtn {
+          //   // padding: 10px 100% !important;
+          //   width: 100% !important;
+          // }
+        }
+      }
+
+      .dropdown {
+        display: inline;
+        .dropbtn {
+          background-color: $color-gray !important;
+        }
+
+        .dropdown-content {
+          // background: red !important;
+
+          a:nth-child(1):hover {
+            background: $hover-update-dropdown !important;
+          }
+          a:nth-child(2):hover {
+            background: $hover-remove-dropdown !important;
+          }
+        }
+      }
+    }
+  }
+}

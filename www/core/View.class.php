@@ -15,16 +15,20 @@ class View{
         if(file_exists($vPath)) {
             $this->v = $vPath;
         }else{
-            die("Le template n'existe pas ". $vPath);
+            die("Le views n'existe pas ". $vPath);
         }
     }
 
     public function setTemplate($t){
         $tPath = "views/templates/".$t.".tpl.php";
-        if(file_exists($tPath)) {
-            $this->t = $tPath;
+        if($t === null){
+            $this->t = null;
         }else{
-            die("Le template n'existe pas ". $tPath);
+            if(file_exists($tPath)) {
+                $this->t = $tPath;
+            }else{
+                die("Le template n'existe pas ". $tPath);
+            }
         }
     }
 
@@ -44,7 +48,8 @@ class View{
     public function __destruct(){
         if(!empty($this->data))
             extract($this->data);
-        include $this->t;
+        if($this->t !== null)
+            include $this->t;
     }
 
 }
