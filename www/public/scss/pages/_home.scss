@@ -242,14 +242,38 @@
       font-size: 1.2rem;
     }
   }
-  #section-info .group-info {
-    text-align: center;
-    background: $color-light;
-    padding: 20px 20px 60px 20px;
-    position: relative;
-    img {
-      max-width: 200px;
-      border-radius: 200px;
+  #section-info {
+    .group-info {
+      text-align: center;
+      background: $color-light;
+      padding: 20px 20px 60px 20px;
+      position: relative;
+      img {
+        max-width: 200px;
+        border-radius: 200px;
+      }
+    }
+    .events{
+      ul{
+        li{
+          margin-bottom: 15px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #d3d3d3;
+          display: flex;
+          align-items: center;
+          p{
+            margin-bottom:0px;
+          }
+          img{
+            display: inline;
+            max-width: 65px;
+            margin-right: 10px;
+          }
+          .infos{
+            display: inline-block;
+          }
+        }
+      }
     }
   }
 }

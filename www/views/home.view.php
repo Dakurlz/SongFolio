@@ -103,19 +103,33 @@
 <section id="section-info">
     <div class="container">
         <div class="row center">
-            <div class="col-lg-5 col-sm-6 col-12">
+            <div class="col-lg-5 col-sm-6 col-12 events">
                 <div class="nav">
                     Prochains évènements
                 </div>
+                <ul style="list-style: none;padding: 0;">
+                    <li>
+                        <img src="https://i.pinimg.com/originals/74/72/2e/74722e84d049b7eb3d2139b719099679.jpg">
+                        <div class="infos">
+                            <h2 style="margin: 0;display: inline;">Concert 27 Juillet 1982</h2>
+                            <p>Madison Square Garden - New York City</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://i.pinimg.com/originals/74/72/2e/74722e84d049b7eb3d2139b719099679.jpg">
+                        <div class="infos">
+                            <h2 style="margin: 0;display: inline;">Concert 27 Juillet 1982</h2>
+                            <p>Madison Square Garden - New York City</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="col-sm-offset-1 col-lg-4 col-sm-5 col-12">
-                <article class="group-info">
+            <div class="col-sm-offset-1 col-lg-4 col-sm-5 col-12 group-info">
                     <img src="<?php echo PUBLIC_DIR?>img/photo_fm.jpg" />
                     <h1>Freddie Mercury</h1>
                     <p>Chanteur</p>
                     <a href="#">Biographie de Freddie</a>
                     <a href="#" class="chevron lexical">Tous les membres du groupe</a>
-                </article>
             </div>
         </div>
     </div>

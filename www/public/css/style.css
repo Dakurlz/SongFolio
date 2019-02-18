@@ -66,9 +66,7 @@ h1, h2, h3, h4, h5 {
 
 .container-fluid {
   margin-right: auto;
-  margin-left: auto;
-  padding-right: 2rem;
-  padding-left: 2rem; }
+  margin-left: auto; }
 
 .row {
   box-sizing: border-box;
@@ -3147,6 +3145,20 @@ a {
     #front-body #section-info .group-info img {
       max-width: 200px;
       border-radius: 200px; }
+  #front-body #section-info .events ul li {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d3d3d3;
+    display: flex;
+    align-items: center; }
+    #front-body #section-info .events ul li p {
+      margin-bottom: 0px; }
+    #front-body #section-info .events ul li img {
+      display: inline;
+      max-width: 65px;
+      margin-right: 10px; }
+    #front-body #section-info .events ul li .infos {
+      display: inline-block; }
 
 .login-page {
   background-color: #F7EFEF;
