@@ -6,7 +6,7 @@ class UsersController{
     }
 
     public function registerAction(){
-        $user = new Users();
+        $user = new User();
         $configForm = $user->getFormRegister();
 
         if(!empty($_POST)){

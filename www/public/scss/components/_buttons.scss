@@ -1,9 +1,8 @@
-
 .btn {
   display: inline-block;
   color: $color-white;
   font-weight: 600;
-  padding: .5em;
+  padding: 0.5em;
   width: 100%;
   outline: none;
   text-decoration: none;
@@ -12,7 +11,7 @@
   transition: all 0.5s;
   border: solid 3px transparent;
   cursor: pointer;
-
+  border: solid 2px $color-white;
 
   &--green {
     background-color: $color-green;
@@ -24,23 +23,44 @@
     }
   }
 
-  &-secondary{
+  &-secondary {
     background-color: $color-button-secondary;
   }
-  &-success{
+  &-success {
     background-color: $color-button-success;
+
+    &-outline {
+      background-color: $color-button-success;
+      color: $color-white;
+      border: solid 2px $color-button-success;
+      &:hover {
+        border: solid 2px $color-button-success;
+        background-color: $color-white;
+        color: $color-button-success;
+      }
+    }
   }
-  &-primary{
+  &-primary {
     background-color: $color-button-primary;
   }
-  &-danger{
+  &-danger {
     background-color: $color-button-danger;
   }
 
-  &-info{
+  &-info {
     background-color: $color-button-info;
   }
   &-primary {
     background-color: $color-primary;
+
+    &-outline {
+      background-color: $color-primary;
+      color: $color-white;
+      &:hover {
+        border: solid 2px $color-primary;
+        background-color: $color-white;
+        color: $color-primary;
+      }
+    }
   }
 }
