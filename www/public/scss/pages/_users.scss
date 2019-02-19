@@ -7,6 +7,7 @@ $hover-remove-dropdown: #efb8b8;
     padding: 0 rem(20);
   }
 
+  /* MAIN CONTENT */
   &__main {
     display: flex;
     flex-direction: column;
@@ -28,6 +29,7 @@ $hover-remove-dropdown: #efb8b8;
       }
     }
 
+    /* SECTION SEARCH AND ADD USER */
     &__search-add-user {
       display: flex;
       flex-direction: row;
@@ -56,7 +58,9 @@ $hover-remove-dropdown: #efb8b8;
       }
     }
 
+    /* SECTION TABLE */
     &__table {
+      transition: all 0.5s;
       @media only screen and (min-width: 760px) {
         th,
         td {
@@ -84,19 +88,18 @@ $hover-remove-dropdown: #efb8b8;
 
           .dropdown {
             display: inline;
-            .dropbtn {
-              background-color: $color-gray !important;
-            }
+
             .dropdown-content {
               left: 30%;
               width: 50%;
             }
           }
+        }
+      }
 
-          // .dropbtn {
-          //   // padding: 10px 100% !important;
-          //   width: 100% !important;
-          // }
+      tbody {
+        tr:hover {
+          box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
         }
       }
 

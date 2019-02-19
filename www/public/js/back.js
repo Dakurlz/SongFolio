@@ -6,6 +6,7 @@ function showDropdown(element) {
     .toggleClass("show");
 }
 
+
 $(document).ready(() => {
   $(".toggle-nav ").click(function() {
     $(".sidebar").toggleClass("sidebar--showSidebar");
@@ -26,4 +27,9 @@ $(document).ready(() => {
     }
   });
 
+
+  
+
 });
+
+

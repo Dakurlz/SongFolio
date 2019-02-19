@@ -8,37 +8,34 @@
       <script src="<?php echo BASE_URL."public/js/back.js";?>" ></script>
       <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>" />
       <title>Admin</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+      
    </head>
    <body>
       <header class="header-back">
-         <div class="container-fluid">
-
             <div class="row">
-               <div class="container__logo col-lg-6 col-sm-6">
+               <div class="row__logo col-lg-6 col-sm-6">
                   <div class="toggle-nav">
                      <span></span>
                   </div>
                   <h1>SongFolio</h1>
                   <h2>Admin 1.0</h2>
                </div>
-               <div class="container__logout col-lg-6 col-sm-6">
+               <div class="row__logout col-lg-6 col-sm-6">
 
                   <a
                      href="<?php echo Routing::getSlug("Admin", "loadAuth") ?>"
                      class=" link col-lg-6 col-sm-6"
                      onclick=""
-                     >Déconexion</a
+                     >Déconnexion</a
                      >
-
-
                </div>
-
-            </div>
          </div>
       </header>
-      <main class="main-back container-fluid ">
-         <div class="row">
-            <nav class="sidebar col-lg-3 col-md-3">
+
+
+      <main class="main-back">
+            <div class="sidebar">
                <div class="sidebar__admin-name">
                   <img class="logo" src="<?php echo BASE_URL."public/img/user-image.svg";?>" />
                   <div>
@@ -90,13 +87,14 @@
                      </a>
                   </li>
                </ul>
-            </nav>
-            <div class="container__content col-lg-9 col-md-9 col-12 ">
+            </div>
+            <div class="main-back__content">
+               <div class="container-fluid">
                <?php
                   include $this->v;
                   ?>
+                  </div>
             </div>
-         </div>
       </main>
    </body>
 </html>

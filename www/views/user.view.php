@@ -2,15 +2,15 @@
    <div class="col-12 admin-users ">
       <div class="admin-users__main">
          <div  class="header">
-            <img src="../../public/img/users-silhouettes.svg" />
+            <img src="<?php echo BASE_URL."public/img/users-silhouettes.svg"; ?>" />
             <p>Utilisateurs</p>
          </div>
          <div class="admin-users__main__search-add-user">
             <div class="admin-users__main__search-add-user__search">
-               <input class="input-control input-control--not-radius admin-users__main__search-add-user__search__input"  placeholder="Chercher utilisateur"/>
-               <a class="btn btn--green admin-users__main__search-add-user__search__button" >Chercher</a>
+               <input class="input-control input-control-success admin-users__main__search-add-user__search__input"  placeholder="Chercher utilisateur"/>
+               <a class="btn btn-success-outline admin-users__main__search-add-user__search__button" >Chercher</a>
             </div>
-            <a class="btn btn--green admin-users__main__search-add-user__add-user " >Ajouter utilisatuer</a>
+            <a class="btn btn-success-outline admin-users__main__search-add-user__add-user " >Ajouter utilisatuer</a>
          </div>
          <table class="admin-users__main__table table">
             <thead role="rowgroup">

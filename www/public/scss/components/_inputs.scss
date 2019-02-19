@@ -13,6 +13,13 @@ $border: #b1abab;
     color: $border;
   }
 
+  &-success{
+    
+    &:focus {
+      border: solid 2px $color-green !important;
+    }  
+  }
+
   &:focus {
     border: solid 2px $color-primary;
   }
