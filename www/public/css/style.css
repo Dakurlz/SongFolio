@@ -2576,8 +2576,7 @@ h1, h2, h3, h4, h5 {
   display: inline-block;
   color: #fff;
   font-weight: 600;
-  padding: 0.5em;
-  width: 100%;
+  padding: .5em;
   outline: none;
   text-decoration: none;
   font-size: 15px;
@@ -2634,6 +2633,22 @@ h1, h2, h3, h4, h5 {
     border: solid 2px #00A65A !important; }
   .input-control:focus {
     border: solid 2px #B00000; }
+
+.form-group {
+  margin-bottom: 10px; }
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out; }
 
 a {
   color: #B00000;

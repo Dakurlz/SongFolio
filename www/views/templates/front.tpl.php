@@ -48,71 +48,25 @@
                     </ul>
                     <button type="button" id="hide-menu" />
                 </div>
+
                 <ul>
+                    <?php foreach((new Menus(2))->__get('data') as $menu):?>
                     <li>
-                        <a href="#premium">Blog</a>
-                        <div class="menu-content">
+                        <a href="<?=$menu['link'] ?? '#'?>"><?=$menu['title']?></a>
+
+                        <?php if(isset($menu['children'])):?>
+                            <div class="menu-content">
                             <ul>
+                                <?php foreach($menu['children'] as $child_menu):?>
                                 <li>
-                                    <a href="#">Link 1</a>
+                                    <a href="<?=$child_menu['link'] ?? '#'?>"><?=$child_menu['title']?></a>
                                 </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
+                                <?php endforeach;?>
                             </ul>
                         </div>
+                        <?php endif;?>
                     </li>
-                    <li>
-                        <a href="#aide">Le groupe</a>
-                        <div class="menu-content">
-                            <ul>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#telecharger">Discographie</a>
-                        <div class="menu-content">
-                            <ul>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#inscrire">Evenements</a>
-                        <div class="menu-content">
-                            <ul>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                    <?php endforeach;?>
                     <li>
                         <a href="#connecter">Mon compte</a>
                     </li>
@@ -125,7 +79,7 @@
 
     <main>
         <?php
-        include $this->v;
+        include $this->view_path;
         ?>
     </main>
     <footer id="front_footer">
@@ -214,7 +168,7 @@
         </div>
     </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="<?php echo BASE_URL."public/js/front.js?v=".filemtime("public/js/front.js" ); ?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="<?php echo BASE_URL."public/js/front.js?v=".filemtime("public/js/front.js" ); ?>"></script>
 </body>
 </html>

@@ -2,6 +2,15 @@
   controller: Pages
   action: default
 
+"/contenu":
+  controller: Pages
+  action: content
+
+# USERS
+"/liste_des_utilisateurs":
+  controller: Users
+  action: default
+
 "/creation_de_compte":
   controller: Users
   action: register
@@ -14,21 +23,33 @@
   controller: Users
   action: login
 
-"/liste_des_utilisateurs":
+"/deconnexion":
   controller: Users
-  action: default
+  action: logout
+  needAuth: true
 
-"/contenu":
-  controller: Pages
-  action: content
+"/mon_compte":
+  controller: Users
+  action: dashboard
+  needAuth: true
+
+# ADMIN
 "/admin":
   controller: Admin
   action: default
+  needGroups: admin
 
 "/admin/users":
   controller: Admin
   action: loadUser
+  needGroups: admin
 
-"/authentication":
+"/admin/menus":
   controller: Admin
-  action: loadAuth
+  action: menus
+  needGroups: admin
+
+"/admin/menus/edit":
+  controller: Admin
+  action: menusEdit
+  needGroups: admin

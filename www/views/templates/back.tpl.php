@@ -4,8 +4,6 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-      <script src="<?php echo BASE_URL."public/js/jquery-3.3.1.min.js" ;?>"></script>
-      <script src="<?php echo BASE_URL."public/js/back.js";?>" ></script>
       <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>" />
       <title>Admin</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
@@ -87,14 +85,32 @@
                      </a>
                   </li>
                </ul>
-            </div>
-            <div class="main-back__content">
-               <div class="container-fluid">
+            </nav>
+            <div class="container__content col-lg-9 col-md-9 col-12 ">
+                <?php if(isset($alert['danger'])):?>
+                    <div class="alert alert-danger">
+                        <?php foreach($alert['danger'] as $danger):?>
+                            <li><?php echo $danger; ?></li>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if(isset($alert['success'])):?>
+                    <div class="alert alert-danger">
+                        <?php foreach($alert['success'] as $success):?>
+                            <li><?php echo $success; ?></li>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
                <?php
-                  include $this->v;
+                  include $this->view_path;
                   ?>
                   </div>
             </div>
       </main>
+
+      <script src="<?php echo BASE_URL."public/js/jquery-3.3.1.min.js" ;?>"></script>
+      <script src="<?php echo BASE_URL."public/js/jquery-ui.min.js?v=".filemtime("public/js/front.js" ); ?>"></script>
+      <script src="<?php echo BASE_URL."public/js/back.js?v=".filemtime("public/js/back.js" );?>" ></script>
    </body>
 </html>

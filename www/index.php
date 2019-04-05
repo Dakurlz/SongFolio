@@ -1,31 +1,15 @@
 <?php
 require "config/conf.inc.php";
+include "core/Autoloader.class.php";
 ini_set('display_errors', 1);
 
-function myAutoLoader($class){
-    $cPath = "core/".$class.".class.php";
-    $pathModels = "models/".$class.".class.php";
-    if(file_exists($cPath)){
-        include $cPath;
-    }else  if(file_exists($pathModels)) {
-        include $pathModels;
-    }
-}
-//Appel une fonction définie si on essaye une instance d'une class qui n'existe pas.
-spl_autoload_register("myAutoloader");
+Autoloader::register();
 
-$slug = $_SERVER["REQUEST_URI"];
+session_start();
 
-//Suppression des GET dans l'url
-$slugExploded = explode("?", $slug);
-$slug = strtolower($slugExploded[0]);
+$user = new Users();
 
-
-$route = Routing::getRoute($slug);
-if(is_null($route)){
-    die("L'url n'existe pas.");
-}
-extract($route);
+extract(Routing::getRoute($user));
 
 if (file_exists($cPath))
 {
@@ -33,16 +17,16 @@ if (file_exists($cPath))
 
     if(class_exists($c)){
 
-        $cObject = new $c();
+        $cObject = new $c($user);
 
         if(method_exists($cObject, $a)){
             $cObject->$a();
         }else{
-            die("L'action ".$a." n'existe pas.");
+            view::show404("L'action ".$a." n'existe pas.");
         }
     }else{
-        die("La class ".$c." n'existe pas.");
+        view::show404("La class ".$c." n'existe pas.");
     }
 }else{
-    die("Le fichier controller ".$c." n'existe pas.");
+    view::show404("Le fichier controller ".$c." n'existe pas.");
 }
