@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 class BaseSQL{
 
     private $pdo;
@@ -22,18 +25,26 @@ class BaseSQL{
     }
 
     public function __get($attr){
-        return $this->data[$attr];
+        if(isset($this->data[$attr])){
+            if(method_exists($this, 'customGet')){
+                return $this->customGet($attr, $this->data[$attr]);
+            }else{
+                return $this->data[$attr];
+            }
+        }else{
+            return false;
+        }
     }
 
     public function __set($attr, $value){
-		if(method_exists($this, 'normalize')){
-			$this->data[$attr] = $this->normalize($attr, $value);
+		if(method_exists($this, 'customSet')){
+			$this->data[$attr] = $this->customSet($attr, $value);
 		}else{
 			$this->data[$attr] = $value;
 		}
     }
 
-    public function save(){
+    public function save() : void{
         $columns = $this->data;
 
         if( !isset($columns["id"]) || is_null($columns["id"]) ){
@@ -56,14 +67,13 @@ class BaseSQL{
 
     }
 
-    public function getAllData(){
-        $sql = "SELECT * FROM ".$this->table;
-        var_dump($sql, "sql");
+    public function getAllData()
+    {
+        $sql = "SELECT * FROM " . $this->table;
         $query = $this->pdo->prepare($sql);
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $query->execute();
-        return $query->fetch();
-
+        return $query->fetchAll();
     }
 
     public function getOneBy(array $where, $object = false){
@@ -71,7 +81,7 @@ class BaseSQL{
         foreach( $where as $key => $value){
             $sqlWhere[] = $key."=:".$key;
         }
-        $sql = "SELECT * FROM ".$this->table." WHERE ".implode(" AND",$sqlWhere);
+        $sql = "SELECT * FROM ".$this->table." WHERE ".implode(" AND ",$sqlWhere);
 
         $query = $this->pdo->prepare($sql);
 

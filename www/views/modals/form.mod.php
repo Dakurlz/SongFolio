@@ -22,6 +22,7 @@ $data = ( $config['config']['method'] == "POST") ? $_POST : $_GET;
 
                     <?php if($value["type"]=="password") unset($data[$key]);?>
 
+                    <label for="<?php echo $value['id'];?>"><?php echo $value['placeholder'];?></label>
                     <input type="<?php echo $value['type'];?>"
                            name="<?php echo $key;?>"
                            placeholder="<?php echo $value['placeholder'];?>"
@@ -30,7 +31,6 @@ $data = ( $config['config']['method'] == "POST") ? $_POST : $_GET;
                         <?php echo($value['required'])? 'required="required"':'';?>
                            value="<?php echo $data[$key] ?? ''?>"
                     >
-                    <label for="<?php echo $value['id'];?>"><?php echo $value['placeholder'];?></label>
 
                 <?php endif;?>
             </div>

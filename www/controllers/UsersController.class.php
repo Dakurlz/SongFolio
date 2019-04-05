@@ -1,13 +1,35 @@
 <?php
+
+declare(strict_types=1);
+
 class UsersController{
 
-    public function defaultAction(){
+    private $user;
+
+    public function __construct(Users $user){
+        $this->user = $user;
+    }
+
+
+    public function defaultAction() : string
+    {
         echo "User default";
     }
 
-    public function registerAction(){
-        $user = new Users();
-        $configForm = $user->getFormRegister();
+    public function dashboardAction() : void
+    {
+        $v = new View("user_dashboard", "front");
+        $v->assign('user', $this->user);
+    }
+
+    public function registerAction() : void
+    {
+        if($this->user->is('connected'))
+        {
+            header('Location: '. Routing::getSlug('users', 'dashboard'));
+        }
+
+        $configForm = $this->user->getFormRegister();
 
         if(!empty($_POST)){
 
@@ -19,10 +41,10 @@ class UsersController{
                 $configForm["errors"] = $validator->errors;
 
                 if(empty($configForm["errors"])){
-                    $user->__set('username', $data["username"]);
-                    $user->__set('email', $data["email"]);
-                    $user->__set('password', $data["pwd"]);
-                    $user->save();
+                    $this->user->__set('username', $data["username"]);
+                    $this->user->__set('email', $data["email"]);
+                    $this->user->__set('password', $data["pwd"]);
+                    $this->user->save();
                 }
             }
         }
@@ -32,11 +54,50 @@ class UsersController{
 
     }
 
-    public function loginAction(){
+    public function loginAction() : void
+    {
+        if($this->user->is('connected'))
+        {
+            header('Location: '. Routing::getSlug('users', 'dashboard'));
+        }
+
+        $user = new Users();
+        $configForm = $user->getFormLogin();
+
+        if(!empty($_POST)){
+
+            $method = $configForm["config"]["method"];
+            $data = $GLOBALS["_".$method];
+
+            if($_SERVER["REQUEST_METHOD"]==$method && !empty($data)){
+                $validator = new Validator($configForm, $data);
+                $configForm["errors"] = $validator->errors;
+
+                if(empty($configForm["errors"])){
+                    if($user->getOneBy(['username'=>$data['username']], true) && password_verify($data['password'], $user->__get('password'))){
+                        //$token = md5(substr(uniqid().time(), 4, 10)."mxu(4il");
+                        $_SESSION['user'] = $user->__get('id');
+                        header('Location: '.Routing::getSlug("users","dashboard"));
+                    }else{
+                        $configForm["errors"][] = "Incorrect";
+                    }
+                }
+            }
+        }
+
         $v = new View("user_login", "front");
+        $v->assign("configFormLogin", $configForm);
     }
 
-    public function forgetPasswordAction(){
+    public function logoutAction() : void
+    {
+        unset($_SESSION['user']);
+
+        header('Location: '.BASE_URL);
+    }
+
+    public function forgetPasswordAction() : void
+    {
         $v = new View("user_forgetPassword", "front");
     }
 }

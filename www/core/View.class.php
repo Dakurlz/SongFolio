@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 class View{
 
-    private $v;
-    private $t;
+    private $view;
+    private $view_path;
+    private $template;
+    private $template_path;
 
     public function __construct($v, $t="back"){
         $this->setView($v);
@@ -11,21 +15,23 @@ class View{
     }
 
     public function setView($v){
+        $this->view = $v;
         $vPath = "views/".$v.".view.php";
         if(file_exists($vPath)) {
-            $this->v = $vPath;
+            $this->view_path = $vPath;
         }else{
             die("Le views n'existe pas ". $vPath);
         }
     }
 
     public function setTemplate($t){
+        $this->template = $t;
         $tPath = "views/templates/".$t.".tpl.php";
         if($t === null){
-            $this->t = null;
+            $this->template_path = null;
         }else{
             if(file_exists($tPath)) {
-                $this->t = $tPath;
+                $this->template_path = $tPath;
             }else{
                 die("Le template n'existe pas ". $tPath);
             }
@@ -33,12 +39,20 @@ class View{
     }
 
     public function addModal($modal, $config){
-        $mPath = "views/modals/".$modal.".mod.php";
-        if(file_exists($mPath)) {
-            include $mPath;
+        $pathModal = "views/modals/".$modal.".mod.php";
+        if(file_exists($pathModal)){
+            include $pathModal;
         }else{
-            die("Le modal n'existe pas ". $mPath);
+            die("Le modal n'existe pas :".$pathModal);
         }
+    }
+
+    public static function show404($reason = ""){
+        $v = new View("404", "front");
+        if($reason){
+            $v->assign('reason', $reason);
+        }
+        exit;
     }
 
     public function assign($key, $value){
@@ -48,8 +62,8 @@ class View{
     public function __destruct(){
         if(!empty($this->data))
             extract($this->data);
-        if($this->t !== null)
-            include $this->t;
+        if($this->template_path !== null)
+            include $this->template_path;
     }
 
 }
