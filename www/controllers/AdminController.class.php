@@ -35,7 +35,17 @@ class AdminController{
     }
 
     public function loadUserAction(){
+        $user = new Users();
         
-      $v = new View("user", "back");
+        $v = new View("user", "back");
+        $v->assign('allUsers', $user->getAllData());
+    }
+
+    public function loadPagesAction(){
+        $v = new View("pages", "back");
+    }
+
+    public function loadAlbumAction(){
+        $v = new View("album", "back");
     }
 }

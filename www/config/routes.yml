@@ -53,3 +53,23 @@
   controller: Admin
   action: menusEdit
   needGroups: admin
+
+"/admin/pages":
+  controller: Contents
+  action: index
+
+"/admin/album":
+  controller: Admin
+  action: loadAlbum
+
+"/admin/categories":
+  controller: Categories
+  action: index
+
+"/admin/categories/delete":
+  controller: Categories
+  action: delete
+
+"/admin/categories/update":
+  controller: Categories
+  action: index

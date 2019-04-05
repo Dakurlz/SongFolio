@@ -1,5 +1,5 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
@@ -25,7 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Albums`
 --
 
 CREATE TABLE `Albums` (
@@ -40,17 +39,21 @@ CREATE TABLE `Albums` (
   `likes` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Structure de la table `Categories`
---
-
-CREATE TABLE `Categories` (
+CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` int(250) NOT NULL
+  `slug` text NOT NULL,
+  `rank` int(11) DEFAULT NULL
+>>>>>>> ivan
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `slug`, `rank`) VALUES
+(1, 'pop', ' ', NULL),
+(2, 'Rock', ' ', NULL);
 
 -- --------------------------------------------------------
 
@@ -212,6 +215,14 @@ INSERT INTO `Users` (`id`, `username`, `email`, `password`, `date_inserted`, `ro
 (5, 'Vexyos', 'test@oot.fr', '$2y$10$u7ibfbwdjbbi7B5AEtHrQOMnmWVZGcrHu117tu94KE4BpprLkpuDy', '2019-01-25 14:07:09', '0', 1, NULL),
 (6, 'Test', 'test@test.fr', '$2y$10$q3Jtbc5l9CXt.9GjI8Ix0OFeAfEVj..X.fwYU4U0b4jRGnnZrVIUS', '2019-01-25 14:11:06', '0', 1, NULL),
 (7, 'Admin', 'test@hotmail.fr', '$2y$10$YcKTtIrDC.gnUMG6Vd0DG.VHSeErl9hHNJWL95GapzpzYWj8b07YK', '2019-04-01 08:26:33', 'admin,composeur,chanteur,user,connu', 1, NULL);
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_username`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_date_inserted`, `user_date_visit`, `user_role`, `user_status`, `user_date_update`) VALUES
+(1, 'test', 'test', 'test', 'test@test.fr', 'test', '2019-03-26 18:04:55', NULL, 1, 1, NULL),
+(2, 'user2', 'user2', 'user2', 'user2@user2.com', 'user2', '2019-03-26 18:48:38', NULL, 1, 0, NULL);
 
 --
 -- Index pour les tables déchargées

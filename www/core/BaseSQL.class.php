@@ -50,7 +50,6 @@ class BaseSQL{
         if( !isset($columns["id"]) || is_null($columns["id"]) ){
             //INSERT
             $sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($columns)).") VALUES (:".implode(",:",array_keys($columns)).")";
-
             $query = $this->pdo->prepare($sql);
             $query->execute( $columns );
         }else{
@@ -67,15 +66,39 @@ class BaseSQL{
 
     }
 
-    public function getAllData()
+
+    public function delete(array $where)
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sqlWhere = $this->sqlWhere($where);
+
+        $sql = "DELETE FROM " . $this->table. " WHERE " . implode(" AND ", $sqlWhere) . ";";
+
         $query = $this->pdo->prepare($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+    }
+
+    private function sqlWhere($where)
+    {
+        foreach ($where as $key => $value) {
+            $sqlWhere[] = $key . "=:" . $key;
+        }
+        return $sqlWhere;
+    }
+
+    public function getAllData($object = false)
+    {
+        $sql = "SELECT * FROM " . $this->table . ";";
+        $query = $this->pdo->prepare($sql);
+        if ($object) {
+            $query->setFetchMode(PDO::FETCH_INTO, $this);
+        } else {
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+        }
         $query->execute();
         return $query->fetchAll();
     }
 
+    
     public function getOneBy(array $where, $object = false){
 
         foreach( $where as $key => $value){
@@ -102,3 +125,13 @@ class BaseSQL{
         return array_diff_key($objectVars, $classVars);
     }
 }
+
+
+
+
+
+
+
+
+
+
