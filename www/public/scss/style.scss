@@ -19,9 +19,11 @@
 @import "components/header.back";
 @import "components/dropdown";
 @import "components/table";
+@import "components/modal";
+@import "components/select";
 
 // Templates
-@import "templates/front";
+@import "templates/front"; 
 @import "templates/back";
 
 // pages
@@ -30,6 +32,8 @@
 @import "pages/content";
 @import "pages/users";
 @import "pages/dashboard";
+@import "pages/pages";
+@import "pages/categories";
 
 
 

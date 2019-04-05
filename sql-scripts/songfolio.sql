@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  lun. 07 jan. 2019 à 10:55
--- Version du serveur :  5.7.24
--- Version de PHP :  7.2.8
+-- Généré le :  ven. 05 avr. 2019 à 11:08
+-- Version du serveur :  5.7.25
+-- Version de PHP :  7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `album`
+-- Structure de la table `albums`
 --
 
-CREATE TABLE `album` (
+CREATE TABLE `albums` (
   `abm_id` int(11) NOT NULL,
   `abm_title` varchar(100) NOT NULL,
   `abm_description` varchar(300) NOT NULL,
@@ -43,22 +43,31 @@ CREATE TABLE `album` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `category`
+-- Structure de la table `categories`
 --
 
-CREATE TABLE `category` (
-  `category_id` int(11) NOT NULL,
-  `cat_name` varchar(100) NOT NULL,
-  `cat_description` int(250) NOT NULL
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `slug` text NOT NULL,
+  `rank` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `slug`, `rank`) VALUES
+(1, 'pop', ' ', NULL),
+(2, 'Rock', ' ', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comment`
+-- Structure de la table `comments`
 --
 
-CREATE TABLE `comment` (
+CREATE TABLE `comments` (
   `comment_id` int(11) NOT NULL,
   `comment_user` int(11) NOT NULL,
   `comment_page` int(11) NOT NULL,
@@ -71,10 +80,10 @@ CREATE TABLE `comment` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `group`
+-- Structure de la table `groups`
 --
 
-CREATE TABLE `group` (
+CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL,
   `group_name` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -82,10 +91,10 @@ CREATE TABLE `group` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lyric`
+-- Structure de la table `lyrics`
 --
 
-CREATE TABLE `lyric` (
+CREATE TABLE `lyrics` (
   `lys_id` int(11) NOT NULL,
   `lys_date_published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lys_content` varchar(350) NOT NULL
@@ -94,30 +103,31 @@ CREATE TABLE `lyric` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `page`
+-- Structure de la table `pages`
 --
 
-CREATE TABLE `page` (
-  `page_id` int(11) NOT NULL,
-  `page_type` varchar(100) NOT NULL,
-  `page_slug` int(50) NOT NULL,
-  `page_cat_id` int(11) NOT NULL,
-  `page_title` varchar(100) NOT NULL,
-  `page_description` varchar(200) NOT NULL,
-  `page_content` varchar(600) DEFAULT NULL,
-  `page_header` varchar(150) NOT NULL,
-  `page_date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `page_date_modif` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `page_author` int(11) NOT NULL
+CREATE TABLE `pages` (
+  `id` int(11) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `slug` int(50) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `content` varchar(600) DEFAULT NULL,
+  `header` varchar(150) NOT NULL,
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_modif` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `author` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `permission`
+-- Structure de la table `permissions`
 --
 
-CREATE TABLE `permission` (
+CREATE TABLE `permissions` (
   `permission_id` int(11) NOT NULL,
   `permission_name` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -125,10 +135,10 @@ CREATE TABLE `permission` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `setting`
+-- Structure de la table `settings`
 --
 
-CREATE TABLE `setting` (
+CREATE TABLE `settings` (
   `set_id` int(11) NOT NULL,
   `set_type` varchar(100) NOT NULL,
   `set_name` varchar(150) NOT NULL,
@@ -138,10 +148,10 @@ CREATE TABLE `setting` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `slug`
+-- Structure de la table `slugs`
 --
 
-CREATE TABLE `slug` (
+CREATE TABLE `slugs` (
   `slug_id` int(11) NOT NULL,
   `slug_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -149,10 +159,10 @@ CREATE TABLE `slug` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `song`
+-- Structure de la table `songs`
 --
 
-CREATE TABLE `song` (
+CREATE TABLE `songs` (
   `song_id` int(11) NOT NULL,
   `song_album` int(11) NOT NULL,
   `song_slug` int(11) NOT NULL,
@@ -165,10 +175,10 @@ CREATE TABLE `song` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Structure de la table `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `user_username` varchar(50) NOT NULL,
   `user_firstname` varchar(50) NOT NULL,
@@ -183,73 +193,81 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_username`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_date_inserted`, `user_date_visit`, `user_role`, `user_status`, `user_date_update`) VALUES
+(1, 'test', 'test', 'test', 'test@test.fr', 'test', '2019-03-26 18:04:55', NULL, 1, 1, NULL),
+(2, 'user2', 'user2', 'user2', 'user2@user2.com', 'user2', '2019-03-26 18:48:38', NULL, 1, 0, NULL);
+
+--
 -- Index pour les tables déchargées
 --
 
 --
--- Index pour la table `album`
+-- Index pour la table `albums`
 --
-ALTER TABLE `album`
+ALTER TABLE `albums`
   ADD PRIMARY KEY (`abm_id`);
 
 --
--- Index pour la table `category`
+-- Index pour la table `categories`
 --
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`category_id`);
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `comment`
+-- Index pour la table `comments`
 --
-ALTER TABLE `comment`
+ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`);
 
 --
--- Index pour la table `group`
+-- Index pour la table `groups`
 --
-ALTER TABLE `group`
+ALTER TABLE `groups`
   ADD PRIMARY KEY (`group_id`);
 
 --
--- Index pour la table `lyric`
+-- Index pour la table `lyrics`
 --
-ALTER TABLE `lyric`
+ALTER TABLE `lyrics`
   ADD PRIMARY KEY (`lys_id`);
 
 --
--- Index pour la table `page`
+-- Index pour la table `pages`
 --
-ALTER TABLE `page`
-  ADD PRIMARY KEY (`page_id`);
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `permission`
+-- Index pour la table `permissions`
 --
-ALTER TABLE `permission`
+ALTER TABLE `permissions`
   ADD PRIMARY KEY (`permission_id`);
 
 --
--- Index pour la table `setting`
+-- Index pour la table `settings`
 --
-ALTER TABLE `setting`
+ALTER TABLE `settings`
   ADD PRIMARY KEY (`set_id`);
 
 --
--- Index pour la table `slug`
+-- Index pour la table `slugs`
 --
-ALTER TABLE `slug`
+ALTER TABLE `slugs`
   ADD PRIMARY KEY (`slug_id`);
 
 --
--- Index pour la table `song`
+-- Index pour la table `songs`
 --
-ALTER TABLE `song`
+ALTER TABLE `songs`
   ADD PRIMARY KEY (`song_id`);
 
 --
--- Index pour la table `user`
+-- Index pour la table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
@@ -257,70 +275,70 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT pour la table `album`
+-- AUTO_INCREMENT pour la table `albums`
 --
-ALTER TABLE `album`
+ALTER TABLE `albums`
   MODIFY `abm_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `category`
+-- AUTO_INCREMENT pour la table `categories`
 --
-ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `comment`
+-- AUTO_INCREMENT pour la table `comments`
 --
-ALTER TABLE `comment`
+ALTER TABLE `comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `group`
+-- AUTO_INCREMENT pour la table `groups`
 --
-ALTER TABLE `group`
+ALTER TABLE `groups`
   MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `lyric`
+-- AUTO_INCREMENT pour la table `lyrics`
 --
-ALTER TABLE `lyric`
+ALTER TABLE `lyrics`
   MODIFY `lys_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `page`
+-- AUTO_INCREMENT pour la table `pages`
 --
-ALTER TABLE `page`
-  MODIFY `page_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `permission`
+-- AUTO_INCREMENT pour la table `permissions`
 --
-ALTER TABLE `permission`
+ALTER TABLE `permissions`
   MODIFY `permission_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `setting`
+-- AUTO_INCREMENT pour la table `settings`
 --
-ALTER TABLE `setting`
+ALTER TABLE `settings`
   MODIFY `set_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `slug`
+-- AUTO_INCREMENT pour la table `slugs`
 --
-ALTER TABLE `slug`
+ALTER TABLE `slugs`
   MODIFY `slug_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `song`
+-- AUTO_INCREMENT pour la table `songs`
 --
-ALTER TABLE `song`
+ALTER TABLE `songs`
   MODIFY `song_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `user`
+-- AUTO_INCREMENT pour la table `users`
 --
-ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

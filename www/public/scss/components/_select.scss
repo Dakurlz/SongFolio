@@ -1,0 +1,18 @@
+.select-control{
+  outline: none;
+  width: 100%;
+  background-color: $color-white;
+  border: solid 2px $border;
+  height: 42px;
+  border-radius: 2px;
+  padding: 5px 10px;
+
+  &:active , &:focus{
+    border: solid 2px $color-primary;
+  }
+  
+
+  &-success{
+    
+  }
+}

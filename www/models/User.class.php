@@ -1,5 +1,5 @@
 <?php
-class User extends BaseSQL{
+class User extends Model{
 
     public function __construct($id = null){
         parent::__construct($id);

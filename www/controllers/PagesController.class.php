@@ -2,15 +2,11 @@
 
 class PagesController{
 
-    public function defaultAction()
+    public function indexAction()
     {
-        $v = new View("home", "front");
-    }
-    public function contentAction()
-    {
-        $pagename = "Bienvenue sur notre site!";
+        $page = new Pages();
 
-        $v = new View("content", "front");
-        $v->assign('pagename', $pagename);
+        $view = new View("pages", "_back");
+        $view->assign('configFormPage', $page->getFormRegister());
     }
 }

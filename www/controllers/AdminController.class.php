@@ -12,7 +12,17 @@ class AdminController{
     }
 
     public function loadUserAction(){
+        $user = new User();
         
-      $v = new View("user", "_back");
+        $v = new View("user", "_back");
+        $v->assign('allUsers', $user->getAllData());
+    }
+
+    public function loadPagesAction(){
+        $v = new View("pages", "_back");
+    }
+
+    public function loadAlbumAction(){
+        $v = new View("album", "_back");
     }
 }

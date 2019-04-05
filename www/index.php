@@ -2,6 +2,13 @@
 require "config/conf.inc.php";
 ini_set('display_errors', 1);
 
+function var_dump_pre($mixed = null) {
+    echo '<pre>';
+    var_dump($mixed);
+    echo '</pre>';
+    return null;
+  }
+
 function myAutoLoader($class){
     $cPath = "core/".$class.".class.php";
     $pathModels = "models/".$class.".class.php";

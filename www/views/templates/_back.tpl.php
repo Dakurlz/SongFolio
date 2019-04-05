@@ -6,6 +6,9 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
       <script src="<?php echo BASE_URL."public/js/jquery-3.3.1.min.js" ;?>"></script>
       <script src="<?php echo BASE_URL."public/js/back.js";?>" ></script>
+      <script src="<?php echo BASE_URL."public/js/modal.js";?>" ></script>
+      <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
+      
       <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>" />
       <title>Admin</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
@@ -55,7 +58,7 @@
                            <p>Tableau de board</p>
                         </div>
                      </a>
-                     <a href="#">
+                     <a href="<?php echo Routing::getSlug("Pages", "index") ?>">
                         <div class="sidebar--item">
                            <img src="<?php echo BASE_URL."public/img/two-overlapped-web-pages.svg" ; ?>"/>
                            <p>Pages</p>
@@ -73,7 +76,7 @@
                            <p>Commentaires</p>
                         </div>
                      </a>
-                     <a href="#">
+                     <a href="<?php echo Routing::getSlug("Admin", "loadAlbum") ?>">
                         <div class="sidebar--item">
                            <img src="<?php echo BASE_URL."public/img/music-album.svg"; ?>" />
                            <p>Albums</p>
