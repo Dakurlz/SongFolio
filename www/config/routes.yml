@@ -56,7 +56,7 @@
 
 "/admin/pages":
   controller: Contents
-  action: index
+  action: createContents
 
 "/admin/album":
   controller: Admin

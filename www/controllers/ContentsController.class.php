@@ -1,12 +1,38 @@
 <?php
+declare (strict_types = 1);
 
-class ContentsController{
+class ContentsController
+{
 
-    public function indexAction()
+    public function createContentsAction(): void
     {
         $content = new Contents();
+        $configForm = $content->getFormRegister();
+        $method = strtoupper($configForm["config"]["method"]);
+        $data = $GLOBALS["_" . $method];
 
-        $view = new View("pages", "back");
-        $view->assign('configFormPage', $content->getFormRegister());
+
+        if (!empty($data)) {
+            // $validator = new Validator($configForm, $data);
+
+
+            $fileName = Helper::uploadImage('public/uploads/contents/');
+
+            $content->__set('type', $data['type']);
+            $content->__set('slug', $data['slug']);
+            $content->__set('title', $data['title']);
+            $content->__set('description', $data['description']);
+            $content->__set('content', $data['content']);
+            $content->__set('header', " "); // ?????????
+            $content->__set('author', 1); // ?????????
+            $content->__set('img_dir', $fileName);
+            $content->save();
+
+            var_dump($content); 
+
+        }
+
+        $view = new View("admin/create_pages", "back");
+        $view->assign('configFormPage', $configForm);
     }
 }

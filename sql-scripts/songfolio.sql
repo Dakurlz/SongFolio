@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  ven. 05 avr. 2019 à 11:31
--- Version du serveur :  5.7.24
--- Version de PHP :  7.2.8
+-- Généré le :  lun. 08 avr. 2019 à 22:58
+-- Version du serveur :  5.7.25
+-- Version de PHP :  7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `Albums`
 --
 
 CREATE TABLE `Albums` (
@@ -39,21 +40,23 @@ CREATE TABLE `Albums` (
   `likes` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `categories` (
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Categories`
+--
+
+CREATE TABLE `Categories` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `slug` text NOT NULL,
-  `rank` int(11) DEFAULT NULL
->>>>>>> ivan
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `categories`
+-- Déchargement des données de la table `Categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `slug`, `rank`) VALUES
-(1, 'pop', ' ', NULL),
-(2, 'Rock', ' ', NULL);
+INSERT INTO `Categories` (`id`, `name`) VALUES
+(3, 'test');
 
 -- --------------------------------------------------------
 
@@ -69,6 +72,27 @@ CREATE TABLE `Comments` (
   `status` int(10) NOT NULL,
   `message` text NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Contents`
+--
+
+CREATE TABLE `Contents` (
+  `id` int(11) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `slug` text NOT NULL,
+  `cat_id` int(11) DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `content` varchar(600) NOT NULL,
+  `header` varchar(150) NOT NULL,
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_edit` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `author` int(11) NOT NULL,
+  `img_dir` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -113,26 +137,6 @@ CREATE TABLE `Menus` (
 INSERT INTO `Menus` (`id`, `title`, `data`) VALUES
 (2, 'Main Menu', '[{\"link\": \"http://3\", \"title\": \"SEO\"}, {\"link\": \"http://2\", \"title\": \"Support\"}, {\"link\": \"http://1\", \"title\": \"Index\"}, {\"link\": \"http://6\", \"title\": \"Contact\", \"children\": [{\"link\": \"http://5\", \"title\": \"Services\", \"children\": [{\"link\": \"http://4\", \"title\": \"Portfoion\"}]}]}, {\"link\": \"http://3\", \"title\": \"About Us\"}, {\"link\": \"http://1\", \"title\": \"Design\"}, {\"link\": \"http://5\", \"title\": \"Develope\"}]'),
 (3, 'Main Menu 2', '[{\"link\": \"http://5\", \"title\": \"Services\", \"children\": [{\"link\": \"http://1\", \"title\": \"Design\"}, {\"link\": \"http://5\", \"title\": \"Develope\"}, {\"link\": \"http://3\", \"title\": \"SEO\"}, {\"link\": \"http://3\", \"title\": \"About Us\"}, {\"link\": \"http://4\", \"title\": \"Portfoion\"}, {\"link\": \"http://2\", \"title\": \"Support\", \"children\": [{\"link\": \"http://6\", \"title\": \"Contact\"}]}]}, {\"link\": \"http://1\", \"title\": \"Index\"}]');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Pages`
---
-
-CREATE TABLE `Pages` (
-  `id` int(11) NOT NULL,
-  `type` varchar(100) NOT NULL,
-  `slug` int(50) NOT NULL,
-  `cat_id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  `content` varchar(600) DEFAULT NULL,
-  `header` varchar(150) NOT NULL,
-  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_edit` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `author` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -217,14 +221,6 @@ INSERT INTO `Users` (`id`, `username`, `email`, `password`, `date_inserted`, `ro
 (7, 'Admin', 'test@hotmail.fr', '$2y$10$YcKTtIrDC.gnUMG6Vd0DG.VHSeErl9hHNJWL95GapzpzYWj8b07YK', '2019-04-01 08:26:33', 'admin,composeur,chanteur,user,connu', 1, NULL);
 
 --
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`user_id`, `user_username`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_date_inserted`, `user_date_visit`, `user_role`, `user_status`, `user_date_update`) VALUES
-(1, 'test', 'test', 'test', 'test@test.fr', 'test', '2019-03-26 18:04:55', NULL, 1, 1, NULL),
-(2, 'user2', 'user2', 'user2', 'user2@user2.com', 'user2', '2019-03-26 18:48:38', NULL, 1, 0, NULL);
-
---
 -- Index pour les tables déchargées
 --
 
@@ -247,6 +243,12 @@ ALTER TABLE `Comments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `Contents`
+--
+ALTER TABLE `Contents`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `Groups`
 --
 ALTER TABLE `Groups`
@@ -262,12 +264,6 @@ ALTER TABLE `Lyrics`
 -- Index pour la table `Menus`
 --
 ALTER TABLE `Menus`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `Pages`
---
-ALTER TABLE `Pages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -314,12 +310,18 @@ ALTER TABLE `Albums`
 -- AUTO_INCREMENT pour la table `Categories`
 --
 ALTER TABLE `Categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `Comments`
 --
 ALTER TABLE `Comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `Contents`
+--
+ALTER TABLE `Contents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -339,12 +341,6 @@ ALTER TABLE `Lyrics`
 --
 ALTER TABLE `Menus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT pour la table `Pages`
---
-ALTER TABLE `Pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `Permissions`

@@ -5,13 +5,13 @@ class CategoriesController
     public function indexAction()
     {
         $category = new Categories();
-        
+
         $configForm = $category->getFormRegister();
         $method = strtoupper($configForm["config"]["method"]);
-        $data = $GLOBALS["_".$method];
-        
-        
-        if(!empty($_POST)){
+        $data = $GLOBALS["_" . $method];
+
+
+        if (!empty($_POST)) {
             if ($_SERVER["REQUEST_METHOD"] !== $method || empty($data)) {
                 return false;
             }
@@ -22,33 +22,26 @@ class CategoriesController
             if (empty($validator->errors) && !$exist) {
                 $category->__set('name', $data['name']);
                 $category->save();
-            }else{
+            } else {
                 $alert['danger'][] = $validator->errors;
             }
         }
-        
+
         $view = new View('categories/index', 'back');
         $view->assign('configFormCategory', $configForm);
         $view->assign('categories', $category->getAllData());
-        
     }
 
     public function deleteAction()
     {
         $id = $_REQUEST['id'];
 
-        if(isset($id)){
+        if (isset($id)) {
 
             $category = new Categories();
-            $category->delete([ "id" => $id ]);
-
+            $category->delete(["id" => $id]);
         }
 
         header("Location: " . Routing::getSlug("Categories", "index") . "?deleted");
-
     }
-
-
-
-
 }

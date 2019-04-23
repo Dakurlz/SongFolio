@@ -11,7 +11,7 @@ class UsersController{
     }
 
 
-    public function defaultAction() : string
+    public function defaultAction() : void
     {
         echo "User default";
     }

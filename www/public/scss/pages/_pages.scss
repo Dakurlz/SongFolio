@@ -1,11 +1,15 @@
-.admin-page{
+.admin-page {
   width: 100%;
 
-  & > h3 {
-    margin-bottom: 7px;
-  }
+  &__form {
+    .fileToUpload{
+      margin: rem(20) 0;
+    }
 
-  & > input, select {
-    width: 30%;
+    .col-12{
+      label{
+        display: block;
+      }
+    }
   }
 }
