@@ -8,8 +8,34 @@ $(function(){
         scroll:         false,
         zIndex:         9999
     });
+    $( ".sortable" ).on( "sortstop", function( event, ui ) { updateMenuJson(); } );
+
+    /* CUSTOM SMART TOGGLES */
+
+    //smart toggles for checkbox
+    $('input[toggle]').change(function(){
+        if($(this).is(':checked')){
+            $('#'+$(this).attr('toggle')).show().find('input,select,textarea').prop('disabled',false);
+        }else{
+            $('#'+$(this).attr('toggle')).hide().find('input,select,textarea').prop('disabled',true);
+        }
+    }).change();
+
+    //smart toggle for clickable elements
+    $('[toggle-click]').click(function(){
+        $('#'+$(this).attr('toggle-click')).slideToggle();
+    });
+
+    //smart toggles for form selects
+    $('.smart-toggle[id]').change(function(){
+        tmpId = $(this).attr('id');
+        tmpVal = $(this).val();
+
+        $('.smart-'+tmpId+':not(.'+tmpId+'-'+tmpVal+')').hide().find('input,select,textarea').prop('disabled',true);
+        $('.smart-'+tmpId+'.'+tmpId+'-'+tmpVal).show().find('input,select,textarea').prop('disabled',false);
+
+    }).change();;
 });
-$( ".sortable" ).on( "sortstop", function( event, ui ) { updateMenuJson(); } );
 
 
 function menu_map($menu){

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 class Routing{
 
-    public static function currentSlug(){
+    public static function currentSlug($withoutSlash = false){
         $slug = $_SERVER["REQUEST_URI"];
 
         //Suppression des GET dans l'url
         $slugExploded = explode("?", $slug);
-        return strtolower($slugExploded[0]);
+        return ($withoutSlash ? trim(strtolower($slugExploded[0]),'/') : strtolower($slugExploded[0]) );
     }
 
-    public static function getRoute(Users $user) : ?array
+    public static function getRoute(Users $user)
     {
         $slug = Routing::currentSlug();
 
@@ -20,12 +20,16 @@ class Routing{
         $routes = yaml_parse_file('config/routes.yml');
         if( !empty($routes[$slug]) ){
 
-            if(empty($routes[$slug]["controller"]) || empty($routes[$slug]["action"]))
+            if(empty($routes[$slug]["controller"]) || empty($routes[$slug]["action"])){
                 view::show404("Il y a une erreur dans le routes.yml");
+            }
 
-            $c = ucfirst($routes[$slug]["controller"])."Controller";
-            $a = $routes[$slug]["action"]."Action";
-            $cPath = 'controllers/'.$c.'.class.php';
+            $controller = ucfirst($routes[$slug]["controller"]);
+            $controller = $controller."Controller";
+
+            $action = $routes[$slug]["action"]."Action";
+
+            $controllerPath = 'controllers/'.$controller.'.class.php';
 
             if(!empty($routes[$slug]['needAuth'])){
                 $user->needAuth();
@@ -34,11 +38,11 @@ class Routing{
                 $user->needGroups($routes[$slug]['needGroups']);
             }
 
-        }else{
-            view::show404("L'url n'existe pas.");
-        }
+            return ['controller' => $controller, 'action' => $action, 'controllerPath' => $controllerPath];
 
-        return ["a" => $a, "c" => $c, "cPath" => $cPath];
+        }else{
+            return false;
+        }
     }
 
     public static function getSlug($c=null, $a=null) : ?string

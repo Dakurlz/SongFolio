@@ -77,6 +77,14 @@ class UsersController{
                     if($user->getOneBy(['username'=>$data['username']], true) && password_verify($data['password'], $user->__get('password'))){
                         //$token = md5(substr(uniqid().time(), 4, 10)."mxu(4il");
                         $_SESSION['user'] = $user->__get('id');
+
+                        if( isset($_GET['redirect']) )
+                        {
+                            $redirect = htmlspecialchars( urldecode($_GET['redirect']) );
+                            header('Location: '.$redirect);
+                            exit;
+                        }
+
                         header('Location: '.Routing::getSlug("users","dashboard"));
                     }else{
                         $configForm["errors"][] = "Incorrect";

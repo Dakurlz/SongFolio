@@ -2611,8 +2611,7 @@ h1, h2, h3, h4, h5, label {
   transition: all 0.5s;
   border: solid 3px transparent;
   cursor: pointer;
-  border: solid 2px #fff;
-  margin: 15px 0; }
+  border: solid 2px #fff; }
   .btn--green {
     background-color: #00A65A; }
     .btn--green:hover {
@@ -2655,8 +2654,7 @@ h1, h2, h3, h4, h5, label {
   height: 42px;
   border-radius: 2px;
   padding: 5px 10px;
-  margin: 0 0;
-  margin-bottom: 20px; }
+  margin: 0 0; }
   .input-control::placeholder {
     color: #b1abab; }
   .input-control-success:focus {
@@ -2816,55 +2814,40 @@ table {
   table tbody .icn {
     text-align: end; }
 
-/* Outer */
-.popup {
-  width: 100%;
-  height: 100%;
+.modal {
   display: none;
+  /* Hidden by default */
   position: fixed;
-  top: 0px;
-  left: 0px;
-  background: rgba(0, 0, 0, 0.75); }
+  /* Stay in place */
+  z-index: 50;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */ }
 
-/* Inner */
-.popup-inner {
-  max-width: 700px;
-  width: 90%;
-  padding: 40px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 2px 6px black;
-  border-radius: 3px;
-  background: #fff; }
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+  position: relative; }
 
-/* Close Button */
-.popup-close {
-  width: 30px;
-  height: 30px;
-  padding-top: 4px;
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  transition: ease 0.25s all;
-  -webkit-transform: translate(50%, -50%);
-  transform: translate(50%, -50%);
-  border-radius: 1000px;
-  background: rgba(0, 0, 0, 0.8);
-  font-family: Arial, Sans-Serif;
-  font-size: 20px;
-  text-align: center;
-  line-height: 100%;
-  color: #fff; }
-
-.popup-close:hover {
-  -webkit-transform: translate(50%, -50%) rotate(180deg);
-  transform: translate(50%, -50%) rotate(180deg);
-  background: black;
-  text-decoration: none; }
+.modal-content .close {
+  right: 10px;
+  top: 10px; }
 
 .select-control {
   outline: none;
@@ -2873,8 +2856,7 @@ table {
   border: solid 2px #b1abab;
   height: 42px;
   border-radius: 2px;
-  padding: 5px 10px;
-  margin-bottom: 20px; }
+  padding: 5px 10px; }
   .select-control:active, .select-control:focus {
     border: solid 2px #B00000; }
 

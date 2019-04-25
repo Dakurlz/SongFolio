@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta data="description" content="Ma description">
+    <meta data="description" content="<?php echo $page_desc ?? 'Description du site' ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Front</title>
+    <title><?php echo $page_title ?? 'Titre du site' ?></title>
 
     <!--Main css -->
     <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>">

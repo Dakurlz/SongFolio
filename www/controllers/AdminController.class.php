@@ -8,9 +8,11 @@ class AdminController{
     {
         $v = new View("dashboard", "back");
     }
+
+    /* Menus */
     public function menusAction()
     {
-        $v = new View("admin_menus", "back");
+        $v = new View("admin/menus", "back");
         $v->assign('menus', (new Menus())->getAllData());
     }
     public function menusEditAction()
@@ -27,13 +29,15 @@ class AdminController{
             $alert['success'][] = 'Le menu a bien été modifié.';
         }
 
-        $v = new View("admin_menu_edit", "back");
+        $v = new View("admin/menu_edit", "back");
         $v->assign('menu', $menu);
+        $v->assign('js', ['admin_menus']);
         if(isset($alert)){
             $v->assign('alert', $alert);
         }
     }
 
+    /* Users */
     public function loadUserAction(){
         $user = new Users();
         
