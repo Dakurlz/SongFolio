@@ -9,24 +9,32 @@ session_start();
 
 $user = new Users();
 
-extract(Routing::getRoute($user));
+if($route = Routing::getRoute($user)){
+    extract($route);
 
-if (file_exists($cPath))
-{
-    include $cPath;
+    if (file_exists($controllerPath))
+    {
+        include $controllerPath;
 
-    if(class_exists($c)){
+        if(class_exists($controller)){
 
-        $cObject = new $c($user);
+            $controllerObject = new $controller($user);
 
-        if(method_exists($cObject, $a)){
-            $cObject->$a();
+            if(method_exists($controllerObject, $action)){
+                $controllerObject->$action();
+            }else{
+                view::show404("L'action ".$action." n'existe pas.");
+            }
         }else{
-            view::show404("L'action ".$a." n'existe pas.");
+            view::show404("La class ".$controller." n'existe pas.");
         }
     }else{
-        view::show404("La class ".$c." n'existe pas.");
+        view::show404("Le fichier controller ".$controller." n'existe pas.");
     }
+}elseif( $content = Contents::getBySlug( Routing::currentSlug(true) ) ){
+
+    $content->show();
+
 }else{
-    view::show404("Le fichier controller ".$c." n'existe pas.");
+    view::show404("L'url n'existe pas.");
 }

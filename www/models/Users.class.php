@@ -48,14 +48,18 @@ class Users extends BaseSQL{
 	public function needAuth() : void
     {
         if(!$this->is('connected')){
-            header('Location: '.Routing::getSlug('Users','login'));
+            header('Location: '.Routing::getSlug('Users','login').'?redirect='.urlencode($_SERVER[REQUEST_URI]));
+            exit;
         }
     }
 
 	public function needGroups($groups) : void
     {
+        $this->needAuth();
+
         if(!$this->is($groups) && !$this->is('admin')){
             header('Location: '.BASE_URL);
+            exit;
         }
     }
 
@@ -115,7 +119,7 @@ class Users extends BaseSQL{
     public function getFormLogin(){
         return [
             "config"=>[
-                "action"=>Routing::getSlug("Users", "login"),
+                "action"=>Routing::getSlug("Users", "login").(isset($_GET['redirect']) ? '?redirect='.htmlspecialchars($_GET['redirect']) : ''),
                 "method"=>"POST",
                 "class"=>"",
                 "id"=>"",

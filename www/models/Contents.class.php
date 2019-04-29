@@ -13,6 +13,27 @@ class Contents extends BaseSQL
         return trim($value);
     }
 
+    public static function getBySlug($slug){
+        $content = new Contents();
+        $content->getOneBy(['slug' => $slug], true);
+
+        if( $content->__get('id') ){
+            return $content;
+        }
+
+        return false;
+    }
+
+    public function show(){
+        $v = new View("content", "front");
+        $v->assign( 'page_title', $this->__get('title') );
+        $v->assign( 'page_desc', $this->__get('description ') );
+        $v->assign( 'content', $this );
+    }
+
+    public function content(){
+        echo $this->__get('content');
+    }
 
     public function getFormRegister()
     {
