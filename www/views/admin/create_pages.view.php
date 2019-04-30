@@ -1,10 +1,10 @@
 <div class="admin-page ">
 
-<a class="btn btn-success-outline " href="<?php echo Routing::getSlug("Contants", "index") ?>"> Pages Listes</a>
+<a class="btn btn-success-outline " href="<?= Routing::getSlug("Contents", "listesPages") ?>"> Pages Listes</a>
 
 
   <div class="admin-page__form">
-    <?php $this->addModal("form2", $configFormPage) ?>
+    <?php $this->addModal("form1", $configFormPage) ?>
   </div>
 
 

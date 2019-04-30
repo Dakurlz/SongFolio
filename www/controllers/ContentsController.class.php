@@ -7,7 +7,7 @@ class ContentsController
     public function createContentsAction(): void
     {
         $content = new Contents();
-        $configForm = $content->getFormRegister();
+        $configForm = $content->getFormContents();
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
 
@@ -19,7 +19,7 @@ class ContentsController
             $fileName = Helper::uploadImage('public/uploads/contents/');
 
             $content->__set('type', $data['type']);
-            $content->__set('slug', $data['slug']);
+            $content->__set('slug', '/' . $data['slug']);
             $content->__set('title', $data['title']);
             $content->__set('description', $data['description']);
             $content->__set('content', $data['content']);
@@ -27,12 +27,19 @@ class ContentsController
             $content->__set('author', 1); // ?????????
             $content->__set('img_dir', $fileName);
             $content->save();
-
-            var_dump($content); 
-
         }
 
         $view = new View("admin/create_pages", "back");
         $view->assign('configFormPage', $configForm);
+    }
+
+    public function listesPagesAction(): void
+    {
+        $content = new Contents();
+
+        $pageListes = $content->getOneBy(['type' => 'page']);
+
+        $view = new View('admin/pages_lists', 'back');
+        $view->assign('pageListes', $pageListes);
     }
 }

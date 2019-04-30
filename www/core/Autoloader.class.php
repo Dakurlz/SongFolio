@@ -8,10 +8,10 @@ class Autoloader
 
     public static function autoload($class)
     {
-        $cPath = "core/".$class.".class.php";
+        $classPath = "core/".$class.".class.php";
         $pathModels = "models/".$class.".class.php";
-        if(file_exists($cPath)){
-            include $cPath;
+        if(file_exists($classPath)){
+            include $classPath;
         }else  if(file_exists($pathModels)) {
             include $pathModels;
         }

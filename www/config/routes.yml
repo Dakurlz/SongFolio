@@ -54,9 +54,13 @@
   action: menusEdit
   needGroups: admin
 
-"/admin/pages":
+"/admin/creation_du_contenu":
   controller: Contents
   action: createContents
+
+"/admin/listes_de_pages":
+  controller: Contents
+  action: listesPages
 
 "/admin/album":
   controller: Admin

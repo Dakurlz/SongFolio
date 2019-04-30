@@ -14,9 +14,9 @@ class View{
         $this->setTemplate($t);
     }
 
-    public function setView($v){
-        $this->view = $v;
-        $vPath = "views/".$v.".view.php";
+    public function setView($view){
+        $this->view = $view;
+        $vPath = "views/".$view.".view.php";
         if(file_exists($vPath)) {
             $this->view_path = $vPath;
         }else{
@@ -24,16 +24,16 @@ class View{
         }
     }
 
-    public function setTemplate($t){
-        $this->template = $t;
-        $tPath = "views/templates/".$t.".tpl.php";
-        if($t === null){
+    public function setTemplate($template){
+        $this->template = $template;
+        $templatePath = "views/templates/".$template.".tpl.php";
+        if($template === null){
             $this->template_path = null;
         }else{
-            if(file_exists($tPath)) {
-                $this->template_path = $tPath;
+            if(file_exists($templatePath)) {
+                $this->template_path = $templatePath;
             }else{
-                die("Le template n'existe pas ". $tPath);
+                die("Le template n'existe pas ". $templatePath);
             }
         }
     }

@@ -35,7 +35,7 @@ class Contents extends BaseSQL
         echo $this->__get('content');
     }
 
-    public function getFormRegister()
+    public function getFormContents()
     {
         return [
             "config" => [
@@ -86,9 +86,9 @@ class Contents extends BaseSQL
                 ],
                 "slug" => [
                     "type" => "slug",
-                    "label" => "Lien permanent",
+                    "label" => "Lien permanent aaaaaaaa",
                     "class" => "",
-                    "presed"=>$_SERVER['SERVER_NAME'],
+                    "presed"=>$_SERVER['SERVER_NAME'].'/',
                     "id" => "slug",
                     "placeholder" => "",
                     "required" => true,
