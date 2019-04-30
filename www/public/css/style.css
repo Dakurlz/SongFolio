@@ -3170,7 +3170,7 @@ table {
       transition: 0.3s;
       cursor: pointer; }
       .toggle-nav > span:before {
-        content: "";
+        content: '';
         position: absolute;
         top: -10px;
         left: 0;
@@ -3180,7 +3180,7 @@ table {
         transform: 0.3s;
         cursor: pointer; }
       .toggle-nav > span:after {
-        content: "";
+        content: '';
         position: absolute;
         top: 10px;
         left: 0;
@@ -3296,24 +3296,49 @@ table {
         .main-back .sidebar__property > li > a {
           text-decoration: none;
           color: #B00000; }
-          .main-back .sidebar__property > li > a > div {
+          .main-back .sidebar__property > li > a .sidebar--item {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
             padding-left: 1.25rem;
             transition: all 0.6s; }
-            .main-back .sidebar__property > li > a > div:hover {
+            .main-back .sidebar__property > li > a .sidebar--item:hover {
               background-color: rgba(229, 229, 229, 0.3);
               border-left: 12px solid #B00000; }
-            .main-back .sidebar__property > li > a > div > img {
+            .main-back .sidebar__property > li > a .sidebar--item > img {
               width: 30px;
               height: 30px;
               margin-right: 1.25rem; }
-            .main-back .sidebar__property > li > a > div > p {
+            .main-back .sidebar__property > li > a .sidebar--item > p {
               color: #fff;
-              font-size: 18px;
+              font-size: 16px;
               font-weight: 500; }
+            .main-back .sidebar__property > li > a .sidebar--item .dropdown-sidebar {
+              display: flex;
+              position: relative;
+              background-color: blue;
+              width: 100%;
+              height: 100%; }
+              .main-back .sidebar__property > li > a .sidebar--item .dropdown-sidebar .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f1f1f1;
+                min-width: 160px;
+                overflow: auto;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1; }
+              .main-back .sidebar__property > li > a .sidebar--item .dropdown-sidebar .dropbtn {
+                position: relative;
+                width: 11px;
+                height: 11px;
+                margin-right: 2rem;
+                border: solid 2px #fff;
+                border-bottom: none;
+                border-left: none;
+                transform: rotate(45deg); }
+              .main-back .sidebar__property > li > a .sidebar--item .dropdown-sidebar .show {
+                display: flex; }
   .main-back__content {
     width: 100% !important;
     padding: 0 1.25rem;
