@@ -7,6 +7,7 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
    <script src="https://cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
+   <link rel="stylesheet" href="../../public/css/style.css">
 
    <link rel="stylesheet" href="<?php echo BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
    <title>Admin</title>
@@ -53,10 +54,20 @@
                      <p>Tableau de board</p>
                   </div>
                </a>
-               <a href="<?php echo Routing::getSlug("Contents", "createContents") ?>">
+               <a href="#test"> qsdqsd
                   <div class="sidebar--item">
                      <img src="<?php echo BASE_URL . "public/img/two-overlapped-web-pages.svg"; ?>" />
                      <p>Pages</p>
+                     <div class="dropdown-sidebar">
+                         <span onclick="showDropdown(this)" class="pages-options dropbtn"></span>
+                        <div id="myDropdown" class="dropdown-content">
+                           <!-- <a href="<?php echo Routing::getSlug("Contents", "createContents") ?>">Ajouter une page ou artcile.</a>
+                           <a href="#">Pages liste</a> -->
+                           <a href="#">Pages Ajouter</a> 
+                           <a href="#">Pages liste</a> 
+                        </div>
+                     </div>
+
                   </div>
                </a>
                <a href="<?php echo Routing::getSlug("Admin", "loadUser") ?>">
@@ -111,15 +122,16 @@
    </main>
 
 
+   <script src="../../public/js/back.js"></script>
 
    <script src="<?php echo BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
    <script src="<?php echo BASE_URL . "public/js/jquery-ui.min.js?v=" . filemtime("public/js/front.js"); ?>"></script>
    <script src="<?php echo BASE_URL . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
    <script src="<?php echo BASE_URL . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
-   <?php if(isset($js) && is_array($js)): ?>
-       <?php foreach($js as $js_name):?>
-           <script src="<?php echo BASE_URL . "public/js/".$js_name.".js?v=" . filemtime("public/js/".$js_name.".js"); ?>"></script>
-       <?php endforeach; ?>
+   <?php if (isset($js) && is_array($js)) : ?>
+      <?php foreach ($js as $js_name) : ?>
+         <script src="<?php echo BASE_URL . "public/js/" . $js_name . ".js?v=" . filemtime("public/js/" . $js_name . ".js"); ?>"></script>
+      <?php endforeach; ?>
    <?php endif; ?>
 </body>
 
