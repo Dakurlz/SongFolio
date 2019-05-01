@@ -34,7 +34,7 @@
   needAuth: true
 
 # ADMIN
-"/admin":
+"/admin/dashboard":
   controller: Admin
   action: default
   needGroups: admin
@@ -62,13 +62,21 @@
   controller: Contents
   action: listesPages
 
-"/admin/album":
+"/admin/albums":
   controller: Admin
   action: loadAlbum
 
 "/admin/categories":
   controller: Categories
   action: index
+
+"/admin/categories/article":
+  controller: Categories
+  action: article
+
+"/admin/categories/album":
+  controller: Categories
+  action: album
 
 "/admin/categories/delete":
   controller: Categories

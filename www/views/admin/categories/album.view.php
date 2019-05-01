@@ -1,18 +1,23 @@
+
 <div class="row categories-page">
+
   <div class="col-md-6 col-12 col-sm-6 col-xs-6">
 
     <table class="table col-12 col-sm-8 col-lg-8 col-md-8">
 
       <thead>
         <tr>
-          <th>Catégories d'albmume</th>
+          <th>Catégories d'albume</th>
           <th></th>
           <th></th>
         </tr>
       </thead>
 
       <tbody>
-        <?php foreach ($albumCategoris as $category) : ?>
+
+        <td><?php if (sizeof($albumCategories) === 0) echo 'Aucune categorie.'; ?></td>
+        <?php foreach ($albumCategories as $category) : ?>
+
           <tr>
             <td><?= $category['name']; ?></td>
 

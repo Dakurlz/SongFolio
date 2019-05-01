@@ -120,11 +120,31 @@ class BaseSQL
 
         return $query->fetch();
     }
+    /**
+     * Undocumented function
+     *
+     * @param array $where
+     * @return array
+     */
+    public function getAllBy(array $where): array
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(" AND ", $sqlWhere);
+        $query = $this->pdo->prepare($sql);
+
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetchAll();
+    }
+
+
 
     public function getCustomQuery(array $where, string $query)
     {
         $sqlWhere = $this->sqlWhere($where);
         $sql = $query . " WHERE " . implode(" AND ", $sqlWhere) . ";";
+
 
         $query = $this->pdo->prepare($sql);
 

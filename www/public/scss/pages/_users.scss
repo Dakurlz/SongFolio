@@ -12,7 +12,6 @@ $hover-remove-dropdown: #efb8b8;
     display: flex;
     flex-direction: column;
     width: 100%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 
     @media (max-width: 480px) {
       &__search-add-user {
@@ -37,7 +36,6 @@ $hover-remove-dropdown: #efb8b8;
       margin: rem(30) 0;
       width: 100%;
       flex-wrap: wrap;
-      @include contantPadding();
 
       &__add-user {
         width: 30%;

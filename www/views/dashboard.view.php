@@ -1,8 +1,4 @@
 <div class="dashboard">
-  <div class="header">
-    <img src="<?php echo BASE_URL."public/img/Home_Icon.svg"; ?>" />
-    <p>DASHBOARD</p>
-  </div>
   <div class="dashboard-content">
     <div class="row">
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">

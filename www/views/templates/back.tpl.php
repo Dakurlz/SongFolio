@@ -1,3 +1,10 @@
+<?php
+
+$backConfigs = include __DIR__ . './../../config/back.global.php';
+$sectionName = explode('/', $_SERVER['REQUEST_URI'])[2]
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +14,6 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
    <script src="https://cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
-   <link rel="stylesheet" href="../../public/css/style.css">
 
    <link rel="stylesheet" href="<?php echo BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
    <title>Admin</title>
@@ -47,69 +53,64 @@
             </div>
          </div>
          <ul class="sidebar__property">
-            <li>
-               <a href="<?php echo Routing::getSlug("Admin", "default") ?>">
-                  <div class="sidebar--item">
-                     <img src="<?php echo BASE_URL . "public/img/Home_Icon.svg"; ?> " />
-                     <p>Tableau de board</p>
-                  </div>
-               </a>
-               <a href="#test"> qsdqsd
-                  <div class="sidebar--item">
-                     <img src="<?php echo BASE_URL . "public/img/two-overlapped-web-pages.svg"; ?>" />
-                     <p>Pages</p>
-                     <div class="dropdown-sidebar">
-                         <span onclick="showDropdown(this)" class="pages-options dropbtn"></span>
-                        <div id="myDropdown" class="dropdown-content">
-                           <!-- <a href="<?php echo Routing::getSlug("Contents", "createContents") ?>">Ajouter une page ou artcile.</a>
-                           <a href="#">Pages liste</a> -->
-                           <a href="#">Pages Ajouter</a> 
-                           <a href="#">Pages liste</a> 
+
+            <?php foreach ($backConfigs['sidebar_items'] as $key => $item) : ?>
+               <li>
+
+                  <div class="sidebar--item <?= $key === $sectionName ? 'item-active' : '' ?>">
+                     <button class="button_href" onclick="location.href='<?= Routing::getSlug(
+                                                                              $item['slug']['controller'],
+                                                                              $item['slug']['action']
+                                                                           ) ?>'">
+                        <img src="<?= BASE_URL . "public/img/$key.svg"; ?> " />
+                        <p><?= $item['name'] ?></p>
+                     </button>
+
+                     <?php if (isset($item['dropdown'])) : ?>
+                        <div class="dropdown-sidebar dropdown ">
+                           <span onclick="showDropdown(this)" class="pages-options dropbtn"></span>
+                           <div id="myDropdown" class="dropdown-content">
+
+                              <?php foreach ($item['dropdown']['slugs'] as $keyDropdown => $slug) : ?>
+                                 <a id='<?= $keyDropdown ?>' href="<?= Routing::getSlug($slug['controller'], $slug['action']) ?>">
+                                    <?= $slug['label'] ?>
+                                 </a>
+                              <?php endforeach ?>
+
+                           </div>
                         </div>
-                     </div>
+                     <?php endif ?>
 
                   </div>
-               </a>
-               <a href="<?php echo Routing::getSlug("Admin", "loadUser") ?>">
-                  <div class="sidebar--item">
-                     <img src="<?php echo BASE_URL . "public/img/users-silhouettes.svg"; ?>" />
-                     <p>Utilisateurs</p>
-                  </div>
-               </a>
-               <a href="#">
-                  <div class="sidebar--item">
-                     <img src="<?php echo BASE_URL . "public/img/comments.svg"; ?>" />
-                     <p>Commentaires</p>
-                  </div>
-               </a>
-               <a href="<?php echo Routing::getSlug("Admin", "loadAlbum") ?>">
-                  <div class="sidebar--item">
-                     <img src="<?php echo BASE_URL . "public/img/music-album.svg"; ?>" />
-                     <p>Albums</p>
-                  </div>
-               </a>
-               <a href="#">
-                  <div class="sidebar--item">
-                     <img src="<?php echo BASE_URL . "public/img/galerie.svg"; ?>" />
-                     <p>Galerie</p>
-                  </div>
-               </a>
-            </li>
+
+               </li>
+            <?php endforeach ?>
+
          </ul>
       </div>
+
       <div class="main-back__content">
          <div class="container-fluid">
+
+            <div class="header">
+               <img src="<?= BASE_URL . 'public/img/' . $sectionName . '.svg' ?? 'default.svg'; ?>" />
+               <p><?= $backConfigs['mapping_header_name'][$sectionName ?? 'admin'] ?></p>
+            </div>
+
             <?php if (isset($alert['danger'])) : ?>
                <div class="alert alert-danger">
+
                   <?php foreach ($alert['danger'] as $danger) : ?>
                      <li><?php echo $danger; ?></li>
                   <?php endforeach; ?>
+
                </div>
             <?php endif; ?>
+
             <?php if (isset($alert['success'])) : ?>
                <div class="alert alert-danger">
                   <?php foreach ($alert['success'] as $success) : ?>
-                     <li><?php echo $success; ?></li>
+                     <li><?= $success; ?></li>
                   <?php endforeach; ?>
                </div>
             <?php endif; ?>
@@ -121,8 +122,6 @@
       </div>
    </main>
 
-
-   <script src="../../public/js/back.js"></script>
 
    <script src="<?php echo BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
    <script src="<?php echo BASE_URL . "public/js/jquery-ui.min.js?v=" . filemtime("public/js/front.js"); ?>"></script>

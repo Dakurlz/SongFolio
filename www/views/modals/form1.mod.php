@@ -5,7 +5,7 @@ $values = isset($config['values']) ? $config['values'] :
 
 <form method="<?= $config['config']['method']; ?>"
 	<?= isset($config['config']['action']) ? 'action="' . $config['config']['action'] . '"' : null; ?>
-	  class="<?= $config['config']['class']; ?>"
+	  class="form <?= $config['config']['class']; ?>"
 	  enctype="multipart/form-data"
 >
 

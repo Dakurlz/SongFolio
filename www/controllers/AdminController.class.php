@@ -6,7 +6,7 @@ class AdminController{
 
     public function defaultAction()
     {
-        $v = new View("dashboard", "back");
+        new View("dashboard", "back");
     }
 
     /* Menus */

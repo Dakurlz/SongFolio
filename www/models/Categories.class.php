@@ -11,7 +11,7 @@ class Categories extends BaseSQL
     {
         return [
             "config" => [
-                "action" => Routing::getSlug("Categories", "index"),
+                "action" => Routing::getSlug("Categories", "album"),
                 "method" => "POST",
                 "class" => "",
             ],

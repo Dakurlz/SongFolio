@@ -7,7 +7,7 @@
         <tr>
           <th>Catégories d'article</th>
           <th>Slug</th>
-          <th>Nombre d'artcile associes</th>
+          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -17,7 +17,6 @@
           <tr>
             <td><?= $category['name']; ?></td>
             <td><?= $category['slug'];  ?></td>
-            <td><?= $category['count_articles'];  ?></td>
 
             <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $category['id'] . '&type=article' ?>'><i class="icon icon-edit"></i></a></td>
             <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $category['id'] ?>'><i class="icon icon-delete"></i></a></td>
