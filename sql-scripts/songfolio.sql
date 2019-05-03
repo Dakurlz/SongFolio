@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  lun. 08 avr. 2019 à 22:58
+-- Généré le :  mar. 30 avr. 2019 à 17:53
 -- Version du serveur :  5.7.25
 -- Version de PHP :  7.2.14
 
@@ -48,15 +48,17 @@ CREATE TABLE `Albums` (
 
 CREATE TABLE `Categories` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `Categories`
 --
 
-INSERT INTO `Categories` (`id`, `name`) VALUES
-(3, 'test');
+INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
+(3, 'test', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -69,7 +71,7 @@ CREATE TABLE `Comments` (
   `user` int(11) NOT NULL,
   `page` int(11) NOT NULL,
   `title` varchar(200) NOT NULL,
-  `status` int(10) NOT NULL,
+  `confirm` tinyint(1) NOT NULL,
   `message` text NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -92,8 +94,18 @@ CREATE TABLE `Contents` (
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_edit` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `author` int(11) NOT NULL,
-  `img_dir` text
+  `img_dir` text,
+  `published` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Contents`
+--
+
+INSERT INTO `Contents` (`id`, `type`, `slug`, `cat_id`, `title`, `description`, `content`, `header`, `date_create`, `date_edit`, `author`, `img_dir`, `published`) VALUES
+(1, 'page', '/qsdqsd', NULL, 'sqdqsd', 'qsdqsd', '<p>qsert</p>', '', '2019-04-29 19:54:45', NULL, 1, 'public/uploads/contents/screeshot7.jpg', 0),
+(2, 'page', '/qsdqsd', NULL, 'sqdqsd', 'qsdqsd', '<p>qsert</p>', '', '2019-04-29 19:55:23', NULL, 1, 'public/uploads/contents/screeshot7.jpg', 0),
+(3, 'article', '/article', NULL, 'article', 'article', 'article', '', '2019-04-29 20:04:23', NULL, 1, '/article', 0);
 
 -- --------------------------------------------------------
 
@@ -322,7 +334,7 @@ ALTER TABLE `Comments`
 -- AUTO_INCREMENT pour la table `Contents`
 --
 ALTER TABLE `Contents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `Groups`

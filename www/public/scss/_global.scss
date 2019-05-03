@@ -1,41 +1,43 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,800,800i");
 * {
   box-sizing: border-box;
-  outline:none;
+  outline: none;
 }
 
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
-  margin:0;
+  margin: 0;
   font-family: $font-text;
   color: $color-text;
-  font-size:15px;
+  font-size: 15px;
 }
 
 @function rem($pxval) {
   $base: 16;
   @return ($pxval / $base) * 1rem;
 }
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-
-img{
-  max-width:100%;
+img {
+  max-width: 100%;
 }
 
-h1, h2, h3, h4, h5, label{
-  font-family:$font-title;
-  font-size:1.3rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+label {
+  font-family: $font-title;
+  font-size: 1.3rem;
 }
 
-
-.muted{
-  color:$color-muted;
+.muted {
+  color: $color-muted;
 }
-
 
 /* BASICS */
 .all-height {
@@ -45,34 +47,40 @@ h1, h2, h3, h4, h5, label{
   width: 100%;
 }
 
-.lexical{
-  position:absolute;
-  bottom:20px;
-  width:80%;
-  left:10%;
+.lexical {
+  position: absolute;
+  bottom: 20px;
+  width: 80%;
+  left: 10%;
   color: $color-muted;
 }
 
-.chevron:after{
-  content:">";
-  display:inline-block;
-  position:relative;
-  font-size:1.3em;
-  top:4px;
-  left:5px;
+.chevron:after {
+  content: ">";
+  display: inline-block;
+  position: relative;
+  font-size: 1.3em;
+  top: 4px;
+  left: 5px;
 }
 
-.hide{
-  display:none!important;
+
+.hide {
+  display: none !important;
 }
 
-.tac{
-  text-align:center;
+.tac {
+  text-align: center;
 }
-.tar{
-  text-align:right;
+.tar {
+  text-align: right;
 }
-.tal{
-  text-align:left;
+.tal {
+  text-align: left;
 }
 
+.form {
+  div {
+    margin-bottom: rem(20);
+  }
+}
