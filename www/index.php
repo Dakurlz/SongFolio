@@ -1,9 +1,16 @@
 <?php
-require "config/conf.inc.php";
-include "core/Autoloader.class.php";
-ini_set('display_errors', 1);
+require "app/config/conf.inc.php";
+require "app/core/Autoloader.class.php";
+require "app/lib/dev.conf.php";
+
+use app\Core\View;
+use app\Core\Autoloader;
+use app\Core\Routing;
+use app\Models\Contents;
+use app\Models\Users;
 
 Autoloader::register();
+
 
 session_start();
 
@@ -12,29 +19,32 @@ $user = new Users();
 if($route = Routing::getRoute($user)){
     extract($route);
 
-    if (file_exists($controllerPath))
-    {
+    $container = [];
+    $container += require 'app/config/di.global.php';
+
+
+    if (file_exists($controllerPath)) {
         include $controllerPath;
 
-        if(class_exists($controller)){
+        if(class_exists('\\app\\Controllers\\' . $controller)){
 
-            $controllerObject = new $controller($user);
+            $controllerObject = $container['app\\Controllers\\'.$controller]($container);
 
             if(method_exists($controllerObject, $action)){
                 $controllerObject->$action();
             }else{
-                view::show404("L'action ".$action." n'existe pas.");
+                View::show404("L'action ".$action." n'existe pas.");
             }
         }else{
-            view::show404("La class ".$controller." n'existe pas.");
+            View::show404("La class ".$controller." n'existe pas.");
         }
     }else{
-        view::show404("Le fichier controller ".$controller." n'existe pas.");
+        View::show404("Le fichier controller ".$controller." n'existe pas.");
     }
 }elseif( $content = Contents::getBySlug( Routing::currentSlug(true) ) ){
 
     $content->show();
 
 }else{
-    view::show404("L'url n'existe pas.");
+    View::show404("L'url n'existe pas.");
 }
