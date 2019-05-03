@@ -35,7 +35,7 @@ class Helper
      */
     public static function getLabelFromMapping(string $value): string
     {
-        $conf = include __DIR__ . '/../config/back.global.php';
+        $conf = yaml_parse_file(__DIR__ . '/../config/back.global.php');
         return $conf['mapping_header_name'][$value];
     }
 
@@ -63,9 +63,9 @@ class Helper
                 $type = 'info';
                 break;
         }
-        if($genderFemale){
-           $message = self::getLableIfGenderFemale($message);
-        } 
+        if ($genderFemale) {
+            $message = self::getLableIfGenderFemale($message);
+        }
 
         return [
             'type' => $type,
@@ -81,7 +81,7 @@ class Helper
      */
     private function getLableIfGenderFemale(string $str): string
     {
-        return $str.'e';
+        return $str . 'e';
     }
 
     /**

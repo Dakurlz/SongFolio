@@ -1,0 +1,63 @@
+mapping_header_name:
+  admin: Admin,
+  categories: Categories,
+  dashboard: Tableau de board,
+  albums: Albumes,
+  comments: Commentaires,
+  users: Utilisateurs,
+  contents: Contenus
+
+sidebar_items:
+  dashboard:
+    name: Tableau de board
+    slug:
+      controller: Admin,
+      action: default
+
+  contents:
+    name: Contenus,
+    slug:
+      controller: Admin,
+      action: loadUser
+
+    dropdown:
+      slugs:
+        album:
+          controller: Categories,
+          action: album,
+          label: Albume
+
+        article:
+          controller: Categories,
+          action: article,
+          label: Article
+
+  users:
+    name: Utilisateurs
+    slug:
+      controller: Admin,
+      action: loadUser
+
+  comments:
+    name: Commentaires
+    slug:
+      controller: Comments,
+      action: TO DO
+
+  categories:
+    name: Categories,
+    slug:
+      controller: Categories,
+      action: index
+
+    dropdown:
+      slugs:
+        album:
+          controller: Categories,
+          action: album,
+          label: Albume
+
+        article:
+          controller: Categories,
+          action: article,
+          label: Article
