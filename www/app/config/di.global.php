@@ -7,11 +7,17 @@ use app\Controllers\PagesController;
 use app\Controllers\UsersController;
 
 use app\Models\Users;
-
+use app\Models\Contents;
 
 return [
-    Users::class => function($container) {
+    Users::class => function ($container) {
         return new Users();
+    },
+    Categories::class => function ($container) {
+        return new Categories();
+    },
+    Contents::class => function ($container) {
+        return new Contents();
     },
     UsersController::class => function ($container) {
         $usersModel = $container[Users::class]($container);
@@ -21,10 +27,12 @@ return [
         return new PagesController();
     },
     ContentsController::class => function ($container) {
-        return new ContentsController();
+        $conentsModel = $container[Contents::class]($container);
+        return new ContentsController($conentsModel);
     },
     CategoriesController::class => function ($container) {
-        return new CategoriesController();
+        $categorieModel = $container[Categories::class]($container);
+        return new CategoriesController($categorieModel);
     },
     NameController::class => function ($container) {
         return new NameController();

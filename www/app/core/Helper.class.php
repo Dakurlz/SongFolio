@@ -63,13 +63,10 @@ class Helper
                 $type = 'info';
                 break;
         }
-        if ($genderFemale) {
-            $message = self::getLableIfGenderFemale($message);
-        }
 
         return [
             'type' => $type,
-            'message' => $messsage,
+            'message' => $genderFemale ? self::getLableIfGenderFemale($messsage) : $messsage,
         ];
     }
 
@@ -95,6 +92,20 @@ class Helper
         return [
             'type' => 'danger',
             'messages' => $messages
+        ];
+    }
+
+    /**
+     * Return erros after Validator function
+     *
+     * @param string $messages
+     * @return string
+     */
+    public static function setAlertError(string $message): array
+    {
+        return [
+            'type' => 'danger',
+            'message' => $message
         ];
     }
 

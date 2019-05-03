@@ -1,11 +1,11 @@
 <?php
-    use app\Core\Routing;
+use app\Core\Routing;
 ?>
 
 <div class="row categories-page">
 
   <?php
-    if (isset($alert)) $this->addModal('alert', $alert);
+  if (isset($alert)) $this->addModal('alert', $alert);
   ?>
 
 

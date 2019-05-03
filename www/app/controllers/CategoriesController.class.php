@@ -10,6 +10,13 @@ use app\Models\Categories;
 
 class CategoriesController
 {
+    private $category;
+
+    public function __construct(Categories $category)
+    {
+        $this->category = $category;
+    }
+
     public function indexAction()
     {
         new View('admin/categories/index', 'back');
@@ -33,64 +40,100 @@ class CategoriesController
     public function deleteAction()
     {
         $id = $_REQUEST['id'];
-        // $type = $_REQUEST['type'];
+        $type = $_REQUEST['type'];
 
-
+        $alert = [];
         if (isset($id)) {
 
-            $category = new Categories();
-            $category->delete(["id" => $id]);
-        }
+            $this->category->delete(["id" => $id]);
+            $alert = Helper::getAlertPropsByAction('delete', 'Categorie', true);
+        } else {
+            $alert = Helper::setAlertError('Une erreur se produit ...');
+        };
 
-        // $this->renderCategory($type, 'delete');
+        $configForm = self::getConfigForm($type);
 
-        // if (isset($type)) header("Location: " . Routing::getSlug("Categories", "$type") . "?daction=deleted");
-        // else header("Location: " . Routing::getSlug("Categories", "index") . "?action=deleted");
+        $view = new View("admin/categories/$type", 'back');
+        $view->assign('alert', $alert);
+        $view->assign('configFormCategory', $configForm);
+        $view->assign($type . 'Categories', $this->category->getAllBy(['type' => $type]));
     }
 
     public function updateAction()
-    { }
+    {
+        $id = $_REQUEST['id'];
+        $type = $_REQUEST['type'];
+
+        $configForm = self::getConfigForm($type);
+        if (isset($id)) {
+            return self::push($configForm, $type, 'update');
+        }
+
+        $configForm['values'] = (array)$this->category;
+
+        $view = new View("admin/categories/$type", 'back');
+        $view->assign('configFormCategory', $configForm);
+    }
 
     /**
      * @param string $type
      * @param string|null $action
      * @return bool
      */
-    private function renderCategory(string $type, string $action = null)
+    private function renderCategory(string $type)
     {
-        $category = new Categories();
-        $configForm = $type === 'album' ? $category->getFormAlbumCategories() : $category->getFormArticleCategories();
+        $configForm = self::getConfigForm($type);
+
+        $alert = self::push($configForm, $type, 'create');
+        $view = new View("admin/categories/$type", 'back');
+
+        if (!empty($alert)) $view->assign('alert', $alert);
+        $view->assign('configFormCategory', $configForm);
+        $view->assign($type . 'Categories', $this->category->getAllBy(['type' => $type]));
+    }
+    /**
+     *  return form function
+     *
+     * @param string $type
+     * @return array
+     */
+    private function getConfigForm(string $type): array
+    {
+        return $type === 'album' ? $this->category->getFormAlbumCategories() : $this->category->getFormArticleCategories();
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $configForm
+     * @param [type] $type
+     * @return array|bool
+     */
+    private function push($configForm, $type, $action)
+    {
 
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
 
-        $view = new View("admin/categories/$type", 'back');
-
-        $alert = [];
-        if (!empty($_POST)) {
+        if (!empty($data)) {
             if ($_SERVER["REQUEST_METHOD"] !== $method || empty($data)) {
                 return false;
             }
 
             $validator = new Validator($configForm, $data);
-            $exist = $category->getOneBy(['name' => $data['name']]);
 
             $errors = $validator->getErrors();
-            if (empty($errors) && !$exist) {
+            if (empty($errors) && !$this->category->getOneBy(['name' => $data['name']])) {
                 foreach ($data as $key => $value) {
-                    $category->__set($key, $value);
+                    $this->category->__set($key, $value);
                 }
-                $category->__set('type', $type);
-                $category->save();
-                debug(Helper::getAlertPropsByAction('create', 'Categorie', true));
-                $alert += Helper::getAlertPropsByAction('create', 'Categorie', true);
+                $this->category->__set('type', $type);
+                $this->category->save();
+                return Helper::getAlertPropsByAction($action, 'Categorie', true);
             } else {
-                $alert = Helper::setAlertErrors($errors);
+                return Helper::setAlertErrors($errors);
             }
         }
-        debug($alert);
-        if (sizeof($alert) !== 0) $view->assign('alert', $alert);
-        $view->assign('configFormCategory', $configForm);
-        $view->assign($type . 'Categories', $category->getAllBy(['type' => $type]));
+        return false;
     }
 }

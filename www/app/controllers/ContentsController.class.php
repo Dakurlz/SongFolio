@@ -11,29 +11,36 @@ use app\Models\Contents;
 class ContentsController
 {
 
+    private $contents;
+
+    public function __construct(Contents $contents)
+    {
+        $this->contents = $contents;
+    }
+
     public function createContentsAction(): void
     {
-        $content = new Contents();
-        $configForm = $content->getFormContents();
+        $configForm = $this->contents->getFormContents();
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
 
 
         if (!empty($data)) {
             // $validator = new Validator($configForm, $data);
-
+            debug($data['published']);
 
             $fileName = Helper::uploadImage('public/uploads/contents/');
 
-            $content->__set('type', $data['type']);
-            $content->__set('slug', '/' . $data['slug']);
-            $content->__set('title', $data['title']);
-            $content->__set('description', $data['description']);
-            $content->__set('content', $data['content']);
-            $content->__set('header', " "); // ?????????
-            $content->__set('author', 1); // ?????????
-            $content->__set('img_dir', $fileName);
-            $content->save();
+            $this->contents->__set('type', $data['type']);
+            $this->contents->__set('slug', '/' . $data['slug']);
+            $this->contents->__set('title', $data['title']);
+            $this->contents->__set('description', $data['description']);
+            $this->contents->__set('content', $data['content']);
+            $this->contents->__set('header', " "); // ?????????
+            $this->contents->__set('author', 1); // ?????????
+            $this->contents->__set('img_dir', $fileName);
+            // $this->contents->__set('published', $data['published']);
+            $this->contents->save();
         }
 
         $view = new View("admin/create_pages", "back");
@@ -42,11 +49,15 @@ class ContentsController
 
     public function listesPagesAction(): void
     {
-        $content = new Contents();
-
-        $pageListes = $content->getOneBy(['type' => 'page']);
-
+        $pageListes = $this->contents->getAllBy(['type' => 'page']);
         $view = new View('admin/pages_lists', 'back');
-        $view->assign('pageListes', $pageListes);
+        $view->assign('pages', $pageListes);
+    }
+
+    public function listesArticlesAction(): void
+    {
+        $pageListes = $this->contents->getAllBy(['type' => 'article']);
+        $view = new View('admin/pages_lists', 'back');
+        $view->assign('articles', $pageListes);
     }
 }

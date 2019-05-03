@@ -3,6 +3,7 @@
 declare (strict_types = 1);
 
 namespace app\Core;
+
 use PDO;
 use LogicException;
 use app\Core\View;
@@ -66,9 +67,8 @@ class BaseSQL
         } else {
             //UPDATE
 
-            foreach ($columns as $key => $value) {
-                $sqlSet[] = $key . "=:" . $key;
-            }
+            $sqlSet = self::sqlWhere($columns);
+
             $sql = "UPDATE " . $this->table . " SET " . implode(",", $sqlSet) . " WHERE id=:id";
 
             $query = $this->pdo->prepare($sql);
