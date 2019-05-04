@@ -133,6 +133,13 @@ class Users extends BaseSQL
                 "id" => "",
                 "submit" => "Connexion"
             ],
+            "btn" => [
+                "submit" => [
+                    "type" => "submit",
+                    "text" => "Connexion",
+                    "class" => "btn btn-success-outline"
+                ],
+            ],
             "data" => [
                 "username" => [
                     "type" => "text",

@@ -54,24 +54,12 @@
   action: menusEdit
   needGroups: admin
 
-'/admin/contents':
-  controller: Contents
-  action: createContents
-
-'/admin/contents/listes_de_pages':
-  controller: Contents
-  action: listesPages
-
-  
-'/admin/contents/listes_de_pages':
-  controller: Contents
-  action: listesArticles
-
 '/admin/albums':
   controller: Admin
   action: loadAlbum
 
-'/admin/categories':
+# Categories
+'/admin/categories/':
   controller: Categories
   action: index
 
@@ -89,4 +77,42 @@
 
 '/admin/categories/update':
   controller: Categories
-  action: index
+  action: update
+
+'/admin/categories/album/update':
+  controller: Categories
+  action: updateAlbum
+
+'/admin/categories/article/update':
+  controller: Categories
+  action: updateArticle
+
+# CONTENTS
+'/admin/contents':
+  controller: Contents
+  action: createContents
+
+'/admin/contents/pages':
+  controller: Contents
+  action: listesPages
+
+'/admin/contents/articles':
+  controller: Contents
+  action: listesArticles
+
+'/admin/contents/delete':
+  controller: Contents
+  action: delete
+
+'/admin/contents/update':
+  controller: Contents
+  action: update
+
+'/admin/contents/update_content':
+  controller: Contents
+  action: updateContent
+
+# COMMENTS
+'/admin/comments':
+  controller: Comments
+  action: listNotConfirm

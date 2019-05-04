@@ -77,7 +77,7 @@ class UsersController
 
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
-                $configForm["errors"] = $validator->errors;
+                $configForm["errors"] = $validator->getErrors();
 
                 if (empty($configForm["errors"])) {
                     if ($user->getOneBy(['username' => $data['username']], true) && password_verify($data['password'], $user->__get('password'))) {

@@ -33,6 +33,12 @@ class BaseSQL
         }
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+        $this->getOneBy(['id' => $id], true);
+    }
+
     public function __get($attr)
     {
         if (isset($this->data[$attr])) {

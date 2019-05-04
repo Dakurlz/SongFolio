@@ -1,6 +1,5 @@
 <?php
-
-$backConfigs = yaml_parse_file(__DIR__ . '/../../config/back.global.php');
+$backConfigs = yaml_parse_file( __DIR__ . '/../../config/back.global.yml');
 $sectionName = explode('/', $_SERVER['REQUEST_URI'])[2];
 
 use app\Core\Helper;
