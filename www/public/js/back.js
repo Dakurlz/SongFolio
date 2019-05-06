@@ -93,15 +93,39 @@ function showDropdown(element) {
     .toggleClass("show");
 }
 
+function showSlideDropdowx(tragetElement){
+  $( ".slide-dropbtn" ).click(function () {
+    const elm = '#'+tragetElement;
+    if ( $( elm ).is( ":hidden" ) ) {
+      $( elm ).slideDown( "slow" );
+    } else {
+      $( elm ).hide('slow');
+    }
+  });
+}
+
+
+
 $(document).ready(() => {
+
+  $(".slide-dropbtn").click(function(){
+   const jqElm =  $(this).parent().parent().children('.slide-dropdown-content');
+    if ( jqElm.is( ":hidden" ) ) {
+      jqElm.slideDown( "slow" );
+      $(this).addClass('slide-dropbtn-close');
+
+    } else {
+      jqElm.hide('slow');
+      $(this).removeClass('slide-dropbtn-close');
+    }
+  });
+
   $(".toggle-nav ").click(function() {
     $(".sidebar").toggleClass("sidebar--showSidebar");
     $(".toggle-nav").toggleClass("toggle");
   });
 
   $(".admin-users__main__search-add-user__add-user").click((e) => {
-    alert("test");
-
     var myBookId = $(this).data("id");
     $(".modal-body-add-user").val(myBookId);
   });
