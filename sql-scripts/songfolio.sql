@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  mar. 30 avr. 2019 à 17:53
+-- Généré le :  sam. 04 mai 2019 à 23:42
 -- Version du serveur :  5.7.25
 -- Version de PHP :  7.2.14
 
@@ -58,7 +58,11 @@ CREATE TABLE `Categories` (
 --
 
 INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
-(3, 'test', NULL, '');
+(3, 'test', NULL, ''),
+(34, 'xcvcxvxcv update', NULL, 'album'),
+(36, 'dsffgh', NULL, 'album'),
+(41, 'xcvxv', 'xcvxcv', 'article'),
+(42, 'xcvxvsdf update ', 'xcvxcvsdf update ', 'article');
 
 -- --------------------------------------------------------
 
@@ -69,12 +73,20 @@ INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
 CREATE TABLE `Comments` (
   `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `page` int(11) NOT NULL,
-  `title` varchar(200) NOT NULL,
+  `typeId` int(11) NOT NULL,
   `confirm` tinyint(1) NOT NULL,
-  `message` text NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `message` longtext CHARACTER SET utf8 NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `like` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Comments`
+--
+
+INSERT INTO `Comments` (`id`, `user`, `typeId`, `confirm`, `message`, `date_created`, `like`, `type`) VALUES
+(1, 1, 19, 0, 'un comment ', '2019-05-04 23:16:43', 0, 'article');
 
 -- --------------------------------------------------------
 
@@ -103,9 +115,9 @@ CREATE TABLE `Contents` (
 --
 
 INSERT INTO `Contents` (`id`, `type`, `slug`, `cat_id`, `title`, `description`, `content`, `header`, `date_create`, `date_edit`, `author`, `img_dir`, `published`) VALUES
-(1, 'page', '/qsdqsd', NULL, 'sqdqsd', 'qsdqsd', '<p>qsert</p>', '', '2019-04-29 19:54:45', NULL, 1, 'public/uploads/contents/screeshot7.jpg', 0),
-(2, 'page', '/qsdqsd', NULL, 'sqdqsd', 'qsdqsd', '<p>qsert</p>', '', '2019-04-29 19:55:23', NULL, 1, 'public/uploads/contents/screeshot7.jpg', 0),
-(3, 'article', '/article', NULL, 'article', 'article', 'article', '', '2019-04-29 20:04:23', NULL, 1, '/article', 0);
+(17, 'page', '/blog', NULL, 'Blog', 'sdf', '<p>sdfsdf</p>', '', '2019-05-04 21:36:36', NULL, 1, 'Format n\'est pas bon.', 1),
+(18, 'page', '//sdf update', NULL, 'des', 'dddf', '<p>sdfsdf</p>', '', '2019-05-04 21:48:19', '2019-05-04 22:22:54', 1, 'Format n\'est pas bon.', 0),
+(19, 'article', '//sdf', NULL, 'COomment faire se b', 'sdf', '<p>qsdqsdqsd<strong> qsdqs d</strong></p>', '', '2019-05-04 22:34:32', '2019-05-04 22:39:32', 1, 'Format n\'est pas bon.', 1);
 
 -- --------------------------------------------------------
 
@@ -322,19 +334,19 @@ ALTER TABLE `Albums`
 -- AUTO_INCREMENT pour la table `Categories`
 --
 ALTER TABLE `Categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT pour la table `Comments`
 --
 ALTER TABLE `Comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `Contents`
 --
 ALTER TABLE `Contents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `Groups`

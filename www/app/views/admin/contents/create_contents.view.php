@@ -1,8 +1,8 @@
 <div class="admin-page ">
 
-<a class="btn btn-success-outline " href="<?= Routing::getSlug("Contents", "listesPages") ?>"> Pages Listes</a>
-
-
+<?php
+    if (isset($alert)) $this->addModal('alert', $alert);
+?>
   <div class="admin-page__form">
     <?php $this->addModal("form", $configFormPage) ?>
   </div>

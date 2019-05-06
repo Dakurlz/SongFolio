@@ -35,14 +35,12 @@ class Helper
      */
     public static function getLabelFromMapping(string $value): string
     {
-        $conf = yaml_parse_file(__DIR__ . '/../config/back.global.php');
+        $conf = yaml_parse_file(__DIR__ . '/../config/back.global.yml');
         return $conf['mapping_header_name'][$value];
     }
 
     public static function getAlertPropsByAction(string $action, string $name, bool $genderFemale = null)
     {
-        \debug($genderFemale);
-
         $type = '';
         $messsage = '';
         switch ($action) {
@@ -63,13 +61,10 @@ class Helper
                 $type = 'info';
                 break;
         }
-        if ($genderFemale) {
-            $message = self::getLableIfGenderFemale($message);
-        }
 
         return [
             'type' => $type,
-            'message' => $messsage,
+            'message' => $genderFemale ? self::getLableIfGenderFemale($messsage) : $messsage,
         ];
     }
 
@@ -79,7 +74,7 @@ class Helper
      * @param string $str
      * @return string
      */
-    private function getLableIfGenderFemale(string $str): string
+    private static function getLableIfGenderFemale(string $str): string
     {
         return $str . 'e';
     }
@@ -95,6 +90,20 @@ class Helper
         return [
             'type' => 'danger',
             'messages' => $messages
+        ];
+    }
+
+    /**
+     * Return erros after Validator function
+     *
+     * @param string $messages
+     * @return string
+     */
+    public static function setAlertError(string $message): array
+    {
+        return [
+            'type' => 'danger',
+            'message' => $message
         ];
     }
 

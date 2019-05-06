@@ -1,5 +1,13 @@
+<?php
+use app\Core\Routing;
+?>
+
 <div class="row categories-page">
-  <div class="col-md-6 col-12 col-sm-6 col-xs-6">
+<?php
+    if (isset($alert)) $this->addModal('alert', $alert);
+
+ if($configFormCategory['config']['action_type'] === 'create'): ?>
+    <div class="col-md-6 col-12 col-sm-6 col-xs-6">
 
     <table class="table col-12 col-sm-8 col-lg-8 col-md-8">
 
@@ -13,7 +21,7 @@
       </thead>
 
       <tbody>
-        <td><?php if (sizeof($articleCategories) === 0) echo 'Aucune categorie.'; ?></td>
+        <td><?php if (empty($articleCategories)) echo 'Aucune categorie.'; ?></td>
         <?php foreach ($articleCategories as $category) : ?>
           <tr>
             <td><?= $category['name']; ?></td>
@@ -28,8 +36,10 @@
 
   </div>
 
-  <div class="col-12 col-md-4 col-lg-4 col-sm-6 col-xs-6 categories-page__add-categ">
-    <h2 class="col-12">Ajouter une nouvelle catégorie</h2>
+ <?php endif ?>
+
+
+    <div class="col-12 col-md-4 col-lg-4 col-sm-6 col-xs-6 categories-page__add-categ">
     <?php $this->addModal("form", $configFormCategory) ?>
   </div>
 </div>

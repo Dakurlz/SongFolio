@@ -13,14 +13,22 @@ class Validator
 
     public function __construct($config, $data)
     {
-
-        //vérification du nombre de champs
-        if (count($data) != count($config["data"])) {
+          /*  $configCount = 0;
+            foreach ($config["data"] as $dt){
+                if($dt['type'] !== 'checkbox'){
+                    $configCount ++;
+                }
+            }
+        if (count($data) !== $configCount) {
+            debug($data);
+            debug($configCount);
+            debug(count($data) !== $configCount);
             View::show404("Tentative de Faille XSS");
-        }
+        }*/
 
         foreach ($config["data"] as $name => $input) {
             //required
+
             if ($input["required"] && empty($data[$name])) {
                 View::show404("Tentative de Faille XSS");
             } else {

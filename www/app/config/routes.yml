@@ -1,87 +1,118 @@
-"/":
+'/':
   controller: Pages
   action: default
 
-"/contenu":
+'/contenu':
   controller: Pages
   action: content
 
 # USERS
-"/liste_des_utilisateurs":
+'/liste_des_utilisateurs':
   controller: Users
   action: default
 
-"/creation_de_compte":
+'/creation_de_compte':
   controller: Users
   action: register
 
-"/mot_de_passe_oublie":
+'/mot_de_passe_oublie':
   controller: Users
   action: forgetPassword
 
-"/connexion":
+'/connexion':
   controller: Users
   action: login
 
-"/deconnexion":
+'/deconnexion':
   controller: Users
   action: logout
   needAuth: true
 
-"/mon_compte":
+'/mon_compte':
   controller: Users
   action: dashboard
   needAuth: true
 
 # ADMIN
-"/admin/dashboard":
+'/admin/dashboard':
   controller: Admin
   action: default
   needGroups: admin
 
-"/admin/users":
+'/admin/users':
   controller: Admin
   action: loadUser
   needGroups: admin
 
-"/admin/menus":
+'/admin/menus':
   controller: Admin
   action: menus
   needGroups: admin
 
-"/admin/menus/edit":
+'/admin/menus/edit':
   controller: Admin
   action: menusEdit
   needGroups: admin
 
-"/admin/creation_du_contenu":
-  controller: Contents
-  action: createContents
-
-"/admin/listes_de_pages":
-  controller: Contents
-  action: listesPages
-
-"/admin/albums":
+'/admin/albums':
   controller: Admin
   action: loadAlbum
 
-"/admin/categories":
+# Categories
+'/admin/categories/':
   controller: Categories
   action: index
 
-"/admin/categories/article":
+'/admin/categories/article':
   controller: Categories
   action: article
 
-"/admin/categories/album":
+'/admin/categories/album':
   controller: Categories
   action: album
 
-"/admin/categories/delete":
+'/admin/categories/delete':
   controller: Categories
   action: delete
 
-"/admin/categories/update":
+'/admin/categories/update':
   controller: Categories
-  action: index
+  action: update
+
+'/admin/categories/album/update':
+  controller: Categories
+  action: updateAlbum
+
+'/admin/categories/article/update':
+  controller: Categories
+  action: updateArticle
+
+# CONTENTS
+'/admin/contents':
+  controller: Contents
+  action: createContents
+
+'/admin/contents/pages':
+  controller: Contents
+  action: listesPages
+
+'/admin/contents/articles':
+  controller: Contents
+  action: listesArticles
+
+'/admin/contents/delete':
+  controller: Contents
+  action: delete
+
+'/admin/contents/update':
+  controller: Contents
+  action: update
+
+'/admin/contents/update_content':
+  controller: Contents
+  action: updateContent
+
+# COMMENTS
+'/admin/comments':
+  controller: Comments
+  action: listNotConfirm

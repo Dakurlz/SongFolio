@@ -60,7 +60,7 @@ class Routing
      * @param [string] $action
      * @return string|null
      */
-    public static function getSlug($controller = null, $action = null): ?string
+    public static function getSlug($controller, $action): ?string
     {
         //Récupération de toutes les routes dans le fichier yml
         $routes = yaml_parse_file('app/config/routes.yml');
