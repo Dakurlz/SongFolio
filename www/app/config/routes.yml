@@ -34,7 +34,7 @@
   needAuth: true
 
 # ADMIN
-'/admin/dashboard':
+'/admin':
   controller: Admin
   action: default
   needGroups: admin

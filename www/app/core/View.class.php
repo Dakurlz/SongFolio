@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\Core;
 
 class View{
-
     private $view;
     private $view_path;
     private $template;

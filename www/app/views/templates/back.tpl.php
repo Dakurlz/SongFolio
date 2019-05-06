@@ -1,6 +1,6 @@
 <?php
 $backConfigs = yaml_parse_file( __DIR__ . '/../../config/back.global.yml');
-$sectionName = explode('/', $_SERVER['REQUEST_URI'])[2];
+$sectionName = explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard';
 
 use app\Core\Helper;
 use app\Core\Routing;
@@ -20,7 +20,6 @@ use app\Core\Routing;
    <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
    <title>Admin</title>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
-
 </head>
 
 <body>
@@ -67,23 +66,19 @@ use app\Core\Routing;
                         <img src="<?= BASE_URL . "public/img/$key.svg"; ?> " />
                         <p><?= $item['name'] ?></p>
                      </button>
-
-                     <?php if (isset($item['dropdown'])) : ?>
-                        <div class="dropdown-sidebar dropdown ">
-                           <span onclick="showDropdown(this)" class="pages-options dropbtn"></span>
-                           <div id="myDropdown" class="dropdown-content">
-
-                              <?php foreach ($item['dropdown']['slugs'] as $keyDropdown => $slug) : ?>
-                                 <a id='<?= $keyDropdown ?>' href="<?= Routing::getSlug($slug['controller'], $slug['action']) ?>">
-                                    <?= $slug['label'] ?>
-                                 </a>
-                              <?php endforeach ?>
-
-                           </div>
-                        </div>
-                     <?php endif ?>
-
+                      <?php if (isset($item['dropdown'])) : ?>
+                          <span class="pages-options slide-dropbtn "></span>
+                      <?php endif; ?>
                   </div>
+                   <?php if (isset($item['dropdown'])) : ?>
+                           <div class="slide-dropdown-content  ">
+                               <?php foreach ($item['dropdown']['slugs'] as $keyDropdown => $slug) : ?>
+                                   <a id='<?= $keyDropdown ?>' href="<?= Routing::getSlug($slug['controller'], $slug['action']) ?>">
+                                       <?= $slug['label'] ?>
+                                   </a>
+                               <?php endforeach ?>
+                           </div>
+                   <?php endif ?>
 
                </li>
             <?php endforeach ?>

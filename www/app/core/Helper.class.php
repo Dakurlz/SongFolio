@@ -36,7 +36,7 @@ class Helper
     public static function getLabelFromMapping(string $value): string
     {
         $conf = yaml_parse_file(__DIR__ . '/../config/back.global.yml');
-        return $conf['mapping_header_name'][$value];
+        return $conf['mapping_header_name'][$value] ?? $conf['mapping_header_name']['admin'] ;
     }
 
     public static function getAlertPropsByAction(string $action, string $name, bool $genderFemale = null)

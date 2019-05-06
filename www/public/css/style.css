@@ -3267,7 +3267,9 @@ table {
     height: 100% !important; }
     .sidebar__admin-name,
     .sidebar .sidebar--item {
-      padding-left: 20% !important; } }
+      padding-left: 20% !important; }
+    .sidebar .slide-dropdown-content {
+      padding-left: 30% !important; } }
 
 /* SECTION SIDEBAR */
 .header-back {
@@ -3386,54 +3388,47 @@ table {
               color: #fff;
               font-size: 16px;
               font-weight: 500; }
-          .main-back .sidebar__property > li .sidebar--item .dropdown-sidebar {
-            display: flex;
-            position: relative;
-            justify-content: flex-end;
-            width: 20%;
-            height: 100%; }
-          .main-back .sidebar__property > li .sidebar--item .dropdown-content {
-            display: none;
-            position: absolute;
-            top: -250%;
-            left: 100%;
-            background-color: #3f3f3f;
-            min-width: 160px;
-            overflow: auto;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2) !important;
-            z-index: 1; }
-            .main-back .sidebar__property > li .sidebar--item .dropdown-content:after, .main-back .sidebar__property > li .sidebar--item .dropdown-content:before {
-              right: 100%;
-              top: 25%;
-              border: solid transparent;
-              content: " ";
-              height: 0;
-              width: 0;
-              position: absolute;
-              pointer-events: none; }
-            .main-back .sidebar__property > li .sidebar--item .dropdown-content > a {
-              display: block;
-              text-decoration: none;
-              padding: 1rem;
-              border-top: 2px solid transparent;
-              background: transparent;
-              color: #fff;
-              border-bottom: 1px solid #dde0e7; }
-              .main-back .sidebar__property > li .sidebar--item .dropdown-content > a:hover, .main-back .sidebar__property > li .sidebar--item .dropdown-content > a:focus {
-                background-color: rgba(229, 229, 229, 0.3); }
-          .main-back .sidebar__property > li .sidebar--item .dropbtn {
-            position: relative;
+          .main-back .sidebar__property > li .sidebar--item .slide-dropbtn {
+            margin-left: 1rem;
+            margin-right: 2rem;
             width: 11px;
             height: 11px;
-            margin-right: 2rem;
             border: solid 2px #fff;
-            border-bottom: none;
+            border-top: none;
             border-left: none;
             transform: rotate(45deg);
             background-color: transparent;
-            color: transparent; }
-          .main-back .sidebar__property > li .sidebar--item .show {
-            display: flex; }
+            color: transparent;
+            cursor: pointer; }
+            .main-back .sidebar__property > li .sidebar--item .slide-dropbtn-close {
+              border: solid 2px #fff;
+              border-bottom: none;
+              border-right: none; }
+        .main-back .sidebar__property > li .slide-dropdown-content {
+          display: none;
+          position: relative;
+          background-color: #3f3f3f;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2) !important;
+          z-index: 1;
+          padding-left: 20%; }
+          .main-back .sidebar__property > li .slide-dropdown-content:after, .main-back .sidebar__property > li .slide-dropdown-content:before {
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none; }
+          .main-back .sidebar__property > li .slide-dropdown-content > a {
+            display: block;
+            text-decoration: none;
+            padding: 1rem;
+            border-top: 2px solid transparent;
+            background: transparent;
+            color: #fff;
+            border-bottom: 1px solid #dde0e7; }
+            .main-back .sidebar__property > li .slide-dropdown-content > a:hover, .main-back .sidebar__property > li .slide-dropdown-content > a:focus {
+              background-color: rgba(229, 229, 229, 0.3); }
     .main-back .sidebar .item-active {
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
       border-left: 10px solid #B00000 !important; }
