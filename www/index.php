@@ -1,15 +1,17 @@
 <?php
-require "app/config/conf.inc.php";
-require "app/core/Autoloader.class.php";
-require "app/lib/dev.conf.php";
+require "app/Config/conf.inc.php";
+require "app/Core/Autoloader.php";
+require "app/Lib/dev.conf.php";
 
-use app\Core\View;
-use app\Core\Autoloader;
-use app\Core\Routing;
-use app\Models\Contents;
-use app\Models\Users;
+use Songfolio\Core\View;
+use Songfolio\Core\Autoloader;
+use Songfolio\Core\Routing;
+use Songfolio\Models\Contents;
+use Songfolio\Models\Users;
 
-Autoloader::register();
+$autoloader = new Autoloader();
+$autoloader->addNamespace('Songfolio', 'app');
+$autoloader->register();
 
 
 session_start();
@@ -20,15 +22,15 @@ if($route = Routing::getRoute($user)){
     extract($route);
 
     $container = [];
-    $container += require 'app/config/di.global.php';
+    $container += require 'app/Config/di.global.php';
 
 
     if (file_exists($controllerPath)) {
         include $controllerPath;
 
-        if(class_exists('\\app\\Controllers\\' . $controller)){
+        if(class_exists('\\Songfolio\\Controllers\\' . $controller)){
 
-            $controllerObject = $container['app\\Controllers\\'.$controller]($container);
+            $controllerObject = $container['Songfolio\\Controllers\\'.$controller]($container);
 
             if(method_exists($controllerObject, $action)){
                 $controllerObject->$action();

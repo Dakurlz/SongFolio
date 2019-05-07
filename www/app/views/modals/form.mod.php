@@ -65,8 +65,8 @@
 			case "slug": ?>
 				<div class="col-12">
 					<div class="row">
-						<span class="input-group-text col-3"><?= $fieldValue['presed']; ?></span>
-						<input class="input-control <?= $fieldValue["class"]; ?> col-9" type="text" id="<?= $fieldValue["id"]; ?>" name="<?= $keyName ?>" value="/<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>" />
+						<span class="input-group-text col-3"><?= $fieldValue['presed']; ?>/</span>
+						<input class="input-control <?= $fieldValue["class"]; ?> col-9" type="text" id="<?= $fieldValue["id"]; ?>" name="<?= $keyName ?>" value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>" />
 					</div>
 				</div>
 				<?php break;

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace Songfolio\controllers;
 
 class NameController{
 

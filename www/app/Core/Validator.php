@@ -2,9 +2,9 @@
 
 declare (strict_types = 1);
 
-namespace app\Core;
+namespace Songfolio\Core;
 
-use app\Core\View;
+use Songfolio\Core\View;
 
 class Validator
 {

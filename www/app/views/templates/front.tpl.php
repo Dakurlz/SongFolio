@@ -50,7 +50,7 @@
                 </div>
 
                 <ul>
-                    <?php  foreach((new \app\Models\Menus(2))->__get('data') as $menu):?>
+                    <?php  foreach((new \Songfolio\Models\Menus(2))->__get('data') as $menu):?>
                     <li>
                         <a href="<?=$menu['link'] ?? '#'?>"><?=$menu['title']?></a>
 

@@ -2,8 +2,8 @@
 
 declare (strict_types = 1);
 
-namespace app\Core;
-use app\Models\Users;
+namespace Songfolio\Core;
+use Songfolio\Models\Users;
 
 class Routing
 {
@@ -36,7 +36,7 @@ class Routing
             $controller = $controller . "Controller";
 
             $action = $routes[$slug]["action"] . "Action";
-            $controllerPath = 'app/controllers/' . $controller . '.class.php';
+            $controllerPath = 'app/controllers/' . $controller . '.php';
 
             if (!empty($routes[$slug]['needAuth'])) {
                 $user->needAuth();

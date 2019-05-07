@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace app\Controllers;
+namespace Songfolio\Controllers;
 
-use app\Core\View;
+use Songfolio\Core\View;
 
 class PagesController{
 

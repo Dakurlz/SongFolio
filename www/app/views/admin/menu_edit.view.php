@@ -1,7 +1,7 @@
 <?php
-    use app\Models\Contents;
-    use app\Models\Menus;
-    use app\Core\Routing;
+    use Songfolio\Models\Contents;
+    use Songfolio\Models\Menus;
+    use Songfolio\Core\Routing;
 ?>
 
 <div class="container">

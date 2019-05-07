@@ -1,16 +1,16 @@
 <?php
-use app\Controllers\AdminController;
-use app\Controllers\ContentsController;
-use app\Controllers\CategoriesController;
-use app\Controllers\NameController;
-use app\Controllers\PagesController;
-use app\Controllers\UsersController;
-use app\Controllers\CommentsController;
+use Songfolio\Controllers\AdminController;
+use Songfolio\Controllers\ContentsController;
+use Songfolio\Controllers\CategoriesController;
+use Songfolio\Controllers\NameController;
+use Songfolio\Controllers\PagesController;
+use Songfolio\Controllers\UsersController;
+use Songfolio\Controllers\CommentsController;
 
-use app\Models\Users;
-use app\Models\Contents;
-use app\Models\Categories;
-use app\Models\Comments;
+use Songfolio\Models\Users;
+use Songfolio\Models\Contents;
+use Songfolio\Models\Categories;
+use Songfolio\Models\Comments;
 
 return [
     Users::class => function ($container) {
