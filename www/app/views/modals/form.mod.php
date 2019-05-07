@@ -18,7 +18,7 @@
     <?php foreach ($config['data'] as $keyName => $fieldValue) : ?>
 		<div class="form-group <?= $fieldValue["div_class"] ?? '' ?>">
 
-			<?php if (!empty($fieldValue["label"]) && $fieldValue["type"] !== "checkbox") : ?>
+			<?php if (!empty($fieldValue["label"])) : ?>
 				<label for="<?= $fieldValue["id"]; ?>">
 					<?= $fieldValue["label"]; ?>
 				</label>
@@ -28,37 +28,45 @@
 				<textarea
                     rows="4"
                     cols="50"
-                    name=<?= $keyName ?> id="<?= $fieldValue["id"]; ?>"
+                    name=<?= $fieldValue["name"] ?> id="<?= $fieldValue["id"]; ?>"
                     class="textarea-control <?php $value['class'] ?? ""  ?>"
                     <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
-                >
-					<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>
-				</textarea>
+                ><?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?></textarea>
 				<?php break;
 
 			case "select": ?>
-				<select name="<?= $keyName; ?>" id="<?= $fieldValue["id"]; ?>" class="select-control <?= $fieldValue['class']; ?>">
+				<select
+                    name="<?= $fieldValue["name"]; ?>"
+                    id="<?= $fieldValue["id"]; ?>"
+                    class="select-control <?= $fieldValue['class']; ?>">
 					<?php foreach ($fieldValue['options'] as $option) : ?>
-						<option <?= isset($values[$keyName]) ? $values[$keyName] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>"><?= $option['label']; ?></option>
+						<option <?= isset($values[$keyName]) ? $values[$keyName] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>">
+                            <?= $option['label']; ?>
+                        </option>
 					<?php endforeach ?>
 				</select>
 				<?php break;
 
 			case "checkbox": ?>
-				<label class="col-12" for="<?= $fieldValue["id"]; ?>">
-					<?= $fieldValue["label"]; ?>
-				</label>
 				<label class="switch">
-					<input name="<?= $keyName ?>" type="checkbox" value="1" >
+					<input name="<?= $fieldValue["name"] ?>" type="checkbox" value="1">
 					<span class="slider round"></span>
 				</label>
                 <input type="hidden"  >
                 <?php break;
 
 			case "file": ?>
-				<p>Ajouter une image</p>
-                <input type="<?= $fieldValue["type"]; ?>" id="<?= $fieldValue["id"]; ?>" name="<?= $keyName; ?>" value="1" />
-                <input type="hidden" name="<?= $keyName; ?>" value="file" />
+                <p>
+                    <input
+                        type="<?= $fieldValue["type"]; ?>"
+                        id="<?= $fieldValue["id"]; ?>"
+                        name="<?= $fieldValue["name"] ?>"
+                        value="1" />
+                    <input
+                        type="hidden"
+                        name="<?= $fieldValue["name"]; ?>"
+                        value="file" />
+                </p>
 				<?php break;
 
 
@@ -66,10 +74,20 @@
 				<div class="col-12">
 					<div class="row">
 						<span class="input-group-text col-3"><?= $fieldValue['presed']; ?>/</span>
-						<input class="input-control <?= $fieldValue["class"]; ?> col-9" type="text" id="<?= $fieldValue["id"]; ?>" name="<?= $keyName ?>" value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>" />
+						<input
+                            class="input-control <?= $fieldValue["class"]; ?> col-9"
+                            type="text"
+                            id="<?= $fieldValue["id"]; ?>"
+                            name="<?= $fieldValue["name"] ?>"
+                            value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>" />
 					</div>
 				</div>
 				<?php break;
+
+            case 'separator': ?>
+                <hr>
+                <?=(isset($fieldValue['after_title']) ? '<h3>'.$fieldValue['after_title'].'</h3>' : '')?>
+                <?php break;
 
 			default:
 				if ($fieldValue["type"] === "password") {
@@ -78,7 +96,7 @@
 
 				<input
                     type="<?= $fieldValue["type"]; ?>"
-                    name="<?= $keyName; ?>"
+                    name="<?= $fieldValue["name"]; ?>"
                     placeholder="<?= $fieldValue["placeholder"]; ?>"
                     class="<?= $fieldValue["class"]; ?>" id="<?= $fieldValue["id"]; ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
                     value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>">

@@ -1,3 +1,6 @@
+<?php
+use Songfolio\Core\Routing;
+?>
 <div class="container">
     <h1><?php echo 'Bonjour '.$user->__get('username'); ?></h1>
     <a href="#">Modifier son adresse mail</a><br>
