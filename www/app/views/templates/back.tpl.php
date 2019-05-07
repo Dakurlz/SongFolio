@@ -2,8 +2,8 @@
 $backConfigs = yaml_parse_file( __DIR__ . '/../../config/back.global.yml');
 $sectionName = explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard';
 
-use app\Core\Helper;
-use app\Core\Routing;
+use Songfolio\Core\Helper;
+use Songfolio\Core\Routing;
 
 ?>
 

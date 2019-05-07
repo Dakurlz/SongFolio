@@ -2,12 +2,12 @@
 
 declare (strict_types = 1);
 
-namespace app\controllers;
+namespace Songfolio\controllers;
 
-use app\core\View;
-use app\core\Routing;
-use app\core\Validator;
-use app\models\Users;
+use Songfolio\core\View;
+use Songfolio\core\Routing;
+use Songfolio\core\Validator;
+use Songfolio\models\Users;
 
 class UsersController
 {

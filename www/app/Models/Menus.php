@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types = 1);
-namespace app\Models;
-use app\Core\BaseSQL;
+namespace Songfolio\Models;
+use Songfolio\Core\BaseSQL;
 
 class Menus extends BaseSQL
 {

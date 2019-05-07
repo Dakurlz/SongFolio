@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace app\Core;
+namespace Songfolio\Core;
 
 class Helper
 {

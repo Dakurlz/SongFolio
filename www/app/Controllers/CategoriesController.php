@@ -1,11 +1,11 @@
 <?php
 
-namespace app\Controllers;
+namespace Songfolio\Controllers;
 
-use app\Core\View;
-use app\Core\Validator;
-use app\Core\Helper;
-use app\Models\Categories;
+use Songfolio\Core\View;
+use Songfolio\Core\Validator;
+use Songfolio\Core\Helper;
+use Songfolio\Models\Categories;
 
 
 class CategoriesController

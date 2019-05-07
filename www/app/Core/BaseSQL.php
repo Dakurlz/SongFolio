@@ -2,11 +2,11 @@
 
 declare (strict_types = 1);
 
-namespace app\Core;
+namespace Songfolio\Core;
 
 use PDO;
 use LogicException;
-use app\Core\View;
+use Songfolio\Core\View;
 
 
 class BaseSQL

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace app\Controllers;
+namespace Songfolio\Controllers;
 
-use app\Core\View;
-use app\Core\Routing;
-use app\Models\Menus;
-use app\Models\Users;
+use Songfolio\Core\View;
+use Songfolio\Core\Routing;
+use Songfolio\Models\Menus;
+use Songfolio\Models\Users;
 
 class AdminController{
 

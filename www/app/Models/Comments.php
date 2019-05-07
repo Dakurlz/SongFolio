@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Models;
+namespace Songfolio\Models;
 
-use app\Core\BaseSQL;
-use app\Core\Routing;
+use Songfolio\Core\BaseSQL;
+use Songfolio\Core\Routing;
 
 class Comments extends BaseSQL
 {

@@ -1,12 +1,12 @@
 <?php
 declare (strict_types = 1);
 
-namespace app\Controllers;
+namespace Songfolio\Controllers;
 
-use app\core\View;
-use app\Core\Validator;
-use app\core\Helper;
-use app\Models\Contents;
+use Songfolio\core\View;
+use Songfolio\Core\Validator;
+use Songfolio\core\Helper;
+use Songfolio\Models\Contents;
 
 class ContentsController
 {

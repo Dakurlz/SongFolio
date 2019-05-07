@@ -1,9 +1,9 @@
 <?php
 declare (strict_types = 1);
 
-namespace app\Models;
-use app\Core\BaseSQL;
-use app\Core\Routing;
+namespace Songfolio\Models;
+use Songfolio\Core\BaseSQL;
+use Songfolio\Core\Routing;
 
 class Users extends BaseSQL
 {

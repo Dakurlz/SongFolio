@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Models;
-use app\Core\BaseSQL;
-use app\Core\Routing;
-use app\Core\View;
+namespace Songfolio\Models;
+use Songfolio\Core\BaseSQL;
+use Songfolio\Core\Routing;
+use Songfolio\Core\View;
 
 class Contents extends BaseSQL
 {

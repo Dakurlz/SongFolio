@@ -2,9 +2,9 @@
 
 declare (strict_types = 1);
 
-namespace app\Models;
+namespace Songfolio\Models;
 
-use app\Core\BaseSQL;
+use Songfolio\Core\BaseSQL;
 
 class Settings extends BaseSQL
 {
