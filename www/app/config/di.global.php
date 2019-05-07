@@ -33,8 +33,8 @@ return [
         return new PagesController();
     },
     ContentsController::class => function ($container) {
-        $conentsModel = $container[Contents::class]($container);
-        return new ContentsController($conentsModel);
+        $contentsModel = $container[Contents::class]($container);
+        return new ContentsController($contentsModel);
     },
     CategoriesController::class => function ($container) {
         $categorieModel = $container[Categories::class]($container);

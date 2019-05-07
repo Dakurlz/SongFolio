@@ -33,6 +33,14 @@ class BaseSQL
         }
     }
 
+    public function id(){
+        if(!empty($this->data['id'])){
+            return $this->data['id'];
+        }
+
+        return null;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
@@ -70,6 +78,8 @@ class BaseSQL
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
             $query = $this->pdo->prepare($sql);
             $query->execute($columns);
+
+            $this->data['id'] = $this->pdo->lastInsertId($this->table);
         } else {
             //UPDATE
 
@@ -79,6 +89,16 @@ class BaseSQL
 
             $query = $this->pdo->prepare($sql);
             $query->execute($columns);
+        }
+    }
+
+    public function remove(): void
+    {
+        if($this->id()){
+            $sql = "DELETE FROM " . $this->table . " WHERE id=".$this->id().";";
+
+            $query = $this->pdo->prepare($sql);
+            $query->execute($where);
         }
     }
 

@@ -1,5 +1,10 @@
+<?php
+    use app\Models\Contents;
+    use app\Models\Menus;
+    use app\Core\Routing;
+?>
+
 <div class="container">
-    <h3><?=$menu->__get('title')?></h3>
     <style>
     .block-title {
         padding: 10px;
@@ -22,20 +27,29 @@
         list-style: none;
         padding-left: 0;
     }
+    #menu-form{
+        max-width:500px;
+    }
     #the-menu li{
         background: #f3f3f3;
+        position:relative;
     }
     #the-menu{
         padding-bottom:5px;
         background-color: #f3f3f3;
         -webkit-box-shadow: 0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15);
         box-shadow: 0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15);
-        max-width:500px;
+        margin:0;
     }
     .sortable ul {
         margin-left: 25px;
         min-height:5px;
         background:white;
+    }
+    .del-menu-btn{
+        position:absolute;
+        right:5px;
+        top:10px;
     }
     .ui-sortable-helper {
         box-shadow: rgba(0,0,0,0.15) 0 3px 5px 0;
@@ -43,30 +57,45 @@
         height: 33px!important;
     }
 </style>
-    <ul class="sortable list-unstyled" id="the-menu">
-        <?=$menu->show('menu_edit');?>
-    </ul><!-- /.menu-sortable -->
-    <form method="post">
-        <input type="hidden" id="result-data" name="data" value=""></input>
-        <button type="submit">Enregistrer</button>
+    <form id="menu-form" method="post">
+        <div class="form-group">
+            <label>Titre du menu</label>
+            <input type="text" class="form-control" value="<?=($menu->id() ? $menu->__get('title') : '')?>" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label>Contenu du menu</label>
+            <ul class="sortable lis-unstyled" id="the-menu">
+                <?=$menu->show('menu_edit');?>
+            </ul><!-- /.menu-sortable -->
+            <input type="hidden" id="result-data" name="data" value=""></input>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-info" modal="menu-edit-modal">Ajouter un lien</button>
+        </div>
+        <hr>
+        <button class="btn btn-success" type="submit">Enregistrer le menu</button>
+
+        <?php if($menu->id()): ?>
+            <a href="<?=Routing::getSlug('admin', 'menusDel')?>?menu=<?=$menu->id()?>" class="btn btn-danger">Supprimer le menu</a>
+        <?php endif; ?>
     </form>
-    <!-- Trigger/Open The Modal -->
-    <button modal="myModal">Open Modal</button>
 
     <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <div id="menu-edit-modal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close"></span>
 
             <div class="form-group">
-                <label>Nom du menu</label>
+                <label>Nom du lien</label>
                 <input class="input-control" type="link" id="menu-title" placeholder="Entrez le nom du menu">
             </div>
 
             <div class="form-group">
-                <label>Type d'ajout</label>
+                <label>Cible du lien</label>
                 <select class="select-control smart-toggle" id="menu-add">
                     <option value="homepage">Accueil</option>
                     <option value="custom-page">Page</option>
@@ -80,7 +109,7 @@
 
             <div class="form-group smart-menu-add menu-add-custom-page">
                 <label>Choisir une page</label>
-                <select class="select-control" id="menu-link">
+                <select class="select-control menu-custom-page" id="menu-link">
                 <?php foreach( (new Contents)->getAllData() as $page):?>
                     <option value="<?=BASE_URL.$page['slug']?>"><?=$page['title']?></option>
                 <?php endforeach; ?>
@@ -89,7 +118,7 @@
 
             <div class="form-group smart-menu-add menu-add-custom-link">
                 <label>Lien</label>
-                <input class="input-control" type="link" id ="menu-link" placeholder="Entrez le lien">
+                <input class="input-control menu-custom-link" type="link" id="menu-link" placeholder="Entrez le lien">
             </div>
 
             <button type="button" id="add-menu-btn" class="btn btn-success" >Ajouter</button>
