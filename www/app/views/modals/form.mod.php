@@ -19,7 +19,7 @@
 		<div class="form-group <?= $fieldValue["div_class"] ?? '' ?>">
 
 			<?php if (!empty($fieldValue["label"])) : ?>
-				<label for="<?= $fieldValue["id"]; ?>">
+				<label for="<?= $fieldValue["id"] ?? '' ?>">
 					<?= $fieldValue["label"]; ?>
 				</label>
 			<?php endif;
@@ -28,7 +28,7 @@
 				<textarea
                     rows="4"
                     cols="50"
-                    name=<?= $fieldValue["name"] ?> id="<?= $fieldValue["id"]; ?>"
+                    name=<?= $fieldValue["name"] ?? '' ?> id="<?= $fieldValue["id"] ?? '' ?>"
                     class="textarea-control <?php $value['class'] ?? ""  ?>"
                     <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
                 ><?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?></textarea>
@@ -36,9 +36,9 @@
 
 			case "select": ?>
 				<select
-                    name="<?= $fieldValue["name"]; ?>"
-                    id="<?= $fieldValue["id"]; ?>"
-                    class="select-control <?= $fieldValue['class']; ?>">
+                    name="<?= $fieldValue["name"] ?? '' ?>"
+                    id="<?= $fieldValue["id"] ?? '' ?>"
+                    class="select-control <?= $fieldValue['class'] ?? '' ?>">
 					<?php foreach ($fieldValue['options'] as $option) : ?>
 						<option <?= isset($values[$keyName]) ? $values[$keyName] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>">
                             <?= $option['label']; ?>
@@ -59,12 +59,12 @@
                 <p>
                     <input
                         type="<?= $fieldValue["type"]; ?>"
-                        id="<?= $fieldValue["id"]; ?>"
-                        name="<?= $fieldValue["name"] ?>"
+                        id="<?= $fieldValue["id"] ?? '' ?>"
+                        name="<?= $fieldValue["name"] ?? '' ?>"
                         value="1" />
                     <input
                         type="hidden"
-                        name="<?= $fieldValue["name"]; ?>"
+                        name="<?= $fieldValue["name"] ?? '' ?>"
                         value="file" />
                 </p>
 				<?php break;
@@ -77,8 +77,8 @@
 						<input
                             class="input-control <?= $fieldValue["class"]; ?> col-9"
                             type="text"
-                            id="<?= $fieldValue["id"]; ?>"
-                            name="<?= $fieldValue["name"] ?>"
+                            id="<?= $fieldValue["id"] ?? '' ?>"
+                            name="<?= $fieldValue["name"] ?? '' ?>"
                             value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>" />
 					</div>
 				</div>
@@ -95,10 +95,11 @@
 				} ?>
 
 				<input
-                    type="<?= $fieldValue["type"]; ?>"
-                    name="<?= $fieldValue["name"]; ?>"
-                    placeholder="<?= $fieldValue["placeholder"]; ?>"
-                    class="<?= $fieldValue["class"]; ?>" id="<?= $fieldValue["id"]; ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
+                    type="<?= $fieldValue["type"] ?>"
+                    name="<?= $fieldValue["name"] ?? '' ?>"
+                    placeholder="<?= $fieldValue["placeholder"] ?? '' ?>"
+                    class="<?= $fieldValue["class"] ?? '' ?>"
+                    id="<?= $fieldValue["id"] ?? '' ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
                     value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>">
 				<?php break;
 

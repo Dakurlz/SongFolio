@@ -33,6 +33,11 @@
   action: dashboard
   needAuth: true
 
+'/changement_mot_de_passe':
+  controller: Users
+  action: editPwd
+  needAuth: true
+
 # ADMIN
 '/admin':
   controller: Admin
