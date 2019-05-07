@@ -49,9 +49,19 @@
   action: menus
   needGroups: admin
 
+'/admin/menus/add':
+  controller: Admin
+  action: menusAdd
+  needGroups: admin
+
 '/admin/menus/edit':
   controller: Admin
   action: menusEdit
+  needGroups: admin
+
+'/admin/menus/del':
+  controller: Admin
+  action: menusDel
   needGroups: admin
 
 '/admin/albums':

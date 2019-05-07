@@ -7,6 +7,7 @@ mapping_header_name:
   users: Utilisateurs
   contents: Contenus
   article: Article
+  menus: Menus
 
 # SIDEBAR ITEMS
 sidebar_items:
@@ -68,3 +69,9 @@ sidebar_items:
           controller: Categories
           action: article
           label: Article
+
+  menus:
+    name: Menus
+    slug:
+      controller: Admin
+      action: menus

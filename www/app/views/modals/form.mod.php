@@ -16,18 +16,24 @@
     enctype="multipart/form-data">
 
     <?php foreach ($config['data'] as $keyName => $fieldValue) : ?>
-		<div class="col-12">
+		<div class="form-group <?= $fieldValue["div_class"] ?? '' ?>">
 
 			<?php if (!empty($fieldValue["label"]) && $fieldValue["type"] !== "checkbox") : ?>
-				<label class="" for="<?= $fieldValue["id"]; ?>">
+				<label for="<?= $fieldValue["id"]; ?>">
 					<?= $fieldValue["label"]; ?>
 				</label>
 			<?php endif;
 
 		switch ($fieldValue["type"]): case "textarea":  ?>
-				<textarea rows="4" cols="50" name=<?= $keyName ?> id="<?= $fieldValue["id"]; ?>" class="textarea-control <?php $value['class'] ?? ""  ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>>
-								<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>
-						</textarea>
+				<textarea
+                    rows="4"
+                    cols="50"
+                    name=<?= $keyName ?> id="<?= $fieldValue["id"]; ?>"
+                    class="textarea-control <?php $value['class'] ?? ""  ?>"
+                    <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
+                >
+					<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>
+				</textarea>
 				<?php break;
 
 			case "select": ?>
@@ -70,7 +76,12 @@
 					unset($values[$keyName]);
 				} ?>
 
-				<input type="<?= $fieldValue["type"]; ?>" name="<?= $keyName; ?>" placeholder="<?= $fieldValue["placeholder"]; ?>" class="<?= $fieldValue["class"]; ?>" id="<?= $fieldValue["id"]; ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?> value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>">
+				<input
+                    type="<?= $fieldValue["type"]; ?>"
+                    name="<?= $keyName; ?>"
+                    placeholder="<?= $fieldValue["placeholder"]; ?>"
+                    class="<?= $fieldValue["class"]; ?>" id="<?= $fieldValue["id"]; ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
+                    value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>">
 				<?php break;
 
 		endswitch; ?>

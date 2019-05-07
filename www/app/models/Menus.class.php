@@ -52,14 +52,16 @@ class Menus extends BaseSQL
     {
         $result = '';
 
-        foreach ($linklist as $link) {
-            $result .= '<li><div class="block block-title" link="' . $link['link'] . '">' . $link['title'] . '</div><ul class="sortable list-unstyled">';
+        if(!empty($linklist)){
+            foreach ($linklist as $link) {
+                $result .= '<li><div class="block block-title" link="' . $link['link'] . '">' . $link['title'] . '</div><a href="#" class="muted del-menu-btn">Supprimer</a><ul class="sortable list-unstyled">';
 
-            if (isset($link['children'])) {
-                $result .= $this->show_menu_edit($link['children']);
+                if (isset($link['children'])) {
+                    $result .= $this->show_menu_edit($link['children']);
+                }
+
+                $result .= '</ul></li>';
             }
-
-            $result .= '</ul></li>';
         }
 
         return $result;

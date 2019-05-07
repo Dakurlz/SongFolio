@@ -1,3 +1,7 @@
+<?php
+use app\Core\Routing;
+?>
+
 <div class="container">
     <h1>Connexion</h1>
 
