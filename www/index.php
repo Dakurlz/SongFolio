@@ -15,8 +15,9 @@ Autoloader::register();
 session_start();
 
 $user = new Users();
+$route = Routing::getRoute($user);
 
-if($route = Routing::getRoute($user)){
+if(!empty($route)){
     extract($route);
 
     $container = [];
