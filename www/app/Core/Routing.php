@@ -47,7 +47,7 @@ class Routing
 
             return ['controller' => $controller, 'action' => $action, 'controllerPath' => $controllerPath];
         }
-        return ['controller' => '', 'action' =>'', 'controllerPath' => ''];
+        return [];
 
 
     }
