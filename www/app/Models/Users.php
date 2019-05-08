@@ -176,4 +176,47 @@ class Users extends BaseSQL
             ]
         ];
     }
+    public function getFormModifyPwd()
+    {
+        return [
+            "config"=>[
+                "action"=>Routing::getSlug("Users", "dashboard"),
+                "method"=>"POST",
+                "class"=>"",
+                "id"=>"",
+                "submit"=>"Changer de mot de passe"
+            ],
+
+            "data"=>[
+                "pwd"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Mot de passe actuel",
+                    "class"=>"form-control",
+                    "id"=>"currently_pwd",
+                    "required"=>true,
+                    "minlength"=>6,
+                    "error"=>"Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
+                ],
+                "new_pwd"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Nouveau mot de passe",
+                    "class"=>"form-control",
+                    "id"=>"new_pwd",
+                    "required"=>true,
+                    "minlength"=>6,
+                    "error"=>"Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
+                ],
+                "valid_new_pwd"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Confirmer mot de passe",
+                    "class"=>"form-control",
+                    "id"=>"valid_new_pwd",
+                    "required"=>true,
+                    "minlength"=>6,
+                    "error"=>"Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
+                ],
+            ]
+        ];
+
+    }
 }

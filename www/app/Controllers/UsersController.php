@@ -26,9 +26,20 @@ class UsersController
     }
 
     public function dashboardAction(): void
-    {
+
+    {   
+        $configForm = $this->user->getFormModifyPwd();
         $v = new View("user_dashboard", "front");
         $v->assign('user', $this->user);
+        $v->assign('FormModifyPwd',$configForm);
+        if(!empty($_POST)){
+        $this->modifyPwdAction($_POST);
+        }
+    }
+    public function modifyPwdAction($test) : void
+    {   
+        $this->user->id;
+        
     }
 
     public function registerAction(): void
