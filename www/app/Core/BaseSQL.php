@@ -47,6 +47,14 @@ class BaseSQL
         $this->getOneBy(['id' => $id], true);
     }
 
+    public function __getData(){
+        if (isset($this->data)) {
+            return $this->data;
+        }
+        return false;
+    }
+
+
     public function __get($attr)
     {
         if (isset($this->data[$attr])) {
@@ -121,15 +129,11 @@ class BaseSQL
         return $sqlWhere;
     }
 
-    public function getAllData($object = false)
+    public function getAllData()
     {
         $sql = "SELECT * FROM " . $this->table . ";";
         $query = $this->pdo->prepare($sql);
-        if ($object) {
-            $query->setFetchMode(PDO::FETCH_INTO, $this);
-        } else {
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-        }
+        $query->setFetchMode(PDO::FETCH_ASSOC);
         $query->execute();
         return $query->fetchAll();
     }
@@ -145,8 +149,9 @@ class BaseSQL
         $query->execute($where);
 
         if ($object) {
-            $this->data = $query->fetch();
-            return $this->data;
+            $query->setFetchMode(\PDO::FETCH_INTO, $this);
+        } else {
+            $query->setFetchMode(\PDO::FETCH_ASSOC);
         }
 
         return $query->fetch();
@@ -171,12 +176,10 @@ class BaseSQL
 
 
 
-    public function getCustomQuery(array $where, string $query)
+    public function getByCustomQuery(array $where, string $customQuery)
     {
         $sqlWhere = $this->sqlWhere($where);
-        $sql = $query . " WHERE " . implode(" AND ", $sqlWhere) . ";";
-
-
+        $sql =  'SELECT '. $customQuery . " FROM " . $this->table .  " WHERE " . implode(" AND ", $sqlWhere) . ";";
         $query = $this->pdo->prepare($sql);
 
         $query->setFetchMode(PDO::FETCH_ASSOC);

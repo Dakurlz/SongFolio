@@ -31,6 +31,10 @@ class CategoriesController
     {
         self::renderCategory('album');
     }
+    public function eventAction()
+    {
+        self::renderCategory('event');
+    }
 
     /**
      * Delete function
@@ -78,6 +82,14 @@ class CategoriesController
 
     }
 
+    public function updateEventAction()
+    {
+        $configForm = self::getConfigForm('event', 'update');
+        $alert = self::push($configForm, 'event', 'update');
+        self::renderCategoryView('event',$alert, $configForm );
+
+    }
+
     /**
      * @param string $type
      * @param string|null $action
@@ -93,7 +105,6 @@ class CategoriesController
     /**
      * @param $type
      * @param $alert
-     * @param $configForm
      */
     private function renderCategoryView($type, $alert)
     {
@@ -110,7 +121,20 @@ class CategoriesController
      */
     private function getConfigForm(string $type, string $typeForm): array
     {
-        return $type === 'album' ? $this->category->getFormAlbumCategories()[$typeForm] : $this->category->getFormArticleCategories()[$typeForm];
+
+        switch ($type){
+            case 'album':
+                return $this->category->getFormAlbumCategories()[$typeForm];
+                break;
+
+            case  'article':
+                return $this->category->getFormArticleCategories()[$typeForm];
+                break;
+            case 'event':
+                return $this->category->getFormEventCategories()[$typeForm];
+                break;
+        }
+        return [];
     }
 
     /**
