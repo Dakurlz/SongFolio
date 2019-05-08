@@ -40,3 +40,7 @@ $font-text: 'Lato', sans-serif;
   color: $color-red;
 }
 
+.icon-contents::before{
+	content: "\e601";
+}
+
