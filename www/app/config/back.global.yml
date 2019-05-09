@@ -8,6 +8,7 @@ mapping_header_name:
   contents: Contenus
   article: Article
   menus: Menus
+  event: Événement
 
 # SIDEBAR ITEMS
 sidebar_items:
@@ -20,8 +21,8 @@ sidebar_items:
   contents:
     name: Contenus
     slug:
-      controller: Admin
-      action: loadUser
+      controller: Contents
+      action: index
 
     dropdown:
       slugs:
@@ -70,8 +71,20 @@ sidebar_items:
           action: article
           label: Article
 
+        event:
+          controller: Categories
+          action: event
+          label: Événement
+
   menus:
     name: Menus
     slug:
       controller: Admin
       action: menus
+
+  event:
+    name: Événement
+    slug:
+      controller: Admin
+      action: menus
+
