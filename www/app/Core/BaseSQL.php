@@ -149,7 +149,9 @@ class BaseSQL
         $query->execute($where);
 
         if ($object) {
-            $query->setFetchMode(\PDO::FETCH_INTO, $this);
+            $this->data = $query->fetch();
+            return $this->data;
+            //$query->setFetchMode(\PDO::FETCH_INTO, $this);
         } else {
             $query->setFetchMode(\PDO::FETCH_ASSOC);
         }

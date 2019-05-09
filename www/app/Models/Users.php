@@ -80,6 +80,13 @@ class Users extends BaseSQL
                 "reset" => "Annuler",
                 "submit" => "S'enregistrer"
             ],
+            "btn" => [
+                "submit" => [
+                    "type" => "submit",
+                    "text" => "Inscription",
+                    "class" => "btn btn-success-outline"
+                ],
+            ],
             "data" => [
                 "username" => [
                     "type" => "text",
@@ -103,7 +110,7 @@ class Users extends BaseSQL
                     "maxlength" => 250,
                     "error" => "Votre email est incorrect ou fait plus de 250 caractères"
                 ],
-                "pwd" => [
+                "password" => [
                     "type" => "password",
                     "placeholder" => "Votre mot de passe",
                     "class" => "form-control",
@@ -118,8 +125,9 @@ class Users extends BaseSQL
                     "placeholder" => "Confirmation",
                     "class" => "form-control",
                     "id" => "pwdConfirm",
+                    "name" => "pwdConfirm",
                     "required" => true,
-                    "confirm" => "pwd",
+                    "confirm" => "password",
                     "error" => "Le mot de passe de confirmation ne correspond pas"
                 ],
             ]

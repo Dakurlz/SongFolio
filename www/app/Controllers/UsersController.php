@@ -46,12 +46,12 @@ class UsersController
 
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
-                $configForm["errors"] = $validator->errors;
+                $configForm["errors"] = $validator->getErrors();
 
                 if (empty($configForm["errors"])) {
                     $this->user->__set('username', $data["username"]);
                     $this->user->__set('email', $data["email"]);
-                    $this->user->__set('password', $data["pwd"]);
+                    $this->user->__set('password', $data["password"]);
                     $this->user->save();
                 }
             }
