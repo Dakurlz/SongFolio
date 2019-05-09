@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  sam. 04 mai 2019 à 23:42
+-- Généré le :  jeu. 09 mai 2019 à 10:04
 -- Version du serveur :  5.7.25
 -- Version de PHP :  7.2.14
 
@@ -58,11 +58,10 @@ CREATE TABLE `Categories` (
 --
 
 INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
-(3, 'test', NULL, ''),
-(34, 'xcvcxvxcv update', NULL, 'album'),
-(36, 'dsffgh', NULL, 'album'),
-(41, 'xcvxv', 'xcvxcv', 'article'),
-(42, 'xcvxvsdf update ', 'xcvxcvsdf update ', 'article');
+(44, 'categ_1', 'categ_1', 'article'),
+(45, 'categ_2', 'categ_2', 'article'),
+(46, 'Concert', NULL, 'event'),
+(47, 'Festival', NULL, 'event');
 
 -- --------------------------------------------------------
 
@@ -98,26 +97,43 @@ CREATE TABLE `Contents` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `slug` text NOT NULL,
-  `cat_id` int(11) DEFAULT NULL,
-  `title` varchar(100) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  `content` varchar(600) NOT NULL,
-  `header` varchar(150) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `content` longtext NOT NULL,
   `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_edit` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `author` int(11) NOT NULL,
   `img_dir` text,
-  `published` tinyint(1) NOT NULL
+  `published` tinyint(1) NOT NULL DEFAULT '1',
+  `comment_active` tinyint(1) NOT NULL DEFAULT '1',
+  `indexed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `Contents`
 --
 
-INSERT INTO `Contents` (`id`, `type`, `slug`, `cat_id`, `title`, `description`, `content`, `header`, `date_create`, `date_edit`, `author`, `img_dir`, `published`) VALUES
-(17, 'page', '/blog', NULL, 'Blog', 'sdf', '<p>sdfsdf</p>', '', '2019-05-04 21:36:36', NULL, 1, 'Format n\'est pas bon.', 1),
-(18, 'page', '//sdf update', NULL, 'des', 'dddf', '<p>sdfsdf</p>', '', '2019-05-04 21:48:19', '2019-05-04 22:22:54', 1, 'Format n\'est pas bon.', 0),
-(19, 'article', '//sdf', NULL, 'COomment faire se b', 'sdf', '<p>qsdqsdqsd<strong> qsdqs d</strong></p>', '', '2019-05-04 22:34:32', '2019-05-04 22:39:32', 1, 'Format n\'est pas bon.', 1);
+INSERT INTO `Contents` (`id`, `type`, `slug`, `category_id`, `title`, `description`, `content`, `date_create`, `date_edit`, `author`, `img_dir`, `published`, `comment_active`, `indexed`) VALUES
+(20, 'article', 'test', 44, 'Comment faife le *****', 'my seo description', '<p>sdfsdfsdfsd</p>\r\n\r\n<p>sdfsdf<img alt=\"heart\" src=\"https://cdn.ckeditor.com/4.11.3/full/plugins/smiley/images/heart.png\" style=\"height:20px; width:20px\" title=\"heart\" /></p>\r\n\r\n<p><strong>fsd<span style=\"font-family:Arial,Helvetica,sans-serif\">&nbsp;sfdfsfs</span></strong></p>\r\n\r\n<p><strong><span style=\"font-family:Arial,Helvetica,sans-serif\">je croi pas mais quan mem&nbsp;</span></strong></p>', '2019-05-08 13:19:58', NULL, 1, 'public/uploads/contents/screeshot7.jpg', 1, 1, 0),
+(27, 'article', 'lolol', 45, 'xcvxvc', 'cxvxv', '<p>fghdgdfg</p>', '2019-05-08 15:40:32', '2019-05-08 17:21:35', 1, 'public/uploads/contents/Screenshot_8.png', 1, 0, 1),
+(28, 'page', 'page', NULL, 'Pge test', 'cvxcvbx', '<p>zerzerze</p>\r\n\r\n<p>zer</p>\r\n\r\n<p>ze</p>\r\n\r\n<p>rs</p>\r\n\r\n<p>dfs</p>', '2019-05-08 17:30:21', '2019-05-08 17:33:39', 1, 'public/uploads/contents/screeshot7.jpg', 1, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Events`
+--
+
+CREATE TABLE `Events` (
+  `id` int(11) NOT NULL,
+  `displayName` varchar(500) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'ok',
+  `start_date` timestamp NULL DEFAULT NULL,
+  `end_date` timestamp NULL DEFAULT NULL,
+  `img_dir` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -273,6 +289,12 @@ ALTER TABLE `Contents`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `Events`
+--
+ALTER TABLE `Events`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `Groups`
 --
 ALTER TABLE `Groups`
@@ -334,7 +356,7 @@ ALTER TABLE `Albums`
 -- AUTO_INCREMENT pour la table `Categories`
 --
 ALTER TABLE `Categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT pour la table `Comments`
@@ -346,7 +368,13 @@ ALTER TABLE `Comments`
 -- AUTO_INCREMENT pour la table `Contents`
 --
 ALTER TABLE `Contents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT pour la table `Events`
+--
+ALTER TABLE `Events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `Groups`
