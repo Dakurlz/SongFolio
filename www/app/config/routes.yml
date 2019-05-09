@@ -86,10 +86,6 @@
   controller: Categories
   action: album
 
-'/admin/categories/event':
-  controller: Categories
-  action: event
-
 '/admin/categories/delete':
   controller: Categories
   action: delete
@@ -106,16 +102,8 @@
   controller: Categories
   action: updateArticle
 
-'/admin/categories/event/update':
-  controller: Categories
-  action: updateEvent
-
 # CONTENTS
 '/admin/contents':
-  controller: Contents
-  action: index
-
-'/admin/contents/create':
   controller: Contents
   action: createContents
 

@@ -2,17 +2,17 @@
   <div class="dashboard-content">
     <div class="row">
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
-        <div class=" page stats-block ">
+        <div class=" page dashboard-content__tab ">
           <img src="<?= BASE_URL."public/img/contents.svg"; ?>"
           />
           <div>
-            <p> <?= $nb_page ?? '0' ?>  </p>
+            <p>11</p>
             <p>Pages</p>
           </div>
         </div>
       </div>
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
-        <div class="stats-block user">
+        <div class="dashboard-content__tab user">
           <img src="<?= BASE_URL."public/img/users.svg"; ?>"
           />
           <div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
-        <div class="stats-block comment">
+        <div class="dashboard-content__tab comment">
           <img src="<?= BASE_URL."public/img/comments.svg"; ?>" />
           <div>
             <p>123</p>
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
-        <div class="stats-block daily-visit">
+        <div class="dashboard-content__tab daily-visit">
           <img src="<?php echo BASE_URL."public/img/glass.svg"; ?>" />
           <div>
             <p>48</p>

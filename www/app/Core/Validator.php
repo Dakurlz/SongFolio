@@ -25,11 +25,11 @@ class Validator
             debug(count($data) !== $configCount);
             View::show404("Tentative de Faille XSS");
         }*/
+
         foreach ($config["data"] as $name => $input) {
             //required
 
-            if ( ($input["required"] ?? false) && empty($data[$name])) {
-                debug($data[$name]);
+            if ($input["required"] && empty($data[$name])) {
                 View::show404("Tentative de Faille XSS");
             } else {
 

@@ -34,7 +34,6 @@ class Categories extends BaseSQL
                 "data" => [
                     "name" => [
                         "type" => "text",
-                        "name" => "name",
                         "placeholder" => "Saisissez une catégorie",
                         "class" => "input-control",
                         "id" => "name",
@@ -66,7 +65,6 @@ class Categories extends BaseSQL
                         "type" => "text",
                         "placeholder" => "Saisissez une catégorie",
                         "class" => "input-control",
-                        "name" => "name",
                         "id" => "name",
                         "required" => true,
                         "minlength" => 2,
@@ -94,7 +92,7 @@ class Categories extends BaseSQL
                 "btn" => [
                     "submit" => [
                         "type" => "submit",
-                        "text" => "Ajouter",
+                        "text" => "Modifié",
                         "class" => "btn btn-success-outline"
                     ],
                 ],
@@ -103,7 +101,6 @@ class Categories extends BaseSQL
                         "type" => "text",
                         "placeholder" => "Saisissez une catégorie",
                         "class" => "input-control",
-                        "name" => "name",
                         "id" => "name",
                         "required" => true,
                         "minlength" => 2,
@@ -114,9 +111,8 @@ class Categories extends BaseSQL
                         "type" => "slug",
                         "label" => "Lien permanent",
                         "class" => "",
-                        "presed" => $_SERVER['SERVER_NAME'],
+                        "presed" => $_SERVER['SERVER_NAME'] . '/',
                         "id" => "slug",
-                        "name" => "slug",
                         "placeholder" => "",
                         "required" => true,
                         "minlength" => 2,
@@ -137,14 +133,13 @@ class Categories extends BaseSQL
                 "btn" => [
                     "submit" => [
                         "type" => "submit",
-                        "text" => "Modifié",
+                        "text" => "Ajouter",
                         "class" => "btn btn-success-outline"
                     ],
                 ],
                 "data" => [
                     "name" => [
                         "type" => "text",
-                        "name" => "name",
                         "placeholder" => "Saisissez une catégorie",
                         "class" => "input-control",
                         "id" => "name",
@@ -155,10 +150,9 @@ class Categories extends BaseSQL
                     ],
                     "slug" => [
                         "type" => "slug",
-                        "name" => "slug",
                         "label" => "Lien permanent",
                         "class" => "",
-                        "presed" => $_SERVER['SERVER_NAME'],
+                        "presed" => $_SERVER['SERVER_NAME'] . '/',
                         "id" => "slug",
                         "placeholder" => "",
                         "required" => true,
@@ -166,73 +160,6 @@ class Categories extends BaseSQL
                         "maxlength" => 100,
                         "error" => "Votre titre doit faire entre 2 et 100 caractères"
                     ],
-
-                ]
-            ]
-
-        ];
-    }
-
-    public function getFormEventCategories()
-    {
-        return [
-            "create" => [
-                "config" => [
-                    "action" => Routing::getSlug("Categories", "event"),
-                    "method" => "POST",
-                    "class" => "",
-                    'header' => 'Ajouter une nouvelle catégorie',
-                    'action_type' => 'create'
-                ],
-                "btn" => [
-                    "submit" => [
-                        "type" => "submit",
-                        "text" => "Ajouter",
-                        "class" => "btn btn-success-outline"
-                    ],
-                ],
-                "data" => [
-                    "name" => [
-                        "type" => "text",
-                        "name" => "name",
-                        "placeholder" => "Saisissez une catégorie",
-                        "class" => "input-control",
-                        "id" => "name",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 50,
-                        "error" => "Votre catégorie doit faire entre 2 et 60 caractères"
-                    ]
-
-                ]
-            ],
-            "update" => [
-                "config" => [
-                    "action" => Routing::getSlug("Categories", "updateEvent"),
-                    "method" => "POST",
-                    "class" => "",
-                    'header' => 'Modification catégorie',
-                    'action_type' => 'update'
-                ],
-                "btn" => [
-                    "submit" => [
-                        "type" => "submit",
-                        "text" => "Modifé",
-                        "class" => "btn btn-success-outline"
-                    ],
-                ],
-                "data" => [
-                    "name" => [
-                        "type" => "text",
-                        "placeholder" => "Saisissez une catégorie",
-                        "class" => "input-control",
-                        "name" => "name",
-                        "id" => "name",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 50,
-                        "error" => "Votre catégorie doit faire entre 2 et 60 caractères"
-                    ]
 
                 ]
             ]
