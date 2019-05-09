@@ -34,9 +34,7 @@ return [
     },
     ContentsController::class => function ($container) {
         $contentsModel = $container[Contents::class]($container);
-        $categorieModel = $container[Categories::class]($container);
-
-        return new ContentsController($contentsModel, $categorieModel);
+        return new ContentsController($contentsModel);
     },
     CategoriesController::class => function ($container) {
         $categorieModel = $container[Categories::class]($container);

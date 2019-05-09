@@ -1,5 +1,5 @@
 <?php
-    use Songfolio\Core\Helper;
+
     $values = isset($config['values']) ? $config['values'] : ($config['config']['method'] === "POST" ? $_POST : $_GET);
 
     $id = isset($values['id']) ? '?id='.$values['id'] : null;
@@ -7,8 +7,9 @@
 ?>
 
 <?php if(isset($config['config']['header'])): ?>
-    <h1 class="col-12"><?= $config['config']['header'] ?> </h1>
+    <h2 class="col-12"><?= $config['config']['header'] ?> </h2>
 <?php endif ?>
+
 <form method="<?= $config['config']['method']; ?>"
     <?= isset($config['config']['action']) ? 'action="' . $config['config']['action'] . $id . '"' : null; ?>
     class="form <?= $config['config']['class']; ?>"
@@ -17,7 +18,7 @@
     <?php foreach ($config['data'] as $keyName => $fieldValue) : ?>
 		<div class="form-group <?= $fieldValue["div_class"] ?? '' ?>">
 
-			<?php if (!empty($fieldValue["label"]) && $fieldValue["type"]!== 'checkbox') : ?>
+			<?php if (!empty($fieldValue["label"])) : ?>
 				<label for="<?= $fieldValue["id"] ?? '' ?>">
 					<?= $fieldValue["label"]; ?>
 				</label>
@@ -28,9 +29,9 @@
                     rows="4"
                     cols="50"
                     name=<?= $fieldValue["name"] ?? '' ?> id="<?= $fieldValue["id"] ?? '' ?>"
-                    class="textarea-control <?php $fieldValue['class'] ?? ""  ?>"
+                    class="textarea-control <?php $value['class'] ?? ""  ?>"
                     <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
-                ><?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?></textarea>
+                ><?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?></textarea>
 				<?php break;
 
 			case "select": ?>
@@ -39,7 +40,7 @@
                     id="<?= $fieldValue["id"] ?? '' ?>"
                     class="select-control <?= $fieldValue['class'] ?? '' ?>">
 					<?php foreach ($fieldValue['options'] as $option) : ?>
-						<option <?= isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>">
+						<option <?= isset($values[$keyName]) ? $values[$keyName] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>">
                             <?= $option['label']; ?>
                         </option>
 					<?php endforeach ?>
@@ -47,59 +48,50 @@
 				<?php break;
 
 			case "checkbox": ?>
-				<div class="switch-control">
-                    <label class="switch">
-                        <input name="<?= $fieldValue["name"] ?>" type="checkbox" value="1" <?= isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === '1' ? 'checked' : null : null  ?> >
-                        <span class="slider round"></span>
-                    </label>
-                   <span class="switch-control__text"><?= $fieldValue["label"]; ?></span>
-				</div>
+				<label class="switch">
+					<input name="<?= $fieldValue["name"] ?>" type="checkbox" value="1">
+					<span class="slider round"></span>
+				</label>
+                <input type="hidden"  >
                 <?php break;
 
 			case "file": ?>
-            <?php $imageValues = isset($values[$fieldValue["name"]] ) ? $values[$fieldValue["name"]] !== null ? BASE_URL . $values[$fieldValue["name"]]  : null : null ?>
-
-                <div class="box">
+                <p>
                     <input
-                            type="file"
-                            name="<?= $fieldValue["name"] ?? '' ?>"
-                            id="file-2 <?= $fieldValue["id"] ?? '' ?>"
-                            class="inputfile inputfile-2"
-                            onchange="readURL(this);"
-                            value="<?=$imageValues ?>"
-                    >
-                        <label for="file-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg>
-                            <span> <?= $imageValues !== null ? Helper::getImageName($imageValues) : 'Choisir une image&hellip;' ?> </span>
-                        </label>
-                    <img  id="befor_upload" src="<?=  $imageValues?>" alt="" height="20%" width="30%" >
-                </div>
-
-
-                <?php break;
+                        type="<?= $fieldValue["type"]; ?>"
+                        id="<?= $fieldValue["id"] ?? '' ?>"
+                        name="<?= $fieldValue["name"] ?? '' ?>"
+                        value="1" />
+                    <input
+                        type="hidden"
+                        name="<?= $fieldValue["name"] ?? '' ?>"
+                        value="file" />
+                </p>
+				<?php break;
 
 
 			case "slug": ?>
-					<div class="slug">
-						<span class="input-group-text"><?= $fieldValue['presed']; ?>/</span>
+				<div class="col-12">
+					<div class="row">
+						<span class="input-group-text col-3"><?= $fieldValue['presed']; ?>/</span>
 						<input
-                            class="input-control <?= $fieldValue["class"]; ?>"
+                            class="input-control <?= $fieldValue["class"]; ?> col-9"
                             type="text"
                             id="<?= $fieldValue["id"] ?? '' ?>"
                             name="<?= $fieldValue["name"] ?? '' ?>"
-                            value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?>" />
+                            value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>" />
 					</div>
+				</div>
 				<?php break;
 
             case 'separator': ?>
-                <div>
-                    <hr>
-                    <?=(isset($fieldValue['after_title']) ? '<h3 style="margin-bottom: 0px">'.$fieldValue['after_title'].'</h3>' : '')?>
-                </div>
+                <hr>
+                <?=(isset($fieldValue['after_title']) ? '<h3>'.$fieldValue['after_title'].'</h3>' : '')?>
                 <?php break;
 
 			default:
 				if ($fieldValue["type"] === "password") {
-					unset($values[$fieldValue["name"]]);
+					unset($values[$keyName]);
 				} ?>
 
 				<input
@@ -108,7 +100,7 @@
                     placeholder="<?= $fieldValue["placeholder"] ?? '' ?>"
                     class="<?= $fieldValue["class"] ?? '' ?>"
                     id="<?= $fieldValue["id"] ?? '' ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
-                    value="<?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?>">
+                    value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$keyName], ENT_QUOTES, 'UTF-8') : '' ?>">
 				<?php break;
 
 		endswitch; ?>

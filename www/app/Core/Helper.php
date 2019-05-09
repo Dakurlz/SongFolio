@@ -4,37 +4,27 @@ declare (strict_types = 1);
 
 namespace Songfolio\Core;
 
-use mysql_xdevapi\Exception;
-
 class Helper
 {
-    /**
-     * @param $targetDirProp
-     * @param $name
-     * @return string
-     */
-    public static function uploadImage(string $targetDirProp, string $name)
+
+    public static function uploadImage($targetDirProp): string
     {
         $targetDir = $targetDirProp;
-        $fileName = basename($_FILES[$name]["name"]);
+        $fileName = basename($_FILES["file"]["name"]);
         $targetFilePath = $targetDir . $fileName;
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
         $allowTypes = ['jpg', 'png', 'jpeg', 'gif'];
-        if($fileType !== ''){
-            if (in_array($fileType, $allowTypes)) {
-                if (move_uploaded_file($_FILES[$name]["tmp_name"], $targetFilePath)) {
-                    $statusMsg = 'OK';
-                } else {
-                    $statusMsg = "Désolé, une erreur se produit.";
-                }
+        if (in_array($fileType, $allowTypes)) {
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
+                $statusMsg = 'OK';
             } else {
-                $statusMsg = 'Format n\'est pas bon.';
+                $statusMsg = "Désolé, une erreur se produit.";
             }
-
-            return $statusMsg === 'OK' ? $targetFilePath : $statusMsg;
         } else {
-            return null;
+            $statusMsg = 'Format n\'est pas bon.';
         }
+
+        return $statusMsg === 'OK' ? $targetFilePath : $statusMsg;
     }
 
     /**
@@ -124,38 +114,5 @@ class Helper
     public static function getCalledClass(string $classname): string
     {
         return substr(strrchr($classname, "\\"), 1);
-    }
-
-    /**
-     * @param string $date
-     * @return string
-     */
-    public static function getFormatedDate($date): string
-    {
-        if($date !== null)
-            return date("d/m/Y", strtotime($date));
-        return '';
-    }
-
-    /**
-     * @param $arr
-     * @param $compare
-     * @param $return
-     * @return bool|string
-     */
-    public static function searchInArray($arr, $compare, $return)
-    {
-        foreach ($arr as $item) {
-            if( $item['id'] === $compare ){
-                return $item[$return];
-                break;
-            }
-        }
-        return false;
-    }
-
-    public static function getImageName(string $str): string
-    {
-        return substr(strrchr($str, "/"), 1);
     }
 }

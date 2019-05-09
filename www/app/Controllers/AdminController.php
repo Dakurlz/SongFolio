@@ -6,7 +6,6 @@ namespace Songfolio\Controllers;
 
 use Songfolio\Core\View;
 use Songfolio\Core\Routing;
-use Songfolio\Models\Contents;
 use Songfolio\Models\Menus;
 use Songfolio\Models\Users;
 
@@ -14,9 +13,7 @@ class AdminController{
 
     public function defaultAction()
     {
-        $nb_page = (new Contents())->getByCustomQuery(['type' => 'page'], 'COUNT(*) as nb_page');;
-        $view = new View("admin/dashboard", "back");
-        $view->assign('nb_page', $nb_page['nb_page']);
+        new View("dashboard", "back");
     }
 
     /* Menus */
