@@ -81,7 +81,12 @@ class UsersController
 
                 if (empty($configForm["errors"])) {
                     if ($user->getOneBy(['username' => $data['username']], true) && password_verify($data['password'], $user->__get('password'))) {
-                        //$token = md5(substr(uniqid().time(), 4, 10)."mxu(4il");
+
+                        $token = md5(substr(uniqid().time(), 4, 10));
+                        setcookie('token', $token, time() + (86400 * 7), "/");
+
+                        $user->__set('login_token', $token);
+                        $user->save();
                         $_SESSION['user'] = $user->__get('id');
 
                         if (isset($_GET['redirect'])) {
@@ -105,6 +110,7 @@ class UsersController
     public function logoutAction(): void
     {
         unset($_SESSION['user']);
+        setcookie('token', '', -1, '/');
 
         header('Location: ' . BASE_URL);
     }

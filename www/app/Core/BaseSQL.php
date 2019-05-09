@@ -16,7 +16,7 @@ class BaseSQL
     private $table;
     private $data = [];
 
-    public function __construct($id)
+    public function __construct($id = null)
     {
         // Avec un singleton c'est mieux
         try {

@@ -13,7 +13,14 @@ class Users extends BaseSQL
         if (!isset($id) && isset($_SESSION['user'])) {
             $id = $_SESSION['user'];
         }
-        parent::__construct($id);
+        if (isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
+            parent::__construct();
+            $token = htmlspecialchars($_COOKIE['token']);
+            $this->getOneBy(['login_token' => $token], true);
+            $_SESSION['user'] = $this->__get('id');
+        }else{
+            parent::__construct($id);
+        }
     }
 
     public function customSet($attr, $value)
