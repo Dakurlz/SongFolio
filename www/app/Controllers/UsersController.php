@@ -51,7 +51,6 @@ class UsersController
         $configForm = $this->user->getFormRegister();
 
         if (!empty($_POST)) {
-
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
 
@@ -82,14 +81,14 @@ class UsersController
         $configForm = $user->getFormLogin();
 
         if (!empty($_POST)) {
-
+           
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
-
+            
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
-
+                var_dump($validator);
                 if (empty($configForm["errors"])) {
                     if ($user->getOneBy(['username' => $data['username']], true) && password_verify($data['password'], $user->__get('password'))) {
                         //$token = md5(substr(uniqid().time(), 4, 10)."mxu(4il");
