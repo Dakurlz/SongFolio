@@ -12,6 +12,20 @@ class Categories extends BaseSQL
         parent::__construct($id);
     }
 
+    /**
+     * @param array $categories
+     * @return array
+     */
+    public static function prepareCategoriesToSelect(array $categories): array
+    {
+        $arr = [];
+        foreach ($categories as $category){
+            $arr[] = ['label' => $category['name'], 'value' => $category['id']];
+        }
+
+        return $arr;
+    }
+
     public function getFormAlbumCategories()
     {
         return [

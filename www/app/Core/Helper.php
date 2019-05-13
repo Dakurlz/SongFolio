@@ -137,6 +137,16 @@ class Helper
         return '';
     }
 
+    public static function getFormatedDateWithTime($date): string
+    {
+        if($date !== null){
+            $dt = date("d/m/Y  H:i", strtotime($date));
+            return substr_replace($dt, ' à ', strrpos($dt," "), 0);;
+        }
+            
+        return '';
+    }
+
     /**
      * @param $arr
      * @param $compare

@@ -17,7 +17,8 @@ use Songfolio\Core\Routing;
 
    <script src="https://cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
 
-   <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
+    <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
+    <link rel="stylesheet" href="<?= BASE_URL . "public/css/datetimepicker.css?v=" . filemtime("public/css/jquery.timepicker.css"); ?>" />
    <title>Admin</title>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 </head>
@@ -34,7 +35,7 @@ use Songfolio\Core\Routing;
          </div>
          <div class="row__logout col-lg-6 col-sm-6">
 
-            <a href="<?= Routing::getSlug("Admin", "loadAuth") ?>" class=" link col-lg-6 col-sm-6" onclick="">Déconnexion</a>
+            <a href="<?=Routing::getSlug('users', 'logout')?>>" class=" link col-lg-6 col-sm-6" onclick="">Déconnexion</a>
          </div>
       </div>
    </header>
@@ -120,10 +121,11 @@ use Songfolio\Core\Routing;
    </main>
 
 
-   <script src="<?php echo BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
-   <script src="<?php echo BASE_URL . "public/js/jquery-ui.min.js?v=" . filemtime("public/js/front.js"); ?>"></script>
-   <script src="<?php echo BASE_URL . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
-   <script src="<?php echo BASE_URL . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
+   <script src="<?= BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
+   <script src="<?= BASE_URL . "public/js/datetimepicker.js"; ?>"></script>
+   <script src="<?= BASE_URL . "public/js/jquery-ui.min.js?v=" . filemtime("public/js/front.js"); ?>"></script>
+   <script src="<?= BASE_URL . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
+   <script src="<?= BASE_URL . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
    <?php if (isset($js) && is_array($js)) : ?>
       <?php foreach ($js as $js_name) : ?>
          <script src="<?php echo BASE_URL . "public/js/" . $js_name . ".js?v=" . filemtime("public/js/" . $js_name . ".js"); ?>"></script>
