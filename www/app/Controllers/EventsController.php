@@ -114,6 +114,7 @@ class EventsController
                 isset($fileName) ? $this->event->__set('img_dir', $fileName) : null;
                 $this->event->__set('details', $data['details']);
                 $this->event->__set('rate', (float)$data['rate']);
+                $this->event->__set('nbr_place', (int)$data['nbr_place']);
                 // ADDRESS
                 $this->event->__set('address', $data['address']);
                 $this->event->__set('city', $data['city']);

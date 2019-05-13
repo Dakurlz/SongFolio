@@ -75,6 +75,12 @@ use Songfolio\Core\Helper;
                             </div>
                             <hr>
 
+                            <div class="form-group">
+                                <h2><?= $event['nbr_place'] ?> place</h2>
+                            </div>
+                            
+                            <hr>
+
 
                             <div class="form-group">
                                 <address>

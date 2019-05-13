@@ -132,8 +132,13 @@ class Events extends BaseSQL
                         "required" => true,
                         "label" => "Prix",
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                        
-                        
+                    ],
+                    'nbr_place' => [
+                        'type' => 'number',
+                        'name' => 'nbr_place',
+                        "required" => true,
+                        "label" => "Nombre de place",
+                        'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
                     ],
                     'address' => [
                         'type' => 'text',
@@ -277,8 +282,13 @@ class Events extends BaseSQL
                         "required" => true,
                         "label" => "Prix",
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                        
-                        
+                    ],
+                    'nbr_place' => [
+                        'type' => 'number',
+                        'name' => 'nbr_place',
+                        "required" => true,
+                        "label" => "Nombre de place",
+                        'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
                     ],
                     'address' => [
                         'type' => 'text',
