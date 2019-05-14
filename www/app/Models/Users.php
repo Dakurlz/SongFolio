@@ -45,27 +45,31 @@ class Users extends BaseSQL
             if ($groups == 'connected') {
                 return true;
             } else {
-                $compare_groups = explode(",", $groups);
-                $user_groups = explode(",", $this->__get('role'));
+                $groups = explode(",", $groups);
 
-                if (array_intersect($compare_groups, $user_groups)) {
+                foreach($groups as $group_name){
+                    $group = new Roles( ['name' => $group_name] );
+                    if($group->id() == $this->__get('role_id')){
                         return true;
                     }
+                }
             }
         }
 
         return false;
     }
 
+    // $user->can('permission') retourne true ou false selon si la permission est ou non dans le role de l'utilisateur
     public function can($askedAction){
         $group = new Roles( $this->__get('role_id') );
-        if($group->getPerm($askedAction)){
+        if($group->getPerm($askedAction) || $group->getPerm('all_perms')){
             return true;
         }
 
         return false;
     }
 
+    //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
     public static function need($askedAction) : void
     {
         $user = new Users();
