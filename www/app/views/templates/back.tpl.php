@@ -15,11 +15,8 @@ use Songfolio\Core\Routing;
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-   <script src="https://cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
-
    <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
    <title>Admin</title>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 </head>
 
 <body>
@@ -120,8 +117,11 @@ use Songfolio\Core\Routing;
    </main>
 
 
+
    <script src="<?php echo BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
-   <script src="<?php echo BASE_URL . "public/js/jquery-ui.min.js?v=" . filemtime("public/js/front.js"); ?>"></script>
+   <script src="<?php echo BASE_URL . "public/js/jquery-ui.min.js"?>"></script>
+   <script src="https://cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
    <script src="<?php echo BASE_URL . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
    <script src="<?php echo BASE_URL . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
    <?php if (isset($js) && is_array($js)) : ?>

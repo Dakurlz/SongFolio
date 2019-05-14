@@ -143,3 +143,23 @@
 '/admin/comments':
   controller: Comments
   action: listNotConfirm
+
+# Settings
+'/admin/settings':
+  controller: Settings
+  action: index
+'/admin/settings/save':
+  controller: Settings
+  action: save
+'/admin/settings/config':
+  controller: Settings
+  action: config
+'/admin/settings/template':
+  controller: Settings
+  action: template
+'/admin/settings/header':
+  controller: Settings
+  action: header
+'/admin/settings/footer':
+  controller: Settings
+  action: footer

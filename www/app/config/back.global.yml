@@ -9,6 +9,7 @@ mapping_header_name:
   article: Article
   menus: Menus
   event: Événement
+  settings: Paramètres
 
 # SIDEBAR ITEMS
 sidebar_items:
@@ -17,6 +18,34 @@ sidebar_items:
     slug:
       controller: Admin
       action: default
+
+  settings:
+    name: Paramètres
+    slug:
+      controller: Settings
+      action: index
+
+    dropdown:
+      slugs:
+        config_settings:
+          controller: Settings
+          action: config
+          label: Configuration
+
+        template_settings:
+          controller: Settings
+          action: template
+          label: Theme
+
+        header_settings:
+          controller: Settings
+          action: header
+          label: Header
+
+        footer_settings:
+          controller: Settings
+          action: footer
+          label: Footer
 
   contents:
     name: Contenus

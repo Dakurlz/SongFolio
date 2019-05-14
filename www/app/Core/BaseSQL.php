@@ -16,7 +16,7 @@ class BaseSQL
     private $table;
     private $data = [];
 
-    public function __construct($id = null)
+    public function __construct($initIdOrSearch = null)
     {
         // Avec un singleton c'est mieux
         try {
@@ -28,8 +28,13 @@ class BaseSQL
 
         $this->table = Helper::getCalledClass(get_called_class());
 
-        if ($id) {
-            $this->getOneBy(["id" => $id], true);
+        if(!empty($initIdOrSearch) && is_array($initIdOrSearch))
+        {
+            $this->getOneBy($initIdOrSearch, true);
+        }
+        else if (!empty($initIdOrSearch))
+        {
+            $this->getOneBy(["id" => $initIdOrSearch], true);
         }
     }
 

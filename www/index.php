@@ -45,9 +45,7 @@ if(!empty($route)){
         View::show404("Le fichier controller ".$controller." n'existe pas.");
     }
 }elseif( $content = Contents::getBySlug( Routing::currentSlug(true) ) ){
-
     $content->show();
-
 }else{
     View::show404("L'url n'existe pas.");
 }

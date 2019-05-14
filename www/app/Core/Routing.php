@@ -16,6 +16,9 @@ class Routing
         $slugExploded = explode("?", $slug);
         return ($withoutSlash ? trim(strtolower($slugExploded[0]), '/') : strtolower($slugExploded[0]));
     }
+    
+    public function cutEndSlug($slug){
+    }
 
     /**
      * @param Users $user

@@ -108,7 +108,9 @@
                     placeholder="<?= $fieldValue["placeholder"] ?? '' ?>"
                     class="<?= $fieldValue["class"] ?? '' ?>"
                     id="<?= $fieldValue["id"] ?? '' ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
-                    value="<?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?>">
+                    value="<?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') :
+                        $fieldValue["value"] ?? ''
+                    ?>">
 				<?php break;
 
 		endswitch; ?>

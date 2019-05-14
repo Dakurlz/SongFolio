@@ -14,9 +14,8 @@ class Users extends BaseSQL
             $id = $_SESSION['user'];
         }
         if (isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
-            parent::__construct();
             $token = htmlspecialchars($_COOKIE['token']);
-            $this->getOneBy(['login_token' => $token], true);
+            parent::__construct(['login_token' => $token]);
             $_SESSION['user'] = $this->__get('id');
         }else{
             parent::__construct($id);

@@ -6,6 +6,7 @@ use Songfolio\Controllers\NameController;
 use Songfolio\Controllers\PagesController;
 use Songfolio\Controllers\UsersController;
 use Songfolio\Controllers\CommentsController;
+use Songfolio\Controllers\SettingsController;
 
 use Songfolio\Models\Users;
 use Songfolio\Models\Contents;
@@ -31,6 +32,9 @@ return [
     },
     PagesController::class => function ($container) {
         return new PagesController();
+    },
+    SettingsController::class => function ($container) {
+        return new SettingsController();
     },
     ContentsController::class => function ($container) {
         $contentsModel = $container[Contents::class]($container);
