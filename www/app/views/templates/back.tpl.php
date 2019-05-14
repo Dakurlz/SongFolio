@@ -16,7 +16,7 @@ use Songfolio\Core\Routing;
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
-    <link rel="stylesheet" href="<?= BASE_URL . "public/css/datetimepicker.css?v=" . filemtime("public/css/jquery.timepicker.css"); ?>" />
+    <link rel="stylesheet" href="<?= BASE_URL . "public/css/datetimepicker.css?v=" . filemtime("public/css/datetimepicker.css"); ?>" />
 
     <title>Admin</title>
 </head>

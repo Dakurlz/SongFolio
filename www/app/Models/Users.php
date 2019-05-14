@@ -57,6 +57,23 @@ class Users extends BaseSQL
         return false;
     }
 
+    public function can($askedAction){
+        $group = new Roles( $this->__get('role_id') );
+        if($group->getPerm($askedAction)){
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function need($askedAction) : void
+    {
+        $user = new Users();
+        if(!$user->can($askedAction)){
+            header('Location: '.BASE_URL);
+        }
+    }
+
     public function needAuth(): void
     {
         if (!$this->is('connected')) {

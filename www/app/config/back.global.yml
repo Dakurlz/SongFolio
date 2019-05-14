@@ -76,6 +76,24 @@ sidebar_items:
       controller: Admin
       action: loadUser
 
+  roles:
+    name: Rôles
+    slug:
+      controller: Admin
+      action: roles
+
+    dropdown:
+      slugs:
+        roles_add:
+          controller: Admin
+          action: roles
+          label: Liste des rôles
+
+        roles_list:
+          controller: Admin
+          action: rolesAdd
+          label: Ajouter un rôle
+
   comments:
     name: Commentaires
     slug:
