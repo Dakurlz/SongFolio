@@ -9,13 +9,18 @@
 <?php if(isset($config['config']['header'])): ?>
     <h1 class="col-12"><?= $config['config']['header'] ?> </h1>
 <?php endif ?>
+
 <form method="<?= $config['config']['method']; ?>"
     <?= isset($config['config']['action']) ? 'action="' . $config['config']['action'] . $id . '"' : null; ?>
-    class="form <?= $config['config']['class']; ?>"
+    class="form <?= $config['config']['class'] ?? '' ?>"
     enctype="multipart/form-data">
 
     <?php foreach ($config['data'] as $keyName => $fieldValue) : ?>
-		<div class="form-group <?= $fieldValue["div_class"] ?? '' ?>">
+
+
+        <?php if($fieldValue['type'] !== 'start_row' && $fieldValue['type'] !== 'end_row'): ?>
+
+            <div class="form-group <?= $fieldValue["div_class"] ?? '' ?>">
 
 			<?php if (!empty($fieldValue["label"]) && $fieldValue["type"]!== 'checkbox') : ?>
 				<label for="<?= $fieldValue["id"] ?? '' ?>">
@@ -23,15 +28,22 @@
 				</label>
 			<?php endif;
 
-		switch ($fieldValue["type"]): case "textarea":  ?>
+
+        switch ($fieldValue["type"]): 
+        
+        
+            case "textarea":  ?>
 				<textarea
                     rows="4"
                     cols="50"
                     name=<?= $fieldValue["name"] ?? '' ?> id="<?= $fieldValue["id"] ?? '' ?>"
                     class="textarea-control <?php $fieldValue['class'] ?? ""  ?>"
                     <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
-                ><?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?></textarea>
+                >
+                    <?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?>
+                </textarea>
 				<?php break;
+
 
 			case "select": ?>
 				<select
@@ -46,6 +58,7 @@
 				</select>
 				<?php break;
 
+
 			case "checkbox": ?>
 				<div class="switch-control">
                     <label class="switch">
@@ -55,6 +68,7 @@
                    <span class="switch-control__text"><?= $fieldValue["label"]; ?></span>
 				</div>
                 <?php break;
+
 
 			case "file": ?>
             <?php $imageValues = isset($values[$fieldValue["name"]] ) ? $values[$fieldValue["name"]] !== null ? BASE_URL . $values[$fieldValue["name"]]  : null : null ?>
@@ -86,9 +100,40 @@
                             type="text"
                             id="<?= $fieldValue["id"] ?? '' ?>"
                             name="<?= $fieldValue["name"] ?? '' ?>"
+                            <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
                             value="<?= isset($values[$keyName]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?>" />
 					</div>
-				<?php break;
+                <?php break;
+                
+				
+            case 'date': ?>
+                <div class="<?= $fieldValue["class"] ?? '' ?>">
+                    <p class="datetime">
+                        <input 
+                            name="<?= $fieldValue["name"] ?? '' ?>" 
+                            type="date" 
+                            class="date" 
+                            <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
+                            value="<?= isset($values[$fieldValue["name"]]) ? date('Y-m-d', strtotime($values[$fieldValue["name"]])) : '' ?>"
+                            />
+                    </p>
+                </div>
+                <?php break;
+
+            case 'time': ?>
+            <div class="<?= $fieldValue["class"] ?? '' ?>">
+                <p class="datetime">
+                    <input 
+                        name="<?= $fieldValue["name"] ?? '' ?>" 
+                        type="time" 
+                        class="time" 
+                        <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
+                        value="<?= isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] : '' ?>"
+                        />
+                </p>
+            </div>
+            <?php break;
+
 
             case 'separator': ?>
                 <div>
@@ -113,11 +158,23 @@
                     ?>">
 				<?php break;
 
-		endswitch; ?>
+        endswitch; ?>
+        
+        </div>
 
-		</div>
-	<?php endforeach; ?>
 
+        <?php elseif($fieldValue['type'] === 'start_row') : ?>
+            <div class="row">
+        <?php endif; ?>
+        
+        
+        <?php if($fieldValue['type'] === 'end_row'): ?>
+            </div>
+        <?php endif; ?> 
+
+    <?php endforeach; ?>
+
+    
 	<div class="col-12 col-md-6">
 		<?php if(isset($config['btn'])): foreach ($config['btn'] as $btn) :
 
@@ -126,9 +183,9 @@
 
 			<?php else : ?>
 
-				<a class="<?= $btn["class"] ?>" href="<?= $config['action'] ?>">
-					<?= $btn['text']; ?>
-				</a>
+            <a class="<?= $btn["class"] ?>" href="<?= $config['action'] ?>">
+                <?= $btn['text']; ?>
+            </a>
 
 			<?php endif;
 	endforeach; endif; ?>

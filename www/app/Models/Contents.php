@@ -43,7 +43,7 @@ class Contents extends BaseSQL
         echo $this->__get('content');
     }
 
-    public function getFormContents()
+    public function getFormContents(): array
     {
         return [
             'create' => [
@@ -62,6 +62,11 @@ class Contents extends BaseSQL
                     ],
                 ],
                 "data" => [
+                    "separator-page" => [
+                        "type" => "separator",
+                        "div_class" => "smart-type type-page",
+                        "after_title" => ""
+                    ],
                     "type" => [
                         "type" => "select",
                         "class" => "col-4 smart-toggle",
@@ -96,7 +101,7 @@ class Contents extends BaseSQL
                         "required" => true,
                         "minlength" => 2,
                         "maxlength" => 200,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                        "error" => "Votre titre doit faire entre 2 et 200 caractères"
                     ],
                     "category" => [
                         "type" => "select",
@@ -179,7 +184,7 @@ class Contents extends BaseSQL
                         "name" => "description",
                         "placeholder" => "",
                         "required" => true,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                        "error" => ""
                     ],
                     'indexed' => [
                         'type' => 'checkbox',

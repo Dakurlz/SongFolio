@@ -163,3 +163,24 @@
 '/admin/settings/footer':
   controller: Settings
   action: footer
+
+# EVENTS
+'/admin/events/create':
+  controller: Events
+  action: createEvents
+
+'/admin/events/list':
+  controller: Events
+  action: listEvents
+
+'/admin/events/delete':
+  controller: Events
+  action: delete
+
+'/admin/events/update':
+  controller: Events
+  action: update
+
+'/admin/events/update_event':
+  controller: Events
+  action: updateEvents

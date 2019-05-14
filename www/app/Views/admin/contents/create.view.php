@@ -4,7 +4,7 @@
     if (isset($alert)) $this->addModal('alert', $alert);
 ?>
   <div class="create-contents-page__form">
-    <?php $this->addModal("form", $configFormPage) ?>
+    <?php if (isset($configFormPage)) $this->addModal("form", $configFormPage) ?>
   </div>
 
 

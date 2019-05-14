@@ -11,12 +11,14 @@ use Songfolio\Core\Routing;
 <html lang="en">
 
 <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-   <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
-   <title>Admin</title>
+    <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
+    <link rel="stylesheet" href="<?= BASE_URL . "public/css/datetimepicker.css?v=" . filemtime("public/css/jquery.timepicker.css"); ?>" />
+
+    <title>Admin</title>
 </head>
 
 <body>
@@ -31,7 +33,7 @@ use Songfolio\Core\Routing;
          </div>
          <div class="row__logout col-lg-6 col-sm-6">
 
-            <a href="<?= Routing::getSlug("Admin", "loadAuth") ?>" class=" link col-lg-6 col-sm-6" onclick="">Déconnexion</a>
+            <a href="<?=Routing::getSlug('users', 'logout')?>>" class=" link col-lg-6 col-sm-6" onclick="">Déconnexion</a>
          </div>
       </div>
    </header>
@@ -116,9 +118,8 @@ use Songfolio\Core\Routing;
       </div>
    </main>
 
-
-
    <script src="<?php echo BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
+   <script src="<?= BASE_URL . "public/js/datetimepicker.js"; ?>"></script>
    <script src="<?php echo BASE_URL . "public/js/jquery-ui.min.js"?>"></script>
    <script src="https://cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>

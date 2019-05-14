@@ -8,7 +8,7 @@ mapping_header_name:
   contents: Contenus
   article: Article
   menus: Menus
-  event: Événement
+  events: Événements
   settings: Paramètres
 
 # SIDEBAR ITEMS
@@ -111,9 +111,22 @@ sidebar_items:
       controller: Admin
       action: menus
 
-  event:
-    name: Événement
+  events:
+    name: Événements
     slug:
-      controller: Admin
-      action: menus
+      controller: Events
+      action: listEvents
+
+    dropdown:
+      slugs:
+        create_events:
+          controller: Events
+          action: createEvents
+          label: Création d'événement
+
+        events_list:
+          controller: Events
+          action: listEvents
+          label: Liste d'événements
+
 

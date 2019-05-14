@@ -3,7 +3,7 @@
 declare (strict_types = 1);
 
 namespace Songfolio\Core;
-
+  
 use Songfolio\Core\View;
 
 class Validator
@@ -25,31 +25,31 @@ class Validator
             debug(count($data) !== $configCount);
             View::show404("Tentative de Faille XSS");
         }*/
+
         foreach ($config["data"] as $name => $input) {
             //required
-
-            if ( ($input["required"] ?? false) && empty($data[$name])) {
-                debug($data[$name]);
+            
+            if ( ($input["required"] ?? false) && empty($data[$input['name']])) {
+                debug( $data[$input] );
                 View::show404("Tentative de Faille XSS");
             } else {
-
                 //Minlength
-                if (isset($input["minlength"]) && !self::checkMinLength($data[$name], $input["minlength"])) {
+                if (isset($input["minlength"]) && !self::checkMinLength($data[$input['name']], $input["minlength"])) {
                     $this->errors[] = $input["error"];
                     continue;
                 }
                 //Maxlength
-                if (isset($input["maxlength"]) && !self::checkMaxLength($data[$name], $input["maxlength"])) {
+                if (isset($input["maxlength"]) && !self::checkMaxLength($data[$input['name']], $input["maxlength"])) {
                     $this->errors[] = $input["error"];
                     continue;
                 }
                 //Email
-                if ($input["type"] == "email" && !self::checkEmail($data[$name])) {
+                if ($input["type"] == "email" && !self::checkEmail($data[$input['name']])) {
                     $this->errors[] = $input["error"];
                     continue;
                 }
                 //Mot de passe
-                if ($input["type"] == "password" && !self::checkPwd($data[$name])) {
+                if ($input["type"] == "password" && !self::checkPwd($data[$input['name']])) {
                     $this->errors[] = $input["error"];
                     continue;
                 }

@@ -4,14 +4,17 @@ use Songfolio\Core\Helper;
 
 ?>
 
-<div class="admin_articles_liste">
+<div class="admin-articles-liste">
+
     <?php
-    if (isset($alert)) $this->addModal('alert', $alert);
+        if (isset($alert)) $this->addModal('alert', $alert);
     ?>
+
     <h2 class="col-12">Liste des articles</h2>
     <?php if (empty($articles)): ?>
         <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter le contenue</a>
     <?php endif;?>
+
     <table class="table col-12 ">
         <thead>
         <tr>
@@ -50,7 +53,7 @@ use Songfolio\Core\Helper;
                     <?= $articl['title'] ?>
                 </td>
                 <td>
-                    <?= Helper::searchInArray($caategories, $articl['category_id'],'name') ?>
+                    <?= Helper::searchInArray($categories, $articl['category_id'],'name') ?>
                 </td>
                 <td>
                     <a href="<?= BASE_URL.$articl['slug'] ?>">/<?= $articl['slug'] ?></a>

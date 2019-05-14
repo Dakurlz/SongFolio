@@ -34,7 +34,7 @@ class ContentsController
     {
         $configForm = $this->contents->getFormContents()['create'];
         $categories = $this->categories->getAllBy(['type'=>'article']);
-        $configForm['data']['category']['options'] = self::prepareCategoriesToSelect($categories);
+        $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
         $alert = self::push($configForm, 'create');
         self::renderContentsView($alert, $configForm);
     }
@@ -61,11 +61,10 @@ class ContentsController
         $id = $_REQUEST['id'] ?? '';
         $configForm = $this->contents->getFormContents()['update'];
         $this->contents = $this->contents->getOneBy(['id' => $id], true);
-        $configForm['values'] = (array)$this->contents->__getData();
-
-        if($this->contents->__get('type')=== 'article'){
+        $configForm['values'] = (array)$this->contents;
+        if($this->contents['type'] === 'article'){
             $categories = $this->categories->getAllBy(['type'=>'article']);
-            $configForm['data']['category']['options'] = self::prepareCategoriesToSelect($categories);
+            $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
         }
         self::renderContentsView(null, $configForm);
     }
@@ -84,7 +83,7 @@ class ContentsController
 
     private function renderContentsView( $alert, array $configForm)
     {
-        $view = new View("admin/contents/create_contents", 'back');
+        $view = new View("admin/contents/create", 'back');
         if (!empty($alert)) $view->assign('alert', $alert);
         $view->assign('configFormPage', $configForm);
     }
@@ -104,7 +103,7 @@ class ContentsController
         $view = new View('admin/contents/article_lists', 'back');
         if (!empty($alert)) $view->assign('alert', $alert);
         $view->assign('articles', $articles);
-        $view->assign('caategories', $this->categories->getAllBy(['type' => 'article']) );
+        $view->assign('categories', $this->categories->getAllBy(['type' => 'article']) );
     }
 
     private function push($configForm, $action)
@@ -147,17 +146,5 @@ class ContentsController
         return false;
     }
 
-    /**
-     * @param array $categories
-     * @return array
-     */
-    public static function prepareCategoriesToSelect(array $categories): array
-    {
-        $arr = [];
-        foreach ($categories as $category){
-            $arr[] = ['label' => $category['name'], 'value' => $category['id']];
-        }
 
-        return $arr;
-    }
 }
