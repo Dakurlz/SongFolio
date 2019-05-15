@@ -6,6 +6,12 @@
   controller: Pages
   action: content
 
+
+# EVENTS FRONT 
+'/evenement':
+  controller: Pages
+  action: renderEventsPage
+
 # USERS
 '/liste_des_utilisateurs':
   controller: Users

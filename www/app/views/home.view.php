@@ -1,3 +1,8 @@
+<?php
+use Songfolio\Core\Helper;
+use Songfolio\Core\Routing;
+?>
+
 <section id="home-slider">
     <picture>
         <!-- Mobile 600x450 -->
@@ -105,23 +110,29 @@
         <div class="row center">
             <div class="col-lg-5 col-sm-6 col-12 events">
                 <div class="nav">
-                    Prochains évènements
+                    <a href="<?= Routing::getSlug('Pages','renderEventsPage') ?>">
+                        Prochains évènements
+                    </a>
                 </div>
                 <ul style="list-style: none;padding: 0;">
-                    <li>
-                        <img src="https://i.pinimg.com/originals/74/72/2e/74722e84d049b7eb3d2139b719099679.jpg">
-                        <div class="infos">
-                            <h2 style="margin: 0;display: inline;">Concert 27 Juillet 1982</h2>
-                            <p>Madison Square Garden - New York City</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="https://i.pinimg.com/originals/74/72/2e/74722e84d049b7eb3d2139b719099679.jpg">
-                        <div class="infos">
-                            <h2 style="margin: 0;display: inline;">Concert 27 Juillet 1982</h2>
-                            <p>Madison Square Garden - New York City</p>
-                        </div>
-                    </li>
+                    <?php
+                        if(isset($events)):
+                            foreach ($events as $event):
+                    ?>
+                                <li>
+                                    <?php  if(isset($event['img_dir'])): ?>   
+                                        <img src="<?= BASE_URL.$event['img_dir'] ?>" alt="">
+                                    <?php endif ?>
+                                    <div class="info">
+                                        <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL.$event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
+                                        <p>le <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>
+                                    </div>
+                                </li>
+                           
+                            <?php endforeach; else: ?>
+                            <li> Aucun événement prévu </li>
+
+                        <?php endif ?>
                 </ul>
             </div>
             <div class="col-sm-offset-1 col-lg-4 col-sm-5 col-12 group-info">

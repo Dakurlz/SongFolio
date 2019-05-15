@@ -1,5 +1,4 @@
 #front-body {
-
   main section {
     padding: 100px 0;
     @media screen and (max-width: $mobile_width) {
@@ -29,13 +28,13 @@
     article {
       width: 100%;
       margin: 0.5rem 0;
-      a{
-        transition:all 0.5s;
-        &.event{
-          background:rgba(0,0,0,0.4);
+      a {
+        transition: all 0.5s;
+        &.event {
+          background: rgba(0, 0, 0, 0.4);
         }
-        &.event:hover{
-          background:rgba(0,0,0,0.6);
+        &.event:hover {
+          background: rgba(0, 0, 0, 0.6);
         }
       }
       img {
@@ -44,7 +43,8 @@
         z-index: -1;
       }
     }
-    .event-full .event, .event-half .event {
+    .event-full .event,
+    .event-half .event {
       @include flexbox();
       @include justify-content(center);
       @include align-items(center);
@@ -53,17 +53,22 @@
       height: 100%;
       width: 100%;
     }
-    .event-full h1, .event-half h1{
-      letter-spacing:1px;
-      max-height:80%;
+    .event-full h1,
+    .event-half h1 {
+      letter-spacing: 1px;
+      max-height: 80%;
     }
-    .event-full h1, .event-full p, .event-half h1, .event-half p {
+    .event-full h1,
+    .event-full p,
+    .event-half h1,
+    .event-half p {
       position: absolute;
       color: white;
       margin: 0;
       max-width: 80%;
     }
-    .event-full p, .event-half p {
+    .event-full p,
+    .event-half p {
       @include align-self(flex-end);
       bottom: 10px;
       max-width: 95%;
@@ -72,7 +77,7 @@
 
     .event-full {
       h1 {
-        font-size: 2.0em;
+        font-size: 2em;
       }
       .event {
         @media screen and (min-width: $mobile_width) {
@@ -184,13 +189,15 @@
         }
         &:nth-child(2) .rank {
           font-size: 1.3em;
-          font-weight: bold
+          font-weight: bold;
         }
         &:nth-child(3) .rank {
           font-size: 1.1em;
           font-weight: bold;
         }
-        &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(3) {
           font-weight: bold;
         }
       }
@@ -253,23 +260,29 @@
         border-radius: 200px;
       }
     }
-    .events{
-      ul{
-        li{
+    .events {
+      .link {
+        color: inherit;
+        &:hover {
+          color: $color-primary;
+        }
+      }
+      ul {
+        li {
           margin-bottom: 15px;
           padding-bottom: 15px;
           border-bottom: 1px solid #d3d3d3;
           display: flex;
           align-items: center;
-          p{
-            margin-bottom:0px;
+          p {
+            margin-bottom: 0px;
           }
-          img{
+          img {
             display: inline;
             max-width: 65px;
             margin-right: 10px;
           }
-          .infos{
+          .infos {
             display: inline-block;
           }
         }

@@ -36,7 +36,9 @@ return [
         return new UsersController($usersModel);
     },
     PagesController::class => function ($container) {
-        return new PagesController();
+        $eventsModel = $container[Events::class]($container);
+        $categoryModel = $container[Categories::class]($container);
+        return new PagesController($eventsModel, $categoryModel);
     },
     SettingsController::class => function ($container) {
         return new SettingsController();

@@ -8,6 +8,7 @@ use Songfolio\Core\Autoloader;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Contents;
 use Songfolio\Models\Users;
+use Songfolio\Models\Events;
 
 $autoloader = new Autoloader();
 $autoloader->addNamespace('Songfolio', 'app');
@@ -46,6 +47,8 @@ if(!empty($route)){
     }
 }elseif( $content = Contents::getBySlug( Routing::currentSlug(true) ) ){
     $content->show();
+}elseif( $event = Events::getBySlug( Routing::currentSlug(true) ) ){
+    $event->show();
 }else{
     View::show404("L'url n'existe pas.");
 }

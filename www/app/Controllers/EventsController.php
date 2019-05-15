@@ -113,6 +113,7 @@ class EventsController
                 $this->event->__set('end_date', $timestamp_end_date);
                 isset($fileName) ? $this->event->__set('img_dir', $fileName) : null;
                 $this->event->__set('details', $data['details']);
+                $this->contents->__set('slug',  $data['slug']);
                 $this->event->__set('rate', (float)$data['rate']);
                 $this->event->__set('nbr_place', (int)$data['nbr_place']);
                 // ADDRESS

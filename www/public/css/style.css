@@ -3687,7 +3687,8 @@ input:checked + .slider:before {
         width: 100%;
         height: 100%;
         z-index: -1; }
-    #front-body #home-blog .event-full .event, #front-body #home-blog .event-half .event {
+    #front-body #home-blog .event-full .event,
+    #front-body #home-blog .event-half .event {
       display: -webkit-box;
       display: -webkit-flex;
       display: -moz-flex;
@@ -3707,15 +3708,20 @@ input:checked + .slider:before {
       text-align: center;
       height: 100%;
       width: 100%; }
-    #front-body #home-blog .event-full h1, #front-body #home-blog .event-half h1 {
+    #front-body #home-blog .event-full h1,
+    #front-body #home-blog .event-half h1 {
       letter-spacing: 1px;
       max-height: 80%; }
-    #front-body #home-blog .event-full h1, #front-body #home-blog .event-full p, #front-body #home-blog .event-half h1, #front-body #home-blog .event-half p {
+    #front-body #home-blog .event-full h1,
+    #front-body #home-blog .event-full p,
+    #front-body #home-blog .event-half h1,
+    #front-body #home-blog .event-half p {
       position: absolute;
       color: white;
       margin: 0;
       max-width: 80%; }
-    #front-body #home-blog .event-full p, #front-body #home-blog .event-half p {
+    #front-body #home-blog .event-full p,
+    #front-body #home-blog .event-half p {
       -webkit-align-self: flex-end;
       -moz-align-self: flex-end;
       -ms-flex-item-align: end;
@@ -3724,7 +3730,7 @@ input:checked + .slider:before {
       max-width: 95%;
       font-size: 0.9em; }
     #front-body #home-blog .event-full h1 {
-      font-size: 2.0em; }
+      font-size: 2em; }
     @media screen and (min-width: 590px) {
       #front-body #home-blog .event-full .event {
         height: 350px; } }
@@ -3841,6 +3847,10 @@ input:checked + .slider:before {
     #front-body #section-info .group-info img {
       max-width: 200px;
       border-radius: 200px; }
+  #front-body #section-info .events .link {
+    color: inherit; }
+    #front-body #section-info .events .link:hover {
+      color: #B00000; }
   #front-body #section-info .events ul li {
     margin-bottom: 15px;
     padding-bottom: 15px;
@@ -4058,3 +4068,35 @@ input:checked + .slider:before {
     margin: 1.25rem 0; }
   .admin-page__form .col-12 label {
     display: block; }
+
+#section-events .nav {
+  margin-bottom: 35px !important; }
+
+#section-events .list-events {
+  margin: auto; }
+  #section-events .list-events .item {
+    height: 325px;
+    margin: 20px auto;
+    border: solid 1px #B00000;
+    background-color: #eeeeee;
+    padding: 0;
+    max-width: 325px; }
+    #section-events .list-events .item > img {
+      width: 100% !important;
+      height: 150px !important;
+      max-width: 325px !important; }
+    #section-events .list-events .item .info {
+      padding: 10px 20px; }
+      #section-events .list-events .item .info > p {
+        margin: 0; }
+
+.event-page .row .btn {
+  margin-top: 30px; }
+
+.event-page .row .second-block .display-name {
+  margin-top: 0 !important; }
+
+.event-page .row .second-block .details {
+  background-color: #eeeeee;
+  padding: 15px 5px;
+  width: 100%; }

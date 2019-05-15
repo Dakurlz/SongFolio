@@ -143,6 +143,15 @@ class BaseSQL
         return $query->fetchAll();
     }
 
+    public function getAllDataWithLimit($limit)
+    {
+        $sql = "SELECT * FROM " . $this->table . " LIMIT $limit;";
+        $query = $this->pdo->prepare($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute();
+        return $query->fetchAll();
+    }
+
 
     public function getOneBy(array $where, $object = false)
     {

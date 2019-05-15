@@ -81,6 +81,12 @@ use Songfolio\Core\Helper;
                             
                             <hr>
 
+                            <div class="form-group">
+                                <a href="<?= BASE_URL.$event['slug'] ?>">/<?= $event['slug'] ?></a>
+                            </div>
+                            
+                            <hr>
+
 
                             <div class="form-group">
                                 <address>

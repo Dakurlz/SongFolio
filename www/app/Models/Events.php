@@ -3,6 +3,8 @@
 namespace Songfolio\Models;
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
+use Songfolio\Core\View;
+use Songfolio\Core\Helper;
 
 class Events extends BaseSQL
 {
@@ -10,6 +12,27 @@ class Events extends BaseSQL
     {
         parent::__construct($id);
     }
+
+    public function show()
+    {
+        $v = new View("content", "front");
+        $categories = (new Categories)->getAllBy(['type' => 'event']);
+        $this->__set('type', Helper::searchInArray($categories, $this->__get('type'), 'name'));
+        $v->assign('event', $this);
+    }
+
+    public static function getBySlug($slug)
+    {
+        $event = new Events();
+        $event->getOneBy(['slug' => $slug], true);
+
+        if ($event->__get('id')) {
+            return $event;
+        }
+
+        return false;
+    }
+
 
 
     public function getFormEvents(): array
@@ -126,6 +149,19 @@ class Events extends BaseSQL
                         "required" => true,
                         "error" => ""
                     ],
+                    "slug" => [
+                        "type" => "slug",
+                        "label" => "Lien permanent",
+                        "class" => "",
+                        "presed" => $_SERVER['SERVER_NAME'],
+                        "id" => "slug",
+                        "name" => "slug",
+                        "placeholder" => "",
+                        "required" => true,
+                        "minlength" => 2,
+                        "maxlength" => 100,
+                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                    ],
                     'rate' => [
                         'type' => 'number',
                         'name' => 'rate',
@@ -138,6 +174,13 @@ class Events extends BaseSQL
                         'name' => 'nbr_place',
                         "required" => true,
                         "label" => "Nombre de place",
+                        'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
+                    ],
+                    'ticketing' => [
+                        'type' => 'text',
+                        'name' => 'ticketing',
+                        'label' => 'Billetterie externe',
+                        'required' => true,
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
                     ],
                     'address' => [
