@@ -114,7 +114,7 @@ use \Songfolio\Models\Menus;
             </nav>
             <div class="row between signature">
                 <div class="col-5 tal">
-                    Copyright QUEEN 1900-2019
+                    <?=$settings['footer']['copyright']?>
                 </div>
                 <div class="col-5 tar">
                     Site créé avec Songfolio
