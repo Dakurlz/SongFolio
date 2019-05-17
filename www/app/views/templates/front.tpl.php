@@ -1,3 +1,9 @@
+<?php
+
+use \Songfolio\Models\Menus;
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +56,7 @@
                 </div>
 
                 <ul>
-                    <?php  foreach((new \Songfolio\Models\Menus(3))->__get('data') as $menu):?>
+                    <?php  foreach((new \Songfolio\Models\Menus($settings['header']['header_menu']))->__get('data') as $menu):?>
                     <li>
                         <a href="<?=$menu['link'] ?? '#'?>"><?=$menu['title']?></a>
 
@@ -84,78 +90,27 @@
     </main>
     <footer id="front_footer">
         <div class="container">
-            <nav class="row middle">
-                <div class="col-md-3 col-6">
+            <nav class="row">
+                <?php
+                $col_nb = 12 / $settings['footer']['footer_menu_nb'];
+                ?>
+                
+                <?php foreach ($settings['footer']['footer_menu'] as $menu_id):?>
+                <?php $menu = new Menus($menu_id); ?>
+                <div class="col-md-<?=$col_nb?> col-6">
                     <ul>
                         <li>
                             <h2>
-                                Notre groupe
+                                <?=$menu->__get('title')?>
                             </h2>
                         </li>
+                        <?php foreach($menu->__get('data') as $link): ?>
                         <li>
-                            <a href="#">link 1</a>
+                            <a href="<?=$link['link'] ?? '#'?>"><?=$link['title']?></a>
                         </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
+                        <?php endforeach; ?>
                 </div>
-                <div class="col-md-3 col-6">
-                    <ul>
-                        <li>
-                            <h2>
-                                Médias
-                            </h2>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-6">
-                    <ul>
-                        <li>
-                            <h2>
-                                Liens utiles
-                            </h2>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-6">
-                    <ul>
-                        <li>
-                            <h2>
-                                Suivez nous
-                            </h2>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">link 1</a>
-                        </li>
-                    </ul>
-                </div>
+                <?php endforeach; ?>
             </nav>
             <div class="row between signature">
                 <div class="col-5 tal">

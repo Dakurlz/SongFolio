@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Songfolio\Core;
 
+use Songfolio\Models\Settings;
+
 class View{
     private $view;
     private $view_path;
@@ -33,6 +35,13 @@ class View{
         }else{
             if(file_exists($templatePath)) {
                 $this->template_path = $templatePath;
+
+                if($template == 'front'){
+                    $settings['header'] = (new Settings('header') )->get();
+                    $settings['footer'] = (new Settings('footer') )->get();
+                    $this->assign('settings', $settings);
+                }
+
             }else{
                 die("Le template n'existe pas ". $templatePath);
             }

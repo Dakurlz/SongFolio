@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Songfolio\Controllers;
 
 use Songfolio\core\View;
+use Songfolio\Core\Routing;
 use Songfolio\Models\Settings;
 
 class SettingsController
@@ -15,8 +16,6 @@ class SettingsController
     public function saveAction(){
         //On récupère dnas le form de quel type de setting il s'agit
         $settings_type = $_POST['data']['setting_type'];
-        //On défini l'action pour ce type de setting
-        $action_type = $settings_type.'Action';
         //On le retire des datas avant le save.
         unset($_POST['data']['setting_type']);
 
@@ -26,9 +25,8 @@ class SettingsController
             $settings->__set('data', $_POST['data']);
             $settings->save();
         }
-
         //On lance l'action dynamique
-        $this->$action_type();
+        header('Location: '.Routing::getSlug('settings', $settings_type));
     }
     public function configAction(){
         $setting = new Settings('config');
