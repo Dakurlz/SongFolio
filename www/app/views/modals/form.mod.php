@@ -189,7 +189,7 @@
 
 			<?php endif;
 	endforeach; endif; ?>
-        <a class="<?= $config["class"] ?>" href="<?= $config['action'] ?>">
+        <a class="<?= $config["class"] ?? '' ?>" href="<?= $config['action'] ?? '' ?>">
             <?= $config['submit'] ?? ''; ?>
         </a>
 	</div>

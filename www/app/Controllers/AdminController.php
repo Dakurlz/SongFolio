@@ -77,14 +77,6 @@ class AdminController{
         header('Location: '.Routing::getSlug('admin', 'menus'));
     }
 
-    /* Users */
-    public function loadUserAction(){
-        $user = new Users();
-        
-        $v = new View("user", "back");
-        $v->assign('allUsers', $user->getAllData());
-    }
-
     public function loadPagesAction(){
         $v = new View("pages", "back");
     }

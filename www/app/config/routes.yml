@@ -208,3 +208,8 @@
 '/admin/events/update_event':
   controller: Events
   action: updateEvents
+
+# USERS BACK
+'/admin/users/create':
+  controller: Users
+  action: createUsers

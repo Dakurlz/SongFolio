@@ -2,6 +2,7 @@
 declare (strict_types = 1);
 
 namespace Songfolio\Models;
+
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 
@@ -17,7 +18,7 @@ class Users extends BaseSQL
             $token = htmlspecialchars($_COOKIE['token']);
             parent::__construct(['login_token' => $token]);
             $_SESSION['user'] = $this->__get('id');
-        }else{
+        } else {
             parent::__construct($id);
         }
     }
@@ -47,9 +48,9 @@ class Users extends BaseSQL
             } else {
                 $groups = explode(",", $groups);
 
-                foreach($groups as $group_name){
-                    $group = new Roles( ['name' => $group_name] );
-                    if($group->id() == $this->__get('role_id')){
+                foreach ($groups as $group_name) {
+                    $group = new Roles(['name' => $group_name]);
+                    if ($group->id() == $this->__get('role_id')) {
                         return true;
                     }
                 }
@@ -60,9 +61,10 @@ class Users extends BaseSQL
     }
 
     // $user->can('permission') retourne true ou false selon si la permission est ou non dans le role de l'utilisateur
-    public function can($askedAction){
-        $group = new Roles( $this->__get('role_id') );
-        if($group->getPerm($askedAction) || $group->getPerm('all_perms')){
+    public function can($askedAction)
+    {
+        $group = new Roles($this->__get('role_id'));
+        if ($group->getPerm($askedAction) || $group->getPerm('all_perms')) {
             return true;
         }
 
@@ -70,11 +72,11 @@ class Users extends BaseSQL
     }
 
     //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
-    public static function need($askedAction) : void
+    public static function need($askedAction): void
     {
         $user = new Users();
-        if(!$user->can($askedAction)){
-            header('Location: '.BASE_URL);
+        if (!$user->can($askedAction)) {
+            header('Location: ' . BASE_URL);
         }
     }
 
@@ -201,6 +203,105 @@ class Users extends BaseSQL
                     "error" => "Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
                 ]
             ]
+        ];
+    }
+
+    public function getFormUsers()
+    {
+        return [
+            'create' => [
+                "config" => [
+                    "action" => Routing::getSlug("Users", "createUsers"),
+                    "method" => "POST",
+                    "class" => "",
+                    'header' => 'Ajouter un nouveau utilisateur',
+                    'action_type' => 'create'
+                ],
+                "btn" => [
+                    "submit" => [
+                        "type" => "submit",
+                        "text" => "Ajouter",
+                        "class" => "btn btn-success-outline"
+                    ],
+                ],
+                'data' => [
+                    "separator-page" => [
+                        "type" => "separator",
+                        "div_class" => "smart-type type-page",
+                        "after_title" => ""
+                    ],
+                    "username" => [
+                        "type" => "text",
+                        'label' => 'Username',
+                        "placeholder" => "Votre pseudo",
+                        "class" => "form-control col-12 col-lg-4 col-md-4 col-sm-4",
+                        "id" => "username",
+                        "name" => "username",
+                        "required" => true,
+                        "minlength" => 4,
+                        "maxlength" => 50,
+                        "error" => "Votre pseudo doit faire entre 4 et 50 caractères"
+                    ],
+                    'start_row_info' => [
+                        'type' => 'start_row'
+                    ],
+                    'role' => [
+                        'type' => 'select',
+                        "label" => "Role de utilisateur",
+                        "class" => "input-control",
+                        "id" => "role",
+                        "name" => "role",
+                        "required" => true,
+                        "error" => "Selectioner role",
+                        'div_class' => 'col-12 col-lg-4 col-md-6 col-sm-6',
+                        "options" => [],
+                    ],
+                    "email" => [
+                        "type" => "email",
+                        'div_class' => 'col-12 col-lg-4 col-md-6 col-sm-6',
+                        "label" => "Votre email",
+                        "class" => "form-control",
+                        "id" => "email",
+                        "name" => "email",
+                        "required" => true,
+                        "minlength" => 7,
+                        "maxlength" => 250,
+                        "error" => "Votre email est incorrect ou fait plus de 250 caractères"
+                    ],
+                    'end_row_info' => [
+                        'type' => 'end_row'
+                    ],
+                    'start_row_pass' => [
+                        'type' => 'start_row'
+                    ],
+                    "password" => [
+                        "type" => "password",
+                        'div_class' => 'col-12 col-lg-4 col-md-6 col-sm-6',
+                        "label" => "Votre mot de passe",
+                        "class" => "form-control ",
+                        "id" => "pwd",
+                        "name" => "password",
+                        "required" => true,
+                        "minlength" => 6,
+                        "error" => "Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
+                    ],
+                    "pwdConfirm" => [
+                        "type" => "password",
+                        "class" => "form-control",
+                        'div_class' => 'col-12 col-lg-4 col-md-6 col-sm-6',
+                        "label" => "Confirmation",
+                        "id" => "pwdConfirm",
+                        "name" => "pwdConfirm",
+                        "required" => true,
+                        "confirm" => "password",
+                        "error" => "Le mot de passe de confirmation ne correspond pas"
+                    ],
+                    'end_row_pass' => [
+                        'type' => 'end_row'
+                    ],
+                ]
+            ],
+            'update' => []
         ];
     }
 }

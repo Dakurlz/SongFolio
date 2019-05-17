@@ -83,9 +83,6 @@ class EventsController
     {
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
-        // \debug($data);
-
-
 
         if (!empty($data)) {
             if ($_SERVER["REQUEST_METHOD"] !== $method || empty($data)) {

@@ -69,7 +69,7 @@ class Contents extends BaseSQL
                     ],
                     "type" => [
                         "type" => "select",
-                        "class" => "col-4 smart-toggle",
+                        "class" => "col-12 col-lg-4 col-md-4 col-sm-4 smart-toggle",
                         "label" => "Type",
                         "id" => "type",
                         "name" => "type",
@@ -95,7 +95,7 @@ class Contents extends BaseSQL
                         "type" => "text",
                         "label" => "Titre",
                         "placeholder" => "Votre titre",
-                        "class" => "input-control col-4",
+                        "class" => "input-control col-12 col-lg-4 col-md-4 col-sm-4",
                         "id" => "title",
                         "name" => "title",
                         "required" => true,
@@ -105,7 +105,7 @@ class Contents extends BaseSQL
                     ],
                     "category" => [
                         "type" => "select",
-                        "class" => "col-4 smart-toggle",
+                        "class" => "col-12 col-lg-4 col-md-4 col-sm-4 smart-toggle",
                         "label" => "Categorie",
                         "div_class" => "smart-type type-article",
                         "id" => "category",

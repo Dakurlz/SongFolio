@@ -14,6 +14,7 @@ use Songfolio\Models\Contents;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Comments;
 use Songfolio\Models\Events;
+use Songfolio\Models\Roles;
 
 return [
     Users::class => function ($container) {
@@ -28,12 +29,16 @@ return [
     Comments::class => function ($container) {
         return new Comments();
     },
+    Roles::class => function ($container) {
+        return new Roles();
+    },
     Events::class => function ($container) {
         return new Events();
     },
     UsersController::class => function ($container) {
         $usersModel = $container[Users::class]($container);
-        return new UsersController($usersModel);
+        $rolesModel = $container[Roles::class]($container);
+        return new UsersController($usersModel, $rolesModel);
     },
     PagesController::class => function ($container) {
         $eventsModel = $container[Events::class]($container);

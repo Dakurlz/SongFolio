@@ -76,6 +76,13 @@ sidebar_items:
       controller: Admin
       action: loadUser
 
+    dropdown:
+      slugs:
+        album:
+          controller: Users
+          action: createUsers
+          label: Ajouter un utilisateur
+
   roles:
     name: Rôles
     slug:

@@ -36,6 +36,15 @@ class Roles extends BaseSQL
         return $perms[$value] ?? false;
     }
 
+    public static function prepareRoleToSelect($roles): array
+    {
+        $arr = [];
+        foreach ($roles as $role){
+            $arr[] = ['label' => $role['name'], 'value' => $role['id']];
+        }
+        return $arr;
+    }
+
     public function permsList(){
         return [
             "all" => [
