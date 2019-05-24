@@ -10,6 +10,7 @@ mapping_header_name:
   menus: Menus
   events: Événements
   settings: Paramètres
+  roles: Rôles
 
 # SIDEBAR ITEMS
 sidebar_items:
@@ -55,17 +56,17 @@ sidebar_items:
 
     dropdown:
       slugs:
-        create_contents:
+        content_add:
           controller: Contents
           action: createContents
           label: Création du contenue
 
-        pages_lists:
+        page_view:
           controller: Contents
           action: listesPages
           label: Liste des pages
 
-        article_lists:
+        article_view:
           controller: Contents
           action: listesArticles
           label: Liste des articles
@@ -73,12 +74,12 @@ sidebar_items:
   users:
     name: Utilisateurs
     slug:
-      controller: Admin
-      action: loadUser
+      controller: Users
+      action: listUsers
 
     dropdown:
       slugs:
-        album:
+        user_add:
           controller: Users
           action: createUsers
           label: Ajouter un utilisateur
@@ -144,14 +145,9 @@ sidebar_items:
 
     dropdown:
       slugs:
-        create_events:
+        event_add:
           controller: Events
           action: createEvents
           label: Création d'événement
-
-        events_list:
-          controller: Events
-          action: listEvents
-          label: Liste d'événements
 
 

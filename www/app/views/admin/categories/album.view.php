@@ -1,5 +1,6 @@
 <?php
 use Songfolio\Core\Routing;
+use Songfolio\Models\Users;
 ?>
 
 <div class="row categories-page">
@@ -24,13 +25,15 @@ use Songfolio\Core\Routing;
 
             <?php if (!empty($albumCategories)): ?>
                 <?php foreach ($albumCategories as $category) : ?>
-
-                  <tr>
+                    <tr>
                     <td><?= $category['name']; ?></td>
 
-                    <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $category['id'] . '&type=album' ?>'><i class="icon icon-edit"></i></a></td>
-                    <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $category['id'] . '&type=album' ?>'><i class="icon icon-delete"></i></a></td>
-                  </tr>
+                        <?php if( Users::hasPermission('album_edit') ): ?>
+                            <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $category['id'] . '&type=album' ?>'><i class="icon icon-edit"></i></a></td>
+                        <?php endif; if( Users::hasPermission('album_del') ): ?>
+                            <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $category['id'] . '&type=album' ?>'><i class="icon icon-delete"></i></a></td>
+                        <?php endif; ?>
+                    </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <td>Aucune categorie.</td>
@@ -42,9 +45,9 @@ use Songfolio\Core\Routing;
 
       </div>
 
-<?php endif; endif; ?>
-
-  <div class="col-12 col-md-4 col-lg-4 col-sm-6 col-xs-6 categories-page__add-categ">
-    <?php if (isset($configFormCategory)) $this->addModal("form", $configFormCategory) ?>
-  </div>
+<?php endif; endif; if( Users::hasPermission('album_add') ): ?>
+    <div class="col-12 col-md-4 col-lg-4 col-sm-6 col-xs-6 categories-page__add-categ">
+        <?php if (isset($configFormCategory)) $this->addModal("form", $configFormCategory) ?>
+    </div>
+<?php endif; ?>
 </div>

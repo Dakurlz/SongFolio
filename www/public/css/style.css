@@ -2672,7 +2672,7 @@ label {
   .input-control::placeholder {
     color: #b1abab; }
   .input-control-success:focus {
-    border: solid 2px #00A65A !important; }
+    border: solid 1px #00A65A !important; }
   .input-control:focus {
     border: solid 1px #B00000; }
 
@@ -3622,13 +3622,6 @@ input:checked + .slider:before {
           box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2) !important;
           z-index: 1;
           padding-left: 20%; }
-          .main-back .sidebar__property > li .slide-dropdown-content:after, .main-back .sidebar__property > li .slide-dropdown-content:before {
-            border: solid transparent;
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none; }
           .main-back .sidebar__property > li .slide-dropdown-content > a {
             display: block;
             text-decoration: none;
@@ -4026,8 +4019,6 @@ input:checked + .slider:before {
             .admin-users__main__table td:nth-of-type(5) .dropdown .dropdown-content {
               left: 30%;
               width: 50%; } }
-      .admin-users__main__table tbody tr:hover {
-        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2); }
       .admin-users__main__table .dropdown {
         display: inline; }
         .admin-users__main__table .dropdown .dropbtn {

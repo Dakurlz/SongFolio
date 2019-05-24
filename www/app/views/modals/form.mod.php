@@ -51,7 +51,8 @@
                     id="<?= $fieldValue["id"] ?? '' ?>"
                     class="select-control <?= $fieldValue['class'] ?? '' ?>">
 					<?php foreach ($fieldValue['options'] as $option) : ?>
-						<option <?=($option['value'] == $fieldValue['selected'] ? 'selected' : '')?> <?= isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>">
+                        <?php $selected = $option['value'] == $fieldValue['selected'] || isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === $option['value'] : false; ?>
+                        <option <?= $selected ? 'selected' : ''?> <?= isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>">
                             <?= $option['label']; ?>
                         </option>
 					<?php endforeach ?>

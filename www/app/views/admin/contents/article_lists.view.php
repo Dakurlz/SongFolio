@@ -1,6 +1,7 @@
 <?php
 use Songfolio\Core\Routing;
 use Songfolio\Core\Helper;
+use Songfolio\Models\Users;
 
 ?>
 
@@ -14,6 +15,10 @@ use Songfolio\Core\Helper;
     <?php if (empty($articles)): ?>
         <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter le contenue</a>
     <?php endif;?>
+
+    <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">
+        <input  class="input-control input-control-success input-search" placeholder="Chercher un article" />
+    </div>
 
     <table class="table col-12 ">
         <thead>
@@ -45,7 +50,7 @@ use Songfolio\Core\Helper;
         </tr>
         </thead>
 
-        <tbody>
+        <tbody class="tbody">
         <td><?php if (empty($articles)) echo 'Aucune page.'; ?></td>
         <?php foreach ($articles as $articl):  ?>
             <tr>
@@ -71,8 +76,12 @@ use Songfolio\Core\Helper;
                     <?= Helper::getFormatedDate($articl['date_edit']) ?? ' ' ?>
                 </td>
                 <td class="icn"><button style="background: transparent; border: transparent" role="button" modal="menu-<?= $articl['id'] ?>-modal"><i class="icon icon-contents"></i></button></td>
-                <td class="icn"><a href='<?= Routing::getSlug("Contents", "update") . "?id=" . $articl['id']?>'><i class="icon icon-edit"></i></a></td>
-                <td class="icn"><a href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $articl['id']."&type=article"?>'><i class="icon icon-delete"></i></a></td>
+                <?php if( Users::hasPermission('content_edit') ): ?>
+                    <td class="icn"><a href='<?= Routing::getSlug("Contents", "update") . "?id=" . $articl['id']?>'><i class="icon icon-edit"></i></a></td>
+                <?php endif; if( Users::hasPermission('content_del') ): ?>
+                    <td class="icn"><a href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $articl['id']."&type=article"?>'><i class="icon icon-delete"></i></a></td>
+                <?php endif; ?>
+
             </tr>
 
             <div id="menu-<?= $articl['id'] ?>-modal" class="modal">

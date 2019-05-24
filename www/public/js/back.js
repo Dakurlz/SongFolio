@@ -89,7 +89,22 @@ function showDropdown(element) {
   });
 }( document, window, 0 ));
 
+function hideArrow(){
+  //if ($('.slide-dropdown-content').children().val() === '' ){
+  //    console.log( $('.slide-dropdown-content').parent().children('div.sidebar--item').children('span.pages-options').remove());
+  // }
+}
+
 $(document).ready(() => {
+
+ // hideArrow();
+
+  $(".input-search").keyup(function() {
+    const value = $(this).val().toLowerCase();
+    $(".tbody tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
 
   $(".slide-dropbtn").click(function(){
    const jqElm =  $(this).parent().parent().children('.slide-dropdown-content');

@@ -124,20 +124,6 @@ class Categories extends BaseSQL
                         "maxlength" => 60,
                         "error" => "Votre catégorie doit faire entre 2 et 60 caractères"
                     ],
-                    "slug" => [
-                        "type" => "slug",
-                        "label" => "Lien permanent",
-                        "class" => "",
-                        "presed" => $_SERVER['SERVER_NAME'],
-                        "id" => "slug",
-                        "name" => "slug",
-                        "placeholder" => "",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
-                    ],
-
                 ]
             ],
             'update' => [
@@ -166,19 +152,6 @@ class Categories extends BaseSQL
                         "minlength" => 2,
                         "maxlength" => 60,
                         "error" => "Votre catégorie doit faire entre 2 et 60 caractères"
-                    ],
-                    "slug" => [
-                        "type" => "slug",
-                        "name" => "slug",
-                        "label" => "Lien permanent",
-                        "class" => "",
-                        "presed" => $_SERVER['SERVER_NAME'],
-                        "id" => "slug",
-                        "placeholder" => "",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
                     ],
 
                 ]

@@ -68,6 +68,72 @@ class Roles extends BaseSQL
                     ]
                 ]
             ],
+            'contents' => [
+                'title' => 'Gestion des contenus (pages et articles)',
+                'perms' => [
+                    "content_add" => [
+                        'desc' => 'Ajouter un contenu'
+                    ],
+                    "content_del" => [
+                        'desc' => 'Supprimer un contenu'
+                    ],
+                    "content_edit" => [
+                        'desc' => 'Modifier un contenu'
+                    ],
+                    "page_view" => [
+                        "desc" => "Voir les pages"
+                    ],
+                    "article_view" => [
+                        "desc" => "Voir les articles"
+                    ],
+                ]
+            ],
+            'events' => [
+                'title' => 'Gestion des événements',
+                'perms' => [
+                    "event_add" => [
+                        'desc' => 'Ajouter un événement'
+                    ],
+                    "event_del" => [
+                        'desc' => 'Supprimer un événement'
+                    ],
+                    "event_edit" => [
+                        'desc' => 'Modifier un événement'
+                    ]
+                ]
+            ],
+            'category' => [
+                "title" => "Gestion des categories",
+                "perms" => [
+                    "album_add" => [
+                        "desc" => "Ajouter une categorie d'albmum"
+                    ],
+                    "article_add" => [
+                        "desc" => "Ajouter une categorie d'article"
+                    ],
+                    "event_add" => [
+                        "desc" => "Ajouter une categorie d'événement"
+                    ],
+                    "album_edit" => [
+                        "desc" => "Modifier une categorie d'albmum"
+                    ],
+                    "article_edit" => [
+                        "desc" => "Modifier une categorie d'article"
+                    ],
+                    "event_edit" => [
+                        "desc" => "Modifier une categorie d'événement"
+                    ],
+                    "album_del" => [
+                        "desc" => "Supprimer une categorie d'albmum"
+                    ],
+                    "article_del" => [
+                        "desc" => "Supprimer une categorie d'article"
+                    ],
+                    "event_del" => [
+                        "desc" => "Supprimer une categorie d'événement"
+                    ],
+                ]
+            ],
             "roles" => [
                 "title" => "Gestion des roles",
                 "perms" => [

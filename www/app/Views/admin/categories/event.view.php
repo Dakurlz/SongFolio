@@ -1,5 +1,7 @@
 <?php
 use Songfolio\Core\Routing;
+use Songfolio\Models\Users;
+
 ?>
 
 <div class="row categories-page">
@@ -26,10 +28,12 @@ use Songfolio\Core\Routing;
                     <?php foreach ($eventCategories as $event) : ?>
 
                         <tr>
-                            <td><?= $event['name']; ?></td>
-
-                            <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $event['id'] . '&type=event' ?>'><i class="icon icon-edit"></i></a></td>
-                            <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $event['id'] . '&type=event' ?>'><i class="icon icon-delete"></i></a></td>
+                        <td><?= $event['name']; ?></td>
+                            <?php if( Users::hasPermission('event_edit') ): ?>
+                                <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $event['id'] . '&type=event' ?>'><i class="icon icon-edit"></i></a></td>
+                            <?php endif; if( Users::hasPermission('event_del') ): ?>
+                                <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $event['id'] . '&type=event' ?>'><i class="icon icon-delete"></i></a></td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -38,13 +42,11 @@ use Songfolio\Core\Routing;
                 </tbody>
 
             </table>
-            </table>
-
-        </div>
-
-    <?php endif; endif; ?>
-
-    <div class="col-12 col-md-4 col-lg-4 col-sm-6 col-xs-6 categories-page__add-categ">
-        <?php $this->addModal("form", $configFormCategory) ?>
     </div>
+
+<?php endif; endif; if( Users::hasPermission('event_add') ): ?>
+    <div class="col-12 col-md-4 col-lg-4 col-sm-6 col-xs-6 categories-page__add-categ">
+        <?php if (isset($configFormCategory)) $this->addModal("form", $configFormCategory) ?>
+    </div>
+<?php endif; ?>
 </div>

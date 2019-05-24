@@ -73,6 +73,12 @@ class BaseSQL
         }
     }
 
+    public function __remove($attr)
+    {
+        if (isset($this->data[$attr])) unset($this->data[$attr]);
+        return false;
+    }
+
     public function __set($attr, $value)
     {
         if (method_exists($this, 'customSet')) {

@@ -267,16 +267,6 @@
           z-index: 1;
           padding-left: 20%;
 
-          &:after,
-          &:before {
-            border: solid transparent;
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
-          }
-
           & > a {
             display: block;
             text-decoration: none;

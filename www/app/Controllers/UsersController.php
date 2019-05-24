@@ -8,6 +8,7 @@ use Songfolio\Core\Helper;
 use Songfolio\core\View;
 use Songfolio\core\Routing;
 use Songfolio\core\Validator;
+use Songfolio\Models\Categories;
 use Songfolio\models\Users;
 use Songfolio\Models\Roles;
 
@@ -38,8 +39,8 @@ class UsersController
     public function registerAction(): void
     {
         if ($this->user->is('connected')) {
-                header('Location: ' . Routing::getSlug('users', 'dashboard'));
-            }
+            header('Location: ' . Routing::getSlug('users', 'dashboard'));
+        }
 
         $configForm = $this->user->getFormRegister();
 
@@ -126,11 +127,56 @@ class UsersController
 
     public function createUsersAction()
     {
+        Users::need('user_add');
+
         $configForm = $this->user->getFormUsers()['create'];
         $roles = $this->role->getAllData();
         $alert = self::push($configForm, 'create');
         $configForm['data']['role']['options'] = Roles::prepareRoleToSelect($roles);
         self::renderUsersView($alert, $configForm);
+    }
+
+    public function updateAction()
+    {
+        Users::need('user_edit');
+
+        $id = $_REQUEST['id'] ?? '';
+        $configForm = $this->user->getFormUsers()['update'];
+        $configForm['values'] = (array)$this->user->getOneBy(['id' => $id]);
+        $configForm['data']['role']['options'] = Roles::prepareRoleToSelect($this->role->getAllData());
+        self::renderUsersView(null, $configForm);
+    }
+
+    public function updateUsersAction()
+    {
+        $configForm = $this->user->getFormUsers()['update'];
+        $alert = self::push($configForm,  'update');
+        self::listUsersAction($alert);
+    }
+
+    public function listUsersAction($alert = null)
+    {
+        $users = $this->user->getAllData();
+        $roles = $this->role->getAllData();
+        $view = new View('admin/users/list','back');
+        $view->assign('users',$users);
+        $view->assign('roles', $roles);
+        if (!empty($alert)) $view->assign('alert', $alert);
+    }
+
+
+    public function deleteAction()
+    {
+        Users::need('user_del');
+        $id = $_REQUEST['id'];
+        if (isset($id)) {
+            $this->user->delete(["id" => $id]);
+            $alert = Helper::getAlertPropsByAction('delete', 'Utilisateur', false);
+        } else {
+            $alert = Helper::setAlertError('Une erreur se produit ...');
+        };
+
+        self::listUsersAction($alert);
     }
 
     private function renderUsersView($alert, array $configForm)
@@ -142,6 +188,7 @@ class UsersController
 
     private function push($configForm, $action)
     {
+
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
         if (!empty($data)) {
@@ -152,12 +199,15 @@ class UsersController
             $errors = $validator->getErrors();
 
             if (empty($errors) && (!$this->user->getOneBy(['username' => $data['username']]) || isset($_REQUEST['id']))) {
-                isset($_REQUEST['id']) ? $this->user->__set('id', $_REQUEST['id']) : null;
+                isset($_REQUEST['id'])  ? $this->user->__set('id', $_REQUEST['id']) : null;
+                if($action === 'create') $this->user->__remove('id') ;
 
                 $this->user->__set('username', $data['username']);
                 $this->user->__set('role_id', (int)$data['role']);
                 $this->user->__set('password', $data['password']);
                 $this->user->__set('email', $data['email']);
+                $this->user->__set('first_name', $data['first_name']);
+                $this->user->__set('last_name', $data['last_name']);
                 $this->user->save();
 
                 return Helper::getAlertPropsByAction($action, 'Utilisateur', false);

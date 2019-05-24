@@ -8,6 +8,7 @@ use Songfolio\Core\Validator;
 use Songfolio\core\Helper;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Contents;
+use Songfolio\Models\Users;
 
 class ContentsController
 {
@@ -32,6 +33,8 @@ class ContentsController
 
     public function createContentsAction(): void
     {
+        Users::need('content_add');
+
         $configForm = $this->contents->getFormContents()['create'];
         $categories = $this->categories->getAllBy(['type'=>'article']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
@@ -41,6 +44,8 @@ class ContentsController
 
     public function deleteAction(): void
     {
+        Users::need('content_del');
+
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->contents->delete(["id" => $id]);
@@ -58,6 +63,8 @@ class ContentsController
 
     public function updateAction()
     {
+        Users::need('content_edit');
+
         $id = $_REQUEST['id'] ?? '';
         $configForm = $this->contents->getFormContents()['update'];
         $this->contents = $this->contents->getOneBy(['id' => $id], true);

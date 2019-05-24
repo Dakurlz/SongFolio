@@ -4,6 +4,7 @@ $sectionName = explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard';
 
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
+use Songfolio\Models\Users;
 
 ?>
 
@@ -66,15 +67,21 @@ use Songfolio\Core\Routing;
                         <p><?= $item['name'] ?></p>
                      </button>
                       <?php if (isset($item['dropdown'])) : ?>
-                          <span class="pages-options slide-dropbtn "></span>
+                          <?php foreach ($item['dropdown']['slugs'] as $keyDropdown => $slug) : ?>
+                              <?php if( Users::hasPermission($keyDropdown) ): ?>
+                                      <span class="pages-options slide-dropbtn "></span>
+                              <?php endif; ?>
+                          <?php break; endforeach ?>
                       <?php endif; ?>
                   </div>
                    <?php if (isset($item['dropdown'])) : ?>
                            <div class="slide-dropdown-content  ">
                                <?php foreach ($item['dropdown']['slugs'] as $keyDropdown => $slug) : ?>
-                                   <a id='<?= $keyDropdown ?>' href="<?= Routing::getSlug($slug['controller'], $slug['action']) ?>">
-                                       <?= $slug['label'] ?>
-                                   </a>
+                                    <?php if( Users::hasPermission($keyDropdown) ): ?>
+                                       <a id='<?= $keyDropdown ?>' href="<?= Routing::getSlug($slug['controller'], $slug['action']) ?>">
+                                           <?= $slug['label'] ?>
+                                       </a>
+                                   <?php endif; ?>
                                <?php endforeach ?>
                            </div>
                    <?php endif ?>

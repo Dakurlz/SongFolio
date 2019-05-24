@@ -1,6 +1,7 @@
 <?php
     use Songfolio\Core\Routing;
     use Songfolio\Core\Helper;
+    use Songfolio\Models\Users;
 
 ?>
 
@@ -12,6 +13,11 @@
     <?php if (empty($pages)): ?>
         <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter le contenue</a>
     <?php endif;?>
+
+    <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">
+        <input  class="input-control input-control-success input-search" placeholder="Chercher une page" />
+    </div>
+
     <table class="table col-12 ">
     <thead>
         <tr>
@@ -36,7 +42,7 @@
         </tr>
     </thead>
 
-        <tbody>
+        <tbody class="tbody">
         <td><?php if (empty($pages)) echo 'Aucune page.'; ?></td>
             <?php foreach ($pages as $page):  ?>
                 <tr>
@@ -56,8 +62,11 @@
                         <?= Helper::getFormatedDate($page['date_edit']) ?? ' ' ?>
                     </td>
                     <td class="icn"><button style="background: transparent; border: transparent" role="button" modal="menu-<?= $page['id'] ?>-modal"><i class="icon icon-contents"></i></button></td>
-                    <td class="icn"><a href='<?= Routing::getSlug("Contents", "update") . "?id=" . $page['id']?>'><i class="icon icon-edit"></i></a></td>
-                    <td class="icn"><a href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $page['id']."&type=page"?>'><i class="icon icon-delete"></i></a></td>
+                    <?php if( Users::hasPermission('content_edit') ): ?>
+                        <td class="icn"><a href='<?= Routing::getSlug("Contents", "update") . "?id=" . $page['id']?>'><i class="icon icon-edit"></i></a></td>
+                    <?php endif; if( Users::hasPermission('content_del') ): ?>
+                        <td class="icn"><a href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $page['id']."&type=page"?>'><i class="icon icon-delete"></i></a></td>
+                    <?php endif; ?>
                 </tr>
 
                 <div id="menu-<?= $page['id'] ?>-modal" class="modal">

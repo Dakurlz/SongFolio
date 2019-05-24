@@ -8,6 +8,7 @@ use Songfolio\Core\Helper;
 
 use Songfolio\Models\Events;
 use Songfolio\Models\Categories;
+use Songfolio\Models\Users;
 
 class EventsController
 {
@@ -22,6 +23,8 @@ class EventsController
 
     public function createEventsAction()
     {
+        Users::need('event_add');
+
         $configForm = $this->event->getFormEvents()['create'];
         $categories = $this->category->getAllBy(['type' => 'event']);
         $alert = self::push($configForm, 'create');
@@ -31,6 +34,8 @@ class EventsController
 
      public function updateAction()
      {
+         Users::need('event_edit');
+
         $id = $_REQUEST['id'] ?? '';
         $configForm = $this->event->getFormEvents()['update'];
         $configForm['values'] = (array)$this->event->getOneBy(['id' => $id]);
@@ -51,7 +56,9 @@ class EventsController
 
 
     public function deleteAction()
-    { 
+    {
+        Users::need('event_del');
+
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->event->delete(["id" => $id]);

@@ -213,3 +213,19 @@
 '/admin/users/create':
   controller: Users
   action: createUsers
+
+'/admin/users/list':
+  controller: Users
+  action: listUsers
+
+'/admin/users/delete':
+  controller: Users
+  action: delete
+
+'/admin/users/update':
+  controller: Users
+  action: update
+
+'/admin/users/update_user':
+  controller: Users
+  action: updateUsers

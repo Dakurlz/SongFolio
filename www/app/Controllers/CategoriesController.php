@@ -24,16 +24,17 @@ class CategoriesController
 
     public function articleAction()
     {
-        self::renderCategory('article');
+        self::renderCategoryView('article', self::push( 'article', 'create'));
     }
 
     public function albumAction()
     {
-        self::renderCategory('album');
+        self::renderCategoryView('album', self::push( 'album', 'create'));
     }
+
     public function eventAction()
     {
-        self::renderCategory('event');
+        self::renderCategoryView('event', self::push( 'event', 'create'));
     }
 
     /**
@@ -46,15 +47,13 @@ class CategoriesController
         $id = $_REQUEST['id'];
         $type = $_REQUEST['type'];
 
-        $alert = [];
         if (isset($id)) {
             $this->category->delete(["id" => $id]);
             $alert = Helper::getAlertPropsByAction('delete', 'Categorie', true);
         } else {
             $alert = Helper::setAlertError('Une erreur se produit ...');
         };
-        $configForm = self::getConfigForm($type, 'create');
-        self::renderCategoryView($type, $alert, $configForm);
+        self::renderCategoryView($type, $alert);
     }
 
     public function updateAction()
@@ -69,37 +68,17 @@ class CategoriesController
 
     public function updateAlbumAction()
     {
-        $configForm = self::getConfigForm('album', 'update');
-        $alert = self::push($configForm, 'album', 'update');
-        self::renderCategoryView('album',$alert, $configForm );
+        self::renderCategoryView('album',self::push('album', 'update') );
     }
 
     public function updateArticleAction()
     {
-        $configForm = self::getConfigForm('article', 'update');
-        $alert = self::push($configForm, 'article', 'update');
-        self::renderCategoryView('article',$alert, $configForm );
-
+        self::renderCategoryView('article', self::push( 'article', 'update') );
     }
 
     public function updateEventAction()
     {
-        $configForm = self::getConfigForm('event', 'update');
-        $alert = self::push($configForm, 'event', 'update');
-        self::renderCategoryView('event',$alert, $configForm );
-
-    }
-
-    /**
-     * @param string $type
-     * @param string|null $action
-     * @return bool
-     */
-    private function renderCategory(string $type)
-    {
-        $configForm = self::getConfigForm($type, 'create');
-        $alert = self::push($configForm, $type, 'create');
-        self::renderCategoryView($type, $alert, $configForm);
+        self::renderCategoryView('event',self::push('event', 'update') );
     }
 
     /**
@@ -126,7 +105,6 @@ class CategoriesController
             case 'album':
                 return $this->category->getFormAlbumCategories()[$typeForm];
                 break;
-
             case  'article':
                 return $this->category->getFormArticleCategories()[$typeForm];
                 break;
@@ -144,8 +122,9 @@ class CategoriesController
      * @param [type] $type
      * @return array|bool
      */
-    private function push($configForm, $type, $action)
+    private function push($type, $action)
     {
+        $configForm = self::getConfigForm($type, $action);
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
         if (!empty($data)) {
