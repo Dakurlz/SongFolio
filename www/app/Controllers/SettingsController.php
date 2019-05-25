@@ -19,6 +19,12 @@ class SettingsController
         //On le retire des datas avant le save.
         unset($_POST['data']['setting_type']);
 
+        foreach($_POST['data'] as $key => $value){
+            if(empty($value)){
+                unset($_POST['data'][$key]);
+            }
+        }
+
         //On créer dynamiquement le setting associé et on save ses datas.
         $settings = new Settings($settings_type);
         if(!empty($_POST)){

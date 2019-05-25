@@ -37,6 +37,7 @@ class View{
                 $this->template_path = $templatePath;
 
                 if($template == 'front'){
+                    $settings['config'] = (new Settings('config') )->get();
                     $settings['header'] = (new Settings('header') )->get();
                     $settings['footer'] = (new Settings('footer') )->get();
                     $this->assign('settings', $settings);

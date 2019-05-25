@@ -75,12 +75,20 @@ label {
   left: 10%;
   color: #b6b6b6; }
 
+.lexical_br {
+  position: absolute;
+  bottom: 2px;
+  text-align: right;
+  width: 80%;
+  right: 10px;
+  color: #b6b6b6; }
+
 .chevron:after {
   content: ">";
   display: inline-block;
   position: relative;
   font-size: 1.3em;
-  top: 4px;
+  top: 2px;
   left: 5px; }
 
 .hide {
@@ -3747,7 +3755,8 @@ input:checked + .slider:before {
       margin-bottom: 0; }
     #front-body #home-blog .event-other {
       background: #E1E1E1;
-      padding: 10px; }
+      padding: 10px;
+      position: relative; }
       @media screen and (min-width: 590px) {
         #front-body #home-blog .event-other {
           height: 350px; } }

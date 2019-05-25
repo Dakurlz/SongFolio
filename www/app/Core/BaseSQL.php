@@ -184,10 +184,15 @@ class BaseSQL
      * @param array $where
      * @return array
      */
-    public function getAllBy(array $where): array
+    public function getAllBy(array $where, array $params = []): array
     {
+        $order = 1;
+        if(isset($params['orderBy'])){
+            $order = $params['orderBy']." ".$params['orderTo'] ?? 'ASC';
+        }
+
         $sqlWhere = $this->sqlWhere($where);
-        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(" AND ", $sqlWhere);
+        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(" AND ", $sqlWhere)." ORDER BY ".$order;
         $query = $this->pdo->prepare($sql);
 
         $query->setFetchMode(PDO::FETCH_ASSOC);

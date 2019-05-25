@@ -51,7 +51,9 @@
                     id="<?= $fieldValue["id"] ?? '' ?>"
                     class="select-control <?= $fieldValue['class'] ?? '' ?>">
 					<?php foreach ($fieldValue['options'] as $option) : ?>
-                        <?php $selected = $option['value'] == $fieldValue['selected'] || isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === $option['value'] : false; ?>
+
+                        <?php $selected = $option['value'] == $fieldValue['selected'] || (isset($fieldValue["name"]) && isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === $option['value'] : false); ?>
+
                         <option <?= $selected ? 'selected' : ''?> <?= isset($values[$fieldValue["name"]]) ? $values[$fieldValue["name"]] === $option['value'] ? 'selected' : '' : null  ?> value="<?= $option['value']; ?>">
                             <?= $option['label']; ?>
                         </option>
@@ -153,7 +155,8 @@
                     name="<?= $fieldValue["name"] ?? '' ?>"
                     placeholder="<?= $fieldValue["placeholder"] ?? '' ?>"
                     class="<?= $fieldValue["class"] ?? '' ?>"
-                    id="<?= $fieldValue["id"] ?? '' ?>" <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
+                    id="<?= $fieldValue["id"] ?? '' ?>"
+                    <?= (isset($fieldValue["required"])) ? 'required="required"' : ''; ?>
                     value="<?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') :
                         $fieldValue["value"] ?? ''
                     ?>">

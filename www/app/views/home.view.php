@@ -1,6 +1,7 @@
 <?php
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
+use Songfolio\Models\Users;
 ?>
 
 <section id="home-slider">
@@ -15,52 +16,69 @@ use Songfolio\Core\Routing;
 <section id="home-blog">
     <div class="container">
         <div class="row">
+            <?php
+            if(isset($articles)):
+            ?>
             <div class="col-lg-6 col-12">
                 <article class="event-full">
-                    <a href="" class="event">
-                        <h1>Fin de tournée, nos impressions !</h1>
-                        <p>Mardi 2 Janvier 2019 <span class="muted">par Kilian</span></p>
-                        <img src="<?php echo PUBLIC_DIR?>img/slider-1-1920w.jpg" />
+                    <a href="<?=$articles[0]['slug'] ?? ''?>" class="event">
+                        <h1><?=$articles[0]['title'] ?? 'Bientôt ...'?></h1>
+
+                        <?php if(isset($articles[0])): ?>
+                            <p><?=$articles[0]['date_create']?> <span class="muted">par <?=(new Users($articles[0]['author']))->__get('username')?></span></p>
+                            <?php if(isset($articles[0]['img_dir'])): ?>
+                                <img src="<?=$articles[0]['img_dir']?>" />
+                            <?php endif; ?>
+                        <?php endif;?>
+
                     </a>
                 </article>
             </div>
             <div class="col-lg-3 col-xs-6 col-12">
                 <article class="event-half">
-                    <a href="" class="event">
-                        <h1>Sortie du nouvel album coming soon</h1>
-                        <p>Mardi 2 Janvier 2019 <span class="muted">par Kilian</span></p>
-                        <img src="<?php echo PUBLIC_DIR?>img/slider-1-1920w.jpg" />
+                    <a href="<?=$articles[1]['slug'] ?? ''?>" class="event">
+                        <h1><?=$articles[1]['title'] ?? 'Bientôt ...'?></h1>
+                        <?php if(isset($articles[1])): ?>
+                            <p><?=$articles[1]['date_create']?> <span class="muted">par <?=(new Users($articles[1]['author']))->__get('username')?></span></p>
+                            <?php if(isset($articles[1]['img_dir'])): ?>
+                                <img src="<?=$articles[1]['img_dir']?>" />
+                            <?php endif; ?>
+                        <?php endif;?>
                     </a>
-                    <a href="" class="event">
-                        <h1>nouvelle compilation 22 titres</h1>
-                        <p>Mardi 2 Janvier 2019 <span class="muted">par Kilian</span></p>
-                        <img src="<?php echo PUBLIC_DIR?>img/slider-1-1920w.jpg" />
+                    <a href="<?=$articles[2]['slug'] ?? ''?>" class="event">
+                        <h1><?=$articles[2]['title'] ?? 'Bientôt ...'?></h1>
+                        <?php if(isset($articles[2])): ?>
+                            <p><?=$articles[2]['date_create']?> <span class="muted">par <?=(new Users($articles[2]['author']))->__get('username')?></span></p>
+                            <?php if(isset($articles[2]['img_dir'])): ?>
+                                <img src="<?=$articles[2]['img_dir']?>" />
+                            <?php endif; ?>
+                        <?php endif;?>
                     </a>
                 </article>
             </div>
             <div class="col-lg-3 col-xs-6 col-12">
                 <article class="event-other">
-                <h1>Autres nouveautés</h1>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <h2>New numero 4</h2>
-                            <p>Mercredi 12 janvier par Freddie</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <h2>News numero 5</h2>
-                            <p>Mercredi 12 janvier par Freddie</p>
-                        </a>
-                    </li>
-                </ul>
+                    <h1>Autres nouveautés</h1>
+                    <ul>
+                        <?php if(count($articles) > 3): ?>
+                            <?php for($i = 3; $i < count($articles) && $i < 9; $i++): ?>
+                                <li>
+                                    <a href="<?=$articles[$i]['slug'] ?? ''?>">
+                                        <h2><?=$articles[$i]['title']?></h2>
+                                        <p><?=$articles[$i]['date_create']?> par <?=$articles[$i]['author']?></p>
+                                    </a>
+                                </li>
+                            <?php endfor; ?>
+                        <?php endif; ?>
+                    </ul>
+                    <a href="<?=Routing::getSlug('pages','renderEventsPage')?>" class="chevron lexical_br">Voir tous les articles</a>
                 </article>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
-
+<!--
 <section id="section-top">
     <div class="container">
         <div class="row center">
@@ -104,11 +122,11 @@ use Songfolio\Core\Routing;
         </div>
     </div>
 </section>
-
+-->
 <section id="section-info">
     <div class="container">
         <div class="row center">
-            <div class="col-lg-5 col-sm-6 col-12 events">
+            <div class="col-lg-10 col-sm-10 col-12 events">
                 <div class="nav">
                     <a href="<?= Routing::getSlug('Pages','renderEventsPage') ?>">
                         Prochains évènements
@@ -134,14 +152,15 @@ use Songfolio\Core\Routing;
 
                         <?php endif ?>
                 </ul>
+                <a href="<?=Routing::getSlug('pages','renderEventsPage')?>" class="chevron">Voir tous les évènements</a>
             </div>
-            <div class="col-sm-offset-1 col-lg-4 col-sm-5 col-12 group-info">
+            <!--<div class="col-sm-offset-1 col-lg-4 col-sm-5 col-12 group-info">
                     <img src="<?php echo PUBLIC_DIR?>img/photo_fm.jpg" />
                     <h1>Freddie Mercury</h1>
                     <p>Chanteur</p>
                     <a href="#">Biographie de Freddie</a>
                     <a href="#" class="chevron lexical">Tous les membres du groupe</a>
-            </div>
+            </div>-->
         </div>
     </div>
 </section>

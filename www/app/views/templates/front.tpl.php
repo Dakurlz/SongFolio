@@ -8,9 +8,10 @@ use \Songfolio\Models\Menus;
 <html>
 <head>
     <meta charset="utf-8">
-    <meta data="description" content="<?= $page_desc ?? 'Description du site' ?>">
+    <meta data="description" content="<?= $settings['config']['site_desc'] ?? 'Made with Songfolio' ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $page_title ?? 'Titre du site' ?></title>
+    <meta name="keywords" content="<?= $settings['config']['site_tags'] ?? '' ?>">
+    <title><?= $settings['config']['site_name'] ?? 'Songfolio' ?></title>
 
     <!--Main css -->
     <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>">
@@ -19,38 +20,44 @@ use \Songfolio\Models\Menus;
     <header>
         <div class="container">
             <div class="row no-margin header-top between middle">
-                <a href="#" id="logo-image" style="background-image:url('<?php echo PUBLIC_DIR?>img/logo_queen.png');"></a>
+                <a href="/" id="logo-image" style="background-image:url(<?=$settings['header']['header_logo'] ?? PUBLIC_DIR.'img/logo_songfolio.png'?>)"></a>
                 <a id="show-menu" href="#">&#9776;</a>
                 <ul>
+                    <?php if(isset($settings['config']['fb_url'])): ?>
+                        <li>
+                            <a href="<?=$settings['config']['fb_url']?>"><img src="<?php echo PUBLIC_DIR?>img/fb.jpg"></a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if(isset($settings['config']['twitter_url'])): ?>
                     <li>
-                        <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
+                        <a href="<?=$settings['config']['twitter_url']?>"><img src="<?php echo PUBLIC_DIR?>img/twitter.jpg"></a>
                     </li>
+                    <?php endif; ?>
+                    <?php if(isset($settings['config']['insta_url'])): ?>
                     <li>
-                        <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
+                        <a href="<?=$settings['config']['insta_url']?>"><img src="<?php echo PUBLIC_DIR?>img/instagram.jpg"></a>
                     </li>
-                    <li>
-                        <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
-                    </li>
-                    <li>
-                        <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
-                    </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <nav class="row no-margin">
                 <div class="mobile">
                     <ul>
-                        <li>
-                            <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
-                        </li>
-                        <li>
-                            <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
-                        </li>
-                        <li>
-                            <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
-                        </li>
-                        <li>
-                            <a href=""><img src="<?php echo PUBLIC_DIR?>img/fb.png"></a>
-                        </li>
+                        <?php if(isset($settings['config']['fb_url'])): ?>
+                            <li>
+                                <a href="<?=$settings['config']['fb_url']?>"><img src="<?php echo PUBLIC_DIR?>img/fb.jpg"></a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if(isset($settings['config']['twitter_url'])): ?>
+                            <li>
+                                <a href="<?=$settings['config']['twitter_url']?>"><img src="<?php echo PUBLIC_DIR?>img/twitter.jpg"></a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if(isset($settings['config']['insta_url'])): ?>
+                            <li>
+                                <a href="<?=$settings['config']['insta_url']?>"><img src="<?php echo PUBLIC_DIR?>img/instagram.jpg"></a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                     <button type="button" id="hide-menu" />
                 </div>

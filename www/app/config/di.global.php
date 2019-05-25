@@ -43,7 +43,8 @@ return [
     PagesController::class => function ($container) {
         $eventsModel = $container[Events::class]($container);
         $categoryModel = $container[Categories::class]($container);
-        return new PagesController($eventsModel, $categoryModel);
+        $contentsModel = $container[Contents::class]($container);
+        return new PagesController($eventsModel, $categoryModel, $contentsModel);
     },
     SettingsController::class => function ($container) {
         return new SettingsController();

@@ -113,6 +113,7 @@
     .event-other {
       background: $color-light;
       padding: 10px;
+      position:relative;
       @media screen and (min-width: $mobile_width) {
         height: 350px;
       }

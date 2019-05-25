@@ -54,13 +54,21 @@ label {
   left: 10%;
   color: $color-muted;
 }
+.lexical_br {
+  position: absolute;
+  bottom: 2px;
+  text-align:right;
+  width: 80%;
+  right: 10px;
+  color: $color-muted;
+}
 
 .chevron:after {
   content: ">";
   display: inline-block;
   position: relative;
   font-size: 1.3em;
-  top: 4px;
+  top: 2px;
   left: 5px;
 }
 

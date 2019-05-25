@@ -112,8 +112,28 @@ class Settings extends BaseSQL
                         "placeholder" => "Séparés par des virgules",
                         "class" => "form-control",
                         "name" => "data[site_tags]",
-                        "value" => $this->getData('site_tags'),
-                        "required" => true
+                        "value" => $this->getData('site_tags')
+                    ],
+                    "fb_url" => [
+                        "type" => "text",
+                        "label" => "Lien vers votre page facebook",
+                        "class" => "form-control",
+                        "name" => "data[fb_url]",
+                        "value" => $this->getData('fb_url')
+                    ],
+                    "twitter_url" => [
+                        "type" => "text",
+                        "label" => "Lien vers votre page twitter",
+                        "class" => "form-control",
+                        "name" => "data[twitter_url]",
+                        "value" => $this->getData('twitter_url')
+                    ],
+                    "insta_url" => [
+                        "type" => "text",
+                        "label" => "Lien vers votre page instagram",
+                        "class" => "form-control",
+                        "name" => "data[insta_url]",
+                        "value" => $this->getData('insta_url')
                     ]
                 ];
                 break;
@@ -123,33 +143,6 @@ class Settings extends BaseSQL
                         "type" => "hidden",
                         "name" => "data[setting_type]",
                         "value" => "template",
-                        "required" => true
-                    ],
-                    "site_name" => [
-                        "type" => "text",
-                        "label" => "Nom  2 du site",
-                        "placeholder" => "Nom du site",
-                        "class" => "form-control",
-                        "name" => "data[site_name]",
-                        "value" => $this->getData('site_name'),
-                        "required" => true
-                    ],
-                    "site_desc" => [
-                        "type" => "text",
-                        "label" => "Descr DD iption courte du site",
-                        "placeholder" => "Description courte du site",
-                        "class" => "form-control",
-                        "name" => "data[site_desc]",
-                        "value" => $this->getData('site_desc'),
-                        "required" => true
-                    ],
-                    "site_tags" => [
-                        "type" => "text",
-                        "label" => "Tags (séparés par des virgules)",
-                        "placeholder" => "Séparés par des virgules",
-                        "class" => "form-control",
-                        "name" => "data[site_tags]",
-                        "value" => $this->getData('site_tags'),
                         "required" => true
                     ]
                 ];
@@ -164,6 +157,13 @@ class Settings extends BaseSQL
                         "value" => "header",
                         "required" => true
                     ],
+                    "header_logo" => [
+                        "type" => "text",
+                        "label" => "Logo du site",
+                        "class" => "form-control",
+                        "name" => "data[header_logo]",
+                        "value" => $this->getData('header_logo')
+                    ],
                     "header_menu" => [
                         "type" => "select",
                         "class" => "col-4 smart-toggle",
@@ -175,7 +175,7 @@ class Settings extends BaseSQL
                         "error" => "Choisissez un menu",
                         "selected" => $this->getData('header_menu'),
                         "options" => [],
-                    ],
+                    ]
                 ];
                 foreach($menus as $menu){
                     $array['data']['header_menu']['options'][] = ["label" => $menu['title'], "value" => $menu['id']];
