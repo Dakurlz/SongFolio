@@ -27,12 +27,11 @@ class Validator
         }*/
         foreach ($config["data"] as $name => $input) {
             //required
-
             if ( ($input["required"] ?? false) && empty($data[$name])) {
                 debug($data[$name]);
                 View::show404("Tentative de Faille XSS");
             } else {
-
+                
                 //Minlength
                 if (isset($input["minlength"]) && !self::checkMinLength($data[$name], $input["minlength"])) {
                     $this->errors[] = $input["error"];
@@ -60,6 +59,12 @@ class Validator
                 }
             }
         }
+
+         if (isset($data['new_pwd']) && !self::checkNewPwd($data['new_pwd'],$data['valid_new_pwd'])){
+             $this->errors[] = $input["error_not_same"];
+          }
+
+
     }
 
     /**
@@ -89,5 +94,8 @@ class Validator
         return (preg_match("#[A-Z]#", $string) &&
             preg_match("#[a-z]#", $string) &&
             preg_match("#[0-9]#", $string));
+    }
+    public static function checkNewPwd($new_pwd,$valid_new_pwd){
+        return $new_pwd == $valid_new_pwd;
     }
 }

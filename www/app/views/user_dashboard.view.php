@@ -3,63 +3,37 @@ use Songfolio\Core\Routing;
 ?>
 <div class="container">
     <h1><?php echo 'Bonjour '.$user->__get('username'); ?></h1>
-    <a href="#">Modifier son adresse mail</a><br>
-    <a href="#">Modifier son mot de passe</a><br>
     <a href="<?=Routing::getSlug('users', 'logout')?>">Deconnexion</a><br>
 
-   <style>
-body {font-family: Arial, Helvetica, sans-serif;}
+<?php if (isset($success)) : ?>
+  
+<div class="success alert-success">
+                    <?php echo $success ?>
+                     </div>
+<?php endif; ?>
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>
  <table>
         <tr><td>Speudo :</td><td> <?php echo $user->__get('username'); ?></td><td></td></tr>
         <tr><td>Email</td><td><?php echo $user->__get('email'); ?></td><td><input class='btn btn-info' value='Modifier'></td></tr>
         <tr><td>Mot de passe </td><?php echo $user->__get('username'); ?><td>*******</td><td><input id="pwd" class='btn btn-info' value='Modifier'></td></tr>
         <tr><td>Membre depuis</td><td><?php echo $user->__get('date_inserted'); ?></td><td></td></tr>
     </table>
-<div id="myModal" class="modal">
-<div class="modal-content"><br><br>
+<div id="myModal" class="modal  <?php if(!empty($active)) echo $active  ?>">
+<div class="modal-content">
+<div class='modal-title'>Changement de mot de passe</div><hr>
+<br>
+<?php if (isset($alert)) : ?>
+  
+               <div class="alert alert-danger">
+               <?php foreach ($alert as $danger) : ?>
+                     <li><?php echo $danger; ?></li>
+                  <?php endforeach; ?>
+                     </div>
+                     <?php endif; ?>
 <?php 
         $this->addModal("form", $FormModifyPwd);
     ?>
+    
 <span class="close"></span>
 </div>
 </div>

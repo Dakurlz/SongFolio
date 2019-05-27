@@ -186,34 +186,46 @@ class Users extends BaseSQL
                 "id"=>"",
                 "submit"=>"Changer de mot de passe"
             ],
+            "btn" => [
+                "submit" => [
+                    "type" => "submit",
+                    "text" => "Changer mon mot de passe",
+                    "class" => "btn btn-success-outline"
+                ],
+            ],
 
             "data"=>[
-                "pwd"=>[
+                "old_pwd"=>[
                     "type"=>"password",
                     "placeholder"=>"Mot de passe actuel",
                     "class"=>"form-control",
-                    "id"=>"currently_pwd",
+                    "id"=>"old_pwd",
+                    "name"=>"old_pwd",
                     "required"=>true,
                     "minlength"=>6,
-                    "error"=>"Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
+                    "error"=>""
                 ],
                 "new_pwd"=>[
                     "type"=>"password",
                     "placeholder"=>"Nouveau mot de passe",
                     "class"=>"form-control",
                     "id"=>"new_pwd",
+                    "name"=>"new_pwd",
                     "required"=>true,
                     "minlength"=>6,
-                    "error"=>"Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
+                    "error"=>"Votre nouveau mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres",
+                    "error_1"=>"Votre nouveau de passe n'est pas identique."
                 ],
                 "valid_new_pwd"=>[
                     "type"=>"password",
                     "placeholder"=>"Confirmer mot de passe",
                     "class"=>"form-control",
                     "id"=>"valid_new_pwd",
+                    "name"=>"valid_new_pwd",
                     "required"=>true,
                     "minlength"=>6,
-                    "error"=>"Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
+                    "error"=>"La confirmation de votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres",
+                    "error_not_same"=>"Le nouveau mot de passe saisit n'est pas identique."
                 ],
             ]
         ];
