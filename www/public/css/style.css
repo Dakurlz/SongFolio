@@ -3979,9 +3979,10 @@ input:checked + .slider:before {
   font-weight: 400;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 0 0 10px;
   border-bottom: 2px solid #B00000;
-  margin: 0 auto; }
+  padding: 0 0 10px;
+  margin: 0 auto;
+  margin-bottom: 15px; }
 
 #front-body #content-core h2 {
   font-family: "Questrial", sans-serif;

@@ -17,6 +17,15 @@ class Routing
         return ($withoutSlash ? trim(strtolower($slugExploded[0]), '/') : strtolower($slugExploded[0]));
     }
 
+    public static function isSlugExist($slug)
+    {
+        $routes = yaml_parse_file('app/config/routes.yml');
+        if (!empty($routes[$slug])) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @param Users $user
      * @return array

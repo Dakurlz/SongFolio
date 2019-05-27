@@ -40,7 +40,7 @@ class Contents extends BaseSQL
 
     public function content()
     {
-        echo $this->__get('content');
+        return $this->__get('content');
     }
 
     public function is(string $type)
@@ -139,7 +139,7 @@ class Contents extends BaseSQL
                         "id" => "fileToUpload",
                         "required" => false,
                         "name" => "img_dir",
-                        "label" => "Image de banière",
+                        "label" => "Image de banière (Taille conseillée : 1920x380px)",
                         "class" => ""
                     ],
                     "img-article" => [
