@@ -3434,9 +3434,6 @@ input:checked + .slider:before {
       margin-top: 20px;
       margin-bottom: 10px;
       color: #7b7b7b; }
-  #front-body .active {
-    display: block;
-    /* Hidden by default */ }
   #front-body .modal {
     position: fixed;
     /* Stay in place */
@@ -3456,6 +3453,9 @@ input:checked + .slider:before {
     /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */ }
+    #front-body .modal.active {
+      display: block;
+      /* Hidden by default */ }
   #front-body .modal-content {
     background-color: #fefefe;
     margin: auto;
