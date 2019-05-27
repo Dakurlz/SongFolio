@@ -467,9 +467,11 @@ class Users extends BaseSQL
                         'type' => 'end_row'
                     ],
 
-                    ]
+                ]
             ]
         ];
+    }
+
     public function getFormModifyPwd()
     {
         return [
