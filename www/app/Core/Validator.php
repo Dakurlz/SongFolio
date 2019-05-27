@@ -60,6 +60,12 @@ class Validator
                 }
             }
         }
+
+         if (isset($data['new_pwd']) && !self::checkNewPwd($data['new_pwd'],$data['valid_new_pwd'])){
+             $this->errors[] = $input["error_not_same"];
+          }
+
+
     }
 
     /**
@@ -89,5 +95,8 @@ class Validator
         return (preg_match("#[A-Z]#", $string) &&
             preg_match("#[a-z]#", $string) &&
             preg_match("#[0-9]#", $string));
+    }
+    public static function checkNewPwd($new_pwd,$valid_new_pwd){
+        return $new_pwd == $valid_new_pwd;
     }
 }

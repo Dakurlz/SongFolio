@@ -31,9 +31,36 @@ class UsersController
     }
 
     public function dashboardAction(): void
-    {
+
+    {   
+        $configForm = $this->user->getFormModifyPwd();
         $v = new View("user_dashboard", "front");
         $v->assign('user', $this->user);
+        $v->assign('FormModifyPwd',$configForm);
+        if(!empty($_POST)){
+            $method = $configForm["config"]["method"];
+            $data = $GLOBALS["_" . $method];
+            if (!password_verify($data['old_pwd'],$this->user->password)) {
+                $configForm["errors"]=[];
+                array_push($configForm["errors"],"Votre mot de passe actuel que vous avez saisit est incorrect.");
+            }else{
+                $validator = new Validator($configForm, $data);
+                $configForm["errors"] = $validator->getErrors();
+            }
+            if(!empty( $configForm["errors"])){
+                $v->assign('alert', $configForm["errors"]);
+                $v->assign('active','active');
+            }else{
+                $this->modifyPwdAction($data['new_pwd']);
+                $v->assign('success', "Votre mot de passe à été modifier.");
+            }
+        }
+    }
+    
+    public function modifyPwdAction($pwd) : void
+    {   
+       $this->user->__set('password',$pwd);
+       $this->user->save();
     }
 
     public function registerAction(): void
@@ -45,7 +72,6 @@ class UsersController
         $configForm = $this->user->getFormRegister();
 
         if (!empty($_POST)) {
-
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
 
@@ -76,14 +102,14 @@ class UsersController
         $configForm = $user->getFormLogin();
 
         if (!empty($_POST)) {
-
+           
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
-
+            
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
-
+                var_dump($validator);
                 if (empty($configForm["errors"])) {
                     if ($user->getOneBy(['username' => $data['username']], true) && password_verify($data['password'], $user->__get('password'))) {
 

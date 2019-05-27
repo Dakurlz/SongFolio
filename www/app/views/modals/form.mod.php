@@ -147,7 +147,7 @@
 
 			default:
 				if ($fieldValue["type"] === "password") {
-					unset($values[$fieldValue["name"]]);
+					
 				} ?>
 
 				<input
