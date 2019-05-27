@@ -38,9 +38,17 @@ class Contents extends BaseSQL
         $v->assign('content', $this);
     }
 
+    public function is($type)
+    {
+        if($this->__get('type') == $type){
+            return true;
+        }
+        return false;
+    }
+
     public function content()
     {
-        echo $this->__get('content');
+        return $this->__get('content');
     }
 
     public function getFormContents(): array
@@ -133,7 +141,7 @@ class Contents extends BaseSQL
                         "id" => "fileToUpload",
                         "required" => false,
                         "name" => "img_dir",
-                        "label" => "Image de banière",
+                        "label" => "Image de banière (Taille conseillée : 1920x380px)",
                         "class" => ""
                     ],
                     "img-article" => [

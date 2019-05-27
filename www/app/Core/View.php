@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Songfolio\Core;
 
 use Songfolio\Models\Settings;
+use Songfolio\Models\Users;
 
 class View{
     private $view;
@@ -71,6 +72,7 @@ class View{
     }
 
     public function __destruct(){
+        $user = new Users();
         if(!empty($this->data))
             extract($this->data);
         if($this->template_path !== null)
