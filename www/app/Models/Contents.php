@@ -43,6 +43,12 @@ class Contents extends BaseSQL
         echo $this->__get('content');
     }
 
+    public function is(string $type)
+    {
+        if($this->__get('type')===$type) return true;
+        return false;
+    }
+
     public function getFormContents(): array
     {
         return [

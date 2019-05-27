@@ -5,7 +5,6 @@ use Songfolio\Core\Routing;
 
 <section id="section-events">
     <div class="container">
-        <a class="btn btn-success-outline" href="<?= Routing::getSlug('Pages', 'default') ?>">Revenir sur la page d'accueil</a>
         <div class="row center">
             <div style="margin-top: 20px" class="col-lg-12 col-sm-12 col-12 events">
                 <div class="nav">
@@ -27,16 +26,17 @@ use Songfolio\Core\Routing;
                                     <p> <?= $event['details'] ?>€</p>
                                 </div>
 
-                        </div>
+                            </div>
 
                         <?php endforeach;
                 else : ?>
                         <li> Aucun événement prévu </li>
 
                     <?php endif ?>
-                        </div>
+                </div>
             </div>
 
         </div>
+        <a class="btn btn-success-outline" style="margin-top: 50px" href="<?= Routing::getSlug('Pages', 'default') ?>">Revenir sur la page d'accueil</a>
     </div>
 </section>
