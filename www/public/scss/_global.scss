@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,800,800i");
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  font-family: $font-text;
+  color: $color-text;
+  font-size: 15px;
+}
+
+@function rem($pxval) {
+  $base: 16;
+  @return ($pxval / $base) * 1rem;
+}
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+label {
+  font-family: $font-title;
+  font-size: 1.3rem;
+}
+
+.muted {
+  color: $color-muted;
+}
+
+/* BASICS */
+.all-height {
+  height: 100%;
+}
+.all-width {
+  width: 100%;
+}
+
+.lexical {
+  position: absolute;
+  bottom: 20px;
+  width: 80%;
+  left: 10%;
+  color: $color-muted;
+}
+.lexical_br {
+  position: absolute;
+  bottom: 2px;
+  text-align:right;
+  width: 80%;
+  right: 10px;
+  color: $color-muted;
+}
+
+.chevron:after {
+  content: ">";
+  display: inline-block;
+  position: relative;
+  font-size: 1.3em;
+  top: 2px;
+  left: 5px;
+}
+
+
+.hide {
+  display: none !important;
+}
+
+.tac {
+  text-align: center;
+}
+.tar {
+  text-align: right;
+}
+.tal {
+  text-align: left;
+}
+
+.form {
+  div {
+    margin-bottom: rem(20);
+  }
+}

@@ -1,0 +1,24 @@
+.header{
+  display: flex;
+  flex-direction: row;
+  background-color: $color-black-light;
+  width: 100%;
+  align-items: center;
+  height: 50px;
+  margin-bottom: rem(20);
+
+  & > img{
+    width: 30px;
+    height: 30px;
+    margin-left: rem(20);
+  }
+
+  & > p {
+    color: $color-white;
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: rem(10);
+
+  }
+
+}

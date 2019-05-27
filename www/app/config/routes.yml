@@ -1,0 +1,231 @@
+'/':
+  controller: Pages
+  action: default
+
+'/contenu':
+  controller: Pages
+  action: content
+
+
+# EVENTS FRONT 
+'/evenement':
+  controller: Pages
+  action: renderEventsPage
+
+# USERS
+'/liste_des_utilisateurs':
+  controller: Users
+  action: default
+
+'/creation_de_compte':
+  controller: Users
+  action: register
+
+'/mot_de_passe_oublie':
+  controller: Users
+  action: forgetPassword
+
+'/connexion':
+  controller: Users
+  action: login
+
+'/deconnexion':
+  controller: Users
+  action: logout
+  needAuth: true
+
+'/mon_compte':
+  controller: Users
+  action: dashboard
+  needAuth: true
+
+'/changement_mot_de_passe':
+  controller: Users
+  action: editPwd
+  needAuth: true
+
+# ADMIN
+'/admin':
+  controller: Admin
+  action: default
+  needGroups: admin
+
+'/admin/users':
+  controller: Admin
+  action: loadUser
+  needGroups: admin
+
+# ROLES
+'/admin/roles':
+  controller: Admin
+  action: roles
+  needGroups: admin
+'/admin/roles/add':
+  controller: Admin
+  action: rolesAdd
+  needGroups: admin
+'/admin/roles/edit':
+  controller: Admin
+  action: rolesEdit
+  needGroups: admin
+'/admin/roles/del':
+  controller: Admin
+  action: rolesDel
+  needGroups: admin
+
+'/admin/menus':
+  controller: Admin
+  action: menus
+  needGroups: admin
+
+'/admin/menus/add':
+  controller: Admin
+  action: menusAdd
+  needGroups: admin
+
+'/admin/menus/edit':
+  controller: Admin
+  action: menusEdit
+  needGroups: admin
+
+'/admin/menus/del':
+  controller: Admin
+  action: menusDel
+  needGroups: admin
+
+'/admin/albums':
+  controller: Admin
+  action: loadAlbum
+
+# Categories
+'/admin/categories/':
+  controller: Categories
+  action: index
+
+'/admin/categories/article':
+  controller: Categories
+  action: article
+
+'/admin/categories/album':
+  controller: Categories
+  action: album
+
+'/admin/categories/event':
+  controller: Categories
+  action: event
+
+'/admin/categories/delete':
+  controller: Categories
+  action: delete
+
+'/admin/categories/update':
+  controller: Categories
+  action: update
+
+'/admin/categories/album/update':
+  controller: Categories
+  action: updateAlbum
+
+'/admin/categories/article/update':
+  controller: Categories
+  action: updateArticle
+
+'/admin/categories/event/update':
+  controller: Categories
+  action: updateEvent
+
+# CONTENTS
+'/admin/contents':
+  controller: Contents
+  action: index
+
+'/admin/contents/create':
+  controller: Contents
+  action: createContents
+
+'/admin/contents/pages':
+  controller: Contents
+  action: listesPages
+
+'/admin/contents/articles':
+  controller: Contents
+  action: listesArticles
+
+'/admin/contents/delete':
+  controller: Contents
+  action: delete
+
+'/admin/contents/update':
+  controller: Contents
+  action: update
+
+'/admin/contents/update_content':
+  controller: Contents
+  action: updateContent
+
+# COMMENTS
+'/admin/comments':
+  controller: Comments
+  action: listNotConfirm
+
+# Settings
+'/admin/settings':
+  controller: Settings
+  action: index
+'/admin/settings/save':
+  controller: Settings
+  action: save
+'/admin/settings/config':
+  controller: Settings
+  action: config
+'/admin/settings/template':
+  controller: Settings
+  action: template
+'/admin/settings/header':
+  controller: Settings
+  action: header
+'/admin/settings/footer':
+  controller: Settings
+  action: footer
+
+# EVENTS
+'/admin/events/create':
+  controller: Events
+  action: createEvents
+
+'/admin/events/list':
+  controller: Events
+  action: listEvents
+
+'/admin/events/delete':
+  controller: Events
+  action: delete
+
+'/admin/events/update':
+  controller: Events
+  action: update
+
+'/admin/events/update_event':
+  controller: Events
+  action: updateEvents
+
+# USERS BACK
+'/admin/users/create':
+  controller: Users
+  action: createUsers
+
+'/admin/users/list':
+  controller: Users
+  action: listUsers
+
+'/admin/users/delete':
+  controller: Users
+  action: delete
+
+'/admin/users/update':
+  controller: Users
+  action: update
+
+'/admin/users/update_user':
+  controller: Users
+  action: updateUsers

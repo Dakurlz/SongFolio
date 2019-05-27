@@ -1,0 +1,113 @@
+// .table {
+//   width: 100%;
+//   margin: rem(20) rem(20) rem(60) rem(20);
+//   border-collapse: collapse;
+//   width: 100%;
+//   text-align: left;
+
+//   &-border {
+//     border: 1px solid #ddd;
+//   }
+
+//   thead {
+//     & tr {
+//       & th {
+//         background-color: #f2f2f2;
+//         height: rem(35);
+//         &:first-child {
+//           padding-left: 20px;
+//         }
+//         &:last-child {
+//           padding-right: 20px;
+//         }
+//       }
+//     }
+//   }
+
+//   @media only screen and (max-width: 760px) {
+//     table,
+//     thead,
+//     tbody,
+//     th,
+//     td,
+//     tr {
+//       display: block;
+//     }
+
+//     thead {
+//       tr {
+//         position: absolute;
+//         top: -9999px;
+//         left: -9999px;
+//       }
+//     }
+
+//     tr {
+//       margin: 0 0 1rem 0;
+//     }
+
+//     // tr:nth-child(odd) {
+//     //   border-bottom: solid 2px $color-primary;
+//     //   border-top: solid 2px $color-primary;
+//     // }
+
+//     td {
+//       border: none;
+//       border-bottom: 1px solid #eee;
+//       position: relative;
+//       padding-left: 45%;
+//     }
+
+//     td:before {
+//       position: absolute;
+//       top: 0;
+//       left: 6px;
+//       width: 45%;
+//       padding-right: 10px;
+//       white-space: nowrap;
+//     }
+//   }
+// }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+
+  .table-border {
+    border: 1px solid #ddd;
+  }
+  td {
+    color: color-get(blue, grey);
+    &:first-child {
+      font-size: rem(18);
+      padding-left: 20px;
+    }
+    &:last-child {
+      padding-right: 20px;
+    }
+  }
+  thead {
+    & tr {
+      & th {
+        background-color: #f2f2f2;
+        height: rem(35);
+        &:first-child {
+          padding-left: 20px;
+        }
+        &:last-child {
+          padding-right: 20px;
+        }
+      }
+    }
+  }
+  td,
+  th {
+    padding: 10px;
+  }
+  tbody {
+    .icn {
+      text-align: end;
+    }
+  }
+}

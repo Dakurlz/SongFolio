@@ -1,0 +1,65 @@
+.btn {
+  display: inline-block;
+  color: $color-white;
+  font-weight: 600;
+  padding: .5em;
+  outline: none;
+  text-decoration: none;
+  font-size: 15px;
+  text-align: center;
+  transition: all 0.5s;
+  border: solid 3px transparent;
+  cursor: pointer;
+  border: solid 2px $color-white;
+
+  &--green {
+    background-color: $color-green;
+
+    &:hover {
+      border: solid 3px $color-green;
+      background-color: $color-white;
+      color: $color-green;
+    }
+  }
+
+  &-secondary {
+    background-color: $color-button-secondary;
+  }
+  &-success {
+    background-color: $color-button-success;
+
+    &-outline {
+      background-color: $color-button-success;
+      color: $color-white;
+      border: solid 2px $color-button-success;
+      &:hover {
+        border: solid 2px $color-button-success;
+        background-color: $color-white;
+        color: $color-button-success;
+      }
+    }
+  }
+  &-primary {
+    background-color: $color-button-primary;
+  }
+  &-danger {
+    background-color: $color-button-danger;
+  }
+
+  &-info {
+    background-color: $color-button-info;
+  }
+  &-primary {
+    background-color: $color-primary;
+
+    &-outline {
+      background-color: $color-primary;
+      color: $color-white;
+      &:hover {
+        border: solid 2px $color-primary;
+        background-color: $color-white;
+        color: $color-primary;
+      }
+    }
+  }
+}

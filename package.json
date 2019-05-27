@@ -1,0 +1,25 @@
+{
+  "name": "songfolio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "node-sass": "^4.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "node-sass -w www/public/scss -o  www/public/css/",
+    "sass-build": "node-sass -r --output-style compressed www/public/scss -o -o www/public/css/"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "* [docker](https://www.docker.com/)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dakurlz/SongFolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dakurlz/SongFolio/issues"
+  },
+  "homepage": "https://github.com/Dakurlz/SongFolio#readme"
+}

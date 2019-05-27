@@ -1,0 +1,33 @@
+
+$color-white: #fff;
+$color-black:#000;
+$color-black-light: #3f3f3f;
+$color-blue-f: #85B6CC;
+$color-gray: #E1E1E1;
+$color-green: #00A65A;
+$color-blue: #02BBAB;
+$color-blue-h: #007bff;
+$color-yellow: #ffc107;
+$color-red: red;
+
+$color-title: #444;
+$color-text: #555;
+
+$color-muted: #b6b6b6;
+$color-muted-hover: darken(#E1E1E1, 10%);
+
+$color-light: #E1E1E1;
+$color-light-hover: darken(#E1E1E1, 10%);
+
+$color-neutral: #FFF;
+
+$color-primary: #B00000;
+$color-primary-hover: darken(#B00000, 10%);
+
+// buttons
+$color-button-secondary: #6c757d;
+$color-button-success: #00A65A;
+$color-button-primary: $color-primary;
+$color-button-danger: #dc3545;
+$color-button-info: #007bff;
+$color-button: $color-gray;

@@ -1,0 +1,15 @@
+.admin-page {
+  width: 100%;
+
+  &__form {
+    .fileToUpload{
+      margin: rem(20) 0;
+    }
+
+    .col-12{
+      label{
+        display: block;
+      }
+    }
+  }
+}

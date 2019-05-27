@@ -1,48 +1,54 @@
 <?php
-require "config/conf.inc.php";
-ini_set('display_errors', 1);
+require "app/Config/conf.inc.php";
+require "app/Core/Autoloader.php";
+require "app/Lib/dev.conf.php";
 
-function myAutoLoader($class){
-    $cPath = "core/".$class.".class.php";
-    $pathModels = "models/".$class.".class.php";
-    if(file_exists($cPath)){
-        include $cPath;
-    }else  if(file_exists($pathModels)) {
-        include $pathModels;
-    }
-}
-//Appel une fonction définie si on essaye une instance d'une class qui n'existe pas.
-spl_autoload_register("myAutoloader");
+use Songfolio\Core\View;
+use Songfolio\Core\Autoloader;
+use Songfolio\Core\Routing;
+use Songfolio\Models\Contents;
+use Songfolio\Models\Users;
+use Songfolio\Models\Events;
 
-$slug = $_SERVER["REQUEST_URI"];
-
-//Suppression des GET dans l'url
-$slugExploded = explode("?", $slug);
-$slug = strtolower($slugExploded[0]);
+$autoloader = new Autoloader();
+$autoloader->addNamespace('Songfolio', 'app');
+$autoloader->register();
 
 
-$route = Routing::getRoute($slug);
-if(is_null($route)){
-    die("L'url n'existe pas.");
-}
-extract($route);
+session_start();
 
-if (file_exists($cPath))
-{
-    include $cPath;
+$user = new Users();
+$route = Routing::getRoute($user);
 
-    if(class_exists($c)){
+if(!empty($route)){
+    extract($route);
 
-        $cObject = new $c();
+    $container = [];
+    $container += require 'app/Config/di.global.php';
 
-        if(method_exists($cObject, $a)){
-            $cObject->$a();
+
+    if (file_exists($controllerPath)) {
+        include $controllerPath;
+
+        if(class_exists('\\Songfolio\\Controllers\\' . $controller)){
+
+            $controllerObject = $container['Songfolio\\Controllers\\'.$controller]($container);
+
+            if(method_exists($controllerObject, $action)){
+                $controllerObject->$action();
+            }else{
+                View::show404("L'action ".$action." n'existe pas.");
+            }
         }else{
-            die("L'action ".$a." n'existe pas.");
+            View::show404("La class ".$controller." n'existe pas.");
         }
     }else{
-        die("La class ".$c." n'existe pas.");
+        View::show404("Le fichier controller ".$controller." n'existe pas.");
     }
+}elseif( $content = Contents::getBySlug( Routing::currentSlug(true) ) ){
+    $content->show();
+}elseif( $event = Events::getBySlug( Routing::currentSlug(true) ) ){
+    $event->show();
 }else{
-    die("Le fichier controller ".$c." n'existe pas.");
+    View::show404("L'url n'existe pas.");
 }
