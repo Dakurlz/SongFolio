@@ -101,7 +101,7 @@ class Contents extends BaseSQL
                         "type" => "text",
                         "label" => "Titre",
                         "placeholder" => "Votre titre",
-                        "class" => "input-control col-12 col-lg-4 col-md-4 col-sm-4",
+                        "class" => "input-control target-elment-to-slug col-12 col-lg-5 col-md-5 col-sm-5",
                         "id" => "title",
                         "name" => "title",
                         "required" => true,
@@ -173,7 +173,7 @@ class Contents extends BaseSQL
                     "slug" => [
                         "type" => "slug",
                         "label" => "Lien permanent",
-                        "class" => "",
+                        "class" => "title-value-slug",
                         "presed" => $_SERVER['SERVER_NAME'],
                         "id" => "slug",
                         "name" => "slug",
