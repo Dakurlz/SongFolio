@@ -111,6 +111,18 @@ class Users extends BaseSQL
         }
     }
 
+    public function getFullName(): string
+    {
+        $first = $this->__get('first_name');
+        $last = $this->__get('last_name');
+        return "$first $last";
+    }
+
+    // public function getUserName()
+    // {
+    //     return 
+    // }
+
     public function getFormRegister()
     {
         return [

@@ -4,11 +4,10 @@ declare (strict_types = 1);
 
 namespace Songfolio\controllers;
 
-use Songfolio\Core\Helper;
+use Songfolio\Core\Alert;
 use Songfolio\core\View;
 use Songfolio\core\Routing;
 use Songfolio\core\Validator;
-use Songfolio\Models\Categories;
 use Songfolio\models\Users;
 use Songfolio\Models\Roles;
 
@@ -197,9 +196,9 @@ class UsersController
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->user->delete(["id" => $id]);
-            $alert = Helper::getAlertPropsByAction('delete', 'Utilisateur', false);
+            $alert = Alert::getAlertPropsByAction('delete', 'Utilisateur', false);
         } else {
-            $alert = Helper::setAlertError('Une erreur se produit ...');
+            $alert = Alert::setAlertError('Une erreur se produit ...');
         };
 
         self::listUsersAction($alert);
@@ -236,12 +235,12 @@ class UsersController
                 $this->user->__set('last_name', $data['last_name']);
                 $this->user->save();
 
-                return Helper::getAlertPropsByAction($action, 'Utilisateur', false);
+                return Alert::getAlertPropsByAction($action, 'Utilisateur', false);
             } else {
                 if (empty($errors)) {
-                    return Helper::setAlertError('Utilisateur existe déjà');
+                    return Alert::setAlertError('Utilisateur existe déjà');
                 }
-                return Helper::setAlertErrors($errors);
+                return Alert::setAlertErrors($errors);
             }
         }
         return false;

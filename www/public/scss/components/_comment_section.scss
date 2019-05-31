@@ -1,0 +1,75 @@
+$username-color :#78c3df;
+
+.comment-section {
+  .comments-content {
+    & > h2 {
+      margin-bottom: 15px !important;
+    }
+
+    & > form {
+      margin-top: 15px;
+
+      & > textarea:disabled {
+        background-color: $color-light;
+      }
+      .validate {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: $color-light;
+
+        & > input {
+          margin: 10px 15px !important;
+        }
+
+        input:disabled {
+          background-color: darken($color-green, 10%);
+          border: none;
+        }
+
+        .name {
+          margin: auto 0 !important;
+          margin-left: 15px !important;
+        }
+      }
+    }
+
+    .alert {
+      margin: 20px 0 !important;
+      width: 100% !important;
+    }
+
+    .comments-data {
+      margin-top: 30px;
+      &__item {
+        display: flex;
+        flex-direction: row;
+        margin: 22px 0;
+
+        & > img {
+          width: 40px;
+          height: 40px;
+        }
+
+        &__content {
+          margin-left: 15px;
+          & > p {
+            margin: 0 !important;
+
+            & > span {
+              color: $username-color;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .comment-separetor {
+    display: flex;
+    width: 100%;
+    height: 2px;
+    background-color: $color-light;
+  }
+}

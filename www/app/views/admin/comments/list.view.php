@@ -1,5 +1,4 @@
 <?php
-    debug($comments);
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 

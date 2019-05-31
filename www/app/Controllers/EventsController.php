@@ -5,6 +5,7 @@ namespace Songfolio\Controllers;
 use Songfolio\Core\View;
 use Songfolio\Core\Validator;
 use Songfolio\Core\Helper;
+use Songfolio\Core\Alert;
 
 use Songfolio\Models\Events;
 use Songfolio\Models\Categories;
@@ -62,9 +63,9 @@ class EventsController
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->event->delete(["id" => $id]);
-            $alert = Helper::getAlertPropsByAction('delete', 'Événement', false);
+            $alert = Alert::getAlertPropsByAction('delete', 'Événement', false);
         } else {
-            $alert = Helper::setAlertError('Une erreur se produit ...');
+            $alert = Alert::setAlertError('Une erreur se produit ...');
         };
         
         self::listEventsAction($alert);
@@ -134,12 +135,12 @@ class EventsController
 
                 $this->event->save();
 
-                return Helper::getAlertPropsByAction($action, 'Événement', false);
+                return Alert::getAlertPropsByAction($action, 'Événement', false);
             } else {
                 if (empty($errors)) {
-                    return Helper::setAlertError('Événement existe déjà');
+                    return Alert::setAlertError('Événement existe déjà');
                 }
-                return Helper::setAlertErrors($errors);
+                return Alert::setAlertErrors($errors);
             }
         }
         return false;
