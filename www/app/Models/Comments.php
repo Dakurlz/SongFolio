@@ -12,15 +12,15 @@ class Comments extends BaseSQL
         parent::__construct($id);
     }
 
-    public function prepareComments(string $type, string $id ): array
+    public function prepareComments(string $type, string $id): array
     {
-        $comments = $this->getAllBy(['type'=> $type, 'type_id' => $id, 'confirm'=>'1']);
+        $comments = $this->getAllBy(['type' => $type, 'type_id' => $id, 'confirm' => '1']);
         return self::match($comments);
     }
 
-    public function prepareConfirmComments(string $type, string $id)
+    public function prepareConfirmComments()
     {
-        $comments = $this->getAllBy(['type'=> $type, 'type_id' => $id, 'confirm'=>'0']);
+        $comments = $this->getAllBy(['confirm' => '0']);
         return self::match($comments);
     }
 
@@ -32,6 +32,4 @@ class Comments extends BaseSQL
         }
         return $comments;
     }
-
-
 }

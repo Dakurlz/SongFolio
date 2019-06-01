@@ -13,7 +13,12 @@ $config += [
     ]
 ];
 
+$user->__remove('id');
+
 $nb_comments = count($config['comments']);
+
+$is_user = !empty($user->__get('id'));
+debug($is_user);
 
 ?>
 
@@ -28,14 +33,16 @@ $nb_comments = count($config['comments']);
                     <input type="hidden" name="type" value="<?= $config['type']  ?>">
                     <input type="hidden" name="type_id" value="<?= $config['type_id'] ?>">
                     <input type="hidden" name="redirect" value="<?= $config['redirect'] ?>">
-                    <textarea <?= empty($user->__get('id')) ? 'disabled' : null ?> rows="4" cols="50" placeholder="Ajouter un commentaire" name="message" id="" class="textarea-control" required></textarea>
-                    <div class="validate">
-                        <p class="name"> <?= !empty($user->__get('id')) ? $user->getFullName() : 'Veuillez se connecter pour laisser des commentaires'; ?> </p>
-                        <input <?= empty($user->__get('id')) ? 'disabled' : null ?> type="submit" class=" <?= empty($user->__get('id')) ? 'disabled' : null ?> btn btn-success-outline" style="margin-top: 50px" value="Ajouter">
+                    <?php if ($is_user) :  ?>
+                        <textarea rows="4" cols="50" placeholder="Ajouter un commentaire" name="message" id="" class="textarea-control" required></textarea>
+                    <?php endif; ?>
+                    <div style="<?= !$is_user ? 'padding: 15px 0 '  : '' ?>" class="validate">
+                        <p class="name"> <?= $is_user ? $user->getFullName() : 'Veuillez se connecter pour laisser des commentaires'; ?> </p>
+                        <input style="<?= !$is_user ? 'display: none'  : '' ?>" type="submit" class=" <?= empty($user->__get('id')) ? 'disabled' : null ?> btn btn-success-outline" style="margin-top: 50px" value="Ajouter">
                     </div>
                 </form>
 
-                <?php  if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success') $this->addModal('alert', Alert::setAlertInfo('Votre commentaire sera afficher après la verification du moderateur'));?>
+                <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success') $this->addModal('alert', Alert::setAlertInfo('Votre commentaire sera afficher après la verification du moderateur')); ?>
 
                 <?php if ($nb_comments !== 0) : ?>
                     <div class="comments-data">

@@ -23,15 +23,31 @@ class CommentsController
     {
 
         $redirect =  self::push();
-
         header('Location: '.BASE_URL.$redirect.'?status=success#comment-section');
     }
 
     public function listNotConfirmAction()
     {
-        $comments = $this->comment->getAllBy(['confirm' => 0]);
+        $comments = $this->comment->prepareConfirmComments();
         $view = new View('admin/comments/list', 'back');
         $view->assign('comments', $comments);
+    }
+
+    public function confirmAction()
+    {
+        $id = $_REQUEST['id'] ?? '';
+        $this->comment->__set('id', $id);
+        $this->comment->__set('confirm', 1);
+        $this->comment->save();
+
+        self::listNotConfirmAction();
+
+    }
+
+    public function refuseAction()
+    {
+        $id = $_REQUEST['id'] ?? '';
+
     }
 
     private function push()
