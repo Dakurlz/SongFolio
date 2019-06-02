@@ -126,20 +126,20 @@ use Songfolio\Models\Users;
             <?php endif; ?>
 
             <?php
-            include $this->view_path;
+                include $this->view_path;
             ?>
          </div>
       </div>
    </main>
 
-   <script src="<?php echo BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
+   <script src="<?= BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
    <script src="<?= BASE_URL . "public/js/datetimepicker.js"; ?>"></script>
-   <script src="<?php echo BASE_URL . "public/js/jquery-ui.min.js" ?>"></script>
-   <script src="<?php echo BASE_URL . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
-   <script src="<?php echo BASE_URL . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
+   <script src="<?= BASE_URL . "public/js/jquery-ui.min.js" ?>"></script>
+   <script src="<?= BASE_URL . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
+   <script src="<?= BASE_URL . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
    <?php if (isset($js) && is_array($js)) : ?>
       <?php foreach ($js as $js_name) : ?>
-         <script src="<?php echo BASE_URL . "public/js/" . $js_name . ".js?v=" . filemtime("public/js/" . $js_name . ".js"); ?>"></script>
+         <script src="<?= BASE_URL . "public/js/" . $js_name . ".js?v=" . filemtime("public/js/" . $js_name . ".js"); ?>"></script>
       <?php endforeach; ?>
    <?php endif; ?>
 </body>

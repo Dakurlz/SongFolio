@@ -44,7 +44,7 @@ use Songfolio\Core\Routing;
                         <td><?= Helper::getFormatedDate($user['date_update']) ?></td>
 
                         <td class="icn"><a href='<?= Routing::getSlug("Users", "update") . "?id=" . $user['id'] ?>'><i class="icon icon-edit"></i></a></td>
-                        <td class="icn"><a href='<?= Routing::getSlug("Users", "delete") . "?id=" . $user['id'] ?>'><i class="icon icon-delete"></i></a></td>
+                        <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Users", "delete") . "?id=" . $user['id'] ?>'></a></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>

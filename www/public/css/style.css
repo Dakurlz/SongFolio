@@ -3157,21 +3157,22 @@ input:checked + .slider:before {
   height: 15px;
   opacity: 0.3;
   display: flex; }
-
-.cross:hover {
-  opacity: 1; }
-
-.cross:before, .cross:after {
-  content: ' ';
-  height: 16px;
-  width: 2px;
-  background-color: #333; }
-
-.cross:before {
-  transform: rotate(45deg); }
-
-.cross:after {
-  transform: rotate(-45deg); }
+  .cross:hover {
+    opacity: 1; }
+  .cross:before, .cross:after {
+    content: ' ';
+    height: 16px;
+    width: 2px;
+    background-color: #333; }
+  .cross:before {
+    transform: rotate(45deg); }
+  .cross:after {
+    transform: rotate(-45deg); }
+  .cross-red:before, .cross-red:after {
+    content: ' ';
+    height: 16px;
+    width: 2px;
+    background-color: red; }
 
 .comment-section .comments-content > h2 {
   margin-bottom: 15px !important; }

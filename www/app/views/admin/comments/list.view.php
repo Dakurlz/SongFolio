@@ -38,7 +38,7 @@ use Songfolio\Core\Routing;
                 <td><?= Helper::getFormatedDateWithTime($comment['date_created']) ?></td>
 
                 <td class="icn"><a href='<?= Routing::getSlug("Comments", "confirm") . "?id=" . $comment['id'] ?>'><i class="icon icon-edit"></i></a></td>
-                <td class="icn"><a href='<?= Routing::getSlug("Comments", "refuse") . "?id=" . $comment['id'] ?>'><i class="icon icon-delete"></i></a></td>
+                <td  class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Comments", "refuse") . "?id=" . $comment['id'] ?>'></a></td>
             </tr>
         <?php endforeach ?>
         </tbody>

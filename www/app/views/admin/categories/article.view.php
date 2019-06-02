@@ -32,7 +32,7 @@ use Songfolio\Models\Users;
                         <?php if( Users::hasPermission('article_edit') ): ?>
                             <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $category['id'] . '&type=article' ?>'><i class="icon icon-edit"></i></a></td>
                         <?php endif; if( Users::hasPermission('article_del') ): ?>
-                            <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $category['id'] . '&type=article' ?>'><i class="icon icon-delete"></i></a></td>
+                            <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $category['id'] . '&type=article' ?>'></a></td>
                         <?php endif; ?>
 
                     </tr>
