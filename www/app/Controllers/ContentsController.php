@@ -28,10 +28,10 @@ class ContentsController
 
     public function indexAction(): void
     {
-        $nb_artcles =  $this->contents->getByCustomQuery(['type' => 'article'], 'COUNT(*) as nb_articles');
+        $nb_articles =  $this->contents->getByCustomQuery(['type' => 'article'], 'COUNT(*) as nb_articles');
         $nb_page =  $this->contents->getByCustomQuery(['type' => 'page'], 'COUNT(*) as nb_page');
         $view = new View('admin/contents/index', 'back');
-        $view->assign('nb_articles', $nb_artcles['nb_articles']);
+        $view->assign('nb_articles', $nb_articles['nb_articles']);
         $view->assign('nb_pages', $nb_page['nb_page']);
     }
 
@@ -39,10 +39,11 @@ class ContentsController
     {
         Users::need('content_add');
 
-        $configForm = $this->contents->getFormContents()['create'];
+        $configForm = self::published($this->contents->getFormContents()['create']);
         $categories = $this->categories->getAllBy(['type' => 'article']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
         $alert = self::push($configForm, 'create');
+
         self::renderContentsView($alert, $configForm);
     }
 
@@ -70,7 +71,7 @@ class ContentsController
         Users::need('content_edit');
 
         $id = $_REQUEST['id'] ?? '';
-        $configForm = $this->contents->getFormContents()['update'];
+        $configForm = self::published($this->contents->getFormContents()['update']);
         $this->contents = $this->contents->getOneBy(['id' => $id], true);
         $configForm['values'] = (array)$this->contents;
         if ($this->contents['type'] === 'article') {
@@ -83,6 +84,7 @@ class ContentsController
     public function updateContentAction()
     {
         $configForm = $this->contents->getFormContents()['update'];
+        self::published($configForm);
         $alert = self::push($configForm,  'update');
         if ($_REQUEST) {
             if ($_REQUEST['type'] === 'page') {
@@ -155,5 +157,13 @@ class ContentsController
             }
         }
         return false;
+    }
+
+    private function published($configForm): array
+    {
+        if(!Users::hasPermission('content_pub')) {
+            unset($configForm['data']['published']);
+        }
+        return $configForm;
     }
 }

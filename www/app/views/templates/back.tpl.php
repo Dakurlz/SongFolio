@@ -49,12 +49,11 @@ use Songfolio\Models\Users;
          <div class="sidebar__admin-name">
             <img class="logo" src="<?php echo BASE_URL . "public/img/user-image.svg"; ?>" />
             <div>
+                
                <b>
-                  <p>Ivan</p>
+                  <p><?= (new Users)->getUserName(); ?></p>
                </b>
-               <b>
-                  <p>Naluzhnyi</p>
-               </b>
+
             </div>
          </div>
          <ul class="sidebar__property">

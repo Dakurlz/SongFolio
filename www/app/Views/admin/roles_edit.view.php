@@ -19,7 +19,7 @@
 
             <?php if ( isset($group_data['title']) ): ?>
                 <h3><?=$group_data['title']?></h3>
-            <?php endif; ?>àa
+            <?php endif; ?>
 
             <?php foreach($group_data['perms'] as $perm => $perm_data): ?>
                 <div class="form-group">

@@ -20,33 +20,6 @@ sidebar_items:
       controller: Admin
       action: default
 
-  settings:
-    name: Paramètres
-    slug:
-      controller: Settings
-      action: config
-
-    dropdown:
-      slugs:
-        config_settings:
-          controller: Settings
-          action: config
-          label: Configuration
-
-        template_settings:
-          controller: Settings
-          action: template
-          label: Theme
-
-        header_settings:
-          controller: Settings
-          action: header
-          label: Header
-
-        footer_settings:
-          controller: Settings
-          action: footer
-          label: Footer
 
   content_add:
     name: Contenus
@@ -151,3 +124,30 @@ sidebar_items:
           label: Création d'événement
 
 
+  settings:
+    name: Paramètres
+    slug:
+      controller: Settings
+      action: config
+
+    dropdown:
+      slugs:
+        config_settings:
+          controller: Settings
+          action: config
+          label: Configuration
+
+        template_settings:
+          controller: Settings
+          action: template
+          label: Theme
+
+        header_settings:
+          controller: Settings
+          action: header
+          label: Header
+
+        footer_settings:
+          controller: Settings
+          action: footer
+          label: Footer

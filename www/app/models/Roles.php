@@ -81,6 +81,9 @@ class Roles extends BaseSQL
                     "content_add" => [
                         'desc' => 'Ajouter un contenu'
                     ],
+                    "content_pub" => [
+                        "desc" => "Permission de publication"
+                    ],
                     "content_del" => [
                         'desc' => 'Supprimer un contenu'
                     ],

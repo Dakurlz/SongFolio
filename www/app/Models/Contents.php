@@ -24,7 +24,7 @@ class Contents extends BaseSQL
     public static function getBySlug($slug)
     {
         $content = new Contents();
-        $content->getOneBy(['slug' => $slug], true);
+        $content->getOneBy(['slug' => $slug, 'published' => 1 ], true);
 
         if ($content->__get('id')) {
             return $content;
