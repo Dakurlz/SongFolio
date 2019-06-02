@@ -3174,6 +3174,20 @@ input:checked + .slider:before {
     width: 2px;
     background-color: red; }
 
+.check {
+  display: flex;
+  width: 10px;
+  height: 20px;
+  border: 2px solid #333;
+  border-top: none !important;
+  border-left: none !important;
+  transform: rotate(45deg);
+  opacity: 0.3; }
+  .check:hover {
+    opacity: 1; }
+  .check-green {
+    border: 2px solid #0f9d58; }
+
 .comment-section .comments-content > h2 {
   margin-bottom: 15px !important; }
 
