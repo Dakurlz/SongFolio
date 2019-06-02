@@ -7,6 +7,7 @@ use Songfolio\Core\BaseSQL;
 
 class Roles extends BaseSQL
 {
+
     public function customSet($attr, $value)
     {
         switch ($attr) {
@@ -43,6 +44,12 @@ class Roles extends BaseSQL
             $arr[] = ['label' => $role['name'], 'value' => $role['id']];
         }
         return $arr;
+    }
+
+    public static function hasPermissionByKey(string $askedAction)
+    {
+        $role = new Roles();
+
     }
 
     public function permsList(){
@@ -106,13 +113,16 @@ class Roles extends BaseSQL
                 'title' => 'Gestion des commentaire',
                 'perms' => [
                     "comment_perm" => [
-                        'desc' => 'Confirmation et rétraction des commentaires '
+                        'desc' => 'Confirmation et réfutation des commentaires '
                     ],
                 ]
             ],
             'category' => [
                 "title" => "Gestion des categories",
                 "perms" => [
+                    "categorie_view" => [
+                        "desc" => "Voire des categories"
+                    ],
                     "album_add" => [
                         "desc" => "Ajouter une categorie d'albmum"
                     ],

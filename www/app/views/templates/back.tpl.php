@@ -2,6 +2,7 @@
 $backConfigs = yaml_parse_file(__DIR__ . '/../../config/back.global.yml');
 $sectionName = explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard';
 
+
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
@@ -37,7 +38,7 @@ use Songfolio\Models\Users;
          </div>
          <div class="row__logout col-lg-6 col-sm-6">
 
-            <a href="<?= Routing::getSlug('users', 'logout') ?>>" class=" link col-lg-6 col-sm-6" onclick="">Déconnexion</a>
+            <a href="<?= Routing::getSlug('users', 'logout') ?>" class=" link col-lg-6 col-sm-6" onclick="">Déconnexion</a>
          </div>
       </div>
    </header>
@@ -58,7 +59,9 @@ use Songfolio\Models\Users;
          </div>
          <ul class="sidebar__property">
 
-            <?php foreach ($backConfigs['sidebar_items'] as $key => $item) : ?>
+            <?php foreach ($backConfigs['sidebar_items'] as $key => $item) :
+                if( Users::hasPermission($key) ):
+                ?>
                <li>
 
                   <div class="sidebar--item <?= $key === $sectionName ? 'item-active' : '' ?>">
@@ -66,7 +69,7 @@ use Songfolio\Models\Users;
                                                                               $item['slug']['controller'],
                                                                               $item['slug']['action']
                                                                            ) ?>'">
-                        <img src="<?= BASE_URL . "public/img/$key.svg"; ?> " />
+                        <img src="<?= BASE_URL . "public/img/".Helper::getNameAfterConfig($key).".svg"; ?> " />
                         <p><?= $item['name'] ?></p>
                      </button>
                      <?php if (isset($item['dropdown'])) : ?>
@@ -91,7 +94,7 @@ use Songfolio\Models\Users;
                   <?php endif ?>
 
                </li>
-            <?php endforeach ?>
+            <?php endif; endforeach ?>
 
          </ul>
       </div>

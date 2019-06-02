@@ -126,5 +126,14 @@ class Helper
                 return 'il y a  ' . $t . ' ' . $str . ($t > 1 ? 's' : '');
             }
         }
+        return null;
+    }
+
+    public static function getNameAfterConfig(string $key):string
+    {
+        if(strpos($key, '_')){
+            return substr($key, 0, strpos($key, "_"))."s";
+        }
+        return $key;
     }
 }
