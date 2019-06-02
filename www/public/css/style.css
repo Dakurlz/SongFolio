@@ -3152,6 +3152,27 @@ input:checked + .slider:before {
     .datetime > input:active, .datetime > input:focus {
       border: solid 1px #B00000; }
 
+.cross {
+  width: 15px;
+  height: 15px;
+  opacity: 0.3;
+  display: flex; }
+
+.cross:hover {
+  opacity: 1; }
+
+.cross:before, .cross:after {
+  content: ' ';
+  height: 16px;
+  width: 2px;
+  background-color: #333; }
+
+.cross:before {
+  transform: rotate(45deg); }
+
+.cross:after {
+  transform: rotate(-45deg); }
+
 .comment-section .comments-content > h2 {
   margin-bottom: 15px !important; }
 
@@ -3187,12 +3208,16 @@ input:checked + .slider:before {
       width: 40px;
       height: 40px; }
     .comment-section .comments-content .comments-data__item__content {
+      width: 97%;
       margin-left: 15px; }
       .comment-section .comments-content .comments-data__item__content > p {
         margin: 0 !important; }
         .comment-section .comments-content .comments-data__item__content > p > span {
           color: #78c3df;
           font-weight: 500; }
+    .comment-section .comments-content .comments-data__item > a {
+      width: 2%;
+      margin-top: 5px; }
 
 .comment-section .comment-separetor {
   display: flex;

@@ -102,7 +102,7 @@ sidebar_items:
           action: rolesAdd
           label: Ajouter un rôle
 
-  comments:
+  comment_perm:
     name: Commentaires
     slug:
       controller: Comments

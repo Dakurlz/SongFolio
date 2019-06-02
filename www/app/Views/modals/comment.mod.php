@@ -13,12 +13,8 @@ $config += [
     ]
 ];
 
-$user->__remove('id');
-
 $nb_comments = count($config['comments']);
-
 $is_user = !empty($user->__get('id'));
-debug($is_user);
 
 ?>
 
@@ -46,13 +42,16 @@ debug($is_user);
 
                 <?php if ($nb_comments !== 0) : ?>
                     <div class="comments-data">
-                        <?php foreach ($config['comments'] as $key => $value) : ?>
+                        <?php foreach ($config['comments'] as $key => $comment) : ?>
                             <div class="comments-data__item">
                                 <img src="<?= BASE_URL ?>/public/img/comment-default.png" alt="">
                                 <div class="comments-data__item__content">
-                                    <p><span><?= $value['user_name'] ?></span> - <?= Helper::getTimeAgo($value['date_created']) ?></p>
-                                    <p><?= $value['message'] ?></p>
+                                    <p><span><?= $comment['user_name'] ?></span> - <?= Helper::getTimeAgo($comment['date_created']) ?></p>
+                                    <p><?= $comment['message'] ?></p>
                                 </div>
+                                <?php if($user->__get('id') === $comment['user_id'] ): ?>
+                                    <a class="cross" href='<?= Routing::getSlug("Comments", "refuse") . "?id=".$comment['id'].'&redirect_to='.$config['redirect']?>'></a>
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                     </div>

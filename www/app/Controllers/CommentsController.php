@@ -2,9 +2,9 @@
 
 namespace Songfolio\Controllers;
 
+use Songfolio\Core\Alert;
 use Songfolio\Core\View;
 use Songfolio\Core\Validator;
-use Songfolio\Core\Helper;
 use Songfolio\Models\Comments;
 use Songfolio\Models\Users;
 
@@ -17,6 +17,7 @@ class CommentsController
     {
         $this->comment = $comment;
         $this->user = $user;
+        Users::need('comment_perm');
     }
 
     public function createCommentsAction()
@@ -41,13 +42,21 @@ class CommentsController
         $this->comment->save();
 
         self::listNotConfirmAction();
-
     }
 
     public function refuseAction()
     {
         $id = $_REQUEST['id'] ?? '';
+        $redirect = $_REQUEST['redirect_to'] ?? null;
+        if (isset($id)) {
+            $this->comment->delete(["id" => $id]);
+        }
 
+        if($redirect !== null){
+            header('Location: '.BASE_URL.$redirect.'#comment-section');
+        }else {
+            self::listNotConfirmAction();
+        }
     }
 
     private function push()

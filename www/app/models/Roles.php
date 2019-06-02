@@ -102,6 +102,14 @@ class Roles extends BaseSQL
                     ]
                 ]
             ],
+            'comment' => [
+                'title' => 'Gestion des commentaire',
+                'perms' => [
+                    "comment_perm" => [
+                        'desc' => 'Confirmation et rétraction des commentaires '
+                    ],
+                ]
+            ],
             'category' => [
                 "title" => "Gestion des categories",
                 "perms" => [

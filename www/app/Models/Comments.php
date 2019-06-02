@@ -15,13 +15,13 @@ class Comments extends BaseSQL
     public function prepareComments(string $type, string $id): array
     {
         $comments = $this->getAllBy(['type' => $type, 'type_id' => $id, 'confirm' => '1']);
-        return self::match($comments);
+        return self::match(array_reverse($comments));
     }
 
     public function prepareConfirmComments()
     {
         $comments = $this->getAllBy(['confirm' => '0']);
-        return self::match($comments);
+        return self::match(array_reverse($comments));
     }
 
     private function match($comments): array

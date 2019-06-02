@@ -52,6 +52,7 @@ $username-color :#78c3df;
         }
 
         &__content {
+          width: 97%;
           margin-left: 15px;
           & > p {
             margin: 0 !important;
@@ -61,6 +62,11 @@ $username-color :#78c3df;
               font-weight: 500;
             }
           }
+        }
+
+        & > a {
+          width:2%;
+          margin-top: 5px;
         }
       }
     }
