@@ -3152,6 +3152,94 @@ input:checked + .slider:before {
     .datetime > input:active, .datetime > input:focus {
       border: solid 1px #B00000; }
 
+.cross {
+  width: 15px;
+  height: 15px;
+  opacity: 0.3;
+  display: flex; }
+  .cross:hover {
+    opacity: 1; }
+  .cross:before, .cross:after {
+    content: ' ';
+    height: 16px;
+    width: 2px;
+    background-color: #333; }
+  .cross:before {
+    transform: rotate(45deg); }
+  .cross:after {
+    transform: rotate(-45deg); }
+  .cross-red:before, .cross-red:after {
+    content: ' ';
+    height: 16px;
+    width: 2px;
+    background-color: red; }
+
+.check {
+  display: flex;
+  width: 10px;
+  height: 20px;
+  border: 2px solid #333;
+  border-top: none !important;
+  border-left: none !important;
+  transform: rotate(45deg);
+  opacity: 0.3; }
+  .check:hover {
+    opacity: 1; }
+  .check-green {
+    border: 2px solid #0f9d58; }
+
+.comment-section .comments-content > h2 {
+  margin-bottom: 15px !important; }
+
+.comment-section .comments-content > form {
+  margin-top: 15px; }
+  .comment-section .comments-content > form > textarea:disabled {
+    background-color: #E1E1E1; }
+  .comment-section .comments-content > form .validate {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #E1E1E1; }
+    .comment-section .comments-content > form .validate > input {
+      margin: 10px 15px !important; }
+    .comment-section .comments-content > form .validate input:disabled {
+      background-color: #00733e;
+      border: none; }
+    .comment-section .comments-content > form .validate .name {
+      margin: auto 0 !important;
+      margin-left: 15px !important; }
+
+.comment-section .comments-content .alert {
+  margin: 20px 0 !important;
+  width: 100% !important; }
+
+.comment-section .comments-content .comments-data {
+  margin-top: 30px; }
+  .comment-section .comments-content .comments-data__item {
+    display: flex;
+    flex-direction: row;
+    margin: 22px 0; }
+    .comment-section .comments-content .comments-data__item > img {
+      width: 40px;
+      height: 40px; }
+    .comment-section .comments-content .comments-data__item__content {
+      width: 97%;
+      margin-left: 15px; }
+      .comment-section .comments-content .comments-data__item__content > p {
+        margin: 0 !important; }
+        .comment-section .comments-content .comments-data__item__content > p > span {
+          color: #78c3df;
+          font-weight: 500; }
+    .comment-section .comments-content .comments-data__item > a {
+      width: 2%;
+      margin-top: 5px; }
+
+.comment-section .comment-separetor {
+  display: flex;
+  width: 100%;
+  height: 2px;
+  background-color: #E1E1E1; }
+
 #front-body {
   /* FOOTER */
   /* The Modal (background) */

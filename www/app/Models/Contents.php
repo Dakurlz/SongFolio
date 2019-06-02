@@ -4,13 +4,16 @@ namespace Songfolio\Models;
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 use Songfolio\Core\View;
+use Songfolio\Models\Comments;
 
 class Contents extends BaseSQL
 {
+    private $comment;
 
     public function __construct($id = null)
     {
         parent::__construct($id);
+        $this->comment = new Comments();
     }
 
     public function customSet($attr, $value)
@@ -21,7 +24,7 @@ class Contents extends BaseSQL
     public static function getBySlug($slug)
     {
         $content = new Contents();
-        $content->getOneBy(['slug' => $slug], true);
+        $content->getOneBy(['slug' => $slug, 'published' => 1 ], true);
 
         if ($content->__get('id')) {
             return $content;
@@ -32,10 +35,16 @@ class Contents extends BaseSQL
 
     public function show()
     {
-        $v = new View("content", "front");
-        $v->assign('page_title', $this->__get('title'));
-        $v->assign('page_desc', $this->__get('description '));
-        $v->assign('content', $this);
+        $view = new View("content", "front");
+        if($this->__get('comment_active') === '1'){
+            $comments = $this->comment->prepareComments('article',$this->__get('id'));
+            $view->assign('comments',$comments);
+        }
+
+        $view->assign('page_title', $this->__get('title'));
+        $view->assign('page_desc', $this->__get('description '));
+        $view->assign('content', $this);
+        // $view->
     }
 
     public function content()

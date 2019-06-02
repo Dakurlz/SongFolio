@@ -168,6 +168,18 @@
   controller: Comments
   action: listNotConfirm
 
+'/admin/comments/create':
+  controller: Comments
+  action: createComments
+
+'/admin/comments/confirm':
+  controller: Comments
+  action: confirm
+
+'/admin/comments/refuse':
+  controller: Comments
+  action: refuse
+
 # Settings
 '/admin/settings':
   controller: Settings

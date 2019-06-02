@@ -20,35 +20,8 @@ sidebar_items:
       controller: Admin
       action: default
 
-  settings:
-    name: Paramètres
-    slug:
-      controller: Settings
-      action: config
 
-    dropdown:
-      slugs:
-        config_settings:
-          controller: Settings
-          action: config
-          label: Configuration
-
-        template_settings:
-          controller: Settings
-          action: template
-          label: Theme
-
-        header_settings:
-          controller: Settings
-          action: header
-          label: Header
-
-        footer_settings:
-          controller: Settings
-          action: footer
-          label: Footer
-
-  contents:
+  content_add:
     name: Contenus
     slug:
       controller: Contents
@@ -71,7 +44,7 @@ sidebar_items:
           action: listesArticles
           label: Liste des articles
 
-  users:
+  user_add:
     name: Utilisateurs
     slug:
       controller: Users
@@ -84,7 +57,7 @@ sidebar_items:
           action: createUsers
           label: Ajouter un utilisateur
 
-  roles:
+  role_view:
     name: Rôles
     slug:
       controller: Admin
@@ -102,13 +75,13 @@ sidebar_items:
           action: rolesAdd
           label: Ajouter un rôle
 
-  comments:
+  comment_perm:
     name: Commentaires
     slug:
       controller: Comments
       action: listNotConfirm
 
-  categories:
+  categorie_view:
     name: Categories
     slug:
       controller: Categories
@@ -137,7 +110,7 @@ sidebar_items:
       controller: Admin
       action: menus
 
-  events:
+  event_add:
     name: Événements
     slug:
       controller: Events
@@ -151,3 +124,30 @@ sidebar_items:
           label: Création d'événement
 
 
+  settings:
+    name: Paramètres
+    slug:
+      controller: Settings
+      action: config
+
+    dropdown:
+      slugs:
+        config_settings:
+          controller: Settings
+          action: config
+          label: Configuration
+
+        template_settings:
+          controller: Settings
+          action: template
+          label: Theme
+
+        header_settings:
+          controller: Settings
+          action: header
+          label: Header
+
+        footer_settings:
+          controller: Settings
+          action: footer
+          label: Footer

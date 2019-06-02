@@ -1,0 +1,56 @@
+.cross {
+    width: 15px;
+    height: 15px;
+    opacity: 0.3;
+    display: flex;
+
+    &:hover {
+      opacity: 1;
+    }
+    &:before, &:after {
+      content: ' ';
+      height: 16px;
+      width: 2px;
+      background-color: #333;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &-red{
+      &:before, &:after {
+        content: ' ';
+        height: 16px;
+        width: 2px;
+        background-color: $color-red;
+      }
+    }
+}
+
+
+.check  {
+    display: flex;
+    width: 10px;
+    height: 20px;
+    border:2px solid #333;
+    border-top: none !important;
+    border-left: none !important;
+    transform: rotate(45deg);
+    opacity: 0.3;
+
+    &:hover {
+        opacity: 1;
+    }
+
+
+  &-green {
+    border:2px solid #0f9d58;
+  }
+}
+
+
+
+  

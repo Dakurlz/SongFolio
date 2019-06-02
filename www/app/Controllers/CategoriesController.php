@@ -4,9 +4,8 @@ namespace Songfolio\Controllers;
 
 use Songfolio\Core\View;
 use Songfolio\Core\Validator;
-use Songfolio\Core\Helper;
 use Songfolio\Models\Categories;
-
+use Songfolio\Core\Alert;
 
 class CategoriesController
 {
@@ -49,9 +48,9 @@ class CategoriesController
 
         if (isset($id)) {
             $this->category->delete(["id" => $id]);
-            $alert = Helper::getAlertPropsByAction('delete', 'Categorie', true);
+            $alert = Alert::getAlertPropsByAction('delete', 'Categorie', true);
         } else {
-            $alert = Helper::setAlertError('Une erreur se produit ...');
+            $alert = Alert::setAlertError('Une erreur se produit ...');
         };
         self::renderCategoryView($type, $alert);
     }
@@ -142,12 +141,12 @@ class CategoriesController
                 isset($_REQUEST['id']) ? $this->category->__set('id', $_REQUEST['id']) : null;
                 $this->category->__set('type', $type);
                 $this->category->save();
-                return Helper::getAlertPropsByAction($action, 'Categorie', true);
+                return Alert::getAlertPropsByAction($action, 'Categorie', true);
             } else {
                 if(empty($errors)){
-                    return Helper::setAlertError('Categorie existe déjà');
+                    return Alert::setAlertError('Categorie existe déjà');
                 }
-                return Helper::setAlertErrors($errors);
+                return Alert::setAlertErrors($errors);
             }
         }
         return false;

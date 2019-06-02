@@ -52,7 +52,8 @@ return [
     ContentsController::class => function ($container) {
         $contentsModel = $container[Contents::class]($container);
         $categoryModel = $container[Categories::class]($container);
-        return new ContentsController($contentsModel, $categoryModel);
+        $usersModel = $container[Users::class]($container);
+        return new ContentsController($contentsModel, $categoryModel, $usersModel);
     },
     CategoriesController::class => function ($container) {
         $categoryModel = $container[Categories::class]($container);
@@ -60,7 +61,8 @@ return [
     },
     CommentsController::class => function ($container) {
         $commentsModel = $container[Comments::class]($container);
-        return new CommentsController($commentsModel);
+        $usersModel = $container[Users::class]($container);
+        return new CommentsController($commentsModel, $usersModel);
     },
     EventsController::class => function ($container) {
         $eventsModel = $container[Events::class]($container);

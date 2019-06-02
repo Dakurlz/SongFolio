@@ -62,7 +62,7 @@ class Users extends BaseSQL
     }
 
     // $user->can('permission') retourne true ou false selon si la permission est ou non dans le role de l'utilisateur
-    public function can($askedAction)
+    public function can(string $askedAction)
     {
         $group = new Roles($this->__get('role_id'));
         if ($group->getPerm($askedAction) || $group->getPerm('all_perms')) {
@@ -74,7 +74,7 @@ class Users extends BaseSQL
 
     // hasPermission
 
-    public static function hasPermission($askedAction): bool
+    public static function hasPermission(string $askedAction): bool
     {
         $group = new Roles((new Users)->__get('role_id'));
         if ($group->getPerm($askedAction) || $group->getPerm('all_perms')) {
@@ -85,7 +85,7 @@ class Users extends BaseSQL
     }
 
     //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
-    public static function need($askedAction): void
+    public static function need(string $askedAction): void
     {
         $user = new Users();
         if (!$user->can($askedAction)) {
@@ -109,6 +109,28 @@ class Users extends BaseSQL
             header('Location: ' . BASE_URL);
             exit;
         }
+    }
+
+    /**
+     * Send user full name
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        $first = $this->__get('first_name');
+        $last = $this->__get('last_name');
+        return "$first $last";
+    }
+    
+    /**
+     * check if  first name existe send full name else username 
+     *
+     * @return string
+     */
+    public function getUserName(): string
+    {
+        return ($this->__get('first_name') === null || $this->__get('first_name') === '') ? $this->__get('username') : $this->getFullName();
     }
 
     public function getFormRegister()

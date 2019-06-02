@@ -1,5 +1,4 @@
 <?php
-    debug($comments);
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 
@@ -10,26 +9,36 @@ use Songfolio\Core\Routing;
         if (isset($alert)) $this->addModal('alert', $alert);
     ?>
 
-    <table>
+    <h2 class="col-12">Confirmation des commentaires</h2>
+
+    <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">
+            <input  class="input-control input-control-success input-search" placeholder="Chercher commentaire" />
+    </div>
+
+
+    <table class="table col-12 ">
         <thead>
             <tr>
                 <th>Type</th>
-                <th>User</th>
-                <th>User</th>
+                <th>Utilisateur</th>
+                <th>Message</th>
+                <th>Crétion</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="tbody">
         <td><?php if (empty($comments)) echo 'Aucun commentaire.'; ?></td>
         <?php foreach ($comments as $comment) : ?>
 
             <tr>
                 <td><?= Helper::getLabelFromMapping($comment['type']); ?></td>
-                <td><?= $comment['user'] ?></td>
+                <td><?= $comment['user_name'] ?></td>
+                <td><?= $comment['message'] ?></td>
+                <td><?= Helper::getFormatedDateWithTime($comment['date_created']) ?></td>
 
-                <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $comment['id'] ?>'><i class="icon icon-edit"></i></a></td>
-                <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $comment['id'] ?>'><i class="icon icon-delete"></i></a></td>
+                <td class="icn"><a class="check check-green" href='<?= Routing::getSlug("Comments", "confirm") . "?id=" . $comment['id'] ?>'></a></td>
+                <td  class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Comments", "refuse") . "?id=" . $comment['id'] ?>'></a></td>
             </tr>
         <?php endforeach ?>
         </tbody>
