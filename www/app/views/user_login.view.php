@@ -11,6 +11,9 @@ use Songfolio\Core\Routing;
     ?>
 
     <div class="text-center">
+        <a href="<?php echo $loginFb;?>">Login with FB</a>
+    </div>
+    <div class="text-center">
         <a href="<?php echo Routing::getSlug("users","register");?>">Register</a>
         <a href="<?php echo Routing::getSlug("users","forgetPassword");?>">Forgot Password?</a>
     </div>

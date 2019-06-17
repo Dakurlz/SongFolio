@@ -106,23 +106,8 @@ use Songfolio\Models\Users;
                <p><?= Helper::getLabelFromMapping($sectionName ?? 'admin') ?></p>
             </div>
 
-            <?php if (isset($alert['danger'])) : ?>
-               <div class="alert alert-danger">
 
-                  <?php foreach ($alert['danger'] as $danger) : ?>
-                     <li><?php echo $danger; ?></li>
-                  <?php endforeach; ?>
-
-               </div>
-            <?php endif; ?>
-
-            <?php if (isset($alert['success'])) : ?>
-               <div class="alert alert-danger">
-                  <?php foreach ($alert['success'] as $success) : ?>
-                     <li><?= $success; ?></li>
-                  <?php endforeach; ?>
-               </div>
-            <?php endif; ?>
+             <?php $this->addModal("session_alert"); ?>
 
             <?php
                 include $this->view_path;

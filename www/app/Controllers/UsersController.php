@@ -93,9 +93,12 @@ class UsersController
 
     public function loginAction(): void
     {
+        $_SESSION['state'] = bin2hex(random_bytes(30));
+        $fb_login_url = 'https://www.facebook.com/v3.3/dialog/oauth?client_id=2232449167069840&redirect_uri=http://localhost/login/fb&state={'.$_SESSION['state'].'}';
+
         if ($this->user->is('connected')) {
-                header('Location: ' . Routing::getSlug('users', 'dashboard'));
-            }
+            header('Location: ' . Routing::getSlug('users', 'dashboard'));
+        }
 
         $user = new Users();
         $configForm = $user->getFormLogin();
@@ -135,6 +138,7 @@ class UsersController
 
         $v = new View("user_login", "front");
         $v->assign("configFormLogin", $configForm);
+        $v->assign("loginFb", $fb_login_url);
     }
 
     public function logoutAction(): void

@@ -50,7 +50,7 @@ class View{
         }
     }
 
-    public function addModal($modal, $config){
+    public function addModal($modal, $config = []){
         $pathModal = "app/views/modals/".$modal.".mod.php";
         if(file_exists($pathModal)){
             include $pathModal;
