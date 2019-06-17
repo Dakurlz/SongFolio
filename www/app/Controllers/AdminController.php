@@ -52,10 +52,11 @@ class AdminController{
 
         $menu = new Menus($_GET['menu']);
 
-        if(!empty($_POST['data'])){
+        if(!empty($_POST)){
+            $menu->__set('title', $_POST['title']);
             $menu->__set('data', $_POST['data']);
             $menu->save();
-            $alert['success'][] = 'Le menu a bien été modifié.';
+            $_SESSION['alert']['success'][] = 'Le menu a bien été modifié.';
         }
 
         $v = new View("admin/menu_edit", "back");
