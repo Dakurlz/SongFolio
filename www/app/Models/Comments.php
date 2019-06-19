@@ -28,7 +28,7 @@ class Comments extends BaseSQL
     {
         foreach ($comments as $key => $value) {
             $user = new Users($value['user_id']);
-            $comments[$key]['user_name'] = $user->getUserName();
+            $comments[$key]['user_name'] = $user->getShowName();
         }
         return $comments;
     }

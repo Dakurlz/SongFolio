@@ -72,9 +72,30 @@ class Users extends BaseSQL
         return false;
     }
 
-    // hasPermission
+    public function setLoginToken(){
+        $token = md5(substr(uniqid().time(), 4, 10));
+        setcookie('token', $token, time() + (86400 * 7), "/");
+        $this->__set('login_token', $token);
+        $this->save();
+    }
 
-    public static function hasPermission(string $askedAction): bool
+    public function oAuthLogin($provider, $user_infos){
+        if (!$this->getOneBy(['id_'.$provider => $user_infos['id']], true)) {
+            if($this->getOneBy(['email' => $user_infos['email']], true)) {
+                $_SESSION['alert']['danger'][] = 'Le mail associé à votre compte ' . $provider . ' est déjà dans notre base de donnée';
+                $this->__set('id_'.$provider, $user_infos['id']);
+            }else{
+                $this->__set('email', $user_infos['email']);
+                $this->__set('first_name', $user_infos['first_name']);
+                $this->__set('last_name', $user_infos['last_name']);
+                $this->__set('id_'.$provider, $user_infos['id']);
+            }
+        }
+        $this->setLoginToken();
+        header('Location: ' . Routing::getSlug("users", "dashboard"));
+    }
+
+    public static function hasPermission($askedAction): bool
     {
         $group = new Roles((new Users)->__get('role_id'));
         if ($group->getPerm($askedAction) || $group->getPerm('all_perms')) {
@@ -116,21 +137,11 @@ class Users extends BaseSQL
      *
      * @return string
      */
-    public function getFullName(): string
+    public function getShowName(): string
     {
         $first = $this->__get('first_name');
-        $last = $this->__get('last_name');
-        return "$first $last";
-    }
-    
-    /**
-     * check if  first name existe send full name else username 
-     *
-     * @return string
-     */
-    public function getUserName(): string
-    {
-        return ($this->__get('first_name') === null || $this->__get('first_name') === '') ? $this->__get('username') : $this->getFullName();
+        $last = substr($this->__get('last_name'), 0, 1);
+        return "$first $last.";
     }
 
     public function getFormRegister()

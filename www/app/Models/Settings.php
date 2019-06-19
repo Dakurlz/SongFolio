@@ -134,6 +134,24 @@ class Settings extends BaseSQL
                         "class" => "form-control",
                         "name" => "data[insta_url]",
                         "value" => $this->getData('insta_url')
+                    ],
+                    "separator-oauth-fb" => [
+                        "type" => "separator",
+                        "after_title" => "Login with Facebook"
+                    ],
+                    "oauth_id_Facebook" => [
+                        "type" => "text",
+                        "label" => "ID application facebook",
+                        "class" => "form-control",
+                        "name" => "data[oauth_id_Facebook]",
+                        "value" => $this->getData('oauth_id_Facebook')
+                    ],
+                    "oauth_secret_Facebook" => [
+                        "type" => "text",
+                        "label" => "Clef secrete application facebook",
+                        "class" => "form-control",
+                        "name" => "data[oauth_secret_Facebook]",
+                        "value" => $this->getData('oauth_secret_Facebook')
                     ]
                 ];
                 break;

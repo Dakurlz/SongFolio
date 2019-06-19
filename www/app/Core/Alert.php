@@ -5,7 +5,16 @@ namespace Songfolio\Core;
 
 class Alert
 {
-    public static function getAlertPropsByAction(string $action, string $name, bool $genderFemale = null)
+
+    public static function getAlertMessage()
+    {
+        debug($_SESSION);
+        debug(View::addModal('alert',$_SESSION['alert']));
+        return isset($_SESSION['alert']) ? (View::addModal('alert',$_SESSION['alert'])) : null;
+    }
+
+
+    public static function setAlertPropsByAction(string $action, string $name, bool $genderFemale = null)
     {
         $type = '';
         $messsage = '';
@@ -28,7 +37,7 @@ class Alert
                 break;
         }
 
-        return [
+        $_SESSION['alert'] = [
             'type' => $type,
             'message' => $genderFemale ? self::getLableIfGenderFemale($messsage) : $messsage,
         ];
@@ -48,26 +57,12 @@ class Alert
     /**
      * Return erros after Validator function
      *
-     * @param array $messages
-     * @return array
-     */
-    public static function setAlertErrors(array $messages): array
-    {
-        return [
-            'type' => 'danger',
-            'messages' => $messages
-        ];
-    }
-
-    /**
-     * Return erros after Validator function
-     *
      * @param string $messages
      * @return string
      */
-    public static function setAlertError(string $message): array
+    public static function setAlertError(string $message): void
     {
-        return [
+        $_SESSION['alert'] = [
             'type' => 'danger',
             'message' => $message
         ];
@@ -79,9 +74,9 @@ class Alert
      * @param string $messages
      * @return string
      */
-    public static function setAlertInfo(string $message): array
+    public static function setAlertInfo(string $message): void
     {
-        return [
+        $_SESSION['alert'] = [
             'type' => 'info',
             'message' => $message
         ];

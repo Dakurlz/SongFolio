@@ -91,6 +91,8 @@ use \Songfolio\Models\Menus;
     <button type="button" id="gototop" class="hide"></button>
 
     <main>
+        <?php $this->addModal("session_alert"); ?>
+
         <?php
         include $this->view_path;
         ?>

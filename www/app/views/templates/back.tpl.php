@@ -6,6 +6,7 @@ $sectionName = explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard';
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
+use Songfolio\Core\Alert;
 
 ?>
 
@@ -51,7 +52,7 @@ use Songfolio\Models\Users;
             <div>
                 
                <b>
-                  <p><?= (new Users)->getUserName(); ?></p>
+                  <p><?= (new Users)->getShowName(); ?></p>
                </b>
 
             </div>

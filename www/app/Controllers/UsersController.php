@@ -10,6 +10,8 @@ use Songfolio\core\Routing;
 use Songfolio\core\Validator;
 use Songfolio\models\Users;
 use Songfolio\Models\Roles;
+use Songfolio\Models\Settings;
+use Songfolio\Core\Oauth\Facebook;
 
 class UsersController
 {
@@ -91,10 +93,31 @@ class UsersController
         $v->assign("configFormRegister", $configForm);
     }
 
+    public function oauthAction(): void
+    {
+        if($_GET['provider']){
+            $providerClass = "Songfolio\Core\Oauth\\".$_GET['provider'];
+
+            $provider_obj = new $providerClass();
+
+            $access_token = $provider_obj->getAccessTokenUrl($_GET['code']);
+
+            if($access_token){
+
+                $user_infos = json_decode($provider_obj->getUsersInfo($access_token), true);
+
+                $user = new Users();
+                $user->oAuthLogin($provider_obj->getProviderName(), $user_infos);
+
+            }
+        }else{
+            header('Location: ' . Routing::getSlug("users", "login"));
+        }
+    }
+
     public function loginAction(): void
     {
-        $_SESSION['state'] = bin2hex(random_bytes(30));
-        $fb_login_url = 'https://www.facebook.com/v3.3/dialog/oauth?client_id=2232449167069840&redirect_uri=http://localhost/login/fb&state={'.$_SESSION['state'].'}';
+        $fb_login_url = (new Facebook())->getAuthorizationUrl();
 
         if ($this->user->is('connected')) {
             header('Location: ' . Routing::getSlug('users', 'dashboard'));
@@ -107,20 +130,14 @@ class UsersController
            
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
-            
+
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
-                var_dump($validator);
                 if (empty($configForm["errors"])) {
                     if ($user->getOneBy(['username' => $data['username']], true) && password_verify($data['password'], $user->__get('password'))) {
 
-                        $token = md5(substr(uniqid().time(), 4, 10));
-                        setcookie('token', $token, time() + (86400 * 7), "/");
-
-                        $user->__set('login_token', $token);
-                        $user->save();
-                        $_SESSION['user'] = $user->__get('id');
+                        $user->setLoginToken();
 
                         if (isset($_GET['redirect'])) {
                                 $redirect = htmlspecialchars(urldecode($_GET['redirect']));
@@ -262,7 +279,7 @@ class UsersController
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->user->delete(["id" => $id]);
-            $alert = Alert::getAlertPropsByAction('delete', 'Utilisateur', false);
+            $alert = Alert::setAlertPropsByAction('delete', 'Utilisateur', false);
         } else {
             $alert = Alert::setAlertError('Une erreur se produit ...');
         };
@@ -301,7 +318,7 @@ class UsersController
                 $this->user->__set('last_name', $data['last_name']);
                 $this->user->save();
 
-                return Alert::getAlertPropsByAction($action, 'Utilisateur', false);
+                return Alert::setAlertPropsByAction($action, 'Utilisateur', false);
             } else {
                 if (empty($errors)) {
                     return Alert::setAlertError('Utilisateur existe déjà');
