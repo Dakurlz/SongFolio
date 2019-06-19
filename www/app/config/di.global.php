@@ -8,6 +8,8 @@ use Songfolio\Controllers\UsersController;
 use Songfolio\Controllers\CommentsController;
 use Songfolio\Controllers\SettingsController;
 use Songfolio\Controllers\EventsController;
+use Songfolio\Controllers\AlbumsController;
+use Songfolio\Controllers\MenusController;
 
 use Songfolio\Models\Users;
 use Songfolio\Models\Contents;
@@ -16,7 +18,7 @@ use Songfolio\Models\Comments;
 use Songfolio\Models\Events;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Albums;
-use Songfolio\Controllers\AlbumsController;
+use Songfolio\Models\Menus;
 
 return [
     Users::class => function ($container) {
@@ -39,6 +41,9 @@ return [
     },
     Albums::class => function ($container){
         return new Albums();
+    },
+    Menus::class => function ($container){
+        return new Menus();
     },
     UsersController::class => function ($container) {
         $usersModel = $container[Users::class]($container);
@@ -80,5 +85,9 @@ return [
     },
     AdminController::class => function ($container) {
         return new AdminController();
+    },
+    MenusController::class => function ($container) {
+        $menuModel = $container[Menus::class]($container);
+        return new MenusController($menuModel);
     },
 ];

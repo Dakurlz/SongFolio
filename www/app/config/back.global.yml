@@ -107,7 +107,7 @@ sidebar_items:
   menus:
     name: Menus
     slug:
-      controller: Admin
+      controller: Menus
       action: menus
 
   event_add:

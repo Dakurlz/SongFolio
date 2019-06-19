@@ -77,23 +77,24 @@
   action: rolesDel
   needGroups: admin
 
+# MENUS #
 '/admin/menus':
-  controller: Admin
+  controller: Menus
   action: menus
   needGroups: admin
 
 '/admin/menus/add':
-  controller: Admin
+  controller: Menus
   action: menusAdd
   needGroups: admin
 
 '/admin/menus/edit':
-  controller: Admin
+  controller: Menus
   action: menusEdit
   needGroups: admin
 
 '/admin/menus/del':
-  controller: Admin
+  controller: Menus
   action: menusDel
   needGroups: admin
 

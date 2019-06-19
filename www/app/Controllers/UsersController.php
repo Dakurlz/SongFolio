@@ -162,8 +162,9 @@ class UsersController
     {
         unset($_SESSION['user']);
         setcookie('token', '', -1, '/');
+        $_SESSION['alert']['success'][] = 'Vous avez été correctement déconnecté.';
 
-        header('Location: ' . BASE_URL);
+        header('Location: ' . Routing::getSlug("users", "login"));
     }
 
     public function forgetPasswordAction(): void
