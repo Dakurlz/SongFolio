@@ -72,9 +72,24 @@ class Users extends BaseSQL
         return false;
     }
 
-    // hasPermission
+    public function setLoginToken(){
+        $token = md5(substr(uniqid().time(), 4, 10));
+        setcookie('token', $token, time() + (86400 * 7), "/");
+        $this->__set('login_token', $token);
+        $this->save();
+    }
 
-    public static function hasPermission(string $askedAction): bool
+    public function oAuthLogin($provider, $user_infos){
+        if (!$this->getOneBy(['id_'.$provider => $user_infos['id']], true)) {
+            $this->__set('email', $user_infos['email']);
+            $this->__set('first_name', $user_infos['first_name']);
+            $this->__set('last_name', $user_infos['last_name']);
+        }
+        $this->setLoginToken();
+        header('Location: ' . Routing::getSlug("users", "dashboard"));
+    }
+
+    public static function hasPermission($askedAction): bool
     {
         $group = new Roles((new Users)->__get('role_id'));
         if ($group->getPerm($askedAction) || $group->getPerm('all_perms')) {

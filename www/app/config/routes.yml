@@ -29,6 +29,10 @@
   controller: Users
   action: login
 
+'/login/oauth':
+  controller: Users
+  action: oauth
+
 '/deconnexion':
   controller: Users
   action: logout
