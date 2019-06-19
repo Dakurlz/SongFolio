@@ -81,9 +81,15 @@ class Users extends BaseSQL
 
     public function oAuthLogin($provider, $user_infos){
         if (!$this->getOneBy(['id_'.$provider => $user_infos['id']], true)) {
-            $this->__set('email', $user_infos['email']);
-            $this->__set('first_name', $user_infos['first_name']);
-            $this->__set('last_name', $user_infos['last_name']);
+            if($this->getOneBy(['email' => $user_infos['email']], true)) {
+                $_SESSION['alert']['danger'][] = 'Le mail associé à votre compte ' . $provider . ' est déjà dans notre base de donnée';
+                $this->__set('id_'.$provider, $user_infos['id']);
+            }else{
+                $this->__set('email', $user_infos['email']);
+                $this->__set('first_name', $user_infos['first_name']);
+                $this->__set('last_name', $user_infos['last_name']);
+                $this->__set('id_'.$provider, $user_infos['id']);
+            }
         }
         $this->setLoginToken();
         header('Location: ' . Routing::getSlug("users", "dashboard"));

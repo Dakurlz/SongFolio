@@ -7,13 +7,15 @@ namespace Songfolio\Core\Oauth;
 class Facebook extends Provider
 {
     private $oAuthUrl = 'https://www.facebook.com/v3.3/dialog/';
-    private $client_id = '2232449167069840';
-    private $client_secret = 'ec07adea3bce25a26d3fdcb3b5baa5f2';
 
     public function getAuthorizationUrl(): string
     {
-        $_SESSION['state'] = bin2hex(random_bytes(30));
-        return $this->oAuthUrl."oauth?client_id={$this->client_id}&redirect_uri={$this->getRedirectUrl()}&state={$_SESSION['state']}&scope=email";
+        if($this->client_id && $this->client_secret){
+            $_SESSION['state'] = bin2hex(random_bytes(30));
+            return $this->oAuthUrl."oauth?client_id={$this->client_id}&redirect_uri={$this->getRedirectUrl()}&state={$_SESSION['state']}&scope=email";
+        }else{
+            return '';
+        }
     }
 
     public function getAccessTokenUrl($code_parameter): string

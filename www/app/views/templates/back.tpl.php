@@ -52,7 +52,7 @@ use Songfolio\Core\Alert;
             <div>
                 
                <b>
-                  <p><?= (new Users)->getUserName(); ?></p>
+                  <p><?= (new Users)->getShowName(); ?></p>
                </b>
 
             </div>

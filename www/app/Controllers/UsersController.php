@@ -10,6 +10,7 @@ use Songfolio\core\Routing;
 use Songfolio\core\Validator;
 use Songfolio\models\Users;
 use Songfolio\Models\Roles;
+use Songfolio\Models\Settings;
 use Songfolio\Core\Oauth\Facebook;
 
 class UsersController
@@ -129,11 +130,10 @@ class UsersController
            
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
-            
+
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
-                var_dump($validator);
                 if (empty($configForm["errors"])) {
                     if ($user->getOneBy(['username' => $data['username']], true) && password_verify($data['password'], $user->__get('password'))) {
 
