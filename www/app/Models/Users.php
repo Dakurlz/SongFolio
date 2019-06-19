@@ -131,21 +131,11 @@ class Users extends BaseSQL
      *
      * @return string
      */
-    public function getFullName(): string
+    public function getShowName(): string
     {
         $first = $this->__get('first_name');
-        $last = $this->__get('last_name');
-        return "$first $last";
-    }
-    
-    /**
-     * check if  first name existe send full name else username 
-     *
-     * @return string
-     */
-    public function getUserName(): string
-    {
-        return ($this->__get('first_name') === null || $this->__get('first_name') === '') ? $this->__get('username') : $this->getFullName();
+        $last = substr($this->__get('last_name'), 0, 1);
+        return "$first $last.";
     }
 
     public function getFormRegister()
