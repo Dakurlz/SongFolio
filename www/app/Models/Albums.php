@@ -40,12 +40,25 @@ class Albums extends BaseSQL
                         "type" => "text",
                         "name" => "title",
                         "label" => "Nom de l'albmu",
-                        "class" => "input-control",
+                        "class" => "input-control target-elment-to-slug",
                         "id" => "name",
                         "required" => true,
                         "minlength" => 2,
                         "maxlength" => 50,
                         "error" => "Votre catégorie doit faire entre 2 et 60 caractères"
+                    ],
+
+                    "category" => [
+                        "type" => "select",
+                        "class" => "col-12 col-lg-4 col-md-4 col-sm-4 smart-toggle",
+                        "label" => "Categorie",
+                        "div_class" => "smart-type type-article",
+                        "id" => "category",
+                        "name" => "category_id",
+                        "placeholder" => "",
+                        "required" => true,
+                        "error" => "Selectioner le categorie",
+                        "options" => [],
                     ],
 
                     'cover_dir' => [
@@ -66,14 +79,14 @@ class Albums extends BaseSQL
                         'type' => 'text',
                         'name' => 'deezer',
                         'label' => 'Lien deezer',
-                        "required" => true,
+                        "required" => false,
                         'class' => 'form-control  col-lg-3 col-md-4 col-sm-4 col-12',
                     ],
                     'spotify' => [
                         'type' => 'text',
                         'name' => 'spotify',
                         'label' => 'Lien spotify',
-                        "required" => true,
+                        "required" => false,
                         'class' => 'form-control  col-lg-3 col-md-4 col-sm-4 col-12',
                     ],
 

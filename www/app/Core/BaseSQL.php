@@ -92,11 +92,15 @@ class BaseSQL
     {
         $columns = $this->data;
 
+        \debug($columns);
+
+
         if (!isset($columns["id"]) || is_null($columns["id"])) {
             //INSERT
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
             $query = $this->pdo->prepare($sql);
             $query->execute($columns);
+
 
             $this->data['id'] = $this->pdo->lastInsertId($this->table);
         } else {
@@ -128,8 +132,8 @@ class BaseSQL
 
         $sql = "DELETE FROM " . $this->table . " WHERE " . implode(" AND ", $sqlWhere) . ";";
 
-        // $query = $this->pdo->prepare($sql);
-        // $query->execute($where);
+        $query = $this->pdo->prepare($sql);
+        $query->execute($where);
     }
 
     private function sqlWhere($where)

@@ -81,7 +81,8 @@ return [
     },
     AlbumsController::class => function ($container) {
         $albumModel = $container[Albums::class]($container);
-        return new AlbumsController($albumModel);
+        $albumCategory = $container[Categories::class]($container);
+        return new AlbumsController($albumModel, $albumCategory);
     },
     AdminController::class => function ($container) {
         return new AdminController();
