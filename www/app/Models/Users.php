@@ -549,4 +549,34 @@ class Users extends BaseSQL
         ];
 
     }
+
+    public function forgetPassword() {
+        return [
+            "config"=>[
+                "action"=>Routing::getSlug("Users", "forgetPassword"),
+                "method"=>"POST",
+                "class"=>"",
+                "id"=>"",
+                "submit"=>"Envoyer un nouveau mot de passe"
+            ],
+            "btn" => [
+                "submit" => [
+                    "type" => "submit",
+                    "text" => "Envoyer un nouveau mot de passe",
+                    "class" => "btn btn-success-outline"
+                ],
+            ],
+            "data"=>[
+                "user_email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"Adresse email",
+                    "class"=>"form-control",
+                    "id"=>"user_email",
+                    "name"=>"user_email",
+                    "required"=>true,
+                    "error"=>"",
+                ],
+                ]
+            ];
+    }
 }
