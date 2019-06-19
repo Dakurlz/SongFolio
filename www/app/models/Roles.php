@@ -2,6 +2,7 @@
 declare (strict_types = 1);
 
 namespace Songfolio\Models;
+
 use Songfolio\Core\BaseSQL;
 
 
@@ -32,7 +33,8 @@ class Roles extends BaseSQL
         return $value;
     }
 
-    public function getPerm($value){
+    public function getPerm($value)
+    {
         $perms = $this->__get('perms');
         return $perms[$value] ?? false;
     }
@@ -40,7 +42,7 @@ class Roles extends BaseSQL
     public static function prepareRoleToSelect($roles): array
     {
         $arr = [];
-        foreach ($roles as $role){
+        foreach ($roles as $role) {
             $arr[] = ['label' => $role['name'], 'value' => $role['id']];
         }
         return $arr;
@@ -49,10 +51,10 @@ class Roles extends BaseSQL
     public static function hasPermissionByKey(string $askedAction)
     {
         $role = new Roles();
-
     }
 
-    public function permsList(){
+    public function permsList()
+    {
         return [
             "all" => [
                 "perms" => [
@@ -169,6 +171,24 @@ class Roles extends BaseSQL
                     ],
                     "role_edit" => [
                         "desc" => "Modifier un rôle"
+                    ]
+                ]
+            ],
+
+            "albums" => [
+                "title" => "Gestion des albums",
+                "perms" => [
+                    "album_view" => [
+                        "desc" => "Voir les rôle"
+                    ],
+                    "album_add" => [
+                        "desc" => "Ajouter un album"
+                    ],
+                    "album_del" => [
+                        "desc" => "Supprimer un album"
+                    ],
+                    "album_edit" => [
+                        "desc" => "Modifier un album"
                     ]
                 ]
             ]

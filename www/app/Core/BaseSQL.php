@@ -128,8 +128,8 @@ class BaseSQL
 
         $sql = "DELETE FROM " . $this->table . " WHERE " . implode(" AND ", $sqlWhere) . ";";
 
-        $query = $this->pdo->prepare($sql);
-        $query->execute($where);
+        // $query = $this->pdo->prepare($sql);
+        // $query->execute($where);
     }
 
     private function sqlWhere($where)

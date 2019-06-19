@@ -93,9 +93,22 @@
   action: menusDel
   needGroups: admin
 
+# Albums
+'/admin/albums/create':
+  controller: Albums
+  action: createAlbum
+
 '/admin/albums':
-  controller: Admin
-  action: loadAlbum
+  controller: Albums
+  action: listAlbum
+
+'/admin/albums/update':
+  controller: Albums
+  action: updateAlbum
+
+'/admin/albums/delete':
+  controller: Albums
+  action: deleteAlbum
 
 # Categories
 '/admin/categories/':

@@ -54,7 +54,7 @@ class ContentsController
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->contents->delete(["id" => $id]);
-            $alert = Alert::getAlertPropsByAction('delete', 'Contenu', false);
+            $alert = Alert::setAlertPropsByAction('delete', 'Contenu', false);
         } else {
             $alert = Alert::setAlertError('Une erreur se produit ...');
         };
@@ -148,7 +148,7 @@ class ContentsController
                 $this->contents->save();
 
 
-                return Alert::getAlertPropsByAction($action, $typeName, $data['type'] === 'article' ? false : true);
+                return Alert::setAlertPropsByAction($action, $typeName, $data['type'] === 'article' ? false : true);
             } else {
                 if (empty($errors)) {
                     return Alert::setAlertError($typeName . ' existe déjà');

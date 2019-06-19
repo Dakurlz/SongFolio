@@ -63,7 +63,7 @@ class EventsController
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->event->delete(["id" => $id]);
-            $alert = Alert::getAlertPropsByAction('delete', 'Événement', false);
+            $alert = Alert::setAlertPropsByAction('delete', 'Événement', false);
         } else {
             $alert = Alert::setAlertError('Une erreur se produit ...');
         };
@@ -71,13 +71,14 @@ class EventsController
         self::listEventsAction($alert);
     }
 
-    public function listEventsAction($alert = null): void
+    public function listEventsAction(): void
     {
         $events = $this->event->getAllData();
         $view = new View('admin/events/list', 'back');
         $view->assign('listEvents', $events);
         $view->assign('categories', $this->category->getAllBy(['type' => 'event']));
         if (!empty($alert)) $view->assign('alert', $alert);
+
     }
 
     public function renderEventsView($alert, array $configForm)
@@ -135,7 +136,7 @@ class EventsController
 
                 $this->event->save();
 
-                return Alert::getAlertPropsByAction($action, 'Événement', false);
+                return Alert::setAlertPropsByAction($action, 'Événement', false);
             } else {
                 if (empty($errors)) {
                     return Alert::setAlertError('Événement existe déjà');

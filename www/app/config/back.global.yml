@@ -1,12 +1,12 @@
 mapping_header_name:
   admin: Admin
+  article: Article
+  albums: Albums
   categories: Categories
   dashboard: Tableau de board
-  albums: Albumes
   comments: Commentaires
   users: Utilisateurs
   contents: Contenus
-  article: Article
   menus: Menus
   events: Événements
   settings: Paramètres
@@ -151,3 +151,16 @@ sidebar_items:
           controller: Settings
           action: footer
           label: Footer
+
+  album_perm:
+    name: Albums
+    slug:
+      controller: Albums
+      action: listAlbums
+
+    dropdown:
+      slugs:
+        album_add:
+          controller: Albums
+          action: createAlbum
+          label: Ajouter un album
