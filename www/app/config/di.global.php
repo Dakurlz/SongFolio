@@ -15,6 +15,8 @@ use Songfolio\Models\Categories;
 use Songfolio\Models\Comments;
 use Songfolio\Models\Events;
 use Songfolio\Models\Roles;
+use Songfolio\Models\Albums;
+use Songfolio\Controllers\AlbumsController;
 
 return [
     Users::class => function ($container) {
@@ -34,6 +36,9 @@ return [
     },
     Events::class => function ($container) {
         return new Events();
+    },
+    Albums::class => function ($container){
+        return new Albums();
     },
     UsersController::class => function ($container) {
         $usersModel = $container[Users::class]($container);
@@ -69,8 +74,9 @@ return [
         $categoryModel = $container[Categories::class]($container);
         return new EventsController($eventsModel, $categoryModel);
     },
-    NameController::class => function ($container) {
-        return new NameController();
+    AlbumsController::class => function ($container) {
+        $albumModel = $container[Albums::class]($container);
+        return new AlbumsController($albumModel);
     },
     AdminController::class => function ($container) {
         return new AdminController();

@@ -217,7 +217,7 @@ class UsersController
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->user->delete(["id" => $id]);
-            $alert = Alert::getAlertPropsByAction('delete', 'Utilisateur', false);
+            $alert = Alert::setAlertPropsByAction('delete', 'Utilisateur', false);
         } else {
             $alert = Alert::setAlertError('Une erreur se produit ...');
         };
@@ -256,7 +256,7 @@ class UsersController
                 $this->user->__set('last_name', $data['last_name']);
                 $this->user->save();
 
-                return Alert::getAlertPropsByAction($action, 'Utilisateur', false);
+                return Alert::setAlertPropsByAction($action, 'Utilisateur', false);
             } else {
                 if (empty($errors)) {
                     return Alert::setAlertError('Utilisateur existe déjà');

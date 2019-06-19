@@ -48,7 +48,7 @@ class CategoriesController
 
         if (isset($id)) {
             $this->category->delete(["id" => $id]);
-            $alert = Alert::getAlertPropsByAction('delete', 'Categorie', true);
+            $alert = Alert::setAlertPropsByAction('delete', 'Categorie', true);
         } else {
             $alert = Alert::setAlertError('Une erreur se produit ...');
         };
@@ -141,7 +141,7 @@ class CategoriesController
                 isset($_REQUEST['id']) ? $this->category->__set('id', $_REQUEST['id']) : null;
                 $this->category->__set('type', $type);
                 $this->category->save();
-                return Alert::getAlertPropsByAction($action, 'Categorie', true);
+                return Alert::setAlertPropsByAction($action, 'Categorie', true);
             } else {
                 if(empty($errors)){
                     return Alert::setAlertError('Categorie existe déjà');

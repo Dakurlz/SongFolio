@@ -68,7 +68,7 @@
             <ul class="sortable lis-unstyled" id="the-menu">
                 <?=$menu->show('menu_edit');?>
             </ul><!-- /.menu-sortable -->
-            <input type="hidden" id="result-data" name="data" value=""></input>
+            <input type="hidden" id="result-data" name="data" value="" />
         </div>
 
         <div class="form-group">
