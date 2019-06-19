@@ -123,6 +123,19 @@ sidebar_items:
           action: createEvents
           label: Création d'événement
 
+  album_perm:
+    name: Albums
+    slug:
+      controller: Albums
+      action: listAlbums
+
+    dropdown:
+      slugs:
+        album_add:
+          controller: Albums
+          action: createAlbum
+          label: Ajouter un album
+
 
   settings:
     name: Paramètres
@@ -152,15 +165,3 @@ sidebar_items:
           action: footer
           label: Footer
 
-  album_perm:
-    name: Albums
-    slug:
-      controller: Albums
-      action: listAlbums
-
-    dropdown:
-      slugs:
-        album_add:
-          controller: Albums
-          action: createAlbum
-          label: Ajouter un album

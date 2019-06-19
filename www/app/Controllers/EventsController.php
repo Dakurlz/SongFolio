@@ -35,7 +35,7 @@ class EventsController
 
      public function updateAction()
      {
-         Users::need('event_edit');
+        Users::need('event_edit');
 
         $id = $_REQUEST['id'] ?? '';
         $configForm = $this->event->getFormEvents()['update'];
@@ -77,7 +77,6 @@ class EventsController
         $view = new View('admin/events/list', 'back');
         $view->assign('listEvents', $events);
         $view->assign('categories', $this->category->getAllBy(['type' => 'event']));
-        if (!empty($alert)) $view->assign('alert', $alert);
 
     }
 

@@ -30,7 +30,7 @@ class Validator
             //required
             
             if ( ($input["required"] ?? false) && empty($data[$input['name']])) {
-                debug( $data[$input] );
+                \debug($data);
                 View::show404("Tentative de Faille XSS");
             } else {
                 //Minlength
