@@ -108,15 +108,41 @@
 
 '/admin/albums':
   controller: Albums
-  action: listAlbum
+  action: listAlbums
 
 '/admin/albums/update':
+  controller: Albums
+  action: update
+
+'/admin/albums/update_album':
   controller: Albums
   action: updateAlbum
 
 '/admin/albums/delete':
   controller: Albums
-  action: deleteAlbum
+  action: delete
+
+# Songs
+'/admin/songs':
+  controller: Songs
+  action: listSongs
+
+'/admin/songs/create':
+  controller: Songs
+  action: create
+
+'/admin/songs/delete':
+  controller: Songs
+  action: delete
+
+'/admin/songs/update':
+  controller: Songs
+  action: update
+
+'/admin/songs/update_song':
+  controller: Songs
+  action: updateSong
+
 
 # Categories
 '/admin/categories/':

@@ -33,12 +33,16 @@ $is_user = !empty($user->__get('id'));
                         <textarea rows="4" cols="50" placeholder="Ajouter un commentaire" name="message" id="" class="textarea-control" required></textarea>
                     <?php endif; ?>
                     <div style="<?= !$is_user ? 'padding: 15px 0 '  : '' ?>" class="validate">
-                        <p class="name"> <?= $is_user ? $user->getFullName() : 'Veuillez se connecter pour laisser des commentaires'; ?> </p>
+                        <p class="name"> <?= $is_user ? $user->getShowName() : 'Veuillez se connecter pour laisser des commentaires'; ?> </p>
                         <input style="<?= !$is_user ? 'display: none'  : '' ?>" type="submit" class=" <?= empty($user->__get('id')) ? 'disabled' : null ?> btn btn-success-outline" style="margin-top: 50px" value="Ajouter">
                     </div>
                 </form>
 
-                <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success') $this->addModal('alert', Alert::setAlertInfo('Votre commentaire sera afficher après la verification du moderateur')); ?>
+                <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success'): ?>
+                    <div role="alert" style="padding: 0 10px " class="alert alert-info">
+                        <p>Votre commentaire sera afficher après la verification du moderateur</p>
+                    </div>
+                <?php endif; ?>
 
                 <?php if ($nb_comments !== 0) : ?>
                     <div class="comments-data">

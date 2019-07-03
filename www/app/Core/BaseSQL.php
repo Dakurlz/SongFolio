@@ -98,6 +98,7 @@ class BaseSQL
             $query = $this->pdo->prepare($sql);
             $query->execute($columns);
 
+
             $this->data['id'] = $this->pdo->lastInsertId($this->table);
         } else {
             //UPDATE
@@ -128,8 +129,8 @@ class BaseSQL
 
         $sql = "DELETE FROM " . $this->table . " WHERE " . implode(" AND ", $sqlWhere) . ";";
 
-        // $query = $this->pdo->prepare($sql);
-        // $query->execute($where);
+        $query = $this->pdo->prepare($sql);
+        $query->execute($where);
     }
 
     private function sqlWhere($where)
@@ -213,6 +214,30 @@ class BaseSQL
         $query->execute($where);
 
         return $query->fetch();
+    }
+
+    public function getCustom(string $str,array $where)
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
+        $query = $this->pdo->prepare($sql);
+
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetch();
+    }
+
+    public function getByCustomClass(string $str,array $where, string $class)
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
+        $query = $this->pdo->prepare($sql);
+
+        // $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetchObject($class);
     }
 
     public function getColumns()
