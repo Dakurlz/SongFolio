@@ -11,6 +11,7 @@ mapping_header_name:
   events: Événements
   settings: Paramètres
   roles: Rôles
+  songs: Morceau
 
 # SIDEBAR ITEMS
 sidebar_items:
@@ -85,7 +86,7 @@ sidebar_items:
     name: Categories
     slug:
       controller: Categories
-      action: index
+      action: article
 
     dropdown:
       slugs:
@@ -135,6 +136,19 @@ sidebar_items:
           controller: Albums
           action: createAlbum
           label: Ajouter un album
+
+  song_perm:
+    name: Morceau
+    slug:
+      controller: Songs
+      action: listSongs
+
+    dropdown:
+      slugs:
+        album_add:
+          controller: Songs
+          action: create
+          label: Ajouter un morceau
 
 
   settings:

@@ -1,12 +1,12 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Songfolio\Controllers;
 
 use Songfolio\core\View;
 use Songfolio\Core\Validator;
 use Songfolio\core\Helper;
-use Songfolio\Core\Alert;
 
 use Songfolio\Models\Categories;
 use Songfolio\Models\Contents;
@@ -42,9 +42,9 @@ class ContentsController
         $configForm = self::published($this->contents->getFormContents()['create']);
         $categories = $this->categories->getAllBy(['type' => 'article']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
-        $alert = self::push($configForm, 'create');
+        self::push($configForm, 'create');
 
-        self::renderContentsView($alert, $configForm);
+        self::renderContentsView($configForm);
     }
 
     public function deleteAction(): void
@@ -54,15 +54,15 @@ class ContentsController
         $id = $_REQUEST['id'];
         if (isset($id)) {
             $this->contents->delete(["id" => $id]);
-            $alert = Alert::setAlertPropsByAction('delete', 'Contenu', false);
+            $_SESSION['alert']['info'][] = 'Contenu supprimé';
         } else {
-            $alert = Alert::setAlertError('Une erreur se produit ...');
+            $_SESSION['alert']['danger'][] = 'Une erreur se produit ...';
         };
         if ($_REQUEST) {
             if ($_REQUEST['type'] === 'page') {
-                self::listesPagesAction($alert);
+                self::listesPagesAction();
             }
-            self::listesArticlesAction($alert);
+            self::listesArticlesAction();
         }
     }
 
@@ -73,53 +73,50 @@ class ContentsController
         $id = $_REQUEST['id'] ?? '';
         $configForm = self::published($this->contents->getFormContents()['update']);
         $this->contents = $this->contents->getOneBy(['id' => $id], true);
-        $configForm['values'] = (array)$this->contents;
+        $configForm['values'] = (array) $this->contents;
         if ($this->contents['type'] === 'article') {
             $categories = $this->categories->getAllBy(['type' => 'article']);
             $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
         }
-        self::renderContentsView(null, $configForm);
+        self::renderContentsView($configForm);
     }
 
     public function updateContentAction()
     {
         $configForm = $this->contents->getFormContents()['update'];
         self::published($configForm);
-        $alert = self::push($configForm,  'update');
+        self::push($configForm,  'update');
         if ($_REQUEST) {
             if ($_REQUEST['type'] === 'page') {
-                self::listesPagesAction($alert);
+                self::listesPagesAction();
             }
-            self::listesArticlesAction($alert);
+            self::listesArticlesAction();
         }
     }
 
-    private function renderContentsView($alert, array $configForm)
+    private function renderContentsView(array $configForm)
     {
         $view = new View("admin/contents/create", 'back');
-        if (!empty($alert)) $view->assign('alert', $alert);
         $view->assign('configFormPage', $configForm);
     }
 
 
-    public function listesPagesAction($alert = null): void
+    public function listesPagesAction(): void
     {
         $pages = $this->contents->getAllBy(['type' => 'page']);
         $view = new View('admin/contents/pages_lists', 'back');
-        if (!empty($alert)) $view->assign('alert', $alert);
         $view->assign('pages', $pages);
     }
 
-    public function listesArticlesAction($alert = null): void
+    public function listesArticlesAction(): void
     {
         $articles = $this->contents->getAllBy(['type' => 'article']);
         $view = new View('admin/contents/article_lists', 'back');
-        if (!empty($alert)) $view->assign('alert', $alert);
         $view->assign('articles', $articles);
         $view->assign('categories', $this->categories->getAllBy(['type' => 'article']));
     }
 
-    private function push($configForm, $action)
+    private function push($configForm)
     {
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
@@ -140,20 +137,24 @@ class ContentsController
                 $this->contents->__set('description', $data['description']);
                 $this->contents->__set('content', $data['content']);
                 $this->contents->__set('author', $this->user->__get('id'));
-                isset($data['category']) ? $this->contents->__set('category_id', (int)$data['category']) : null;
+                isset($data['category']) ? $this->contents->__set('category_id', (int) $data['category']) : null;
                 isset($fileName) ? $this->contents->__set('img_dir', $fileName) : null;
-                $this->contents->__set('published', isset($data['published']) ? (int)$data['published'] : 0);
-                $this->contents->__set('comment_active', isset($data['comment_active']) ? (int)$data['comment_active'] : 0);
-                $this->contents->__set('indexed', isset($data['indexed']) ? (int)$data['indexed'] : 0);
+                $this->contents->__set('published', isset($data['published']) ? (int) $data['published'] : 0);
+                $this->contents->__set('comment_active', isset($data['comment_active']) ? (int) $data['comment_active'] : 0);
+                $this->contents->__set('indexed', isset($data['indexed']) ? (int) $data['indexed'] : 0);
                 $this->contents->save();
 
+                if( $configForm['config']['action_type'] === 'create' ){
+                    $_SESSION['alert']['success'][] =  $typeName . ' créé';
+                }
+                $_SESSION['alert']['info'][] =  $typeName . ' modifé';
 
-                return Alert::setAlertPropsByAction($action, $typeName, $data['type'] === 'article' ? false : true);
+
             } else {
                 if (empty($errors)) {
-                    return Alert::setAlertError($typeName . ' existe déjà');
+                    $_SESSION['alert']['danger'][] = $typeName . ' existe déjà';
                 }
-                return Alert::setAlertErrors($errors);
+                $_SESSION['alert']['danger'] = $errors;
             }
         }
         return false;
@@ -161,7 +162,7 @@ class ContentsController
 
     private function published($configForm): array
     {
-        if(!Users::hasPermission('content_pub')) {
+        if (!Users::hasPermission('content_pub')) {
             unset($configForm['data']['published']);
         }
         return $configForm;

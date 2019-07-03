@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Songfolio\Core;
   
 use Songfolio\Core\View;
+use Songfolio\Models\Slug;
 
 class Validator
 {
@@ -13,26 +14,20 @@ class Validator
 
     public function __construct($config, $data)
     {
-          /*  $configCount = 0;
-            foreach ($config["data"] as $dt){
-                if($dt['type'] !== 'checkbox'){
-                    $configCount ++;
-                }
-            }
-        if (count($data) !== $configCount) {
-            debug($data);
-            debug($configCount);
-            debug(count($data) !== $configCount);
-            View::show404("Tentative de Faille XSS");
-        }*/
 
         foreach ($config["data"] as $name => $input) {
             //required
             
             if ( ($input["required"] ?? false) && empty($data[$input['name']])) {
-                \debug($data);
                 View::show404("Tentative de Faille XSS");
             } else {
+
+
+                if ($input["type"] === 'slug' && Slug::checkIfExist($data["slug"])) {
+                    $this->errors[] = 'Slug existe déjà';
+                    continue;
+                }
+
                 //Minlength
                 if (isset($input["minlength"]) && !self::checkMinLength($data[$input['name']], $input["minlength"])) {
                     $this->errors[] = $input["error"];

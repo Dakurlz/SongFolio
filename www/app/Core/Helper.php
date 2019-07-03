@@ -13,6 +13,7 @@ class Helper
      */
     public static function uploadImage(string $targetDirProp, string $name)
     {
+        if(!isset($_FILES[$name])) return null;
         $targetDir = $targetDirProp;
         $fileName = basename($_FILES[$name]["name"]);
         $targetFilePath = $targetDir . $fileName;
@@ -131,7 +132,9 @@ class Helper
 
     public static function getNameAfterConfig(string $key):string
     {
+        // \debug($key);
         if(strpos($key, '_')){
+
             return substr($key, 0, strpos($key, "_"))."s";
         }
         return $key;
