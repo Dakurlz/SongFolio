@@ -228,6 +228,18 @@ class BaseSQL
         return $query->fetch();
     }
 
+    public function getByCustomClass(string $str,array $where, string $class)
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
+        $query = $this->pdo->prepare($sql);
+
+        // $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetchObject($class);
+    }
+
     public function getColumns()
     {
         $objectVars = get_object_vars($this);

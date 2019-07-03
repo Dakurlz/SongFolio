@@ -22,19 +22,6 @@ class Events extends BaseSQL
         $v->assign('event', $this);
     }
 
-    public static function getBySlug($slug)
-    {
-        $event = new Events();
-        $event->getOneBy(['slug' => $slug], true);
-
-        if ($event->__get('id')) {
-            return $event;
-        }
-
-        return false;
-    }
-
-
 
     public function getFormEvents(): array
     {

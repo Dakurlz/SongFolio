@@ -24,7 +24,7 @@ class CommentsController
     {
 
         $redirect =  self::push();
-        header('Location: '.BASE_URL.$redirect.'?status=success#comment-section');
+        header('Location: ' . BASE_URL . $redirect . '#comment-section');
     }
 
     public function listNotConfirmAction()
@@ -52,9 +52,9 @@ class CommentsController
             $this->comment->delete(["id" => $id]);
         }
 
-        if($redirect !== null){
-            header('Location: '.BASE_URL.$redirect.'#comment-section');
-        }else {
+        if ($redirect !== null) {
+            header('Location: ' . BASE_URL . $redirect . '#comment-section');
+        } else {
             self::listNotConfirmAction();
         }
     }
@@ -104,10 +104,12 @@ class CommentsController
 
                 $this->comment->save();
 
+                $_SESSION['alert']['info'][] = 'Votre commentaire sera afficher après la verification du moderateur';
+
                 return  $redirect;
             } else {
 
-                return Alert::setAlertErrors($errors);
+                $_SESSION['alert']['info'] = $errors;
             }
         }
         return false;

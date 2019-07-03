@@ -2,7 +2,6 @@
 use \Songfolio\Core\Routing;
 use Songfolio\Models\Users;
 use Songfolio\Core\Helper;
-use Songfolio\Core\Alert;
 
 $user = new Users;
 
@@ -38,7 +37,7 @@ $is_user = !empty($user->__get('id'));
                     </div>
                 </form>
 
-                <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success') $this->addModal('alert', Alert::setAlertInfo('Votre commentaire sera afficher après la verification du moderateur')); ?>
+                <?php $this->addModal("session_alert"); ?>
 
                 <?php if ($nb_comments !== 0) : ?>
                     <div class="comments-data">

@@ -6,77 +6,107 @@ namespace Songfolio\Core;
 
 use Songfolio\Models\Settings;
 use Songfolio\Models\Users;
+use Songfolio\Models\Albums;
+use Songfolio\Models\Contents;
+use Songfolio\Models\Events;
 
-class View{
+class View
+{
     private $view;
     private $view_path;
     private $template;
     private $template_path;
 
-    public function __construct($v, $t="back"){
+    public function __construct($v, $t = "back")
+    {
         $this->setView($v);
         $this->setTemplate($t);
     }
 
-    public function setView($view){
+    public function setView($view)
+    {
         $this->view = $view;
-        $vPath = "app/views/".$view.".view.php";
-        if(file_exists($vPath)) {
+        $vPath = "app/views/" . $view . ".view.php";
+        if (file_exists($vPath)) {
             $this->view_path = $vPath;
-        }else{
-            View::show404("Le views n'existe pas ". $vPath);
+        } else {
+            View::show404("Le views n'existe pas " . $vPath);
         }
     }
 
-    public function setTemplate($template){
+    public function setTemplate($template)
+    {
         $this->template = $template;
-        $templatePath = "app/views/templates/".$template.".tpl.php";
-        if($template === null){
+        $templatePath = "app/views/templates/" . $template . ".tpl.php";
+        if ($template === null) {
             $this->template_path = null;
-        }else{
-            if(file_exists($templatePath)) {
+        } else {
+            if (file_exists($templatePath)) {
                 $this->template_path = $templatePath;
 
-                if($template == 'front'){
-                    $settings['config'] = (new Settings('config') )->get();
-                    $settings['header'] = (new Settings('header') )->get();
-                    $settings['footer'] = (new Settings('footer') )->get();
+                if ($template == 'front') {
+                    $settings['config'] = (new Settings('config'))->get();
+                    $settings['header'] = (new Settings('header'))->get();
+                    $settings['footer'] = (new Settings('footer'))->get();
                     $this->assign('settings', $settings);
                 }
-
-            }else{
-                die("Le template n'existe pas ". $templatePath);
+            } else {
+                die("Le template n'existe pas " . $templatePath);
             }
         }
     }
 
-    public static function addModal($modal, $config = []){
-        $pathModal = "app/views/modals/".$modal.".mod.php";
-        if(file_exists($pathModal)){
+    public function addModal($modal, $config = [])
+    {
+        $pathModal = "app/views/modals/" . $modal . ".mod.php";
+        if (file_exists($pathModal)) {
             include $pathModal;
-        }else{
-            die("Le modal n'existe pas :".$pathModal);
+        } else {
+            die("Le modal n'existe pas :" . $pathModal);
         }
     }
 
-    public static function show404($reason = ""){
+    public static function show404($reason = "")
+    {
         $v = new View("404", "front");
-        if($reason){
+        if ($reason) {
             $v->assign('reason', $reason);
         }
         exit;
     }
 
-    public function assign($key, $value){
-        $this->data[$key]=$value;
+    public function assign($key, $value)
+    {
+        $this->data[$key] = $value;
     }
 
-    public function __destruct(){
+    public function __destruct()
+    {
         $user = new Users();
-        if(!empty($this->data))
+        if (!empty($this->data))
             extract($this->data);
-        if($this->template_path !== null)
+        if ($this->template_path !== null)
             include $this->template_path;
     }
 
+
+
+    public static function renderPages(): bool
+    {
+        $base = new BaseSQL();
+        $tables = ['Albums', 'Contents', 'Events', 'Categories', 'Songs'];
+        $current_obj = null;
+
+        foreach ($tables as $tab) {
+            $class = "Songfolio\Models\\" . $tab;
+            $current_obj = $base->getByCustomClass('SELECT * FROM ' . $tab, ['slug' => Routing::currentSlug(true)], $class);
+            if ($current_obj) break;
+        }
+
+        if (method_exists($current_obj, 'show')) {
+            $current_obj->show();
+            return true;
+        }
+        return false;
+    }
 }
