@@ -24,7 +24,7 @@ class CommentsController
     {
 
         $redirect =  self::push();
-        header('Location: ' . BASE_URL . $redirect . '#comment-section');
+        header('Location: ' . BASE_URL . $redirect . '?status=success#comment-section');
     }
 
     public function listNotConfirmAction()
@@ -104,7 +104,6 @@ class CommentsController
 
                 $this->comment->save();
 
-                $_SESSION['alert']['info'][] = 'Votre commentaire sera afficher après la verification du moderateur';
 
                 return  $redirect;
             } else {
