@@ -90,13 +90,17 @@ class SongsController
             if ($_SERVER["REQUEST_METHOD"] !== $method || empty($data)) {
                 return false;
             }
+
+            if (isset($_REQUEST['id']))
+                $this->song->__set('id', $_REQUEST['id']);
+
+
             $validator = new Validator($configForm, $data);
             $errors = $validator->getErrors();
             $fileName = Helper::uploadImage('public/uploads/songs/', 'img_dir');
 
 
             if (empty($errors)) {
-                isset($_REQUEST['id']) ? $this->song->__set('id', $_REQUEST['id']) : null;
 
                 $this->song->__set('name', $data['name']);
                 $this->song->__set('slug',  $data['slug']);
@@ -115,9 +119,10 @@ class SongsController
 
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] = 'Morceau ajouté';
-                }
-                $_SESSION['alert']['info'][] = 'Morceau modifé';
+                } else {
 
+                    $_SESSION['alert']['info'][] = 'Morceau modifé';
+                }
             } else {
                 if (empty($errors)) {
                     $_SESSION['alert']['danger'][] =  'Album existe déjà';

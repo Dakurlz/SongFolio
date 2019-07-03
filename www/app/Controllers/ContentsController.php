@@ -144,17 +144,17 @@ class ContentsController
                 $this->contents->__set('indexed', isset($data['indexed']) ? (int) $data['indexed'] : 0);
                 $this->contents->save();
 
-                if( $configForm['config']['action_type'] === 'create' ){
+                if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] =  $typeName . ' créé';
                 }
                 $_SESSION['alert']['info'][] =  $typeName . ' modifé';
-
-
             } else {
                 if (empty($errors)) {
                     $_SESSION['alert']['danger'][] = $typeName . ' existe déjà';
+                } else {
+
+                    $_SESSION['alert']['danger'] = $errors;
                 }
-                $_SESSION['alert']['danger'] = $errors;
             }
         }
         return false;

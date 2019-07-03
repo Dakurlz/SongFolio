@@ -143,8 +143,9 @@ class CategoriesController
 
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] = 'Categorie créé';
+                } else {
+                    $_SESSION['alert']['info'][] = 'Categorie modifé';
                 }
-                $_SESSION['alert']['info'][] = 'Categorie modifé';
             } else {
                 debug($errors);
                 if (empty($errors)) {

@@ -36,7 +36,7 @@ class Albums extends BaseSQL
                     "method" => "POST",
                     "class" => "",
                     'header' => 'Ajouter un nouvel album',
-                    'action_type' => 'create'
+                    'action_type' => 'create',
                 ],
                 "btn" => [
                     "submit" => [
@@ -138,7 +138,9 @@ class Albums extends BaseSQL
                     "method" => "POST",
                     "class" => "",
                     'header' => 'Modifé un nouvel album',
-                    'action_type' => 'update'
+                    'action_type' => 'update',
+                    'current_object' => $this
+
                 ],
                 "btn" => [
                     "submit" => [

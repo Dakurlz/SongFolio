@@ -14,6 +14,11 @@ class Songs extends BaseSQL
         parent::__construct($id);
     }
 
+    public function getSlug(string $id, string $slug)
+    {
+        return $this->getByCustomQuery(['id' => $id, 'slug' => $slug], 'id, slug');
+    }
+
     public function getFormSongs()
     {
         return [
@@ -164,7 +169,8 @@ class Songs extends BaseSQL
                     "method" => "POST",
                     "class" => "",
                     'header' => 'Modifié un morceau',
-                    'action_type' => 'update'
+                    'action_type' => 'update',
+                    'current_object' => $this
                 ],
                 "btn" => [
                     "submit" => [

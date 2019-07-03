@@ -1,6 +1,7 @@
 <?php
 
 namespace Songfolio\Models;
+
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 use Songfolio\Core\View;
@@ -109,7 +110,7 @@ class Events extends BaseSQL
                     'end_row_start_date' => [
                         'type' => 'end_row'
                     ],
-                    
+
                     'start_row_end_date' => [
                         'type' => 'start_row'
                     ],
@@ -226,7 +227,8 @@ class Events extends BaseSQL
                     "action" => Routing::getSlug("Events", "updateEvents"),
                     "method" => "POST",
                     'header' => 'Modifi l\'évènement',
-                    'action_type' => 'update'
+                    'action_type' => 'update',
+                    'current_object' => $this
                 ],
                 "btn" => [
                     "submit" => [
@@ -292,7 +294,7 @@ class Events extends BaseSQL
                     'end_row_start_date' => [
                         'type' => 'end_row'
                     ],
-                    
+
                     'start_row_end_date' => [
                         'type' => 'start_row'
                     ],
@@ -399,5 +401,4 @@ class Events extends BaseSQL
             ]
         ];
     }
-
 }

@@ -92,13 +92,14 @@ class AlbumsController
             if ($_SERVER["REQUEST_METHOD"] !== $method || empty($data)) {
                 return false;
             }
+
+            if (isset($_REQUEST['id'])) $this->album->__set('id', $_REQUEST['id']);
+
             $validator = new Validator($configForm, $data);
             $errors = $validator->getErrors();
             $fileName = Helper::uploadImage('public/uploads/albums/', 'cover_dir');
 
-
             if (empty($errors)) {
-                isset($_REQUEST['id']) ? $this->album->__set('id', $_REQUEST['id']) : null;
 
                 $this->album->__set('title', $data['title']);
                 $this->album->__set('slug',  $data['slug']);
@@ -111,12 +112,12 @@ class AlbumsController
 
                 $this->album->save();
 
-               
+
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] = 'Album créé';
+                } else {
+                    $_SESSION['alert']['info'][] = 'Album modifé';
                 }
-                $_SESSION['alert']['info'][] = 'Album modifé';
-
             } else {
                 if (empty($errors)) {
                     $_SESSION['alert']['danger'][] = 'Album existe déjà';

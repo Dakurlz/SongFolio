@@ -1,9 +1,9 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Songfolio\Core;
-  
+
 use Songfolio\Core\View;
 use Songfolio\Models\Slug;
 
@@ -14,18 +14,33 @@ class Validator
 
     public function __construct($config, $data)
     {
+        // \debug($data);
+        // die;
 
         foreach ($config["data"] as $name => $input) {
             //required
-            
-            if ( ($input["required"] ?? false) && empty($data[$input['name']])) {
+
+            if (($input["required"] ?? false) && empty($data[$input['name']])) {
                 View::show404("Tentative de Faille XSS");
             } else {
 
+                if ($input["type"] === 'slug') {
 
-                if ($input["type"] === 'slug' && Slug::checkIfExist($data["slug"])) {
-                    $this->errors[] = 'Slug existe déjà';
-                    continue;
+                    switch ($config['config']['action_type']) {
+                        case 'update':
+                            $obj =  $config['config']['current_object'];
+                            $values =  $obj->getByCustomQuery(['id' => $obj->__get('id')], 'id, slug');
+                            if ($values['slug'] !== $data['slug']) $this->checkSlug($data['slug']);
+
+                            continue;
+
+                        case 'create':
+                            $this->checkSlug($data['slug']);
+                            continue;
+
+                        default:
+                            continue;
+                    }
                 }
 
                 //Minlength
@@ -56,11 +71,9 @@ class Validator
             }
         }
 
-         if (isset($data['new_pwd']) && !self::checkNewPwd($data['new_pwd'],$data['valid_new_pwd'])){
-             $this->errors[] = $input["error_not_same"];
-          }
-
-
+        if (isset($data['new_pwd']) && !self::checkNewPwd($data['new_pwd'], $data['valid_new_pwd'])) {
+            $this->errors[] = $input["error_not_same"];
+        }
     }
 
     /**
@@ -71,6 +84,12 @@ class Validator
     public function getErrors(): array
     {
         return $this->errors;
+    }
+
+    public function checkSlug($slug)
+    {
+        if (Slug::checkIfExist($slug))
+            $this->errors[] = 'Slug existe déjà';
     }
 
     public static function checkMinLength($string, $length)
@@ -91,7 +110,8 @@ class Validator
             preg_match("#[a-z]#", $string) &&
             preg_match("#[0-9]#", $string));
     }
-    public static function checkNewPwd($new_pwd,$valid_new_pwd){
+    public static function checkNewPwd($new_pwd, $valid_new_pwd)
+    {
         return $new_pwd == $valid_new_pwd;
     }
 }
