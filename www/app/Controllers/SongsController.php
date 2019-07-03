@@ -54,8 +54,12 @@ class SongsController
         $configForm = $this->song->getFormSongs()['update'];
         $configForm['values'] = (array) $this->song->getOneBy(['id' => $id]);
         $albums = $this->album->getAllData();
-        if ($configForm['values']['album_id'] !== null) $configForm['data']['type']['selected'] = 'yes';
         $configForm['data']['album']['options'] = Albums::prepareAlbumToSelect($albums);
+        if ($configForm['values']['album_id'] !== null){
+            $configForm['data']['type']['selected'] = 'yes';
+            $configForm['data']['album']['selected'] = $configForm['values']['album_id'];
+        } 
+
         self::renderSongsView($configForm);
     }
 

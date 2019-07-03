@@ -13,6 +13,10 @@ use Songfolio\Models\Users;
         <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button" href="<?= Routing::getSlug('Songs', 'create') ?>">Ajouter un morceau</a>
     <?php endif; ?>
 
+    <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">
+        <input  class="input-control input-control-success input-search" placeholder="Chercher un morceau" />
+    </div>
+
     <table class="table col-12 ">
         <thead>
             <tr>
@@ -36,7 +40,7 @@ use Songfolio\Models\Users;
             </tr>
         </thead>
 
-        <tbody>
+        <tbody class="tbody">
             <td><?php if (empty($listSongs)) echo 'Aucun album.'; ?></td>
             <?php foreach ($listSongs as $song) :  ?>
                 <tr>
