@@ -1,12 +1,12 @@
 <?php
-$backConfigs = yaml_parse_file(__DIR__ . '/../../config/back.global.yml');
-$sectionName = $backConfigs['mapping_current_page'][explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard'];
-
 
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
-use Songfolio\Core\Alert;
+
+
+$backConfigs = yaml_parse_file(__DIR__ . '/../../config/back.global.yml');
+$sectionName = Helper::getCurrentPageName();
 
 ?>
 
@@ -64,7 +64,7 @@ use Songfolio\Core\Alert;
                   ?>
                   <li>
 
-                     <div class="sidebar--item <?= $key === $sectionName ? 'item-active' : '' ?>">
+                     <div class="sidebar--item <?= $item['section'] === $sectionName ? 'item-active' : '' ?>">
                         <button class="button_href" onclick="location.href='<?= Routing::getSlug(
                                                                                  $item['slug']['controller'],
                                                                                  $item['slug']['action']

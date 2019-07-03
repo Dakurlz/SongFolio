@@ -48,6 +48,11 @@ class Helper
         return $conf['mapping_header_name'][$value] ?? $conf['mapping_header_name']['admin'];
     }
 
+    public static function getCurrentPageName()
+    {
+        return explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard';
+    }
+
  
 
     /**

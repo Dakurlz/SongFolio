@@ -13,23 +13,10 @@ mapping_header_name:
   roles: Rôles
   songs: Morceau
 
-mapping_current_page:
-  admin: dashboard
-  contents: content_add
-  albums: album_perm
-  categories: categorie_view
-  dashboard: dashboard
-  comments: comment_perm
-  users: user_view
-  menus: menus
-  events: event_view
-  settings: settings
-  roles: role_view
-  songs: song_perm
-
 # SIDEBAR ITEMS
 sidebar_items:
   dashboard:
+    section: dashboard 
     name: Tableau de board
     slug:
       controller: Admin
@@ -37,6 +24,7 @@ sidebar_items:
 
   content_add:
     name: Contenus
+    section: contents
     slug:
       controller: Contents
       action: index
@@ -59,6 +47,7 @@ sidebar_items:
           label: Liste des articles
 
   user_view:
+    section: users
     name: Utilisateurs
     slug:
       controller: Users
@@ -73,6 +62,7 @@ sidebar_items:
 
   role_view:
     name: Rôles
+    section: roles
     slug:
       controller: Admin
       action: roles
@@ -91,12 +81,14 @@ sidebar_items:
 
   comment_perm:
     name: Commentaires
+    section: comments
     slug:
       controller: Comments
       action: listNotConfirm
 
   categorie_view:
     name: Categories
+    section: categories
     slug:
       controller: Categories
       action: article
@@ -120,6 +112,7 @@ sidebar_items:
 
   menus:
     name: Menus
+    section: menus
     slug:
       controller: Admin
       action: menus
@@ -139,6 +132,7 @@ sidebar_items:
 
   album_perm:
     name: Albums
+    section: albums
     slug:
       controller: Albums
       action: listAlbums
@@ -151,6 +145,7 @@ sidebar_items:
           label: Ajouter un album
 
   song_perm:
+    section: songs
     name: Morceau
     slug:
       controller: Songs
@@ -164,6 +159,7 @@ sidebar_items:
           label: Ajouter un morceau
 
   settings:
+    section: settings
     name: Paramètres
     slug:
       controller: Settings
