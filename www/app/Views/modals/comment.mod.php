@@ -38,7 +38,11 @@ $is_user = !empty($user->__get('id'));
                     </div>
                 </form>
 
-                <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success') $this->addModal('alert', Alert::setAlertInfo('Votre commentaire sera afficher après la verification du moderateur')); ?>
+                <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success'): ?>
+                    <div role="alert" style="padding: 0 10px " class="alert alert-info">
+                        <p>Votre commentaire sera afficher après la verification du moderateur</p>
+                    </div>
+                <?php endif; ?>
 
                 <?php if ($nb_comments !== 0) : ?>
                     <div class="comments-data">

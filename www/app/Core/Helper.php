@@ -13,6 +13,7 @@ class Helper
      */
     public static function uploadImage(string $targetDirProp, string $name)
     {
+        if(!isset($_FILES[$name])) return null;
         $targetDir = $targetDirProp;
         $fileName = basename($_FILES[$name]["name"]);
         $targetFilePath = $targetDir . $fileName;
@@ -45,6 +46,11 @@ class Helper
     {
         $conf = yaml_parse_file(__DIR__ . '/../config/back.global.yml');
         return $conf['mapping_header_name'][$value] ?? $conf['mapping_header_name']['admin'];
+    }
+
+    public static function getCurrentPageName()
+    {
+        return explode('/', $_SERVER['REQUEST_URI'])[2] ?? 'dashboard';
     }
 
  
@@ -131,7 +137,9 @@ class Helper
 
     public static function getNameAfterConfig(string $key):string
     {
+        // \debug($key);
         if(strpos($key, '_')){
+
             return substr($key, 0, strpos($key, "_"))."s";
         }
         return $key;

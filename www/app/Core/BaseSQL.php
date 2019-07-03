@@ -92,9 +92,6 @@ class BaseSQL
     {
         $columns = $this->data;
 
-        \debug($columns);
-
-
         if (!isset($columns["id"]) || is_null($columns["id"])) {
             //INSERT
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
@@ -217,6 +214,30 @@ class BaseSQL
         $query->execute($where);
 
         return $query->fetch();
+    }
+
+    public function getCustom(string $str,array $where)
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
+        $query = $this->pdo->prepare($sql);
+
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetch();
+    }
+
+    public function getByCustomClass(string $str,array $where, string $class)
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
+        $query = $this->pdo->prepare($sql);
+
+        // $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetchObject($class);
     }
 
     public function getColumns()

@@ -216,7 +216,8 @@ class Contents extends BaseSQL
                     "method" => "POST",
                     "class" => "",
                     'header' => 'Modification du contenu',
-                    'action_type' => 'update'
+                    'action_type' => 'update',
+                    'current_object' => $this
 
                 ],
                 "btn" => [
