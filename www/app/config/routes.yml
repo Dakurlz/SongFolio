@@ -25,6 +25,10 @@
   controller: Users
   action: forgetPassword
 
+'/changer_mot_de_passe':
+  controller: Users
+  action: changePassword
+
 '/connexion':
   controller: Users
   action: login

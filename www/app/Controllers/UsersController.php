@@ -12,6 +12,7 @@ use Songfolio\models\Users;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Settings;
 use Songfolio\Core\Oauth\Facebook;
+use Songfolio\core\PhpMailer;
 
 class UsersController
 {
@@ -170,65 +171,45 @@ class UsersController
     {
         $configForm = $this->user->forgetPassword();
         $v = new View("user_forgetPassword", "front");
-        $v->assign('forgetPassword',$configForm);
+        $v->assign('forgetPassword', $configForm);
+
         if (!empty($_POST)) {
-            $user = $this->user->getOneBy(["email"=>$_POST['user_email']]);
-            if (!empty($user)){
+            $user = new Users(["email" => $_POST['user_email']]);
+            if ($user->__get('id')==true) {
 
-                // Plusieurs destinataires
-                $to  = 'gatay.bryan@gmail.com'; // notez la virgule
+                $token = $this->generateToken();
+                $user->__set('pwd_token',$token);
+                $user->save();
+                $mail = new PHPMailer();
 
-                // Sujet
-                $subject = 'Calendrier des anniversaires pour Août';
+               // $mail->SMTPDebug = 3;                               // Enable verbose debug output
 
-                // message
-                $message = '
-     <html>
-      <head>
-       <title>Calendrier des anniversaires pour Août</title>
-      </head>
-      <body>
-       <p>Voici les anniversaires à venir au mois d\'Août !</p>
-       <table>
-        <tr>
-         <th>Personne</th><th>Jour</th><th>Mois</th><th>Année</th>
-        </tr>
-        <tr>
-         <td>Josiane</td><td>3</td><td>Août</td><td>1970</td>
-        </tr>
-        <tr>
-         <td>Emma</td><td>26</td><td>Août</td><td>1973</td>
-        </tr>
-       </table>
-      </body>
-     </html>
-     ';
+                $mail->isSMTP();                                      // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                $mail->Username = 'songfolioweb@gmail.com';                 // SMTP username
+                $mail->Password = 'Followthesong';                           // SMTP password
+                $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 465;                                    // TCP port to connect to
 
-                // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
-                $headers[] = 'MIME-Version: 1.0';
-                $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+                $mail->setFrom('from@example.com', 'Mailer');
+                $mail->addAddress($user->__get('email'));     // Add a recipient
+                $mail->addAddress('gatay.bryan@gmail.com');
+                $mail->isHTML(true);                                  // Set email format to HTML
 
-                // En-têtes additionnels
-                $headers[] = 'To: Mary <mary@example.com>, Kelly <kelly@example.com>';
-                $headers[] = 'From: Anniversaire <anniversaire@example.com>';
-                $headers[] = 'Cc: anniversaire_archive@example.com';
-                $headers[] = 'Bcc: anniversaire_verif@example.com';
+                $mail->Subject = 'Here is the subject';
+                $mail->Body    = "Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. http://localhost/changer_mot_de_passe?t=$token";
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-                // Envoi
-                mail($to, $subject, $message, implode("\r\n", $headers));
-                $success = mail('example@example.com', 'My Subject', $message);
-                if (!$success) {
-                    $errorMessage = error_get_last()['message'];
-                    var_dump( $errorMessage);
-                    var_dump("error");
-                    print_r(error_get_last());
-                }else{
-                    var_dump("Mail envoyé");
+                if(!$mail->send()) {
+                    echo 'Message could not be sent.';
+                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                } else {
+                    echo 'Message has been sent';
                 }
 
-
             }else{
-                var_dump("Compte introuvable");
+                var_dump("Le mail n'a pas été trouvé");
             }
         }
     }
@@ -287,6 +268,33 @@ class UsersController
         self::listUsersAction($alert);
     }
 
+    public function changePasswordAction(){
+        $token =$_GET['t'];
+        $user = new Users(["pwd_token" => $_GET['t']]);
+        if($user->__get('id')==false){
+            $v = new View("404", "front");
+        }else{
+            $v = new View("user_changePassword", "front");
+            $configForm = $this->user->getFormNewPwd();
+            $v->assign('configFormUsers', $configForm);
+        }
+        if(!empty($_POST)){
+            $method = $configForm["config"]["method"];
+            $data = $GLOBALS["_" . $method];
+            $validator = new Validator($configForm, $data);
+            $configForm["errors"] = $validator->getErrors();
+            if(!empty($configForm["errors"])){
+                var_dump($configForm["errors"]);
+            }else{
+                $user->__set('password',$_POST['valid_new_pwd']);
+                $user->__set('pwd_token',null);
+                $user->save();
+                header('Location: ' . Routing::getSlug("users", "login"));
+            }
+
+        }
+    }
+
     private function renderUsersView($alert, array $configForm)
     {
         $view = new View('admin/users/create', 'back');
@@ -296,7 +304,6 @@ class UsersController
 
     private function push($configForm, $action)
     {
-
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
         if (!empty($data)) {
@@ -328,5 +335,15 @@ class UsersController
         }
         return false;
 
+    }
+
+    private function generateToken(){
+        $length=30;
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        for($i=0; $i<$length; $i++){
+            $string .= $chars[rand(0, strlen($chars)-1)];
+        }
+        return $string;;
     }
 }
