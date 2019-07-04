@@ -135,7 +135,7 @@ class UsersController
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
-                if (empty($configForm["errors"])) {
+                if(empty($configForm["errors"])) {
                     if ($user->getOneBy(['email' => $data['email']], true) && password_verify($data['password'], $user->__get('password'))) {
 
                         $user->setLoginToken();
@@ -144,7 +144,7 @@ class UsersController
                                 $redirect = htmlspecialchars(urldecode($_GET['redirect']));
                                 header('Location: ' . $redirect);
                                 exit;
-                            }
+                        }
 
                         header('Location: ' . Routing::getSlug("users", "dashboard"));
                     } else {

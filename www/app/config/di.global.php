@@ -11,6 +11,7 @@ use Songfolio\Controllers\EventsController;
 use Songfolio\Controllers\AlbumsController;
 use Songfolio\Controllers\MenusController;
 use Songfolio\Controllers\InstallController;
+use Songfolio\Controllers\SongsController;
 
 use Songfolio\Models\Users;
 use Songfolio\Models\Contents;
@@ -19,9 +20,7 @@ use Songfolio\Models\Comments;
 use Songfolio\Models\Events;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Albums;
-use Songfolio\Controllers\AlbumsController;
 use Songfolio\Models\Songs;
-use Songfolio\Controllers\SongsController;
 use Songfolio\Models\Menus;
 use Songfolio\Core\Install;
 

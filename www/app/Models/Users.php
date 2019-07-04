@@ -14,11 +14,11 @@ class Users extends BaseSQL
         if($id == 'empty') {
             parent::__construct();
         }else{
-            if (!isset($id) && isset($_SESSION['user'])) {
+            if (!$id && isset($_SESSION['user'])) {
                 $id = $_SESSION['user'];
             }
 
-            if (!isset($id) && isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
+            if (!$id && isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
                 $token = htmlspecialchars($_COOKIE['token']);
                 parent::__construct(['login_token' => $token]);
                 $_SESSION['user'] = $this->__get('id');
@@ -76,6 +76,15 @@ class Users extends BaseSQL
         return false;
     }
 
+    //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
+    public static function need(string $askedAction): void
+    {
+        $user = new Users();
+        if (!$user->can($askedAction)) {
+            header('Location: ' . BASE_URL);
+        }
+    }
+
     public function setLoginToken(){
         $token = md5(substr(uniqid().time(), 4, 10));
         setcookie('token', $token, time() + (86400 * 7), "/");
@@ -107,15 +116,6 @@ class Users extends BaseSQL
         }
 
         return false;
-    }
-
-    //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
-    public static function need(string $askedAction): void
-    {
-        $user = new Users();
-        if (!$user->can($askedAction)) {
-            header('Location: ' . BASE_URL);
-        }
     }
 
     public function needAuth(): void
