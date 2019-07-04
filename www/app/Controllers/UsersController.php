@@ -5,13 +5,13 @@ declare (strict_types = 1);
 namespace Songfolio\controllers;
 
 use Songfolio\Core\Alert;
+use Songfolio\Core\Oauth\OAuthSDK;
 use Songfolio\core\View;
 use Songfolio\core\Routing;
 use Songfolio\core\Validator;
 use Songfolio\models\Users;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Settings;
-use Songfolio\Core\Oauth\Facebook;
 
 class UsersController
 {
@@ -81,7 +81,8 @@ class UsersController
                 $configForm["errors"] = $validator->getErrors();
 
                 if (empty($configForm["errors"])) {
-                    $this->user->__set('username', $data["username"]);
+                    $this->user->__set('first_name', $data["first_name"]);
+                    $this->user->__set('last_name', $data["last_name"]);
                     $this->user->__set('email', $data["email"]);
                     $this->user->__set('password', $data["password"]);
                     $this->user->save();
@@ -96,7 +97,7 @@ class UsersController
     public function oauthAction(): void
     {
         if($_GET['provider']){
-            $providerClass = "Songfolio\Core\Oauth\\".$_GET['provider'];
+            $providerClass = "Songfolio\Core\Oauth\Providers\\".$_GET['provider'];
 
             $provider_obj = new $providerClass();
 
@@ -104,6 +105,8 @@ class UsersController
 
             if($access_token){
 
+
+                print_r($provider_obj->getUsersInfo($access_token));
                 $user_infos = json_decode($provider_obj->getUsersInfo($access_token), true);
 
                 $user = new Users();
@@ -117,8 +120,6 @@ class UsersController
 
     public function loginAction(): void
     {
-        $fb_login_url = (new Facebook())->getAuthorizationUrl();
-
         if ($this->user->is('connected')) {
             header('Location: ' . Routing::getSlug('users', 'dashboard'));
         }
@@ -135,7 +136,7 @@ class UsersController
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
                 if (empty($configForm["errors"])) {
-                    if ($user->getOneBy(['username' => $data['username']], true) && password_verify($data['password'], $user->__get('password'))) {
+                    if ($user->getOneBy(['email' => $data['email']], true) && password_verify($data['password'], $user->__get('password'))) {
 
                         $user->setLoginToken();
 
@@ -153,17 +154,20 @@ class UsersController
             }
         }
 
+        $sdk = new OAuthSDK();
+
         $v = new View("user_login", "front");
         $v->assign("configFormLogin", $configForm);
-        $v->assign("loginFb", $fb_login_url);
+        $v->assign("sdk", $sdk);
     }
 
     public function logoutAction(): void
     {
         unset($_SESSION['user']);
         setcookie('token', '', -1, '/');
+        $_SESSION['alert']['success'][] = 'Vous avez été correctement déconnecté.';
 
-        header('Location: ' . BASE_URL);
+        header('Location: ' . Routing::getSlug("users", "login"));
     }
 
     public function forgetPasswordAction(): void
@@ -176,28 +180,39 @@ class UsersController
         Users::need('user_add');
 
         $configForm = $this->user->getFormUsers()['create'];
+        if(!empty($_POST)){
+            self::push($configForm, 'create');
+            header('Location: '.Routing::getSlug('Users', 'listUsers'));
+            exit;
+        }
         $roles = $this->role->getAllData();
-        $alert = self::push($configForm, 'create');
         $configForm['data']['role']['options'] = Roles::prepareRoleToSelect($roles);
-        self::renderUsersView($alert, $configForm);
+        self::renderUsersView($configForm);
     }
 
     public function updateAction()
     {
         Users::need('user_edit');
 
+        if(empty($_GET['id'])){
+            header('Location: '.Routing::getSlug('Users', 'listUsers'));
+            exit;
+        }
+
         $id = $_REQUEST['id'] ?? '';
         $configForm = $this->user->getFormUsers()['update'];
-        $configForm['values'] = (array)$this->user->getOneBy(['id' => $id]);
-        $configForm['data']['role']['options'] = Roles::prepareRoleToSelect($this->role->getAllData());
-        self::renderUsersView(null, $configForm);
-    }
 
-    public function updateUsersAction()
-    {
-        $configForm = $this->user->getFormUsers()['update'];
-        $alert = self::push($configForm,  'update');
-        self::listUsersAction($alert);
+        if(!empty($_POST)){
+            self::push($configForm,  'update');
+            header('Location: '.Routing::getSlug('Users', 'update').'?id='.$id);
+            exit;
+        }
+
+        $configForm['values'] = (array)$this->user->getOneBy(['id' => $id]);
+        unset($configForm['values']['password']);
+
+        $configForm['data']['role']['options'] = Roles::prepareRoleToSelect($this->role->getAllData());
+        self::renderUsersView($configForm);
     }
 
     public function listUsersAction($alert = null)
@@ -207,28 +222,31 @@ class UsersController
         $view = new View('admin/users/list','back');
         $view->assign('users',$users);
         $view->assign('roles', $roles);
-        if (!empty($alert)) $view->assign('alert', $alert);
     }
 
 
     public function deleteAction()
     {
         Users::need('user_del');
-        $id = $_REQUEST['id'];
+        $id = $_GET['id'];
         if (isset($id)) {
-            $this->user->delete(["id" => $id]);
-            $alert = Alert::setAlertPropsByAction('delete', 'Utilisateur', false);
+            $user = new Users($id);
+            if($user->__get('undeletable') != 1){
+                $user->remove();
+                $_SESSION['alert']['success'][] = "L'utilisateur a bien été supprimé.";
+            }else{
+                $_SESSION['alert']['danger'][] = "Vous ne pouvez pas supprimer un utilisateur principal";
+            }
         } else {
-            $alert = Alert::setAlertError('Une erreur se produit ...');
+            $_SESSION['alert']['danger'][] = "Une erreur s'est produite.";
         };
-
-        self::listUsersAction($alert);
+        header('Location: '.Routing::getSlug('Users', 'listUsers'));
+        exit;
     }
 
-    private function renderUsersView($alert, array $configForm)
+    private function renderUsersView(array $configForm)
     {
         $view = new View('admin/users/create', 'back');
-        if (!empty($alert)) $view->assign('alert', $alert);
         $view->assign('configFormUsers', $configForm);
     }
 
@@ -237,34 +255,55 @@ class UsersController
 
         $method = strtoupper($configForm["config"]["method"]);
         $data = $GLOBALS["_" . $method];
-        if (!empty($data)) {
-            if ($_SERVER["REQUEST_METHOD"] !== $method || empty($data)) {
-                return false;
-            }
+        if (!empty($data) && $_SERVER["REQUEST_METHOD"] == $method) {
+
             $validator = new Validator($configForm, $data);
-            $errors = $validator->getErrors();
+            if(!$validator->getErrors()){
 
-            if (empty($errors) && (!$this->user->getOneBy(['username' => $data['username']]) || isset($_REQUEST['id']))) {
-                isset($_REQUEST['id'])  ? $this->user->__set('id', $_REQUEST['id']) : null;
-                if($action === 'create') $this->user->__remove('id') ;
+                //On check si l'email est pas déjà pris, en ajout et en modif d'user
+                $user_checkmail = $this->user->getOneBy(['email' => $data['email']]);
+                if( (!isset($_GET['id']) && $user_checkmail) || ($user_checkmail && $user_checkmail['id'] != $_GET['id']) ){
 
-                $this->user->__set('username', $data['username']);
-                $this->user->__set('role_id', (int)$data['role']);
-                $this->user->__set('password', $data['password']);
-                $this->user->__set('email', $data['email']);
-                $this->user->__set('first_name', $data['first_name']);
-                $this->user->__set('last_name', $data['last_name']);
-                $this->user->save();
+                    $_SESSION['alert']['danger'][] = 'Ce mail est déjà lié à un autre utilisateur';
+                    return;
 
-                return Alert::setAlertPropsByAction($action, 'Utilisateur', false);
-            } else {
-                if (empty($errors)) {
-                    return Alert::setAlertError('Utilisateur existe déjà');
+                } else {
+
+                    if( isset($_GET['id']) ){
+                        $user = new Users($_GET['id']);
+                    }else{
+                        $user = new Users('empty');
+                    }
+
+                    $user->__set('role_id', (int)$data['role']);
+                    if($data['password']){
+                        $user->__set('password', $data['password']);
+                    }
+                    $user->__set('email', $data['email']);
+                    $user->__set('first_name', $data['first_name']);
+                    $user->__set('last_name', $data['last_name']);
+                    if($action == 'create'){
+                        $user->__set('undeletable', 0 );
+                    }
+
+                    $user->save();
+
+                    if($action == 'create'){
+                        $_SESSION['alert']['success'][] = "L'utilisateur a bien été créé.";
+                        return;
+                    }
+                    if($action == 'update'){
+                        $_SESSION['alert']['success'][] = "Modifications prises en compte";
+                        return;
+                    }
                 }
-                return Alert::setAlertErrors($errors);
+
+            }else{
+                $_SESSION['alert']['danger'] = $validator->getErrors();
+                return;
             }
         }
-        return false;
+        return;
 
     }
 }

@@ -7,15 +7,26 @@ namespace Songfolio\Models;
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Menus;
+use Songfolio\Core\Helper;
 
 class Settings extends BaseSQL
 {
+    static $settingsSingleton;
+
     public function __construct($settings_type)
     {
-        parent::__construct(['type' => $settings_type]);
-        if(!$this->id()){
-            $this->__set('type', $settings_type);
+            parent::__construct(['type' => $settings_type]);
+            if(!$this->id()){
+                $this->__set('type', $settings_type);
+            }
+    }
+
+    public static function get($settings_type){
+        if(!isset(self::$settingsSingleton[$settings_type])) {
+            $setting = new Settings($settings_type);
+            self::$settingsSingleton[$settings_type] = $setting;
         }
+        return self::$settingsSingleton[$settings_type];
     }
 
     public function customSet($attr, $value)
@@ -53,11 +64,7 @@ class Settings extends BaseSQL
 
             $return = $return[$val];
         }
-        return $return ?? null;
-    }
-
-    public function get(){
-        return $this->__get('data');
+        return $return ?? false;
     }
 
     public function getForm($setting_type)
@@ -143,15 +150,33 @@ class Settings extends BaseSQL
                         "type" => "text",
                         "label" => "ID application facebook",
                         "class" => "form-control",
-                        "name" => "data[oauth_id_Facebook]",
-                        "value" => $this->getData('oauth_id_Facebook')
+                        "name" => "data[oauth][Facebook][client_id]",
+                        "value" => $this->getData('oauth/Facebook/client_id')
                     ],
-                    "oauth_secret_Facebook" => [
+                    "client_secret_Facebook" => [
                         "type" => "text",
                         "label" => "Clef secrete application facebook",
                         "class" => "form-control",
-                        "name" => "data[oauth_secret_Facebook]",
-                        "value" => $this->getData('oauth_secret_Facebook')
+                        "name" => "data[oauth][Facebook][client_secret]",
+                        "value" => $this->getData('oauth/Facebook/client_secret')
+                    ],
+                    "separator-oauth-fb" => [
+                        "type" => "separator",
+                        "after_title" => "Login with Google"
+                    ],
+                    "oauth_id_Google" => [
+                        "type" => "text",
+                        "label" => "ID application Google",
+                        "class" => "form-control",
+                        "name" => "data[oauth][Google][client_id]",
+                        "value" => $this->getData('oauth/Google/client_id')
+                    ],
+                    "client_secret_Google" => [
+                        "type" => "text",
+                        "label" => "Clef secrete application Google",
+                        "class" => "form-control",
+                        "name" => "data[oauth][Google][client_secret]",
+                        "value" => $this->getData('oauth/Google/client_secret')
                     ]
                 ];
                 break;
@@ -162,8 +187,108 @@ class Settings extends BaseSQL
                         "name" => "data[setting_type]",
                         "value" => "template",
                         "required" => true
-                    ]
+                    ],
+                    "text_color" => [
+                        "type" => "color",
+                        "label" => "Couleur du texte",
+                        "class" => "form-control",
+                        "name" => "data[text_color]",
+                        "value" => $this->getData('text_color') ?? "#ffffff",
+                        "required" => true
+                    ],
+                    "text_font_name" => [
+                        "type" => "select",
+                        "class" => "form-control",
+                        "label" => "Police du texte",
+                        "id" => "text_font_name",
+                        "name" => "data[text_font_name]",
+                        "placeholder" => "",
+                        "required" => true,
+                        "error" => "Vous devez choisir une police de texte.",
+                        "selected" => $this->getData('text_font_name'),
+                        "options" => [],
+                    ],
+                    "title_color" => [
+                        "type" => "color",
+                        "label" => "Couleur des titres",
+                        "class" => "form-control",
+                        "name" => "data[title_color]",
+                        "value" => $this->getData('title_color') ?? "#ffffff",
+                        "required" => true
+                    ],
+                    "title_font_name" => [
+                        "type" => "select",
+                        "class" => "form-control",
+                        "label" => "Police des titres",
+                        "id" => "title_font_name",
+                        "name" => "data[title_font_name]",
+                        "placeholder" => "",
+                        "required" => true,
+                        "error" => "Vous devez choisir une police de titre.",
+                        "selected" => $this->getData('title_font_name'),
+                        "options" => [],
+                    ],
+                    "link_color" => [
+                        "type" => "color",
+                        "label" => "Couleur des liens",
+                        "class" => "form-control",
+                        "name" => "data[link_color]",
+                        "value" => $this->getData('link_color') ?? "#ffffff",
+                        "required" => true
+                    ],
+                    "separator-header" => [
+                        "type" => "separator",
+                        "after_title" => "Header"
+                    ],
+                    "header_background" => [
+                        "type" => "color",
+                        "label" => "Couleur de fond du header",
+                        "class" => "form-control",
+                        "name" => "data[header_background]",
+                        "value" => $this->getData('header_background') ?? "#ffffff",
+                        "required" => true
+                    ],
+                    "header_link_color" => [
+                        "type" => "color",
+                        "label" => "Couleur des liens du header",
+                        "class" => "form-control",
+                        "name" => "data[header_link_color]",
+                        "value" => $this->getData('header_link_color') ?? "#ffffff",
+                        "required" => true
+                    ],
+                    "separator-footer" => [
+                        "type" => "separator",
+                        "after_title" => "Footer"
+                    ],
+                    "footer_background" => [
+                        "type" => "color",
+                        "label" => "Couleur de fond du footer",
+                        "class" => "form-control",
+                        "name" => "data[footer_background]",
+                        "value" => $this->getData('footer_background') ?? "#ffffff",
+                        "required" => true
+                    ],
+                    "footer_title_color" => [
+                        "type" => "color",
+                        "label" => "Couleur des titres du footer",
+                        "class" => "form-control",
+                        "name" => "data[footer_title_color]",
+                        "value" => $this->getData('footer_title_color') ?? "#ffffff",
+                        "required" => true
+                    ],
+                    "footer_link_color" => [
+                        "type" => "color",
+                        "label" => "Couleur des liens du footer",
+                        "class" => "form-control",
+                        "name" => "data[footer_link_color]",
+                        "value" => $this->getData('footer_link_color') ?? "#ffffff",
+                        "required" => true
+                    ],
                 ];
+                foreach(Helper::getGoogleFonts() as $font_name){
+                    $array['data']['title_font_name']['options'][] = ["label" => $font_name, "value" => $font_name];
+                }
+                $array['data']['text_font_name']['options'] = $array['data']['title_font_name']['options'];
                 break;
 
             case 'header' :
