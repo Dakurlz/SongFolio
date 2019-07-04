@@ -39,7 +39,9 @@
                     name=<?= $fieldValue["name"] ?? '' ?> id="<?= $fieldValue["id"] ?? '' ?>"
                     class="textarea-control <?php $fieldValue['class'] ?? ""  ?>"
                     <?= ($fieldValue["required"]) ? 'required="required"' : ''; ?>
-                ><?= isset($values[$fieldValue["name"]]) ? trim(htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8')) : '' ?></textarea>
+                >
+                    <?= isset($values[$fieldValue["name"]]) ? htmlspecialchars($values[$fieldValue["name"]], ENT_QUOTES, 'UTF-8') : '' ?>
+                </textarea>
 				<?php break;
 
 

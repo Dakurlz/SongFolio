@@ -67,7 +67,7 @@ class Events extends BaseSQL
                         'minlength' => 2,
                         'maxlength' => 200,
                         'error' => 'Votre titre doit faire entre 2 et 200 caractères',
-                        "class" => "input-control target-elment-to-slug col-lg-5 col-md-5 col-sm-5 col-12",
+                        "class" => "input-control col-lg-5 col-md-5 col-sm-5 col-12",
 
                     ],
                     "category" => [
@@ -149,6 +149,19 @@ class Events extends BaseSQL
                         "required" => true,
                         "error" => ""
                     ],
+                    "slug" => [
+                        "type" => "slug",
+                        "label" => "Lien permanent",
+                        "class" => "",
+                        "presed" => $_SERVER['SERVER_NAME'],
+                        "id" => "slug",
+                        "name" => "slug",
+                        "placeholder" => "",
+                        "required" => true,
+                        "minlength" => 2,
+                        "maxlength" => 100,
+                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                    ],
                     'rate' => [
                         'type' => 'number',
                         'name' => 'rate',
@@ -192,33 +205,7 @@ class Events extends BaseSQL
                         'name' => 'city',
                         'required' => true,
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                    ],
-                    "separator2" => [
-                        "type" => "separator",
-                        "after_title" => "SEO"
-                    ],
-                    "slug" => [
-                        "type" => "slug",
-                        "label" => "Lien permanent",
-                        "class" => "title-value-slug",
-                        "presed" => $_SERVER['SERVER_NAME'],
-                        "id" => "slug",
-                        "name" => "slug",
-                        "placeholder" => "",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
-                    ],
-                    "description" => [
-                        "type" => "textarea",
-                        "label" => "Description",
-                        "id" => "description",
-                        "name" => "description",
-                        "placeholder" => "",
-                        "required" => true,
-                        "error" => ""
-                    ],
+                    ]
                 ]
             ],
             'update' => [
@@ -368,33 +355,7 @@ class Events extends BaseSQL
                         'name' => 'city',
                         'required' => true,
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                    ],
-                    "separator2" => [
-                        "type" => "separator",
-                        "after_title" => "SEO"
-                    ],
-                    "slug" => [
-                        "type" => "slug",
-                        "label" => "Lien permanent",
-                        "class" => "",
-                        "presed" => $_SERVER['SERVER_NAME'],
-                        "id" => "slug",
-                        "name" => "slug",
-                        "placeholder" => "",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
-                    ],
-                    "description" => [
-                        "type" => "textarea",
-                        "label" => "Description",
-                        "id" => "description",
-                        "name" => "description",
-                        "placeholder" => "",
-                        "required" => true,
-                        "error" => ""
-                    ],
+                    ]
                 ]
             ]
         ];
