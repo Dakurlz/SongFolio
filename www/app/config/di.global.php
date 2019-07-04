@@ -10,6 +10,7 @@ use Songfolio\Controllers\SettingsController;
 use Songfolio\Controllers\EventsController;
 use Songfolio\Controllers\AlbumsController;
 use Songfolio\Controllers\MenusController;
+use Songfolio\Controllers\InstallController;
 
 use Songfolio\Models\Users;
 use Songfolio\Models\Contents;
@@ -19,6 +20,8 @@ use Songfolio\Models\Events;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Albums;
 use Songfolio\Models\Menus;
+
+use Songfolio\Core\Install;
 
 return [
     Users::class => function ($container) {
@@ -45,6 +48,9 @@ return [
     Menus::class => function ($container){
         return new Menus();
     },
+    Install::class => function ($container){
+        return new Install();
+    },
     UsersController::class => function ($container) {
         $usersModel = $container[Users::class]($container);
         $rolesModel = $container[Roles::class]($container);
@@ -58,6 +64,10 @@ return [
     },
     SettingsController::class => function ($container) {
         return new SettingsController();
+    },
+    InstallController::class => function ($container) {
+        $installModel = $container[Install::class]($container);
+        return new InstallController($installModel);
     },
     ContentsController::class => function ($container) {
         $contentsModel = $container[Contents::class]($container);

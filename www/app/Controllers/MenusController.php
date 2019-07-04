@@ -4,6 +4,7 @@ namespace Songfolio\Controllers;
 
 use Songfolio\Models\Users;
 use Songfolio\Core\View;
+use Songfolio\Core\Routing;
 use Songfolio\Models\Menus;
 
 class MenusController

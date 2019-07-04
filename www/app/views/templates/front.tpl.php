@@ -15,6 +15,9 @@ use \Songfolio\Models\Menus;
 
     <!--Main css -->
     <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>">
+    <?php if(file_exists('public/css/generated.css')): ?>
+        <link rel="stylesheet" href="<?php echo BASE_URL."public/css/generated.css?v=".filemtime("public/css/generated.css" ); ?>">
+    <?php endif; ?>
 </head>
 <body id="front-body">
     <header>

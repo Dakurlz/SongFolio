@@ -6,6 +6,16 @@ namespace Songfolio\Core;
 
 class Helper
 {
+    public static $googleFonts;
+
+    public static function isCmsInstalled(){
+        if(file_exists('app/config/.installed')){
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * @param $targetDirProp
      * @param $name
@@ -135,5 +145,42 @@ class Helper
             return substr($key, 0, strpos($key, "_"))."s";
         }
         return $key;
+    }
+
+    public static function getGoogleFonts(){
+
+        if(!self::$googleFonts){
+            $api_url = 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCqeJdCjZTdGqQxWX51_xoPcJ_TP1tnDfk&fields=items/family,items/files';
+            $api_result = Helper::curl_request($api_url);
+            foreach(json_decode($api_result, true)['items'] as $font){
+                if(isset($font['files']['regular'])){
+                    $return[] = $font['family'];
+                }
+            }
+            self::$googleFonts = $return;
+        }
+        return self::$googleFonts;
+    }
+
+    public static function getGoogleFontsCss($font){
+        $api_url = 'https://fonts.googleapis.com/css?family='.urlencode($font);
+        $api_result = Helper::curl_request($api_url);
+        return $api_result;
+    }
+
+
+    public static function curl_request($url){
+        $handle = curl_init();
+        curl_setopt($handle, CURLOPT_URL, $url);
+        curl_setopt($handle, CURLOPT_HEADER, 0);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($handle);
+        if(curl_errno($handle))
+        {
+            echo 'Curl error: ' . curl_error($handle);
+        }
+        curl_close($handle);
+
+        return $result;
     }
 }

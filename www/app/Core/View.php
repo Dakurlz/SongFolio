@@ -6,6 +6,7 @@ namespace Songfolio\Core;
 
 use Songfolio\Models\Settings;
 use Songfolio\Models\Users;
+use Songfolio\Core\Helper;
 
 class View{
     private $view;
@@ -38,9 +39,9 @@ class View{
                 $this->template_path = $templatePath;
 
                 if($template == 'front'){
-                    $settings['config'] = (new Settings('config') )->get();
-                    $settings['header'] = (new Settings('header') )->get();
-                    $settings['footer'] = (new Settings('footer') )->get();
+                    $settings['config'] = Settings::get('config')->__get('data');
+                    $settings['header'] = Settings::get('header')->__get('data');
+                    $settings['footer'] = Settings::get('footer')->__get('data');
                     $this->assign('settings', $settings);
                 }
 
@@ -72,7 +73,9 @@ class View{
     }
 
     public function __destruct(){
-        $user = new Users();
+        if(Helper::isCmsInstalled()){
+            $user = new Users();
+        }
         if(!empty($this->data))
             extract($this->data);
         if($this->template_path !== null)
