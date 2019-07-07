@@ -7,7 +7,6 @@ namespace Songfolio\Controllers;
 use Songfolio\Core\View;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Contents;
-use Songfolio\Models\Menus;
 use Songfolio\Models\Users;
 use Songfolio\Models\Roles;
 
@@ -46,9 +45,7 @@ class AdminController{
         $v = new View("admin/roles_edit", "back");
         $v->assign('role', $role);
         $v->assign('permsList', $role->permsList());
-        if(isset($alert)){
-            $v->assign('alert', $alert);
-        }
+
     }
     public function rolesEditAction()
     {

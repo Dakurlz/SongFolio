@@ -7,10 +7,6 @@ use Songfolio\Models\Users;
 
 <div class="admin-articles-liste">
 
-    <?php
-        if (isset($alert)) $this->addModal('alert', $alert);
-    ?>
-
     <h2 class="col-12">Liste des articles</h2>
     <?php if (empty($articles)): ?>
         <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter le contenue</a>
@@ -51,7 +47,7 @@ use Songfolio\Models\Users;
         </thead>
 
         <tbody class="tbody">
-        <td><?php if (empty($articles)) echo 'Aucune page.'; ?></td>
+        <td><?php if (empty($articles)) echo 'Aucun article.'; ?></td>
         <?php foreach ($articles as $articl):  ?>
             <tr>
                 <td>

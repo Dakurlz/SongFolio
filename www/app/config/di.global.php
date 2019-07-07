@@ -12,6 +12,7 @@ use Songfolio\Controllers\AlbumsController;
 use Songfolio\Controllers\MenusController;
 use Songfolio\Controllers\InstallController;
 use Songfolio\Controllers\SongsController;
+use Songfolio\Controllers\LikesController;
 
 use Songfolio\Models\Users;
 use Songfolio\Models\Contents;
@@ -23,10 +24,14 @@ use Songfolio\Models\Albums;
 use Songfolio\Models\Songs;
 use Songfolio\Models\Menus;
 use Songfolio\Core\Install;
+use Songfolio\Models\Likes;
 
 return [
     Users::class => function ($container) {
         return new Users();
+    },
+    Likes::class => function ($container) {
+        return new Likes();
     },
     Songs::class => function ($container) {
         return new Songs();
@@ -64,10 +69,18 @@ return [
         $eventsModel = $container[Events::class]($container);
         $categoryModel = $container[Categories::class]($container);
         $contentsModel = $container[Contents::class]($container);
-        return new PagesController($eventsModel, $categoryModel, $contentsModel);
+        $likesModel = $container[Likes::class]($container);
+        $songModel = $container[Songs::class]($container);
+        $albumModel = $container[Albums::class]($container);
+        
+        return new PagesController($eventsModel, $categoryModel, $contentsModel, $songModel, $albumModel, $likesModel);
     },
     SettingsController::class => function ($container) {
         return new SettingsController();
+    },
+    LikesController::class => function ($container) {
+        $likesModel = $container[Likes::class]($container);
+        return new LikesController($likesModel);
     },
     InstallController::class => function ($container) {
         $installModel = $container[Install::class]($container);

@@ -94,14 +94,14 @@ class Songs extends BaseSQL
                         "placeholder" => "",
                         "required" => true,
                         "minlength" => 2,
-                        "maxlength" => 2000,
+                        "maxlength" => 5000,
                         "error" => "Votre text doit faire entre 2 et 2000 caractères"
                     ],
 
 
                     "img-page" => [
                         "type" => "file",
-                        "div_class" => "smart-type type-page",
+                        "div_class" => "",
                         "id" => "fileToUpload",
                         "required" => false,
                         "name" => "img_dir",

@@ -58,9 +58,9 @@ class Albums extends BaseSQL
                         "class" => "input-control target-elment-to-slug",
                         "id" => "name",
                         "required" => true,
-                        "minlength" => 2,
+                        "minlength" => 1,
                         "maxlength" => 50,
-                        "error" => "Votre catégorie doit faire entre 2 et 60 caractères"
+                        "error" => "Votre catégorie doit faire entre 1 et 60 caractères"
                     ],
 
                     "category" => [
@@ -115,9 +115,9 @@ class Albums extends BaseSQL
                         "name" => "slug",
                         "placeholder" => "",
                         "required" => true,
-                        "minlength" => 2,
+                        "minlength" => 1,
                         "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                        "error" => "Votre titre doit faire entre 1 et 100 caractères"
                     ],
                     "description" => [
                         "type" => "textarea",
@@ -162,9 +162,9 @@ class Albums extends BaseSQL
                         "class" => "input-control target-elment-to-slug",
                         "id" => "name",
                         "required" => true,
-                        "minlength" => 2,
+                        "minlength" => 1,
                         "maxlength" => 50,
-                        "error" => "Votre catégorie doit faire entre 2 et 60 caractères"
+                        "error" => "Votre titre doit faire entre 1 et 60 caractères"
                     ],
 
                     "category" => [
@@ -219,9 +219,9 @@ class Albums extends BaseSQL
                         "name" => "slug",
                         "placeholder" => "",
                         "required" => true,
-                        "minlength" => 2,
+                        "minlength" => 1,
                         "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                        "error" => "Votre titre doit faire entre 1 et 100 caractères"
                     ],
                     "description" => [
                         "type" => "textarea",

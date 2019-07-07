@@ -99,7 +99,7 @@ $(document).ready(() => {
   
   // GET TEXT IN TITLE AND PAST IN SLUG WITH CORRECTS
   $(".target-elment-to-slug").on("input", function() {
-    $(".title-value-slug").val($(this).val().replace(/\s/g,"-").trim());
+    $(".title-value-slug").val($(this).val().replace(/\s/g,"-").trim().toLowerCase());
   });
 
   // hideArrow();

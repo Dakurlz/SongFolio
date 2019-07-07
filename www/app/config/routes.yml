@@ -7,6 +7,10 @@
   action: content
 
 
+'/add_like':
+  controller: Likes
+  action: addLike
+
 # EVENTS FRONT 
 '/evenement':
   controller: Pages
