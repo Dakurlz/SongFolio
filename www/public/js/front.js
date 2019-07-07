@@ -79,23 +79,30 @@ $(function() {
   // AJAX LIKE
 
   $(".add_like").click(function() {
-
     const object = $(this).parent();
-    const type_id = object.find('.type_id').val();
-    const type = object.find('.type').val();
-    const user_id = object.find('.user_id').val();
-
-
+    const type_id = object.find(".type_id").val();
+    const type = object.find(".type").val();
+    const user_id = object.find(".user_id").val();
 
     $.ajax({
       url: "/add_like",
       type: "post",
-      data: "type_id="+type_id+"&type="+type+"&user_id="+user_id,
+      data: "type_id=" + type_id + "&type=" + type + "&user_id=" + user_id,
       success: function(data) {
-        console.log(data);
-        console.log(
-            object.find('.nbr_likes').val()
-        );
+        if (data === "add") {
+          const nb = Number(object.find(".nbr_likes").val()) + 1;
+          object.find(".nbr_likes").val(nb);
+          object.find(".nbr_likes_span").html(nb);
+        } else {
+          const nb = Number(object.find(".nbr_likes").val()) - 1;
+          if (nb == 0) {
+            object.find(".nbr_likes").val(nb);
+            object.find(".nbr_likes_span").html("&nbsp;&nbsp;&nbsp;");
+          } else {
+            object.find(".nbr_likes").val(nb);
+            object.find(".nbr_likes_span").html(nb);
+          }
+        }
       },
       error: function() {
         alert("Impossiblie de recuperer");
