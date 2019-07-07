@@ -93,14 +93,19 @@ $(function() {
           const nb = Number(object.find(".nbr_likes").val()) + 1;
           object.find(".nbr_likes").val(nb);
           object.find(".nbr_likes_span").html(nb);
+          object
+            .find(".add_like")
+            .attr("src", "public/img/heart-like-active.svg");
         } else {
           const nb = Number(object.find(".nbr_likes").val()) - 1;
           if (nb == 0) {
             object.find(".nbr_likes").val(nb);
             object.find(".nbr_likes_span").html("&nbsp;&nbsp;&nbsp;");
+            object.find(".add_like").attr("src", "public/img/heart-like.svg");
           } else {
             object.find(".nbr_likes").val(nb);
             object.find(".nbr_likes_span").html(nb);
+            object.find(".add_like").attr("src", "public/img/heart-like.svg");
           }
         }
       },

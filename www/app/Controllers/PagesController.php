@@ -38,6 +38,11 @@ class PagesController
         $articles = $this->article->getAllBy(['type' => 'article', 'published' => 1], ['orderBy' => 'date_create', 'orderTo' => 'DESC']);
         $likes = $this->like->getAllData();
 
+        $likesSongs = [];
+        foreach ($likes as $like) {
+            if ($like['type'] == 'songs') $likesSongs[] = $like;
+        }
+
         $events = self::renderEvent();
         $albums = self::renderAlbum();
         $songs = self::renderSong($albums, $likes);
@@ -48,6 +53,7 @@ class PagesController
         $view->assign('articles', $articles);
         $view->assign('songs', $songs);
         $view->assign('albums', $albums);
+        $view->assign('likesSongs', $likesSongs);
     }
 
     private function renderEvent(): array
@@ -76,26 +82,15 @@ class PagesController
     {
 
         $songs = $this->song->getAllData();
-        $likes = [];
-        foreach ($likes_ as $like) {
-            if ($like['type'] == 'songs') $likes[] = $like;
-        }
 
-
-
-        debug($likes);
-
-        // debug($likes);die;
         foreach ($songs as $key => $song) {
-            $song[$key]['likes'] = 0;
+            // $song[$key]['likes'] = 0;
 
-            foreach ($likes as $like) {
-                if ($like['type_id'] === $song['id']) {
-
-
-                    $songs[$key]['likes'] += ++$song[$key]['likes'];
-                }
-            }
+            // foreach ($likes as $like) {
+            //     if ($like['type_id'] === $song['id']) {
+            //         $songs[$key]['likes'] += ++$song[$key]['likes'];
+            //     }
+            // }
 
             if ($song['album_id'] != null) {
                 $songs[$key]['album_name'] = Helper::searchInArray(array_filter($albums, function ($key) {
@@ -104,9 +99,6 @@ class PagesController
             }
         }
 
-
-        // debug($songs);
-        // die;
         return $songs;
     }
 

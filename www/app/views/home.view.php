@@ -3,6 +3,9 @@
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
+use Songfolio\Models\Likes;
+
+
 ?>
 
 <section id="home-slider">
@@ -96,7 +99,8 @@ use Songfolio\Models\Users;
             </div>
             <table class="col-lg-10 col-12">
                 <?php $i = 0 ?>
-                <?php foreach ($songs as $song) : ?>
+                <?php $currentU = new Users();
+                foreach ($songs as $song) : $nbLikesSongs  = Likes::displayLike($likesSongs, $song['id']); ?>
                     <tr class="singles_list smart-top-select top-select-singles">
                         <td class="rank">
                             <?php echo ++$i; ?>.
@@ -115,15 +119,15 @@ use Songfolio\Models\Users;
 
                         <td class="info likes">
 
+                            <span class="nbr_likes_span"><?php if ($nbLikesSongs != 0) echo $nbLikesSongs;
+                                                            else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
-
-                            <span class="nbr_likes_span"><?php if ($song['likes'] != 0) echo $song['likes']; else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
-
-                            <input type="hidden" class="nbr_likes" value="<?= $song['likes'] ?>">
-                            <img class="add_like" height="18" width="18" src="public/img/heart-like.svg" alt="">
+                            <input type="hidden" class="nbr_likes" value="<?= $nbLikesSongs ?>">
+                            <img class="<?php if($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesSongs, $song['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                                                                else echo 'public/img/heart-like.svg' ?>" alt="">
                             <input type="hidden" class="type" value="songs">
                             <input type="hidden" class="type_id" value="<?= $song['id'] ?>">
-                            <input type="hidden" class="user_id" value="<?= (new Users())->__get('id') ?>">
+                            <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
 
                         </td>
                     </tr>

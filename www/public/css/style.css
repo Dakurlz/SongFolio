@@ -4026,7 +4026,8 @@ input:checked + .slider:before {
           #front-body #section-top table td.likes > span {
             margin-right: 10px; }
           #front-body #section-top table td.likes > img {
-            cursor: pointer; }
+            cursor: pointer;
+            height: auto !important; }
       #front-body #section-top table img {
         height: 100%; }
   @media screen and (max-width: 590px) {
