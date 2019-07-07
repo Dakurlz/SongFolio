@@ -7,7 +7,7 @@
           />
           <div>
             <p> <?= $nb_page ?? '0' ?>  </p>
-            <p>Pages</p>
+            <p>Article</p>
           </div>
         </div>
       </div>

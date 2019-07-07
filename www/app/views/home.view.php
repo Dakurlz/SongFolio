@@ -27,7 +27,7 @@ use Songfolio\Models\Likes;
                     <article class="event-full">
                         <a href="<?= $articles[0]['slug'] ?? '' ?>" class="event">
                             <h1><?= $articles[0]['title'] ?? 'Bientôt ...' ?></h1>
-
+                            :!
                             <?php if (isset($articles[0])) : ?>
                                 <p><?= $articles[0]['date_create'] ?> <span class="muted">par <?= (new Users($articles[0]['author']))->__get('username') ?></span></p>
                                 <?php if (isset($articles[0]['img_dir'])) : ?>
@@ -89,10 +89,7 @@ use Songfolio\Models\Likes;
         <div class="row center">
 
             <div class="col-lg-10 col-12 nav">
-                <select class="type" id="top-select" class="smart-toggle">
-                    <option value="singles">Top singles</option>
-                    <option value="albums">Top albums</option>
-                </select>
+                <h2>Top singles</h2>
                 <a href="">Tout le temps</a>
                 <a href="" class="active">Ce mois</a>
                 <a href="">Aujourd'hui</a>
@@ -123,8 +120,8 @@ use Songfolio\Models\Likes;
                                                             else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
                             <input type="hidden" class="nbr_likes" value="<?= $nbLikesSongs ?>">
-                            <img class="<?php if($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesSongs, $song['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
-                                                                                else echo 'public/img/heart-like.svg' ?>" alt="">
+                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesSongs, $song['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                                                                                                            else echo 'public/img/heart-like.svg' ?>" alt="">
                             <input type="hidden" class="type" value="songs">
                             <input type="hidden" class="type_id" value="<?= $song['id'] ?>">
                             <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
@@ -134,6 +131,27 @@ use Songfolio\Models\Likes;
 
                 <?php endforeach; ?>
 
+            </table>
+            <div class="col-12 tac">
+                <a href="<?= Routing::getSlug('Pages', 'renderSongs') ?>" class="chevron">Tous nos singles</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="section-top">
+    <div class="container">
+        <div class="row center">
+
+            <div class="col-lg-10 col-12 nav">
+                <h2>Top albums</h2>
+                <a href="">Tout le temps</a>
+                <a href="" class="active">Ce mois</a>
+                <a href="">Aujourd'hui</a>
+            </div>
+            <table class="col-lg-10 col-12">
                 <?php $j = 0 ?>
                 <?php foreach ($albums as $album) : ?>
                     <tr class="albums_list smart-toggle smart-top-select top-select-albums">
@@ -160,7 +178,7 @@ use Songfolio\Models\Likes;
                 <?php endforeach; ?>
             </table>
             <div class="col-12 tac">
-                <a href="#" class="chevron">Tous nos singles</a>
+                <a href="<?= Routing::getSlug('Pages', 'renderAlbums') ?>" class="chevron">Tous nos albums</a>
             </div>
         </div>
     </div>

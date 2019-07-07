@@ -78,20 +78,12 @@ class PagesController
         return $albums;
     }
 
-    private function renderSong(array $albums, array $likes_): array
+    private function renderSong(array $albums): array
     {
 
         $songs = $this->song->getAllData();
 
         foreach ($songs as $key => $song) {
-            // $song[$key]['likes'] = 0;
-
-            // foreach ($likes as $like) {
-            //     if ($like['type_id'] === $song['id']) {
-            //         $songs[$key]['likes'] += ++$song[$key]['likes'];
-            //     }
-            // }
-
             if ($song['album_id'] != null) {
                 $songs[$key]['album_name'] = Helper::searchInArray(array_filter($albums, function ($key) {
                     return $key == 'album';
@@ -102,6 +94,23 @@ class PagesController
         return $songs;
     }
 
+
+    public function renderAlbumsAction()
+    {
+        $albums = $this->album->getAllData();
+
+        $view = new View("albums/albums", "front");
+        $view->assign('albums', $albums);
+    }
+
+
+    public function renderSongsAction()
+    {
+        $songs = $this->song->getAllData();
+
+        $view = new View("songs/song", "front");
+        $view->assign('songs', $songs);
+    }
 
 
 

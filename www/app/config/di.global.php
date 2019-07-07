@@ -54,10 +54,10 @@ return [
     Albums::class => function ($container) {
         return new Albums();
     },
-    Menus::class => function ($container){
+    Menus::class => function ($container) {
         return new Menus();
     },
-    Install::class => function ($container){
+    Install::class => function ($container) {
         return new Install();
     },
     UsersController::class => function ($container) {
@@ -72,7 +72,7 @@ return [
         $likesModel = $container[Likes::class]($container);
         $songModel = $container[Songs::class]($container);
         $albumModel = $container[Albums::class]($container);
-        
+
         return new PagesController($eventsModel, $categoryModel, $contentsModel, $songModel, $albumModel, $likesModel);
     },
     SettingsController::class => function ($container) {
@@ -118,7 +118,11 @@ return [
         return new AlbumsController($albumModel, $albumCategory);
     },
     AdminController::class => function ($container) {
-        return new AdminController();
+        $contentsModel = $container[Contents::class]($container);
+        $commentsModel = $container[Comments::class]($container);
+        $usersModel = $container[Users::class]($container);
+
+        return new AdminController($contentsModel,$usersModel, $commentsModel);
     },
     MenusController::class => function ($container) {
         $menuModel = $container[Menus::class]($container);

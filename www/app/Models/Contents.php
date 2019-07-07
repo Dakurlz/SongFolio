@@ -42,9 +42,8 @@ class Contents extends BaseSQL
         }
 
         $view->assign('page_title', $this->__get('title'));
-        $view->assign('page_desc', $this->__get('description '));
+        $view->assign('page_desc', $this->__get('description'));
         $view->assign('content', $this);
-        // $view->
     }
 
     public function content()

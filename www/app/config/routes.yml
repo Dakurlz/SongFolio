@@ -16,6 +16,19 @@
   controller: Pages
   action: renderEventsPage
 
+
+# SONGS FRONT 
+'/singles':
+  controller: Pages
+  action: renderSongs
+
+
+# ALBUMS FRONT 
+'/albums':
+  controller: Pages
+  action: renderAlbums
+
+
 # USERS
 '/liste_des_utilisateurs':
   controller: Users

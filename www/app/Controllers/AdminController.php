@@ -9,21 +9,35 @@ use Songfolio\Core\Routing;
 use Songfolio\Models\Contents;
 use Songfolio\Models\Users;
 use Songfolio\Models\Roles;
+use Songfolio\Models\Comments;
 
-class AdminController{
+class AdminController
+{
+
+    private $content;
+    private $comment;
+    private $user;
+
+    public function __construct(Contents $content,Users $user, Comments $comment)
+    {
+        $this->content = $content;
+        $this->comment = $comment;
+        $this->user = $user;
+    }
 
     public function defaultAction()
     {
         Users::need('access_admin');
 
-        $nb_page = (new Contents())->getByCustomQuery(['type' => 'page'], 'COUNT(*) as nb_page');;
+        $nb_page = $this->content->getByCustomQuery(['type' => 'article'], 'COUNT(*) as nb_page');;
         $view = new View("admin/dashboard", "back");
         $view->assign('nb_page', $nb_page['nb_page']);
     }
 
 
     /* Roles */
-    public function rolesAction(){
+    public function rolesAction()
+    {
         Users::need('role_view');
 
         $v = new View("admin/roles_list", "back");
@@ -39,25 +53,24 @@ class AdminController{
             $role->__set('name', $_POST['name']);
             $role->__set('perms', $_POST['perms']);
             $role->save();
-            header('Location: '.Routing::getSlug('admin', 'rolesEdit').'?role='.$role->id());
+            header('Location: ' . Routing::getSlug('admin', 'rolesEdit') . '?role=' . $role->id());
         }
 
         $v = new View("admin/roles_edit", "back");
         $v->assign('role', $role);
         $v->assign('permsList', $role->permsList());
-
     }
     public function rolesEditAction()
     {
         Users::need('role_edit');
 
-        if(!isset($_GET['role'])){
+        if (!isset($_GET['role'])) {
             View::show404();
         }
 
         $role = new Roles($_GET['role']);
 
-        if(!empty($_POST['perms']) && !empty($_POST['name'])){
+        if (!empty($_POST['perms']) && !empty($_POST['name'])) {
             $role->__set('name', $_POST['name']);
             $role->__set('perms', $_POST['perms']);
             $role->save();
@@ -67,7 +80,7 @@ class AdminController{
         $v = new View("admin/roles_edit", "back");
         $v->assign('role', $role);
         $v->assign('permsList', $role->permsList());
-        if(isset($alert)){
+        if (isset($alert)) {
             $v->assign('alert', $alert);
         }
     }
@@ -75,13 +88,13 @@ class AdminController{
     {
         Users::need('role_del');
 
-        if(!isset($_GET['role'])){
+        if (!isset($_GET['role'])) {
             View::show404();
         }
 
         $menu = new Roles($_GET['role']);
         $menu->remove();
 
-        header('Location: '.Routing::getSlug('admin', 'roles'));
+        header('Location: ' . Routing::getSlug('admin', 'roles'));
     }
 }

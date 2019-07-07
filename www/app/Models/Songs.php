@@ -6,6 +6,7 @@ namespace Songfolio\Models;
 
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
+use Songfolio\Core\View;
 
 class Songs extends BaseSQL
 {
@@ -17,6 +18,15 @@ class Songs extends BaseSQL
     public function getSlug(string $id, string $slug)
     {
         return $this->getByCustomQuery(['id' => $id, 'slug' => $slug], 'id, slug');
+    }
+
+    public function show()
+    {
+
+
+        $view = new View("songs/song", "front");
+
+        $view->assign('song', $this);
     }
 
     public function getFormSongs()
