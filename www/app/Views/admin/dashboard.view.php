@@ -6,7 +6,7 @@
           <img src="<?= BASE_URL."public/img/contents.svg"; ?>"
           />
           <div>
-            <p> <?= $nb_page ?? '0' ?>  </p>
+            <p> <?= $nb_articles ?? '0' ?>  </p>
             <p>Article</p>
           </div>
         </div>
@@ -16,7 +16,7 @@
           <img src="<?= BASE_URL."public/img/users.svg"; ?>"
           />
           <div>
-            <p>56</p>
+            <p><?= $nb_users ?? '0' ?></p>
             <p>Users</p>
           </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="stats-block comment">
           <img src="<?= BASE_URL."public/img/comments.svg"; ?>" />
           <div>
-            <p>123</p>
+          <p><?= $nb_comments ?? '0' ?></p>
             <p>Commentaires</p>
           </div>
         </div>

@@ -29,9 +29,14 @@ class AdminController
     {
         Users::need('access_admin');
 
-        $nb_page = $this->content->getByCustomQuery(['type' => 'article'], 'COUNT(*) as nb_page');;
+        $nb_page = $this->content->getByCustomQuery(['type' => 'article'], 'COUNT(*) as nb_articles');
+        $nb_users = $this->user->count();
+        $nb_comments = $this->comment->count();
+        debug($nb_users);
         $view = new View("admin/dashboard", "back");
-        $view->assign('nb_page', $nb_page['nb_page']);
+        $view->assign('nb_articles', $nb_page['nb_articles']);
+        $view->assign('nb_users', $nb_users['nb_users']);
+        $view->assign('nb_comments', $nb_comments['nb_comments']);
     }
 
 
