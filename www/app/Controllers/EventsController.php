@@ -114,17 +114,17 @@ class EventsController
                 $this->event->__set('start_date', $timestamp_start_date);
                 $this->event->__set('end_date', $timestamp_end_date);
                 isset($fileName) ? $this->event->__set('img_dir', $fileName) : null;
+              
                 $this->event->__set('details', trim($data['details']));
                 $this->event->__set('rate', (float) $data['rate']);
                 $this->event->__set('nbr_place', (int) $data['nbr_place']);
                 $this->event->__set('ticketing', trim($data['ticketing']));
 
-
-
                 // ADDRESS
                 $this->event->__set('address', $data['address']);
                 $this->event->__set('city', $data['city']);
                 $this->event->__set('postal_code', $data['postal_code']);
+
 
                 //  SEO
                 $this->event->__set('slug',  $data['slug']);

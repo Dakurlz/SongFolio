@@ -4,6 +4,8 @@ declare (strict_types = 1);
 
 namespace Songfolio\Core;
 
+use mysql_xdevapi\Exception;
+
 class Helper
 {
     public static $googleFonts;
@@ -117,6 +119,7 @@ class Helper
         return substr(strrchr($str, "/"), 1);
     }
 
+
     public static function getTimeAgo($date)
     {
         $time = strtotime($date);
@@ -191,4 +194,5 @@ class Helper
 
         return $result;
     }
+
 }

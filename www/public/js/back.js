@@ -41,13 +41,14 @@ $(function() {
     .change();
 });
 
+
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
-    reader.onload = function(e) {
-      $("#befor_upload").attr("src", e.target.result);
-    };
+    reader.onload = function (e) {
+      $('#befor_upload').attr('src', e.target.result);
+    }
 
     reader.readAsDataURL(input.files[0]);
   }
@@ -60,36 +61,35 @@ function showDropdown(element) {
     .toggleClass("show");
 }
 
-(function(document, window, index) {
-  var inputs = document.querySelectorAll(".inputfile");
-  Array.prototype.forEach.call(inputs, function(input) {
-    var label = input.nextElementSibling,
-      labelVal = label.innerHTML;
+( function ( document, window, index )
+{
+  var inputs = document.querySelectorAll( '.inputfile' );
+  Array.prototype.forEach.call( inputs, function( input )
+  {
+    var label	 = input.nextElementSibling,
+        labelVal = label.innerHTML;
 
-    input.addEventListener("change", function(e) {
-      var fileName = "";
-      if (this.files && this.files.length > 1)
-        fileName = (this.getAttribute("data-multiple-caption") || "").replace(
-          "{count}",
-          this.files.length
-        );
-      else fileName = e.target.value.split("\\").pop();
+    input.addEventListener( 'change', function( e )
+    {
+      var fileName = '';
+      if( this.files && this.files.length > 1 )
+        fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+      else
+        fileName = e.target.value.split( '\\' ).pop();
 
-      if (fileName) label.querySelector("span").innerHTML = fileName;
-      else label.innerHTML = labelVal;
+      if( fileName )
+        label.querySelector( 'span' ).innerHTML = fileName;
+      else
+        label.innerHTML = labelVal;
     });
 
     // Firefox bug fix
-    input.addEventListener("focus", function() {
-      input.classList.add("has-focus");
-    });
-    input.addEventListener("blur", function() {
-      input.classList.remove("has-focus");
-    });
+    input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+    input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
   });
-})(document, window, 0);
+}( document, window, 0 ));
 
-function hideArrow() {
+function hideArrow(){
   //if ($('.slide-dropdown-content').children().val() === '' ){
   //    console.log( $('.slide-dropdown-content').parent().children('div.sidebar--item').children('span.pages-options').remove());
   // }
@@ -102,33 +102,24 @@ $(document).ready(() => {
     $(".title-value-slug").val($(this).val().replace(/\s/g,"-").trim().toLowerCase());
   });
 
-  // hideArrow();
+ // hideArrow();
 
   $(".input-search").keyup(function() {
-    const value = $(this)
-      .val()
-      .toLowerCase();
+    const value = $(this).val().toLowerCase();
     $(".tbody tr").filter(function() {
-      $(this).toggle(
-        $(this)
-          .text()
-          .toLowerCase()
-          .indexOf(value) > -1
-      );
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
 
-  $(".slide-dropbtn").click(function() {
-    const jqElm = $(this)
-      .parent()
-      .parent()
-      .children(".slide-dropdown-content");
-    if (jqElm.is(":hidden")) {
-      jqElm.slideDown("slow");
-      $(this).addClass("slide-dropbtn-close");
+  $(".slide-dropbtn").click(function(){
+   const jqElm =  $(this).parent().parent().children('.slide-dropdown-content');
+    if ( jqElm.is( ":hidden" ) ) {
+      jqElm.slideDown( "slow" );
+      $(this).addClass('slide-dropbtn-close');
+
     } else {
-      jqElm.hide("slow");
-      $(this).removeClass("slide-dropbtn-close");
+      jqElm.hide('slow');
+      $(this).removeClass('slide-dropbtn-close');
     }
   });
 
@@ -141,6 +132,7 @@ $(document).ready(() => {
     var myBookId = $(this).data("id");
     $(".modal-body-add-user").val(myBookId);
   });
+
 
   $(window).click(function(e) {
     if (!event.target.matches(".dropbtn")) {
