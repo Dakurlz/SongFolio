@@ -2,22 +2,20 @@
 use Songfolio\Core\Routing;
 ?>
 <div class="container">
-    <h1><?php echo 'Bonjour '.$user->__get('username'); ?></h1>
-    <a href="<?=Routing::getSlug('users', 'logout')?>">Deconnexion</a><br>
+    <h1><?php echo 'Bonjour '.$user->getShowName(); ?></h1>
 
-<?php if (isset($success)) : ?>
-  
-<div class="success alert-success">
-                    <?php echo $success ?>
-                     </div>
-<?php endif; ?>
-
- <table>
-        <tr><td>Speudo :</td><td> <?php echo $user->__get('username'); ?></td><td></td></tr>
+    <table>
+        <tr><td>Identité</td><td><?php echo $user->__get('first_name'); ?> <?php echo $user->__get('last_name'); ?></td></tr>
         <tr><td>Email</td><td><?php echo $user->__get('email'); ?></td><td><input class='btn btn-info' value='Modifier'></td></tr>
-        <tr><td>Mot de passe </td><?php echo $user->__get('username'); ?><td>*******</td><td><input id="pwd" class='btn btn-info' value='Modifier'></td></tr>
+        <tr><td>Mot de passe </td><td>*******</td><td><input id="pwd" class='btn btn-info' value='Modifier'></td></tr>
         <tr><td>Membre depuis</td><td><?php echo $user->__get('date_inserted'); ?></td><td></td></tr>
     </table>
+
+<?php if($user->can('access_admin')): ?>
+    <a href="<?=Routing::getSlug('admin', 'default')?>" class="btn btn-success">Acceder au panel admin</a>
+<?php endif; ?>
+<a href="<?=Routing::getSlug('users', 'logout')?>" class="btn btn-danger">Deconnexion</a><br>
+
 <div id="myModal" class="modal  <?php if(!empty($active)) echo $active  ?>">
 <div class="modal-content">
 <div class='modal-title'>Changement de mot de passe</div><hr>

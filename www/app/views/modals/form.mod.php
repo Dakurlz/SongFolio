@@ -146,9 +146,7 @@
                 <?php break;
 
 			default:
-				if ($fieldValue["type"] === "password") {
-					
-				} ?>
+			    ?>
 
 				<input
                     type="<?= $fieldValue["type"] ?>"

@@ -1,6 +1,7 @@
 <?php
 
 namespace Songfolio\Models;
+
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 use Songfolio\Core\View;
@@ -20,19 +21,6 @@ class Events extends BaseSQL
         $this->__set('type', Helper::searchInArray($categories, $this->__get('type'), 'name'));
         $v->assign('event', $this);
     }
-
-    public static function getBySlug($slug)
-    {
-        $event = new Events();
-        $event->getOneBy(['slug' => $slug], true);
-
-        if ($event->__get('id')) {
-            return $event;
-        }
-
-        return false;
-    }
-
 
 
     public function getFormEvents(): array
@@ -109,7 +97,7 @@ class Events extends BaseSQL
                     'end_row_start_date' => [
                         'type' => 'end_row'
                     ],
-                    
+
                     'start_row_end_date' => [
                         'type' => 'start_row'
                     ],
@@ -213,7 +201,8 @@ class Events extends BaseSQL
                     "action" => Routing::getSlug("Events", "updateEvents"),
                     "method" => "POST",
                     'header' => 'Modifi l\'évènement',
-                    'action_type' => 'update'
+                    'action_type' => 'update',
+                    'current_object' => $this
                 ],
                 "btn" => [
                     "submit" => [
@@ -279,7 +268,7 @@ class Events extends BaseSQL
                     'end_row_start_date' => [
                         'type' => 'end_row'
                     ],
-                    
+
                     'start_row_end_date' => [
                         'type' => 'start_row'
                     ],
@@ -360,5 +349,4 @@ class Events extends BaseSQL
             ]
         ];
     }
-
 }
