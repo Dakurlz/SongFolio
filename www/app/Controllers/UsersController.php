@@ -197,7 +197,7 @@ class UsersController
                 $mail->SMTPAuth = true;                               // Enable SMTP authentication
 
                 $mail->addAddress($user->__get('email'));     // Add a recipient
-                $mail->addAddress('gatay.bryan@gmail.com');
+               // $mail->addAddress('gatay.bryan@gmail.com');
                 $mail->isHTML(true);                                  // Set email format to HTML
                 $mail->Subject = 'Here is the subject';
                 $mail->Body    = "Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. http://localhost/changer_mot_de_passe?t=$token";
@@ -206,11 +206,11 @@ class UsersController
                     echo 'Message could not be sent.';
                     echo 'Mailer Error: ' . $mail->ErrorInfo;
                 } else {
-                    echo 'Message has been sent';
+                    $_SESSION['alert']['success'][] = "Un mail à été envoyé à l'adresse indiquée.";
                 }
 
             }else{
-                var_dump("Le mail n'a pas été trouvé");
+                 $_SESSION['alert']['danger'][] = "L'adresse mail n'a pas été trouvé";
             }
         }
     }
@@ -284,31 +284,37 @@ class UsersController
         exit;
     }
 
-    public function changePasswordAction(){
-        $token =$_GET['t'];
-        $user = new Users(["pwd_token" => $_GET['t']]);
-        if($user->__get('id')==false){
+    public function changePasswordAction()
+    {
+        if (!isset($_GET['t'])) {
             $v = new View("404", "front");
         }else{
+        $user = new Users(["pwd_token" => $_GET['t']]);
+        if ($user->__get('id') == false) {
+            $v = new View("404", "front");
+        } else {
             $v = new View("user_changePassword", "front");
             $configForm = $this->user->getFormNewPwd();
             $v->assign('configFormUsers', $configForm);
         }
-        if(!empty($_POST)){
+        if (!empty($_POST)) {
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
             $validator = new Validator($configForm, $data);
             $configForm["errors"] = $validator->getErrors();
-            if(!empty($configForm["errors"])){
-                var_dump($configForm["errors"]);
-            }else{
-                $user->__set('password',$_POST['valid_new_pwd']);
-                $user->__set('pwd_token',null);
+            if (!empty($configForm["errors"])) {
+                foreach ($configForm["errors"] as $error) {
+                    $_SESSION['alert']['danger'][] = $error;
+                }
+            } else {
+                $user->__set('password', $_POST['valid_new_pwd']);
+                $user->__set('pwd_token', null);
                 $user->save();
                 header('Location: ' . Routing::getSlug("users", "login"));
             }
 
         }
+    }
     }
 
     private function renderUsersView(array $configForm)

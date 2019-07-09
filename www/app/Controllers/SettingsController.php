@@ -79,5 +79,11 @@ class SettingsController
         $view = new View("admin/settings/footer", "back");
         $view->assign("settingsForm", $setting->getForm('footer'));
     }
+    public function mailAction(){
+        $setting = new Settings('mail');
+        $view = new View("admin/settings/mail", "back");
+        $view->assign("settingsForm", $setting->getForm('mail'));
+
+    }
 
 }

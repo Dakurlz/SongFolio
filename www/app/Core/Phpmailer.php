@@ -1,7 +1,12 @@
 <?php
 
 namespace Songfolio\Core;
+use Songfolio\Core\BaseSQL;
 use Exception;
+use Songfolio\Models\Settings;
+
+
+
 /**
  * PHPMailer - PHP email creation and transport class.
  * PHP Version 5
@@ -28,8 +33,19 @@ use Exception;
  * @author Andy Prevost (codeworxtech) <codeworxtech@users.sourceforge.net>
  * @author Brent R. Matzelle (original founder)
  */
+
+$settings = Settings::get('mail')->__get('data');
+
+define("SMTP_HOST",$settings['smtp_mail']);
+define("Username_Mail",$settings['username_mail']);
+define("Pwd_mail",$settings['userpassword_mail']);
+define("SMTPSecure",$settings['SMTPSecure']);
+define("Port",$settings['Port']);
+
 class PHPMailer
 {
+
+
     /**
      * The PHPMailer Version number.
      * @var string

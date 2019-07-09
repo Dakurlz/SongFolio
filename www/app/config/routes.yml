@@ -237,6 +237,9 @@
 '/admin/settings/footer':
   controller: Settings
   action: footer
+'/admin/settings/mail':
+    controller: Settings
+    action: mail
 
 # EVENTS
 '/admin/events/create':
