@@ -7,18 +7,15 @@ use Songfolio\Core\View;
 use Songfolio\Core\Autoloader;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Contents;
-use Songfolio\Models\Users;
 use Songfolio\Models\Events;
 
 $autoloader = new Autoloader();
 $autoloader->addNamespace('Songfolio', 'app');
 $autoloader->register();
 
-
 session_start();
 
-$user = new Users();
-$route = Routing::getRoute($user);
+$route = Routing::getRoute();
 
 if (!empty($route)) {
     extract($route);

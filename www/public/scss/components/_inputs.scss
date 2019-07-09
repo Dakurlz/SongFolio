@@ -52,6 +52,12 @@ $border: #b1abab;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
+    &[type="color"]{
+      width: 64px;
+      height: 40px;
+      padding: 2px;
+    }
+
     &:focus {
     border: solid 1px $color-primary;
   }

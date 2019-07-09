@@ -1,9 +1,9 @@
 <?php
 
-define("DBHOST", "database");
-define("DBNAME", "songfolio");
-define("DBUSER", "root");
-define("DBPASSWORD", "password");
+define("DB_HOST", "database");
+define("DB_NAME", "songfolio");
+define("DB_USER", "root");
+define("DB_PASSWORD", "password");
 
 define("SMTP_HOST","smtp.gmail.com");
 define("Username_Mail","songfolioweb@gmail.com");

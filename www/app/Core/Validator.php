@@ -14,35 +14,12 @@ class Validator
 
     public function __construct($config, $data)
     {
-        // \debug($data);
-        // die;
-
         foreach ($config["data"] as $name => $input) {
             //required
 
-            if (($input["required"] ?? false) && empty($data[$input['name']])) {
+            if ( ($input["required"] ?? false) && empty($data[$input['name']]) ) {
                 View::show404("Tentative de Faille XSS");
-            } else {
-
-                if ($input["type"] === 'slug') {
-
-                    switch ($config['config']['action_type']) {
-                        case 'update':
-                            $obj =  $config['config']['current_object'];
-                            $values =  $obj->getByCustomQuery(['id' => $obj->__get('id')], 'id, slug');
-                            if ($values['slug'] !== $data['slug']) $this->checkSlug($data['slug']);
-
-                            continue;
-
-                        case 'create':
-                            $this->checkSlug($data['slug']);
-                            continue;
-
-                        default:
-                            continue;
-                    }
-                }
-
+            } elseif ( ($input["required"] ?? false) || !empty($data[$input['name']]) ) {
                 //Minlength
                 if (isset($input["minlength"]) && !self::checkMinLength($data[$input['name']], $input["minlength"])) {
                     $this->errors[] = $input["error"];
@@ -67,6 +44,25 @@ class Validator
                 if (isset($input["confirm"]) && $data[$name] != $data[$input["confirm"]]) {
                     $this->errors[] = $input["error"];
                     continue;
+                }
+                //Slug
+                if ($input["type"] === 'slug') {
+
+                    switch ($config['config']['action_type']) {
+                        case 'update':
+                            $obj =  $config['config']['current_object'];
+                            $values =  $obj->getByCustomQuery(['id' => $obj->__get('id')], 'id, slug');
+                            if ($values['slug'] !== $data['slug']) $this->checkSlug($data['slug']);
+
+                            continue;
+
+                        case 'create':
+                            $this->checkSlug($data['slug']);
+                            continue;
+
+                        default:
+                            continue;
+                    }
                 }
             }
         }

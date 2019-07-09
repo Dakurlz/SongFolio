@@ -2703,6 +2703,10 @@ label {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .form-control[type="color"] {
+    width: 64px;
+    height: 40px;
+    padding: 2px; }
   .form-control:focus {
     border: solid 1px #B00000; }
 
@@ -3458,8 +3462,6 @@ input:checked + .slider:before {
           opacity: 1; }
   #front-body p {
     line-height: 26px;
-    font-family: "Lato", sans-serif;
-    color: #555;
     margin: 15px auto;
     font-size: 15px; }
   #front-body #menu-mask {
@@ -3781,6 +3783,64 @@ input:checked + .slider:before {
       padding-bottom: 0.625rem; }
       .main-back__content .container-fluid > :not(.header) {
         padding: 0 1.25rem; }
+
+#install-html {
+  background: #ffd6d6; }
+  #install-html #install-body {
+    max-width: 800px;
+    margin: 50px auto;
+    border: 1px solid black;
+    border-radius: 20px;
+    background: white; }
+    #install-html #install-body main {
+      padding: 20px; }
+    #install-html #install-body header #logo {
+      max-width: 400px;
+      margin: 20px auto;
+      display: block; }
+    #install-html #install-body header nav {
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+      overflow: hidden; }
+      #install-html #install-body header nav ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: 100%; }
+      @media screen and (min-width: 590px) {
+        #install-html #install-body header nav ul > li {
+          padding: 10px;
+          margin-right: 25px;
+          background: #f1f1f1;
+          display: inline-block;
+          z-index: 1; }
+          #install-html #install-body header nav ul > li.active {
+            position: relative; }
+            #install-html #install-body header nav ul > li.active:after {
+              z-index: -1;
+              content: "";
+              border-top: 2px solid #c9c9c9;
+              border-right: 2px solid #c9c9c9;
+              width: 40px;
+              height: 40px;
+              right: -15px;
+              transform: rotate(45deg);
+              top: -3px;
+              background: #f1f1f1;
+              position: absolute; }
+            #install-html #install-body header nav ul > li.active ~ li {
+              background: unset; }
+          #install-html #install-body header nav ul > li > a {
+            padding: 8px 16px;
+            display: inline-block;
+            text-decoration: none;
+            color: #888;
+            font-weight: 400;
+            text-transform: uppercase; }
+          #install-html #install-body header nav ul > li.active > a {
+            background-color: #4d4d4d;
+            color: #fff;
+            text-decoration: none; } }
 
 #front-body {
   /* SECTION SLIDER */

@@ -11,16 +11,20 @@ class Users extends BaseSQL
 
     public function __construct($id = null)
     {
-        if (!isset($id) && isset($_SESSION['user'])) {
-            $id = $_SESSION['user'];
-        }
+        if($id == 'empty') {
+            parent::__construct();
+        }else{
+            if (!$id && isset($_SESSION['user'])) {
+                $id = $_SESSION['user'];
+            }
 
-        if (isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
-            $token = htmlspecialchars($_COOKIE['token']);
-            parent::__construct(['login_token' => $token]);
-            $_SESSION['user'] = $this->__get('id');
-        } else {
-            parent::__construct($id);
+            if (!$id && isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
+                $token = htmlspecialchars($_COOKIE['token']);
+                parent::__construct(['login_token' => $token]);
+                $_SESSION['user'] = $this->__get('id');
+            } else {
+                parent::__construct($id);
+            }
         }
     }
 
@@ -72,6 +76,15 @@ class Users extends BaseSQL
         return false;
     }
 
+    //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
+    public static function need(string $askedAction): void
+    {
+        $user = new Users();
+        if (!$user->can($askedAction)) {
+            header('Location: ' . BASE_URL);
+        }
+    }
+
     public function setLoginToken(){
         $token = md5(substr(uniqid().time(), 4, 10));
         setcookie('token', $token, time() + (86400 * 7), "/");
@@ -103,15 +116,6 @@ class Users extends BaseSQL
         }
 
         return false;
-    }
-
-    //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
-    public static function need(string $askedAction): void
-    {
-        $user = new Users();
-        if (!$user->can($askedAction)) {
-            header('Location: ' . BASE_URL);
-        }
     }
 
     public function needAuth(): void
@@ -163,16 +167,27 @@ class Users extends BaseSQL
                 ],
             ],
             "data" => [
-                "username" => [
+                "first_name" => [
                     "type" => "text",
-                    "placeholder" => "Votre pseudo",
+                    "placeholder" => "Nom",
                     "class" => "form-control",
-                    "id" => "username",
-                    "name" => "username",
+                    "id" => "first_name",
+                    "name" => "first_name",
                     "required" => true,
-                    "minlength" => 4,
+                    "minlength" => 3,
                     "maxlength" => 50,
-                    "error" => "Votre pseudo doit faire entre 4 et 50 caractères"
+                    "error" => "Votre prénom doit faire entre 3 et 50 caractères"
+                ],
+                "last_name" => [
+                    "type" => "text",
+                    "placeholder" => "Prénom",
+                    "class" => "form-control",
+                    "id" => "last_name",
+                    "name" => "last_name",
+                    "required" => true,
+                    "minlength" => 3,
+                    "maxlength" => 100,
+                    "error" => "Votre nom doit faire entre 3 et 100 caractères"
                 ],
                 "email" => [
                     "type" => "email",
@@ -227,16 +242,17 @@ class Users extends BaseSQL
                 ],
             ],
             "data" => [
-                "username" => [
-                    "type" => "text",
-                    "placeholder" => "Votre pseudo",
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "Votre email",
                     "class" => "form-control",
-                    "id" => "username",
-                    "name" => "username",
+                    "id" => "email",
+                    "name" => "email",
                     "required" => true,
-                    "minlength" => 4,
-                    "maxlength" => 50,
-                    "error" => "Votre pseudo doit faire entre 4 et 50 caractères"
+                    "label" => "Adresse mail",
+                    "minlength" => 7,
+                    "maxlength" => 250,
+                    "error" => "Votre email doit faire entre 7 et 250 caractères"
                 ],
                 "password" => [
                     "type" => "password",
@@ -244,6 +260,7 @@ class Users extends BaseSQL
                     "class" => "form-control",
                     "id" => "password",
                     "name" => "password",
+                    "label" => "Mot de passe",
                     "required" => true,
                     "minlength" => 6,
                     "error" => "Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
@@ -276,18 +293,7 @@ class Users extends BaseSQL
                         "div_class" => "smart-type type-page",
                         "after_title" => ""
                     ],
-                    "username" => [
-                        "type" => "text",
-                        'label' => 'Username',
-                        "placeholder" => "Votre pseudo",
-                        "class" => "form-control col-12 col-lg-4 col-md-4 col-sm-4",
-                        "id" => "username",
-                        "name" => "username",
-                        "required" => true,
-                        "minlength" => 4,
-                        "maxlength" => 50,
-                        "error" => "Votre pseudo doit faire entre 4 et 50 caractères"
-                    ],
+
                     'start_row_name' => [
                         'type' => 'start_row'
                     ],
@@ -380,7 +386,7 @@ class Users extends BaseSQL
             ],
             'update' => [
                 "config" => [
-                    "action" => Routing::getSlug("Users", "updateUsers"),
+                    "action" => Routing::getSlug("Users", "update"),
                     "method" => "POST",
                     "class" => "",
                     'header' => 'Modifié un utilisateur',
@@ -396,20 +402,7 @@ class Users extends BaseSQL
                 'data' => [
                     "separator-page" => [
                         "type" => "separator",
-                        "div_class" => "smart-type type-page",
-                        "after_title" => ""
-                    ],
-                    "username" => [
-                        "type" => "text",
-                        'label' => 'Username',
-                        "placeholder" => "Votre pseudo",
-                        "class" => "form-control col-12 col-lg-4 col-md-4 col-sm-4",
-                        "id" => "username",
-                        "name" => "username",
-                        "required" => true,
-                        "minlength" => 4,
-                        "maxlength" => 50,
-                        "error" => "Votre pseudo doit faire entre 4 et 50 caractères"
+                        "div_class" => "smart-type type-page"
                     ],
                     'start_row_name' => [
                         'type' => 'start_row'
@@ -481,7 +474,6 @@ class Users extends BaseSQL
                         "class" => "form-control ",
                         "id" => "pwd",
                         "name" => "password",
-                        "required" => true,
                         "minlength" => 6,
                         "error" => "Votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres"
                     ],
@@ -492,7 +484,6 @@ class Users extends BaseSQL
                         "label" => "Confirmation",
                         "id" => "pwdConfirm",
                         "name" => "pwdConfirm",
-                        "required" => true,
                         "confirm" => "password",
                         "error" => "Le mot de passe de confirmation ne correspond pas"
                     ],

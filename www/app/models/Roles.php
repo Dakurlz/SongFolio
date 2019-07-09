@@ -48,11 +48,6 @@ class Roles extends BaseSQL
         return $arr;
     }
 
-    public static function hasPermissionByKey(string $askedAction)
-    {
-        $role = new Roles();
-    }
-
     public function permsList()
     {
         return [
@@ -60,6 +55,14 @@ class Roles extends BaseSQL
                 "perms" => [
                     "all_perms" => [
                         "desc" => "Donner tous les droits (SuperAdmin)"
+                    ]
+                ]
+            ],
+            "basics" => [
+                "title" => "Permissions générales",
+                "perms" => [
+                    "access_admin" => [
+                        "desc" => "Acceder au panel admin"
                     ]
                 ]
             ],
@@ -80,23 +83,23 @@ class Roles extends BaseSQL
             'contents' => [
                 'title' => 'Gestion des contenus (pages et articles)',
                 'perms' => [
-                    "content_add" => [
-                        'desc' => 'Ajouter un contenu'
-                    ],
-                    "content_pub" => [
-                        "desc" => "Permission de publication"
-                    ],
-                    "content_del" => [
-                        'desc' => 'Supprimer un contenu'
-                    ],
-                    "content_edit" => [
-                        'desc' => 'Modifier un contenu'
-                    ],
                     "page_view" => [
                         "desc" => "Voir les pages"
                     ],
                     "article_view" => [
                         "desc" => "Voir les articles"
+                    ],
+                    "content_add" => [
+                        'desc' => 'Ajouter un contenu'
+                    ],
+                    "content_edit" => [
+                        'desc' => 'Modifier un contenu'
+                    ],
+                    "content_del" => [
+                        'desc' => 'Supprimer un contenu'
+                    ],
+                    "content_pub" => [
+                        "desc" => "Permission de publication"
                     ],
                 ]
             ],
@@ -106,11 +109,11 @@ class Roles extends BaseSQL
                     "event_add" => [
                         'desc' => 'Ajouter un événement'
                     ],
-                    "event_del" => [
-                        'desc' => 'Supprimer un événement'
-                    ],
                     "event_edit" => [
                         'desc' => 'Modifier un événement'
+                    ],
+                    "event_del" => [
+                        'desc' => 'Supprimer un événement'
                     ]
                 ]
             ],
@@ -118,7 +121,7 @@ class Roles extends BaseSQL
                 'title' => 'Gestion des commentaire',
                 'perms' => [
                     "comment_perm" => [
-                        'desc' => 'Confirmation et réfutation des commentaires '
+                        'desc' => 'Accepter/Refuser des commentaires '
                     ],
                 ]
             ],
@@ -126,33 +129,33 @@ class Roles extends BaseSQL
                 "title" => "Gestion des categories",
                 "perms" => [
                     "categorie_view" => [
-                        "desc" => "Voire des categories"
+                        "desc" => "Acceder aux catégories"
                     ],
-                    "album_add" => [
-                        "desc" => "Ajouter une categorie d'albmum"
+                    "cat_album_add" => [
+                        "desc" => "Ajouter une categorie d'album"
                     ],
-                    "article_add" => [
+                    "cat_album_edit" => [
+                        "desc" => "Modifier une categorie d'album"
+                    ],
+                    "cat_album_del" => [
+                        "desc" => "Supprimer une categorie d'album"
+                    ],
+                    "cat_article_add" => [
                         "desc" => "Ajouter une categorie d'article"
                     ],
-                    "event_add" => [
-                        "desc" => "Ajouter une categorie d'événement"
-                    ],
-                    "album_edit" => [
-                        "desc" => "Modifier une categorie d'albmum"
-                    ],
-                    "article_edit" => [
+                    "cat_article_edit" => [
                         "desc" => "Modifier une categorie d'article"
                     ],
-                    "event_edit" => [
-                        "desc" => "Modifier une categorie d'événement"
-                    ],
-                    "album_del" => [
-                        "desc" => "Supprimer une categorie d'albmum"
-                    ],
-                    "article_del" => [
+                    "cat_article_del" => [
                         "desc" => "Supprimer une categorie d'article"
                     ],
-                    "event_del" => [
+                    "cat_event_add" => [
+                        "desc" => "Ajouter une categorie d'événement"
+                    ],
+                    "cat_event_edit" => [
+                        "desc" => "Modifier une categorie d'événement"
+                    ],
+                    "cat_event_del" => [
                         "desc" => "Supprimer une categorie d'événement"
                     ],
                 ]
@@ -161,16 +164,16 @@ class Roles extends BaseSQL
                 "title" => "Gestion des roles",
                 "perms" => [
                     "role_view" => [
-                        "desc" => "Voir les rôle"
+                        "desc" => "Acceder aux rôle"
                     ],
                     "role_add" => [
                         "desc" => "Ajouter un rôle"
                     ],
-                    "role_del" => [
-                        "desc" => "Supprimer un rôle"
-                    ],
                     "role_edit" => [
                         "desc" => "Modifier un rôle"
+                    ],
+                    "role_del" => [
+                        "desc" => "Supprimer un rôle"
                     ]
                 ]
             ],
@@ -179,16 +182,34 @@ class Roles extends BaseSQL
                 "title" => "Gestion des albums",
                 "perms" => [
                     "album_view" => [
-                        "desc" => "Voir les rôle"
+                        "desc" => "Voir les albums"
                     ],
                     "album_add" => [
                         "desc" => "Ajouter un album"
                     ],
-                    "album_del" => [
-                        "desc" => "Supprimer un album"
-                    ],
                     "album_edit" => [
                         "desc" => "Modifier un album"
+                    ],
+                    "album_del" => [
+                        "desc" => "Supprimer un album"
+                    ]
+                ]
+            ],
+
+            "menus" => [
+                "title" => "Gestion des menus",
+                "perms" => [
+                    "menu_view" => [
+                        "desc" => "Voir les menus"
+                    ],
+                    "menu_add" => [
+                        "desc" => "Ajouter un menu"
+                    ],
+                    "menu_edit" => [
+                        "desc" => "Modifier un menu"
+                    ],
+                    "menu_del" => [
+                        "desc" => "Supprimer un menu"
                     ]
                 ]
             ]

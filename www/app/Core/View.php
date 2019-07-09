@@ -9,6 +9,7 @@ use Songfolio\Models\Users;
 use Songfolio\Models\Albums;
 use Songfolio\Models\Contents;
 use Songfolio\Models\Events;
+use Songfolio\Core\Helper;
 
 class View
 {
@@ -44,10 +45,10 @@ class View
             if (file_exists($templatePath)) {
                 $this->template_path = $templatePath;
 
-                if ($template == 'front') {
-                    $settings['config'] = (new Settings('config'))->get();
-                    $settings['header'] = (new Settings('header'))->get();
-                    $settings['footer'] = (new Settings('footer'))->get();
+                if($template == 'front'){
+                    $settings['config'] = Settings::get('config')->__get('data');
+                    $settings['header'] = Settings::get('header')->__get('data');
+                    $settings['footer'] = Settings::get('footer')->__get('data');
                     $this->assign('settings', $settings);
                 }
             } else {
@@ -80,10 +81,11 @@ class View
         $this->data[$key] = $value;
     }
 
-    public function __destruct()
-    {
-        $user = new Users();
-        if (!empty($this->data))
+    public function __destruct(){
+        if(Helper::isCmsInstalled()){
+            $user = new Users();
+        }
+        if(!empty($this->data))
             extract($this->data);
         if ($this->template_path !== null)
             include $this->template_path;

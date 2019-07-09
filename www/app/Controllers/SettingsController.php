@@ -6,6 +6,7 @@ namespace Songfolio\Controllers;
 
 use Songfolio\core\View;
 use Songfolio\Core\Routing;
+use Songfolio\Core\Helper;
 use Songfolio\Models\Settings;
 
 class SettingsController
@@ -31,9 +32,30 @@ class SettingsController
             $settings->__set('data', $_POST['data']);
             $settings->save();
         }
+
+        //Dans le cas ou on est dans le template, on lance l'action associé
+        if($settings_type == 'template'){
+            $this->saveTemplate($_POST['data']);
+        }
+
         //On lance l'action dynamique
         header('Location: '.Routing::getSlug('settings', $settings_type));
     }
+
+    public function saveTemplate($datas){
+        //Change config file
+        $schema_css = 'public/css/schemas/generate.css';
+        $result_css = 'public/css/generated.css';
+        $edited_css = file_get_contents($schema_css);
+        foreach($datas as $key => $value){
+            if($key == 'title_font_name' || $key == 'text_font_name'){
+                $edited_css = str_replace("%".str_replace('name', 'css', $key)."%", Helper::getGoogleFontsCss($value), $edited_css);
+            }
+            $edited_css = str_replace("%{$key}%", $value, $edited_css);
+        }
+        file_put_contents($result_css, $edited_css);
+    }
+
     public function configAction(){
         $setting = new Settings('config');
         $view = new View("admin/settings/config", "back");

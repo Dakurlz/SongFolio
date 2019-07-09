@@ -24,7 +24,6 @@ use Songfolio\Models\Users;
             <thead role="rowgroup">
             <tr role="row">
                 <th>Nom</th>
-                <th>Username</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>Rejoint</th>
@@ -39,7 +38,6 @@ use Songfolio\Models\Users;
                 <?php foreach ($users as $user) : ?>
                     <tr>
                         <td><?= $user['first_name'] ?? '---' ?> <?= $user['last_name']; ?></td>
-                        <td><?= $user['username'];  ?></td>
                         <td><?= $user['email'];  ?></td>
                         <td><?= Helper::searchInArray($roles, $user['role_id'], 'name')  ?></td>
                         <td><?= Helper::getFormatedDate($user['date_inserted']) ?></td>

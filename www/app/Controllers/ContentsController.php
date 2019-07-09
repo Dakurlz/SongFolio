@@ -7,7 +7,7 @@ namespace Songfolio\Controllers;
 use Songfolio\core\View;
 use Songfolio\Core\Validator;
 use Songfolio\core\Helper;
-
+use Songfolio\Core\Routing;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Contents;
 use Songfolio\Models\Users;

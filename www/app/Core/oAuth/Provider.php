@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Songfolio\Core\Oauth;
 
 use Songfolio\Models\Settings;
+use Songfolio\Core\Helper;
 
 abstract class Provider implements ProviderInterface
 {
@@ -14,16 +15,40 @@ abstract class Provider implements ProviderInterface
     protected $client_secret;
 
     public function __construct(){
-        $site_settings = (new Settings('config'))->get();
-        if(isset($site_settings['oauth_id_'.$this->getProviderName()]) && isset($site_settings['oauth_secret_'.$this->getProviderName()])){
-            $this->client_id = $site_settings['oauth_id_'.$this->getProviderName()];
-            $this->client_secret = $site_settings['oauth_secret_'.$this->getProviderName()];
+        $site_settings = Settings::get('config')->__get('data');
+        if(isset($site_settings['oauth'][$this->getProviderName()])){
+            $this->client_id = $site_settings['oauth'][$this->getProviderName()]['client_id'];
+            $this->client_secret = $site_settings['oauth'][$this->getProviderName()]['client_secret'];
         }
     }
 
     public function getProviderName(): string
     {
         return (new \ReflectionClass($this))->getShortName();
+    }
+
+
+    public function getAuthorizationUrl(): string
+    {
+        if($this->client_id && $this->client_secret){
+            $state = $this->getNewState();
+            return $this->authUrl."?client_id={$this->client_id}&response_type=code&redirect_uri={$this->getRedirectUrl()}&state={$state}&scope={$this->scopes}";
+        }
+
+        return '';
+    }
+
+    public function getAccessTokenUrl($code_parameter): string
+    {
+        if ($_GET['state'] === $_SESSION['state']) {
+            $token_url = $this->tokenUrl."?client_id={$this->client_id}&redirect_uri={$this->getRedirectUrl()}&client_secret={$this->client_secret}&code={$code_parameter}&grant_type=authorization_code";
+
+            $result = Helper::curl_request($token_url);
+
+            return json_decode($result, true)['access_token'];
+        }else{
+            return 'State invalid';
+        }
     }
 
     public function getNewState(){
@@ -33,20 +58,5 @@ abstract class Provider implements ProviderInterface
 
     public function getRedirectUrl(){
         return urlencode(BASE_URL.'login/oauth?provider='.$this->getProviderName());
-    }
-
-    public function request($url){
-        $handle = curl_init();
-        curl_setopt($handle, CURLOPT_URL, $url);
-        curl_setopt($handle, CURLOPT_HEADER, 0);
-        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($handle);
-        if(curl_errno($handle))
-        {
-            echo 'Curl error: ' . curl_error($handle);
-        }
-        curl_close($handle);
-
-        return $result;
     }
 }
