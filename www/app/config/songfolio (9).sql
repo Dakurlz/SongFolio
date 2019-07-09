@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  Dim 07 juil. 2019 à 20:54
+-- Généré le :  mar. 09 juil. 2019 à 21:50
 -- Version du serveur :  5.7.25
 -- Version de PHP :  7.2.14
 
@@ -69,7 +69,9 @@ CREATE TABLE `Categories` (
 
 INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
 (1, 'Hip-hop', NULL, 'album'),
-(2, 'Adventure', NULL, 'article');
+(2, 'Adventure', NULL, 'article'),
+(3, 'Festival', NULL, 'event'),
+(4, 'Concert', NULL, 'event');
 
 -- --------------------------------------------------------
 
@@ -115,7 +117,8 @@ CREATE TABLE `Contents` (
 --
 
 INSERT INTO `Contents` (`id`, `type`, `slug`, `category_id`, `title`, `description`, `content`, `date_create`, `date_edit`, `author`, `img_dir`, `published`, `comment_active`, `indexed`) VALUES
-(1, 'page', 'info', NULL, 'info', 'thththyhytyhth', '<p>tests de my page&nbsp;</p>', '2019-07-07 18:07:16', NULL, 6, 'Format n\'est pas bon.', 1, 0, 1);
+(1, 'page', 'info', NULL, 'info', 'thththyhytyhth', '<p>tests de my page&nbsp;</p>', '2019-07-07 18:07:16', NULL, 6, 'Format n\'est pas bon.', 1, 0, 1),
+(2, 'article', 'mo-article-de-test', 2, 'mo article de test', 'qsdqsdsd', '<p>qsdqsdqsdqsdqs</p>', '2019-07-09 18:50:00', NULL, 6, 'public/uploads/contents/screeshot7.jpg', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -141,6 +144,13 @@ CREATE TABLE `Events` (
   `description` longtext NOT NULL,
   `ticketing` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Events`
+--
+
+INSERT INTO `Events` (`id`, `displayName`, `type`, `status`, `start_date`, `end_date`, `img_dir`, `details`, `rate`, `nbr_place`, `address`, `city`, `postal_code`, `slug`, `description`, `ticketing`) VALUES
+(1, 'un nouveau events ', '3', 'ok', '2019-07-04 00:03:00', '2019-07-28 01:57:00', 'public/uploads/events/screeshot7.jpg', 'qsdfsdqdq', 1, 450, '36 RUE CLAUDE TERRASSE', 'Paris 16', '75016', 'un-nouveau-events', 'adaeazeaze', 'non');
 
 -- --------------------------------------------------------
 
@@ -387,7 +397,7 @@ ALTER TABLE `Albums`
 -- AUTO_INCREMENT pour la table `Categories`
 --
 ALTER TABLE `Categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `Comments`
@@ -399,13 +409,13 @@ ALTER TABLE `Comments`
 -- AUTO_INCREMENT pour la table `Contents`
 --
 ALTER TABLE `Contents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `Events`
 --
 ALTER TABLE `Events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `Likes`
