@@ -65,7 +65,7 @@
                     <?php if( Users::hasPermission('content_edit') ): ?>
                         <td class="icn"><a href='<?= Routing::getSlug("Contents", "update") . "?id=" . $page['id']?>'><i class="icon icon-edit"></i></a></td>
                     <?php endif; if( Users::hasPermission('content_del') ): ?>
-                        <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $page['id']."&type=page"?>'></a></td>
+                        <td class="icn"><a href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $page['id']."&type=page"?>'><i class="icon icon-delete"></i></a></td>
                     <?php endif; ?>
                 </tr>
 

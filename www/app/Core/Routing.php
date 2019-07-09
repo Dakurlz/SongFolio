@@ -4,7 +4,6 @@ declare (strict_types = 1);
 
 namespace Songfolio\Core;
 use Songfolio\Models\Users;
-use Songfolio\Core\Helper;
 
 class Routing
 {
@@ -36,22 +35,10 @@ class Routing
      * @param Users $user
      * @return array
      */
-    public static function getRoute()
+    public static function getRoute(Users $user)
     {
         $slug = Routing::currentSlug();
         $routes = yaml_parse_file('app/config/routes.yml');
-
-        //Si cms non installé, on ne laisse pas l'accès hors de l'installation
-        if(!Helper::isCmsInstalled() && $routes[$slug]["controller"] !== 'Install'){
-            header('Location: '.Routing::getSlug('install', 'index'));
-        }
-
-        //Si le cms est installé, on autorise pas l'accès à l'installation
-        if(Helper::isCmsInstalled() && $routes[$slug]["controller"] == 'Install'){
-            header('Location: /');
-        }
-
-
 
         if (!empty($routes[$slug])) {
 
@@ -65,15 +52,11 @@ class Routing
             $action = $routes[$slug]["action"] . "Action";
             $controllerPath = 'app/controllers/' . $controller . '.php';
 
-            if(Helper::isCmsInstalled()){
-                $user = new Users();
-
-                if (!empty($routes[$slug]['needAuth'])) {
-                    $user->needAuth();
-                }
-                if (!empty($routes[$slug]['needGroups'])) {
-                    $user->needGroups($routes[$slug]['needGroups']);
-                }
+            if (!empty($routes[$slug]['needAuth'])) {
+                $user->needAuth();
+            }
+            if (!empty($routes[$slug]['needGroups'])) {
+                $user->needGroups($routes[$slug]['needGroups']);
             }
 
             return ['controller' => $controller, 'action' => $action, 'controllerPath' => $controllerPath];

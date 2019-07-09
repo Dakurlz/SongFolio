@@ -2,8 +2,6 @@
 
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
-use Songfolio\Models\Users;
-
 ?>
 <div class="col-12 admin-users ">
 
@@ -24,6 +22,7 @@ use Songfolio\Models\Users;
             <thead role="rowgroup">
             <tr role="row">
                 <th>Nom</th>
+                <th>Username</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>Rejoint</th>
@@ -38,16 +37,14 @@ use Songfolio\Models\Users;
                 <?php foreach ($users as $user) : ?>
                     <tr>
                         <td><?= $user['first_name'] ?? '---' ?> <?= $user['last_name']; ?></td>
+                        <td><?= $user['username'];  ?></td>
                         <td><?= $user['email'];  ?></td>
                         <td><?= Helper::searchInArray($roles, $user['role_id'], 'name')  ?></td>
                         <td><?= Helper::getFormatedDate($user['date_inserted']) ?></td>
                         <td><?= Helper::getFormatedDate($user['date_update']) ?></td>
 
-                        <?php if( Users::hasPermission('user_edit') ): ?>
-                            <td class="icn"><a href='<?= Routing::getSlug("Users", "update") . "?id=" . $user['id'] ?>'><i class="icon icon-edit"></i></a></td>
-                        <?php endif; if( Users::hasPermission('user_del') ): ?>
-                            <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Users", "delete") . "?id=" . $user['id'] ?>'></a></td>
-                        <?php endif; ?>
+                        <td class="icn"><a href='<?= Routing::getSlug("Users", "update") . "?id=" . $user['id'] ?>'><i class="icon icon-edit"></i></a></td>
+                        <td class="icn"><a href='<?= Routing::getSlug("Users", "delete") . "?id=" . $user['id'] ?>'><i class="icon icon-delete"></i></a></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>

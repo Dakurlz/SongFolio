@@ -17,6 +17,7 @@ use Songfolio\Models\Users;
           <thead>
             <tr>
               <th>Catégories d'article</th>
+              <th>Slug</th>
               <th></th>
               <th></th>
             </tr>
@@ -27,10 +28,11 @@ use Songfolio\Models\Users;
                 <?php foreach ($articleCategories as $category) : ?>
                     <tr>
                         <td><?= $category['name']; ?></td>
+                        <td><?= $category['slug'];  ?></td>
                         <?php if( Users::hasPermission('article_edit') ): ?>
                             <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $category['id'] . '&type=article' ?>'><i class="icon icon-edit"></i></a></td>
                         <?php endif; if( Users::hasPermission('article_del') ): ?>
-                            <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $category['id'] . '&type=article' ?>'></a></td>
+                            <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $category['id'] . '&type=article' ?>'><i class="icon icon-delete"></i></a></td>
                         <?php endif; ?>
 
                     </tr>

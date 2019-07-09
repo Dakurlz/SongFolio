@@ -30,10 +30,3 @@ use \Songfolio\Core\Helper;
         </div>
     </div>
 </section>
-
-<?php if (isset($comments)) $this->addModal('comment', [
-    'type' => 'article',
-    'type_id' => $content->__get('id'),
-    'redirect' => $content->__get('slug'),
-    'comments' => $comments
-]) ?>

@@ -32,7 +32,7 @@ use Songfolio\Models\Users;
                             <?php if( Users::hasPermission('event_edit') ): ?>
                                 <td class="icn"><a href='<?= Routing::getSlug("Categories", "update") . "?id=" . $event['id'] . '&type=event' ?>'><i class="icon icon-edit"></i></a></td>
                             <?php endif; if( Users::hasPermission('event_del') ): ?>
-                                <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $event['id'] . '&type=event' ?>'></a></td>
+                                <td class="icn"><a href='<?= Routing::getSlug("Categories", "delete") . "?id=" . $event['id'] . '&type=event' ?>'><i class="icon icon-delete"></i></a></td>
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
