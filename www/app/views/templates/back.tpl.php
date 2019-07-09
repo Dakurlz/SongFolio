@@ -34,7 +34,7 @@ $sectionName = Helper::getCurrentPageName();
             <div class="toggle-nav">
                <span></span>
             </div>
-            <h1>SongFolio</h1>
+            <h1> <a href="/">SongFolio</a> </h1>
             <h2>Admin 1.0</h2>
          </div>
          <div class="row__logout col-lg-6 col-sm-6">

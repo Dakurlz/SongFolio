@@ -268,6 +268,17 @@ class BaseSQL
         return $query->fetchObject($class);
     }
 
+    public function count()
+    {
+        $sql = "SELECT COUNT(*) as nb_".strtolower($this->table)." FROM ".$this->table.";";
+        $query = $this->pdo->prepare($sql);
+
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute();
+
+        return $query->fetch();
+    }
+
     public function getColumns()
     {
         $objectVars = get_object_vars($this);

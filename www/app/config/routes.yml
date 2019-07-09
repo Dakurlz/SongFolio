@@ -9,11 +9,28 @@
   needAuth: false
 
 
+'/add_like':
+  controller: Likes
+  action: addLike
+
 # EVENTS FRONT 
 '/evenement':
   controller: Pages
   action: renderEventsPage
   needAuth: false
+
+
+# SONGS FRONT 
+'/singles':
+  controller: Pages
+  action: renderSongs
+
+
+# ALBUMS FRONT 
+'/albums':
+  controller: Pages
+  action: renderAlbums
+
 
 # USERS
 '/liste_des_utilisateurs':

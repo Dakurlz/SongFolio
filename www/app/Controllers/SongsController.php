@@ -111,7 +111,7 @@ class SongsController
                 $this->song->__set('description',  trim($data['description']));
                 $this->song->__set('text',  trim($data['text']));
                 isset($data['album']) ? $this->song->__set('album_id', (int) $data['album']) : null;
-                isset($fileName) ? $this->song->__set('cover_dir', $fileName) : null;
+                isset($fileName) ? $this->song->__set('img_dir', $fileName) : null;
 
                 isset($data['spotify']) ? $this->song->__set('spotify',  $data['spotify']) : null;
                 isset($data['deezer']) ?  $this->song->__set('deezer',  $data['deezer']) : null;

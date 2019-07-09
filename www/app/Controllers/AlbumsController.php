@@ -110,6 +110,8 @@ class AlbumsController
                 isset($data['spotify']) ? $this->album->__set('spotify',  $data['spotify']) : null;
                 isset($data['deezer']) ?  $this->album->__set('deezer',  $data['deezer']) : null;
 
+                $this->album->__set('comment_active', isset($data['comment_active']) ? (int) $data['comment_active'] : 0);
+
                 $this->album->save();
 
 

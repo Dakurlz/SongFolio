@@ -42,9 +42,8 @@ class Contents extends BaseSQL
         }
 
         $view->assign('page_title', $this->__get('title'));
-        $view->assign('page_desc', $this->__get('description '));
+        $view->assign('page_desc', $this->__get('description'));
         $view->assign('content', $this);
-        // $view->
     }
 
     public function content()
@@ -110,7 +109,7 @@ class Contents extends BaseSQL
                         "type" => "text",
                         "label" => "Titre",
                         "placeholder" => "Votre titre",
-                        "class" => "input-control target-elment-to-slug col-12 col-lg-5 col-md-5 col-sm-5",
+                        "class" => "input-control col-12 col-lg-4 col-md-4 col-sm-4",
                         "id" => "title",
                         "name" => "title",
                         "required" => true,
@@ -182,7 +181,7 @@ class Contents extends BaseSQL
                     "slug" => [
                         "type" => "slug",
                         "label" => "Lien permanent",
-                        "class" => "title-value-slug",
+                        "class" => "",
                         "presed" => $_SERVER['SERVER_NAME'],
                         "id" => "slug",
                         "name" => "slug",
