@@ -41,7 +41,7 @@
         box-shadow: 0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15);
         margin:0;
     }
-    #the-menu > li > ul {
+    .sortable ul {
         margin-left: 25px;
         min-height:5px;
         background:white;
@@ -68,7 +68,7 @@
             <ul class="sortable lis-unstyled" id="the-menu">
                 <?=$menu->show('menu_edit');?>
             </ul><!-- /.menu-sortable -->
-            <input type="hidden" id="result-data" name="data" value="" />
+            <input type="hidden" id="result-data" name="data" value=""></input>
         </div>
 
         <div class="form-group">

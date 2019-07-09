@@ -10,13 +10,6 @@ use Songfolio\Core\Routing;
     $this->addModal("form", $configFormLogin);
     ?>
 
-    <?php if($sdk): ?>
-        <div class="text-center">
-            <?php foreach($sdk->getConnectionLinks() as $provider_name => $link): ?>
-            <a href="<?=$link?>">Login with <?=$provider_name?></a>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
     <div class="text-center">
         <a href="<?php echo Routing::getSlug("users","register");?>">Register</a>
         <a href="<?php echo Routing::getSlug("users","forgetPassword");?>">Forgot Password?</a>

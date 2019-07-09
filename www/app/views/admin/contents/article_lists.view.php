@@ -7,6 +7,10 @@ use Songfolio\Models\Users;
 
 <div class="admin-articles-liste">
 
+    <?php
+        if (isset($alert)) $this->addModal('alert', $alert);
+    ?>
+
     <h2 class="col-12">Liste des articles</h2>
     <?php if (empty($articles)): ?>
         <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter le contenue</a>
@@ -47,7 +51,7 @@ use Songfolio\Models\Users;
         </thead>
 
         <tbody class="tbody">
-        <td><?php if (empty($articles)) echo 'Aucun article.'; ?></td>
+        <td><?php if (empty($articles)) echo 'Aucune page.'; ?></td>
         <?php foreach ($articles as $articl):  ?>
             <tr>
                 <td>
@@ -75,7 +79,7 @@ use Songfolio\Models\Users;
                 <?php if( Users::hasPermission('content_edit') ): ?>
                     <td class="icn"><a href='<?= Routing::getSlug("Contents", "update") . "?id=" . $articl['id']?>'><i class="icon icon-edit"></i></a></td>
                 <?php endif; if( Users::hasPermission('content_del') ): ?>
-                    <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $articl['id']."&type=article"?>'></a></td>
+                    <td class="icn"><a href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $articl['id']."&type=article"?>'><i class="icon icon-delete"></i></a></td>
                 <?php endif; ?>
 
             </tr>

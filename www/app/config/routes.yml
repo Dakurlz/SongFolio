@@ -7,27 +7,10 @@
   action: content
 
 
-'/add_like':
-  controller: Likes
-  action: addLike
-
 # EVENTS FRONT 
 '/evenement':
   controller: Pages
   action: renderEventsPage
-
-
-# SONGS FRONT 
-'/singles':
-  controller: Pages
-  action: renderSongs
-
-
-# ALBUMS FRONT 
-'/albums':
-  controller: Pages
-  action: renderAlbums
-
 
 # USERS
 '/liste_des_utilisateurs':
@@ -45,10 +28,6 @@
 '/connexion':
   controller: Users
   action: login
-
-'/login/oauth':
-  controller: Users
-  action: oauth
 
 '/deconnexion':
   controller: Users
@@ -69,84 +48,54 @@
 '/admin':
   controller: Admin
   action: default
+  needGroups: admin
 
 '/admin/users':
   controller: Admin
   action: loadUser
+  needGroups: admin
 
 # ROLES
 '/admin/roles':
   controller: Admin
   action: roles
+  needGroups: admin
 '/admin/roles/add':
   controller: Admin
   action: rolesAdd
+  needGroups: admin
 '/admin/roles/edit':
   controller: Admin
   action: rolesEdit
+  needGroups: admin
 '/admin/roles/del':
   controller: Admin
   action: rolesDel
+  needGroups: admin
 
-# MENUS #
 '/admin/menus':
-  controller: Menus
+  controller: Admin
   action: menus
+  needGroups: admin
 
 '/admin/menus/add':
-  controller: Menus
+  controller: Admin
   action: menusAdd
+  needGroups: admin
 
 '/admin/menus/edit':
-  controller: Menus
+  controller: Admin
   action: menusEdit
+  needGroups: admin
 
 '/admin/menus/del':
-  controller: Menus
+  controller: Admin
   action: menusDel
-
-# Albums
-'/admin/albums/create':
-  controller: Albums
-  action: createAlbum
+  needGroups: admin
 
 '/admin/albums':
-  controller: Albums
-  action: listAlbums
-
-'/admin/albums/update':
-  controller: Albums
-  action: update
-
-'/admin/albums/update_album':
-  controller: Albums
-  action: updateAlbum
-
-'/admin/albums/delete':
-  controller: Albums
-  action: delete
-
-# Songs
-'/admin/songs':
-  controller: Songs
-  action: listSongs
-
-'/admin/songs/create':
-  controller: Songs
-  action: create
-
-'/admin/songs/delete':
-  controller: Songs
-  action: delete
-
-'/admin/songs/update':
-  controller: Songs
-  action: update
-
-'/admin/songs/update_song':
-  controller: Songs
-  action: updateSong
-
+  controller: Admin
+  action: loadAlbum
 
 # Categories
 '/admin/categories/':
@@ -219,18 +168,6 @@
   controller: Comments
   action: listNotConfirm
 
-'/admin/comments/create':
-  controller: Comments
-  action: createComments
-
-'/admin/comments/confirm':
-  controller: Comments
-  action: confirm
-
-'/admin/comments/refuse':
-  controller: Comments
-  action: refuse
-
 # Settings
 '/admin/settings':
   controller: Settings
@@ -289,18 +226,6 @@
   controller: Users
   action: update
 
-
-# INSTALL
-
-'/install':
-  controller: Install
-  action: index
-'/install/bdd':
-  controller: Install
-  action: bdd
-'/install/config':
-  controller: Install
-  action: config
-'/install/user':
-  controller: Install
-  action: user
+'/admin/users/update_user':
+  controller: Users
+  action: updateUsers

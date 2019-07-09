@@ -6,17 +6,13 @@ namespace Songfolio\Core;
 
 use PDO;
 use LogicException;
-
 use Songfolio\Core\View;
-use Songfolio\Core\Helper;
-
-use Songfolio\Models\Settings;
 
 
 class BaseSQL
 {
+
     private $pdo;
-    static private $pdoSingleton;
     private $table;
     private $data = [];
 
@@ -24,16 +20,10 @@ class BaseSQL
     {
         // Avec un singleton c'est mieux
         try {
-            if(is_null(self::$pdoSingleton)) {
-                self::$pdoSingleton = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
-            }
-            $this->pdo = self::$pdoSingleton;
+            $this->pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME, DBUSER, DBPASSWORD);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (\PDOException $e) {
-            if(Helper::isCmsInstalled()){
-                echo "Erreur SQL : " . $e->getMessage();
-            }
-            return;
+        } catch (LogicException $e) {
+            View::show404("Erreur SQL : " . $e->getMessage());
         }
 
         $this->table = Helper::getCalledClass(get_called_class());
@@ -45,15 +35,6 @@ class BaseSQL
         else if (!empty($initIdOrSearch))
         {
             $this->getOneBy(["id" => $initIdOrSearch], true);
-        }
-    }
-
-    public static function tryConnection(array $dbInfos){
-        try {
-            self::$pdoSingleton = new PDO("mysql:host=" . $dbInfos['db_host'] . ";dbname=" . $dbInfos['db_name'], $dbInfos['db_user'], $dbInfos['db_password']);
-            return true;
-        } catch (\PDOException $e) {
-            return false;
         }
     }
 
@@ -105,8 +86,6 @@ class BaseSQL
         } else {
             $this->data[$attr] = $value;
         }
-
-        return $this;
     }
 
     public function save(): void
@@ -118,7 +97,6 @@ class BaseSQL
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
             $query = $this->pdo->prepare($sql);
             $query->execute($columns);
-
 
             $this->data['id'] = $this->pdo->lastInsertId($this->table);
         } else {
@@ -233,41 +211,6 @@ class BaseSQL
 
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $query->execute($where);
-
-        return $query->fetch();
-    }
-
-    public function getCustom(string $str,array $where)
-    {
-        $sqlWhere = $this->sqlWhere($where);
-        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
-        $query = $this->pdo->prepare($sql);
-
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $query->execute($where);
-
-        return $query->fetch();
-    }
-
-    public function getByCustomClass(string $str,array $where, string $class)
-    {
-        $sqlWhere = $this->sqlWhere($where);
-        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
-        $query = $this->pdo->prepare($sql);
-
-        // $query->setFetchMode(PDO::FETCH_ASSOC);
-        $query->execute($where);
-
-        return $query->fetchObject($class);
-    }
-
-    public function count()
-    {
-        $sql = "SELECT COUNT(*) as nb_".strtolower($this->table)." FROM ".$this->table.";";
-        $query = $this->pdo->prepare($sql);
-
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $query->execute();
 
         return $query->fetch();
     }

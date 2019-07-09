@@ -113,7 +113,7 @@
     .event-other {
       background: $color-light;
       padding: 10px;
-      position: relative;
+      position:relative;
       @media screen and (min-width: $mobile_width) {
         height: 350px;
       }
@@ -218,20 +218,6 @@
         &.title small {
           font-family: $font-text;
           font-weight: normal;
-        }
-
-        &.likes {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          & > span {
-            margin-right: 10px;
-          }
-
-          & > img {
-            cursor: pointer;
-            height: auto !important;
-          }
         }
       }
       img {
