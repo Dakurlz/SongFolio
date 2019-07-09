@@ -4,16 +4,13 @@ namespace Songfolio\Models;
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 use Songfolio\Core\View;
-use Songfolio\Models\Comments;
 
 class Contents extends BaseSQL
 {
-    private $comment;
 
     public function __construct($id = null)
     {
         parent::__construct($id);
-        $this->comment = new Comments();
     }
 
     public function customSet($attr, $value)
@@ -24,7 +21,7 @@ class Contents extends BaseSQL
     public static function getBySlug($slug)
     {
         $content = new Contents();
-        $content->getOneBy(['slug' => $slug, 'published' => 1 ], true);
+        $content->getOneBy(['slug' => $slug], true);
 
         if ($content->__get('id')) {
             return $content;
@@ -35,16 +32,10 @@ class Contents extends BaseSQL
 
     public function show()
     {
-        $view = new View("content", "front");
-        if($this->__get('comment_active') === '1'){
-            $comments = $this->comment->prepareComments('article',$this->__get('id'));
-            $view->assign('comments',$comments);
-        }
-
-        $view->assign('page_title', $this->__get('title'));
-        $view->assign('page_desc', $this->__get('description '));
-        $view->assign('content', $this);
-        // $view->
+        $v = new View("content", "front");
+        $v->assign('page_title', $this->__get('title'));
+        $v->assign('page_desc', $this->__get('description '));
+        $v->assign('content', $this);
     }
 
     public function content()
@@ -110,7 +101,7 @@ class Contents extends BaseSQL
                         "type" => "text",
                         "label" => "Titre",
                         "placeholder" => "Votre titre",
-                        "class" => "input-control target-elment-to-slug col-12 col-lg-5 col-md-5 col-sm-5",
+                        "class" => "input-control col-12 col-lg-4 col-md-4 col-sm-4",
                         "id" => "title",
                         "name" => "title",
                         "required" => true,
@@ -182,7 +173,7 @@ class Contents extends BaseSQL
                     "slug" => [
                         "type" => "slug",
                         "label" => "Lien permanent",
-                        "class" => "title-value-slug",
+                        "class" => "",
                         "presed" => $_SERVER['SERVER_NAME'],
                         "id" => "slug",
                         "name" => "slug",
@@ -216,8 +207,7 @@ class Contents extends BaseSQL
                     "method" => "POST",
                     "class" => "",
                     'header' => 'Modification du contenu',
-                    'action_type' => 'update',
-                    'current_object' => $this
+                    'action_type' => 'update'
 
                 ],
                 "btn" => [

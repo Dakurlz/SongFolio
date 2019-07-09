@@ -1,7 +1,6 @@
 <div class="create-events-page">
 
     <?php
-
         if (isset($alert)) $this->addModal('alert', $alert);
     ?>
 

@@ -1,165 +1,26 @@
 mapping_header_name:
   admin: Admin
-  article: Article
-  albums: Albums
   categories: Categories
   dashboard: Tableau de board
+  albums: Albumes
   comments: Commentaires
   users: Utilisateurs
   contents: Contenus
+  article: Article
   menus: Menus
   events: Événements
   settings: Paramètres
   roles: Rôles
-  songs: Morceau
 
 # SIDEBAR ITEMS
 sidebar_items:
   dashboard:
-    section: dashboard 
     name: Tableau de board
     slug:
       controller: Admin
       action: default
 
-  content_add:
-    name: Contenus
-    section: contents
-    slug:
-      controller: Contents
-      action: index
-
-    dropdown:
-      slugs:
-        content_add:
-          controller: Contents
-          action: createContents
-          label: Création du contenue
-
-        page_view:
-          controller: Contents
-          action: listesPages
-          label: Liste des pages
-
-        article_view:
-          controller: Contents
-          action: listesArticles
-          label: Liste des articles
-
-  user_view:
-    section: users
-    name: Utilisateurs
-    slug:
-      controller: Users
-      action: listUsers
-
-    dropdown:
-      slugs:
-        user_add:
-          controller: Users
-          action: createUsers
-          label: Ajouter un utilisateur
-
-  role_view:
-    name: Rôles
-    section: roles
-    slug:
-      controller: Admin
-      action: roles
-
-    dropdown:
-      slugs:
-        roles_add:
-          controller: Admin
-          action: roles
-          label: Liste des rôles
-
-        roles_list:
-          controller: Admin
-          action: rolesAdd
-          label: Ajouter un rôle
-
-  comment_perm:
-    name: Commentaires
-    section: comments
-    slug:
-      controller: Comments
-      action: listNotConfirm
-
-  categorie_view:
-    name: Categories
-    section: categories
-    slug:
-      controller: Categories
-      action: article
-
-    dropdown:
-      slugs:
-        album:
-          controller: Categories
-          action: album
-          label: Albume
-
-        article:
-          controller: Categories
-          action: article
-          label: Article
-
-        event:
-          controller: Categories
-          action: event
-          label: Événement
-
-  menus:
-    name: Menus
-    section: menus
-    slug:
-      controller: Menus
-      action: menus
-
-  event_view:
-    name: Événements
-    slug:
-      controller: Events
-      action: listEvents
-
-    dropdown:
-      slugs:
-        event_add:
-          controller: Events
-          action: createEvents
-          label: Création d'événement
-
-  album_perm:
-    name: Albums
-    section: albums
-    slug:
-      controller: Albums
-      action: listAlbums
-
-    dropdown:
-      slugs:
-        album_add:
-          controller: Albums
-          action: createAlbum
-          label: Ajouter un album
-
-  song_perm:
-    section: songs
-    name: Morceau
-    slug:
-      controller: Songs
-      action: listSongs
-
-    dropdown:
-      slugs:
-        album_add:
-          controller: Songs
-          action: create
-          label: Ajouter un morceau
-
   settings:
-    section: settings
     name: Paramètres
     slug:
       controller: Settings
@@ -186,3 +47,107 @@ sidebar_items:
           controller: Settings
           action: footer
           label: Footer
+
+  contents:
+    name: Contenus
+    slug:
+      controller: Contents
+      action: index
+
+    dropdown:
+      slugs:
+        content_add:
+          controller: Contents
+          action: createContents
+          label: Création du contenue
+
+        page_view:
+          controller: Contents
+          action: listesPages
+          label: Liste des pages
+
+        article_view:
+          controller: Contents
+          action: listesArticles
+          label: Liste des articles
+
+  users:
+    name: Utilisateurs
+    slug:
+      controller: Users
+      action: listUsers
+
+    dropdown:
+      slugs:
+        user_add:
+          controller: Users
+          action: createUsers
+          label: Ajouter un utilisateur
+
+  roles:
+    name: Rôles
+    slug:
+      controller: Admin
+      action: roles
+
+    dropdown:
+      slugs:
+        roles_add:
+          controller: Admin
+          action: roles
+          label: Liste des rôles
+
+        roles_list:
+          controller: Admin
+          action: rolesAdd
+          label: Ajouter un rôle
+
+  comments:
+    name: Commentaires
+    slug:
+      controller: Comments
+      action: listNotConfirm
+
+  categories:
+    name: Categories
+    slug:
+      controller: Categories
+      action: index
+
+    dropdown:
+      slugs:
+        album:
+          controller: Categories
+          action: album
+          label: Albume
+
+        article:
+          controller: Categories
+          action: article
+          label: Article
+
+        event:
+          controller: Categories
+          action: event
+          label: Événement
+
+  menus:
+    name: Menus
+    slug:
+      controller: Admin
+      action: menus
+
+  events:
+    name: Événements
+    slug:
+      controller: Events
+      action: listEvents
+
+    dropdown:
+      slugs:
+        event_add:
+          controller: Events
+          action: createEvents
+          label: Création d'événement
+
+

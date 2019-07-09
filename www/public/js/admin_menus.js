@@ -1,8 +1,6 @@
 $(function(){
 
     updateSortable();
-    updateMenuJson();
-
 
     $('#the-menu').on('click', '.del-menu-btn', function() {
         $(this).parents('li:first').remove();
@@ -38,14 +36,6 @@ function updateSortable(){
     });
     $(".sortable").on("sortstop", function(event, ui) {
         updateMenuJson();
-    });
-    $(".sortable").on("sortreceive", function(event, ui) {
-        if ($(this).parents("ul").parents("ul").length > 0) {
-            alert($(this).parents("ul").parents("ul").length);
-            //ui.sender: will cancel the change.
-            //Useful in the 'receive' callback.
-            $(ui.sender).sortable('cancel');
-        }
     });
 }
 

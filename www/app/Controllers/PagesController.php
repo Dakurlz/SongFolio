@@ -26,7 +26,7 @@ class PagesController{
     {
         $events = $this->event->getAllDataWithLimit(3);
         $categories = $this->category->getAllBy(['type' => 'event']);
-        $articles = $this->article->getAllBy(['type' => 'article', 'published'=> 1 ], ['orderBy' => 'date_create', 'orderTo' => 'DESC']);
+        $articles = $this->article->getAllBy(['type' => 'article'], ['orderBy' => 'date_create', 'orderTo' => 'DESC']);
         foreach ($events as $key => $event) {
             $events[$key]['type'] = Helper::searchInArray($categories, $event['type'], 'name');
         }

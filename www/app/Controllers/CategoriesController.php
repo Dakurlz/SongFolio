@@ -4,7 +4,9 @@ namespace Songfolio\Controllers;
 
 use Songfolio\Core\View;
 use Songfolio\Core\Validator;
+use Songfolio\Core\Helper;
 use Songfolio\Models\Categories;
+
 
 class CategoriesController
 {
@@ -22,17 +24,17 @@ class CategoriesController
 
     public function articleAction()
     {
-        self::renderCategoryView('article', self::push('article', 'create'));
+        self::renderCategoryView('article', self::push( 'article', 'create'));
     }
 
     public function albumAction()
     {
-        self::renderCategoryView('album', self::push('album', 'create'));
+        self::renderCategoryView('album', self::push( 'album', 'create'));
     }
 
     public function eventAction()
     {
-        self::renderCategoryView('event', self::push('event', 'create'));
+        self::renderCategoryView('event', self::push( 'event', 'create'));
     }
 
     /**
@@ -47,11 +49,11 @@ class CategoriesController
 
         if (isset($id)) {
             $this->category->delete(["id" => $id]);
-            $_SESSION['alert']['danger'][] = 'Categorie supprimé';
+            $alert = Helper::getAlertPropsByAction('delete', 'Categorie', true);
         } else {
-            $_SESSION['alert']['danger'][] = 'Une erreur se produit ...';
+            $alert = Helper::setAlertError('Une erreur se produit ...');
         };
-        self::renderCategoryView($type);
+        self::renderCategoryView($type, $alert);
     }
 
     public function updateAction()
@@ -59,33 +61,34 @@ class CategoriesController
         $id = $_REQUEST['id'] ?? '';
         $type = $_REQUEST['type'] ?? '';
         $configForm = self::getConfigForm($type, 'update');
-        $configForm['values'] = (array) $this->category->getOneBy(['id' => $id]);
+        $configForm['values'] = (array)$this->category->getOneBy(['id' => $id]);
         $view = new View("admin/categories/$type", 'back');
         $view->assign('configFormCategory', $configForm);
     }
 
     public function updateAlbumAction()
     {
-        self::renderCategoryView('album', self::push('album', 'update'));
+        self::renderCategoryView('album',self::push('album', 'update') );
     }
 
     public function updateArticleAction()
     {
-        self::renderCategoryView('article', self::push('article', 'update'));
+        self::renderCategoryView('article', self::push( 'article', 'update') );
     }
 
     public function updateEventAction()
     {
-        self::renderCategoryView('event', self::push('event', 'update'));
+        self::renderCategoryView('event',self::push('event', 'update') );
     }
 
     /**
      * @param $type
      * @param $alert
      */
-    private function renderCategoryView($type)
+    private function renderCategoryView($type, $alert)
     {
         $view = new View("admin/categories/$type", 'back');
+        if (!empty($alert)) $view->assign('alert', $alert);
         $view->assign('configFormCategory', self::getConfigForm($type, 'create'));
         $view->assign($type . 'Categories', $this->category->getAllBy(['type' => $type]));
     }
@@ -98,7 +101,7 @@ class CategoriesController
     private function getConfigForm(string $type, string $typeForm): array
     {
 
-        switch ($type) {
+        switch ($type){
             case 'album':
                 return $this->category->getFormAlbumCategories()[$typeForm];
                 break;
@@ -139,19 +142,12 @@ class CategoriesController
                 isset($_REQUEST['id']) ? $this->category->__set('id', $_REQUEST['id']) : null;
                 $this->category->__set('type', $type);
                 $this->category->save();
-
-
-                if ($configForm['config']['action_type'] === 'create') {
-                    $_SESSION['alert']['success'][] = 'Categorie créé';
-                } else {
-                    $_SESSION['alert']['info'][] = 'Categorie modifé';
-                }
+                return Helper::getAlertPropsByAction($action, 'Categorie', true);
             } else {
-                debug($errors);
-                if (empty($errors)) {
-                    $_SESSION['alert']['danger'][] = 'Categorie existe déjà';
+                if(empty($errors)){
+                    return Helper::setAlertError('Categorie existe déjà');
                 }
-                $_SESSION['alert']['danger'] = $errors;
+                return Helper::setAlertErrors($errors);
             }
         }
         return false;
