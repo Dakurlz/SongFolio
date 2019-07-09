@@ -1,37 +1,45 @@
 '/':
   controller: Pages
   action: default
+  needAuth: false
 
 '/contenu':
   controller: Pages
   action: content
+  needAuth: false
 
 
 # EVENTS FRONT 
 '/evenement':
   controller: Pages
   action: renderEventsPage
+  needAuth: false
 
 # USERS
 '/liste_des_utilisateurs':
   controller: Users
   action: default
+  needAuth: false
 
 '/creation_de_compte':
   controller: Users
   action: register
+  needAuth: false
 
 '/mot_de_passe_oublie':
   controller: Users
   action: forgetPassword
+  needAuth: false
 
 '/connexion':
   controller: Users
   action: login
+  needAuth: false
 
 '/login/oauth':
   controller: Users
   action: oauth
+  needAuth: false
 
 '/deconnexion':
   controller: Users
@@ -52,225 +60,289 @@
 '/admin':
   controller: Admin
   action: default
+  needAuth: true
 
 '/admin/users':
   controller: Admin
   action: loadUser
+  needAuth: true
 
 # ROLES
 '/admin/roles':
   controller: Admin
   action: roles
+  needAuth: true
+
+  
 '/admin/roles/add':
   controller: Admin
   action: rolesAdd
+  needAuth: true
+
 '/admin/roles/edit':
   controller: Admin
   action: rolesEdit
+  needAuth: true
+
 '/admin/roles/del':
   controller: Admin
   action: rolesDel
+  needAuth: true
 
 # MENUS #
 '/admin/menus':
   controller: Menus
   action: menus
+  needAuth: true
 
 '/admin/menus/add':
   controller: Menus
   action: menusAdd
+  needAuth: true
 
 '/admin/menus/edit':
   controller: Menus
   action: menusEdit
+  needAuth: true
 
 '/admin/menus/del':
   controller: Menus
   action: menusDel
+  needAuth: true
 
 # Albums
 '/admin/albums/create':
   controller: Albums
   action: createAlbum
+  needAuth: true
 
 '/admin/albums':
   controller: Albums
   action: listAlbums
+  needAuth: true
 
 '/admin/albums/update':
   controller: Albums
   action: update
+  needAuth: true
 
 '/admin/albums/update_album':
   controller: Albums
   action: updateAlbum
+  needAuth: true
 
 '/admin/albums/delete':
   controller: Albums
   action: delete
+  needAuth: true
 
 # Songs
 '/admin/songs':
   controller: Songs
   action: listSongs
+  needAuth: true
 
 '/admin/songs/create':
   controller: Songs
   action: create
+  needAuth: true
 
 '/admin/songs/delete':
   controller: Songs
   action: delete
+  needAuth: true
 
 '/admin/songs/update':
   controller: Songs
   action: update
+  needAuth: true
 
 '/admin/songs/update_song':
   controller: Songs
   action: updateSong
+  needAuth: true
 
 
 # Categories
 '/admin/categories/':
   controller: Categories
   action: index
+  needAuth: true
 
 '/admin/categories/article':
   controller: Categories
   action: article
+  needAuth: true
 
 '/admin/categories/album':
   controller: Categories
   action: album
+  needAuth: true
 
 '/admin/categories/event':
   controller: Categories
   action: event
+  needAuth: true
 
 '/admin/categories/delete':
   controller: Categories
   action: delete
+  needAuth: true
 
 '/admin/categories/update':
   controller: Categories
   action: update
+  needAuth: true
 
 '/admin/categories/album/update':
   controller: Categories
   action: updateAlbum
+  needAuth: true
 
 '/admin/categories/article/update':
   controller: Categories
   action: updateArticle
+  needAuth: true
 
 '/admin/categories/event/update':
   controller: Categories
   action: updateEvent
+  needAuth: true
 
 # CONTENTS
 '/admin/contents':
   controller: Contents
   action: index
+  needAuth: true
 
 '/admin/contents/create':
   controller: Contents
   action: createContents
+  needAuth: true
 
 '/admin/contents/pages':
   controller: Contents
   action: listesPages
+  needAuth: true
 
 '/admin/contents/articles':
   controller: Contents
   action: listesArticles
+  needAuth: true
 
 '/admin/contents/delete':
   controller: Contents
   action: delete
+  needAuth: true
 
 '/admin/contents/update':
   controller: Contents
   action: update
+  needAuth: true
 
 '/admin/contents/update_content':
   controller: Contents
   action: updateContent
+  needAuth: true
 
 # COMMENTS
 '/admin/comments':
   controller: Comments
   action: listNotConfirm
+  needAuth: true
 
 '/admin/comments/create':
   controller: Comments
   action: createComments
+  needAuth: true
 
 '/admin/comments/confirm':
   controller: Comments
   action: confirm
+  needAuth: true
 
 '/admin/comments/refuse':
   controller: Comments
   action: refuse
+  needAuth: true
 
 # Settings
 '/admin/settings':
   controller: Settings
   action: index
+  needAuth: true
+
 '/admin/settings/save':
   controller: Settings
   action: save
+  needAuth: true
+  
 '/admin/settings/config':
   controller: Settings
   action: config
+  needAuth: true
+
 '/admin/settings/template':
   controller: Settings
   action: template
+  needAuth: true
+  
 '/admin/settings/header':
   controller: Settings
   action: header
+  needAuth: true
+
 '/admin/settings/footer':
   controller: Settings
   action: footer
+  needAuth: true
 
 # EVENTS
 '/admin/events/create':
   controller: Events
   action: createEvents
+  needAuth: true
 
 '/admin/events/list':
   controller: Events
   action: listEvents
+  needAuth: true
 
 '/admin/events/delete':
   controller: Events
   action: delete
+  needAuth: true
 
 '/admin/events/update':
   controller: Events
   action: update
+  needAuth: true
 
 '/admin/events/update_event':
   controller: Events
   action: updateEvents
+  needAuth: true
 
 # USERS BACK
 '/admin/users/create':
   controller: Users
   action: createUsers
+  needAuth: true
 
 '/admin/users/list':
   controller: Users
   action: listUsers
+  needAuth: true
 
 '/admin/users/delete':
   controller: Users
   action: delete
+  needAuth: true
 
 '/admin/users/update':
   controller: Users
   action: update
+  needAuth: true
 
 
 # INSTALL
@@ -278,15 +350,22 @@
 '/install':
   controller: Install
   action: index
+  needAuth: false
+
 '/install/bdd':
   controller: Install
   action: bdd
+  needAuth: false
+
 '/install/config':
   controller: Install
   action: config
+  needAuth: false
+
 '/install/user':
   controller: Install
   action: user
+  needAuth: false
 
 
 # SITEMAP
@@ -294,3 +373,4 @@
 '/sitemap':
   controller: Sitemap
   action: default
+  needAuth: false

@@ -4,6 +4,8 @@ namespace Songfolio\Controllers;
 
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\View;
+use Songfolio\Core\Helper;
+use Songfolio\Core\Routing;
 
 class SitemapController extends BaseSQL
 {
@@ -20,6 +22,7 @@ class SitemapController extends BaseSQL
             $result = $this->prepareData($data);
             $allData = array_merge($allData, $result);
         }
+        $allData = array_merge($allData, $this->getPublicRoutes());
         $view = new View('sitemap', 'xml');
         $view->assign('data', $allData);
     }
@@ -34,6 +37,15 @@ class SitemapController extends BaseSQL
             }
         }
         return $data;
+    }
 
+    public function getPublicRoutes()
+    {
+        $routes = Routing::getRoutes();
+        $urls = [];
+        foreach ($routes as $key => $value) {
+            if (isset($value['needAuth']) ? !$value['needAuth'] : false) $urls[] = substr($key, 1);
+        }
+        return $urls;
     }
 }

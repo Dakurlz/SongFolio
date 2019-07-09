@@ -5,7 +5,6 @@ declare (strict_types = 1);
 namespace Songfolio\Core;
 
 use PDO;
-use LogicException;
 
 use Songfolio\Core\Helper;
 
