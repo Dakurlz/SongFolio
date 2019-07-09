@@ -43,7 +43,7 @@ class EventsController
         $configForm['values']['end_time'] = date('H:i', strtotime($configForm['values']['end_date']));
         $categories = $this->category->getAllBy(['type' => 'event']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
-        self::renderEventsView( $configForm);
+        self::renderEventsView($configForm);
     }
 
 
@@ -78,7 +78,7 @@ class EventsController
         $view->assign('categories', $this->category->getAllBy(['type' => 'event']));
     }
 
-    public function renderEventsView( array $configForm)
+    public function renderEventsView(array $configForm)
     {
         $view = new View('admin/events/create', 'back');
         $view->assign('configFormEvent', $configForm);
@@ -135,8 +135,10 @@ class EventsController
 
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] = 'Événement créé';
+                } else {
+
+                    $_SESSION['alert']['info'][] = 'Événement modifé';
                 }
-                $_SESSION['alert']['info'][] = 'Événement modifé';
             } else {
 
                 if (empty($errors)) {
