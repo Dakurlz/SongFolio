@@ -43,8 +43,10 @@ class EventsController
         $configForm['values']['end_time'] = date('H:i', strtotime($configForm['values']['end_date']));
         $categories = $this->category->getAllBy(['type'=>'event']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
-        self::renderEventsView(null, $configForm);
-     }
+
+        self::renderEventsView($configForm);
+    }
+
 
      
     public function updateEventsAction()
@@ -79,7 +81,9 @@ class EventsController
         if (!empty($alert)) $view->assign('alert', $alert);
     }
 
-    public function renderEventsView($alert, array $configForm)
+
+    public function renderEventsView(array $configForm)
+
     {
         $view = new View('admin/events/create', 'back');
         if (!empty($alert)) $view->assign('alert', $alert);
@@ -126,7 +130,14 @@ class EventsController
                 $this->event->__set('postal_code', $data['postal_code']);
                 $this->event->save();
 
-                return Helper::getAlertPropsByAction($action, 'Événement', false);
+
+                if ($configForm['config']['action_type'] === 'create') {
+                    $_SESSION['alert']['success'][] = 'Événement créé';
+                } else {
+
+                    $_SESSION['alert']['info'][] = 'Événement modifé';
+                }
+              
             } else {
                 if (empty($errors)) {
                     return Helper::setAlertError('Événement existe déjà');

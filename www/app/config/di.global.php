@@ -16,6 +16,13 @@ use Songfolio\Models\Comments;
 use Songfolio\Models\Events;
 use Songfolio\Models\Roles;
 
+use Songfolio\Models\Albums;
+use Songfolio\Models\Songs;
+use Songfolio\Models\Menus;
+use Songfolio\Core\Install;
+use Songfolio\Controllers\SitemapController;
+
+
 return [
     Users::class => function ($container) {
         return new Users();
@@ -34,6 +41,19 @@ return [
     },
     Events::class => function ($container) {
         return new Events();
+    },
+
+    Albums::class => function ($container) {
+        return new Albums();
+    },
+    Menus::class => function ($container){
+        return new Menus();
+    },
+    Install::class => function ($container){
+        return new Install();
+    },
+    SitemapController::class => function ($container) {
+        return new SitemapController();
     },
     UsersController::class => function ($container) {
         $usersModel = $container[Users::class]($container);

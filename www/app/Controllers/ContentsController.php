@@ -142,6 +142,17 @@ class ContentsController
                 $this->contents->save();
 
 
+                if ($configForm['config']['action_type'] === 'create') {
+                    $_SESSION['alert']['success'][] =  $typeName . ' créé';
+                } else {
+
+                    $_SESSION['alert']['info'][] =  $typeName . ' modifé';
+                }
+            } else {
+                if (empty($errors)) {
+                    $_SESSION['alert']['danger'][] = $typeName . ' existe déjà';
+                } else {
+
                 return Helper::getAlertPropsByAction($action, $typeName, $data['type'] === 'article' ? false : true);
             } else {
                 if(empty($errors)){

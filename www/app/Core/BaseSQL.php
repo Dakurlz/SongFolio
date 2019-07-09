@@ -5,8 +5,10 @@ declare (strict_types = 1);
 namespace Songfolio\Core;
 
 use PDO;
-use LogicException;
+
 use Songfolio\Core\View;
+
+use Songfolio\Core\Helper;
 
 
 class BaseSQL
@@ -173,7 +175,7 @@ class BaseSQL
             return $this->data;
             //$query->setFetchMode(\PDO::FETCH_INTO, $this);
         } else {
-            $query->setFetchMode(\PDO::FETCH_ASSOC);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
         }
 
         return $query->fetch();
@@ -213,6 +215,41 @@ class BaseSQL
         $query->execute($where);
 
         return $query->fetch();
+    }
+
+    public function getCustom(string $str,array $where)
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
+        $query = $this->pdo->prepare($sql);
+
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetchAll();
+    }
+
+    public function getCustomWithoutWhere(string $str)
+    {
+        $sql =  $str. ";";
+        $query = $this->pdo->prepare($sql);
+
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
+    public function getByCustomClass(string $str,array $where, string $class)
+    {
+        $sqlWhere = $this->sqlWhere($where);
+        $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
+        $query = $this->pdo->prepare($sql);
+
+        // $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($where);
+
+        return $query->fetchObject($class);
     }
 
     public function getColumns()
