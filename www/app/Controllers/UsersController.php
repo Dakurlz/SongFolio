@@ -80,6 +80,10 @@ class UsersController
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
+                $user = new Users(["email" => $data["email"]]);
+                if ($user->__get('id')==true) {
+                    var_dump("L'email est déjà utilisé.");
+                }
 
                 if (empty($configForm["errors"])) {
                     $this->user->__set('username', $data["username"]);
@@ -184,22 +188,14 @@ class UsersController
 
                // $mail->SMTPDebug = 3;                               // Enable verbose debug output
 
-                $mail->isSMTP();                                      // Set mailer to use SMTP
-                $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+                $mail->isSMTP();                                      // Set mailer to u=$mail->Host = SMTP_HOST;  // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                $mail->Username = 'songfolioweb@gmail.com';                 // SMTP username
-                $mail->Password = 'Followthesong';                           // SMTP password
-                $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-                $mail->Port = 465;                                    // TCP port to connect to
 
-                $mail->setFrom('from@example.com', 'Mailer');
                 $mail->addAddress($user->__get('email'));     // Add a recipient
                 $mail->addAddress('gatay.bryan@gmail.com');
                 $mail->isHTML(true);                                  // Set email format to HTML
-
                 $mail->Subject = 'Here is the subject';
                 $mail->Body    = "Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. http://localhost/changer_mot_de_passe?t=$token";
-                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
                 if(!$mail->send()) {
                     echo 'Message could not be sent.';

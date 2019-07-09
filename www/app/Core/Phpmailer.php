@@ -229,14 +229,14 @@ class PHPMailer
      * Hosts will be tried in order.
      * @var string
      */
-    public $Host = 'localhost';
+    public $Host = SMTP_HOST;
 
     /**
      * The default SMTP server port.
      * @var integer
      * @TODO Why is this needed when the SMTP class takes care of it?
      */
-    public $Port = 25;
+    public $Port =  Port;
 
     /**
      * The SMTP HELO of the message.
@@ -252,7 +252,7 @@ class PHPMailer
      * Options: '', 'ssl' or 'tls'
      * @var string
      */
-    public $SMTPSecure = '';
+    public $SMTPSecure = SMTPSecure;
 
     /**
      * Whether to enable TLS encryption automatically if a server supports it,
@@ -281,13 +281,13 @@ class PHPMailer
      * SMTP username.
      * @var string
      */
-    public $Username = '';
+    public $Username = Username_Mail;
 
     /**
      * SMTP password.
      * @var string
      */
-    public $Password = '';
+    public $Password = Pwd_mail;
 
     /**
      * SMTP auth type.
