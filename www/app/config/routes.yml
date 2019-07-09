@@ -287,3 +287,10 @@
 '/install/user':
   controller: Install
   action: user
+
+
+# SITEMAP
+
+'/sitemap':
+  controller: Sitemap
+  action: default

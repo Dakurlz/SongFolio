@@ -146,8 +146,10 @@ class ContentsController
 
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] =  $typeName . ' créé';
+                } else {
+
+                    $_SESSION['alert']['info'][] =  $typeName . ' modifé';
                 }
-                $_SESSION['alert']['info'][] =  $typeName . ' modifé';
             } else {
                 if (empty($errors)) {
                     $_SESSION['alert']['danger'][] = $typeName . ' existe déjà';
