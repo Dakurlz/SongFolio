@@ -15,6 +15,9 @@ use \Songfolio\Models\Menus;
 
     <!--Main css -->
     <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>">
+    <?php if(file_exists('public/css/generated.css')): ?>
+        <link rel="stylesheet" href="<?php echo BASE_URL."public/css/generated.css?v=".filemtime("public/css/generated.css" ); ?>">
+    <?php endif; ?>
 </head>
 <body id="front-body">
     <header>
@@ -91,6 +94,8 @@ use \Songfolio\Models\Menus;
     <button type="button" id="gototop" class="hide"></button>
 
     <main>
+        <?php $this->addModal("session_alert"); ?>
+
         <?php
         include $this->view_path;
         ?>

@@ -1,6 +1,7 @@
 <?php
 use Songfolio\Core\Routing;
 use Songfolio\Core\Helper;
+use Songfolio\Models\Users;
 
 ?>
 
@@ -53,8 +54,11 @@ use Songfolio\Core\Helper;
                         </td>
              
                         <td class="icn"><button style="background: transparent; border: transparent" role="button" modal="menu-<?= $event['id'] ?>-modal"><i class="icon icon-contents"></i></button></td>
-                        <td class="icn"><a href='<?= Routing::getSlug("Events", "update") . "?id=" . $event['id']?>'><i class="icon icon-edit"></i></a></td>
-                        <td class="icn"><a href='<?= Routing::getSlug("Events", "delete") . "?id=" . $event['id'] ?>'><i class="icon icon-delete"></i></a></td>
+                        <?php if( Users::hasPermission('event_edit') ): ?>
+                            <td class="icn"><a href='<?= Routing::getSlug("Events", "update") . "?id=" . $event['id']?>'><i class="icon icon-edit"></i></a></td>
+                        <?php endif; if( Users::hasPermission('event_del') ): ?>
+                            <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Events", "delete") . "?id=" . $event['id'] ?>'></a></td>
+                        <?php endif; ?>
                     </tr>
 
                     <div id="menu-<?= $event['id'] ?>-modal" class="modal">

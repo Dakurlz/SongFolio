@@ -1,6 +1,7 @@
 <?php
 
 namespace Songfolio\Models;
+
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 use Songfolio\Core\View;
@@ -20,19 +21,6 @@ class Events extends BaseSQL
         $this->__set('type', Helper::searchInArray($categories, $this->__get('type'), 'name'));
         $v->assign('event', $this);
     }
-
-    public static function getBySlug($slug)
-    {
-        $event = new Events();
-        $event->getOneBy(['slug' => $slug], true);
-
-        if ($event->__get('id')) {
-            return $event;
-        }
-
-        return false;
-    }
-
 
 
     public function getFormEvents(): array
@@ -67,7 +55,7 @@ class Events extends BaseSQL
                         'minlength' => 2,
                         'maxlength' => 200,
                         'error' => 'Votre titre doit faire entre 2 et 200 caractères',
-                        "class" => "input-control col-lg-5 col-md-5 col-sm-5 col-12",
+                        "class" => "input-control target-elment-to-slug col-lg-5 col-md-5 col-sm-5 col-12",
 
                     ],
                     "category" => [
@@ -109,7 +97,7 @@ class Events extends BaseSQL
                     'end_row_start_date' => [
                         'type' => 'end_row'
                     ],
-                    
+
                     'start_row_end_date' => [
                         'type' => 'start_row'
                     ],
@@ -148,19 +136,6 @@ class Events extends BaseSQL
                         "placeholder" => "",
                         "required" => true,
                         "error" => ""
-                    ],
-                    "slug" => [
-                        "type" => "slug",
-                        "label" => "Lien permanent",
-                        "class" => "",
-                        "presed" => $_SERVER['SERVER_NAME'],
-                        "id" => "slug",
-                        "name" => "slug",
-                        "placeholder" => "",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
                     ],
                     'rate' => [
                         'type' => 'number',
@@ -205,7 +180,33 @@ class Events extends BaseSQL
                         'name' => 'city',
                         'required' => true,
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                    ]
+                    ],
+                    "separator2" => [
+                        "type" => "separator",
+                        "after_title" => "SEO"
+                    ],
+                    "slug" => [
+                        "type" => "slug",
+                        "label" => "Lien permanent",
+                        "class" => "title-value-slug",
+                        "presed" => $_SERVER['SERVER_NAME'],
+                        "id" => "slug",
+                        "name" => "slug",
+                        "placeholder" => "",
+                        "required" => true,
+                        "minlength" => 2,
+                        "maxlength" => 100,
+                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                    ],
+                    "description" => [
+                        "type" => "textarea",
+                        "label" => "Description",
+                        "id" => "description",
+                        "name" => "description",
+                        "placeholder" => "",
+                        "required" => true,
+                        "error" => ""
+                    ],
                 ]
             ],
             'update' => [
@@ -213,7 +214,8 @@ class Events extends BaseSQL
                     "action" => Routing::getSlug("Events", "updateEvents"),
                     "method" => "POST",
                     'header' => 'Modifi l\'évènement',
-                    'action_type' => 'update'
+                    'action_type' => 'update',
+                    'current_object' => $this
                 ],
                 "btn" => [
                     "submit" => [
@@ -279,7 +281,7 @@ class Events extends BaseSQL
                     'end_row_start_date' => [
                         'type' => 'end_row'
                     ],
-                    
+
                     'start_row_end_date' => [
                         'type' => 'start_row'
                     ],
@@ -355,10 +357,35 @@ class Events extends BaseSQL
                         'name' => 'city',
                         'required' => true,
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                    ]
+                    ],
+                    "separator2" => [
+                        "type" => "separator",
+                        "after_title" => "SEO"
+                    ],
+                    "slug" => [
+                        "type" => "slug",
+                        "label" => "Lien permanent",
+                        "class" => "",
+                        "presed" => $_SERVER['SERVER_NAME'],
+                        "id" => "slug",
+                        "name" => "slug",
+                        "placeholder" => "",
+                        "required" => true,
+                        "minlength" => 2,
+                        "maxlength" => 100,
+                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                    ],
+                    "description" => [
+                        "type" => "textarea",
+                        "label" => "Description",
+                        "id" => "description",
+                        "name" => "description",
+                        "placeholder" => "",
+                        "required" => true,
+                        "error" => ""
+                    ],
                 ]
             ]
         ];
     }
-
 }

@@ -28,10 +28,14 @@
 @import "components/inputfile";
 @import "pages/stats/block.scss";
 @import "components/datetime";
+@import "components/icons";
+
+@import "components/comment_section";
 
 // Templates
 @import "templates/front"; 
 @import "templates/back";
+@import "templates/install";
 
 // pages
 @import "pages/home";

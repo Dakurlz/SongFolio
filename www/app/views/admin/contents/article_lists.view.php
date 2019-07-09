@@ -79,7 +79,7 @@ use Songfolio\Models\Users;
                 <?php if( Users::hasPermission('content_edit') ): ?>
                     <td class="icn"><a href='<?= Routing::getSlug("Contents", "update") . "?id=" . $articl['id']?>'><i class="icon icon-edit"></i></a></td>
                 <?php endif; if( Users::hasPermission('content_del') ): ?>
-                    <td class="icn"><a href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $articl['id']."&type=article"?>'><i class="icon icon-delete"></i></a></td>
+                    <td class="icn"><a class="cross cross-red" href='<?= Routing::getSlug("Contents", "delete") . "?id=" . $articl['id']."&type=article"?>'></a></td>
                 <?php endif; ?>
 
             </tr>
