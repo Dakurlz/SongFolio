@@ -154,6 +154,18 @@ CREATE TABLE `Permissions` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `Likes`
+--
+
+CREATE TABLE `Likes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
 -- Structure de la table `Roles`
 --
 
