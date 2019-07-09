@@ -1,0 +1,34 @@
+%text_font_css%
+%title_font_css%
+
+body{
+    color: %text_color%!important;
+    font-family: %text_font_name%!important;
+}
+
+h1, h2, h3, h4, h5{
+    color: %title_color%!important;
+    font-family: %title_font_name%!important;
+}
+
+main a:not(.btn){
+    color: %link_color%!important;
+}
+
+
+header{
+    background: %header_background%!important;
+}
+header a{
+    color: %header_link_color%!important;
+}
+
+footer{
+    background: %footer_background%!important;
+}
+footer a{
+    color: %footer_link_color%!important;
+}
+footer h1, footer h2, footer h3, footer h4, footer h5{
+    color: %footer_title_color%!important;
+}

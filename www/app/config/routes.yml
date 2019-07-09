@@ -36,7 +36,6 @@
   action: login
   needAuth: false
 
-
 '/login/oauth':
   controller: Users
   action: oauth
@@ -61,36 +60,17 @@
 '/admin':
   controller: Admin
   action: default
-  needGroups: admin
   needAuth: true
 
 '/admin/users':
   controller: Admin
   action: loadUser
-  needGroups: admin
   needAuth: true
-
 
 # ROLES
 '/admin/roles':
   controller: Admin
   action: roles
-  needGroups: admin
-  
-'/admin/roles/add':
-  controller: Admin
-  action: rolesAdd
-  needGroups: admin
-  
-'/admin/roles/edit':
-  controller: Admin
-  action: rolesEdit
-  needGroups: admin
-  
-'/admin/roles/del':
-  controller: Admin
-  action: rolesDel
-  needGroups: admin
   needAuth: true
 
   
@@ -109,33 +89,25 @@
   action: rolesDel
   needAuth: true
 
+# MENUS #
 '/admin/menus':
-  controller: Admin
+  controller: Menus
   action: menus
-  needGroups: admin
   needAuth: true
 
 '/admin/menus/add':
-  controller: Admin
+  controller: Menus
   action: menusAdd
-  needGroups: admin
   needAuth: true
 
 '/admin/menus/edit':
-  controller: Admin
+  controller: Menus
   action: menusEdit
-  needGroups: admin
   needAuth: true
 
 '/admin/menus/del':
-  controller: Admin
+  controller: Menus
   action: menusDel
-  needGroups: admin
-  needAuth: true
-  
-'/admin/albums':
-  controller: Admin
-  action: loadAlbum
   needAuth: true
 
 # Albums
@@ -189,6 +161,7 @@
   controller: Songs
   action: updateSong
   needAuth: true
+
 
 # Categories
 '/admin/categories/':
@@ -371,10 +344,6 @@
   action: update
   needAuth: true
 
-'/admin/users/update_user':
-  controller: Users
-  action: updateUsers
-  needAuth: true
 
 # INSTALL
 

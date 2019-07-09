@@ -6,15 +6,13 @@ namespace Songfolio\Core;
 
 use PDO;
 
-use Songfolio\Core\View;
-
 use Songfolio\Core\Helper;
 
 
 class BaseSQL
 {
-
     private $pdo;
+    static private $pdoSingleton;
     private $table;
     private $data = [];
 
@@ -22,10 +20,16 @@ class BaseSQL
     {
         // Avec un singleton c'est mieux
         try {
-            $this->pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME, DBUSER, DBPASSWORD);
+            if(is_null(self::$pdoSingleton)) {
+                self::$pdoSingleton = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
+            }
+            $this->pdo = self::$pdoSingleton;
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (LogicException $e) {
-            View::show404("Erreur SQL : " . $e->getMessage());
+        } catch (\PDOException $e) {
+            if(Helper::isCmsInstalled()){
+                echo "Erreur SQL : " . $e->getMessage();
+            }
+            return;
         }
 
         $this->table = Helper::getCalledClass(get_called_class());
@@ -37,6 +41,15 @@ class BaseSQL
         else if (!empty($initIdOrSearch))
         {
             $this->getOneBy(["id" => $initIdOrSearch], true);
+        }
+    }
+
+    public static function tryConnection(array $dbInfos){
+        try {
+            self::$pdoSingleton = new PDO("mysql:host=" . $dbInfos['db_host'] . ";dbname=" . $dbInfos['db_name'], $dbInfos['db_user'], $dbInfos['db_password']);
+            return true;
+        } catch (\PDOException $e) {
+            return false;
         }
     }
 
@@ -88,6 +101,8 @@ class BaseSQL
         } else {
             $this->data[$attr] = $value;
         }
+
+        return $this;
     }
 
     public function save(): void
@@ -99,6 +114,7 @@ class BaseSQL
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") VALUES (:" . implode(",:", array_keys($columns)) . ")";
             $query = $this->pdo->prepare($sql);
             $query->execute($columns);
+
 
             $this->data['id'] = $this->pdo->lastInsertId($this->table);
         } else {
