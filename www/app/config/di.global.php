@@ -24,6 +24,7 @@ use Songfolio\Models\Albums;
 use Songfolio\Models\Songs;
 use Songfolio\Models\Menus;
 use Songfolio\Core\Install;
+use Songfolio\Controllers\SitemapController;
 use Songfolio\Models\Likes;
 
 return [
@@ -59,6 +60,9 @@ return [
     },
     Install::class => function ($container) {
         return new Install();
+    },
+    SitemapController::class => function ($container) {
+        return new SitemapController();
     },
     UsersController::class => function ($container) {
         $usersModel = $container[Users::class]($container);
