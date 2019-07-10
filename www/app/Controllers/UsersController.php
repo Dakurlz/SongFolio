@@ -82,16 +82,22 @@ class UsersController
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
                 $user = new Users(["email" => $data["email"]]);
-                if ($user->__get('id')==true) {
-                    var_dump("L'email est déjà utilisé.");
-                }
-
-                if (empty($configForm["errors"])) {
-                    $this->user->__set('first_name', $data["first_name"]);
-                    $this->user->__set('last_name', $data["last_name"]);
-                    $this->user->__set('email', $data["email"]);
-                    $this->user->__set('password', $data["password"]);
-                    $this->user->save();
+                if ($this->checkUser($data['email'])) {
+                    $_SESSION['alert']['danger'][] = "L'adresse mail entré correspond déjà à un compte existant compte.";
+                } else {
+                    if (empty($configForm["errors"])) {
+                        $this->user->__set('first_name', $data["first_name"]);
+                        $this->user->__set('last_name', $data["last_name"]);
+                        $this->user->__set('email', $data["email"]);
+                        $this->user->__set('password', $data["password"]);
+                        $this->user->save();
+                        $_SESSION['alert']['success'][] = 'Votre compte à bien été créer.';
+                        header('Location: ' . Routing::getSlug("users", "login"));
+                    } else {
+                        foreach ($configForm["errors"] as $error) {
+                            $_SESSION['alert']['danger'][] = $error;
+                        }
+                    }
                 }
             }
         }
@@ -129,32 +135,33 @@ class UsersController
         if ($this->user->is('connected')) {
             header('Location: ' . Routing::getSlug('users', 'dashboard'));
         }
-
         $user = new Users();
         $configForm = $user->getFormLogin();
-
         if (!empty($_POST)) {
-           
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
-
             if ($_SERVER["REQUEST_METHOD"] == $method && !empty($data)) {
                 $validator = new Validator($configForm, $data);
                 $configForm["errors"] = $validator->getErrors();
                 if(empty($configForm["errors"])) {
-                    if ($user->getOneBy(['email' => $data['email']], true) && password_verify($data['password'], $user->__get('password'))) {
-
-                        $user->setLoginToken();
-
-                        if (isset($_GET['redirect'])) {
+                    if($this->checkUser($data['email'])){
+                        if ($user->getOneBy(['email' => $data['email']], true) && password_verify($data['password'], $user->__get('password'))) {
+                            $user->setLoginToken();
+                            if (isset($_GET['redirect'])) {
                                 $redirect = htmlspecialchars(urldecode($_GET['redirect']));
                                 header('Location: ' . $redirect);
                                 exit;
+                            }
+                            header('Location: ' . Routing::getSlug("users", "dashboard"));
+                        } else {
+                            $_SESSION['alert']['danger'][] = "Le mot de passe entré est incorrect.";
                         }
-
-                        header('Location: ' . Routing::getSlug("users", "dashboard"));
-                    } else {
-                        $configForm["errors"][] = "Incorrect";
+                    }else{
+                        $_SESSION['alert']['danger'][] = "L'adresse mail entré ne correspond à aucun compte.";
+                    }
+                }else{
+                    foreach ($configForm["errors"] as $error) {
+                        $_SESSION['alert']['danger'][] = $error;
                     }
                 }
             }
@@ -166,13 +173,20 @@ class UsersController
         $v->assign("configFormLogin", $configForm);
         $v->assign("sdk", $sdk);
     }
+    public function checkUser($mail){
+        $user = new Users(["email" => $mail]);
+        if($user->__get('id')==true){
+           return true;
+        }else{
+          return false;
+        }
 
+    }
     public function logoutAction(): void
     {
         unset($_SESSION['user']);
         setcookie('token', '', -1, '/');
         $_SESSION['alert']['success'][] = 'Vous avez été correctement déconnecté.';
-
         header('Location: ' . Routing::getSlug("users", "login"));
     }
 

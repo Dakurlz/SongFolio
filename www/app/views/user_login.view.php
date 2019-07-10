@@ -18,7 +18,7 @@ use Songfolio\Core\Routing;
         </div>
     <?php endif; ?>
     <div class="text-center">
-        <a href="<?php echo Routing::getSlug("users","register");?>">Register</a>
-        <a href="<?php echo Routing::getSlug("users","forgetPassword");?>">Forgot Password?</a>
+        <a href="<?php echo Routing::getSlug("users","register");?>">Créer un compte</a> |
+        <a href="<?php echo Routing::getSlug("users","forgetPassword");?>">Mot de passe oubliée ?</a>
     </div>
 </div>
