@@ -27,6 +27,11 @@ class Routing
         return false;
     }
 
+    public static function getRoutes()
+    {
+        return yaml_parse_file('app/config/routes.yml');
+    }
+
     /**
      * @param Users $user
      * @return array

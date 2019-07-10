@@ -43,7 +43,7 @@ class EventsController
         $configForm['values']['end_time'] = date('H:i', strtotime($configForm['values']['end_date']));
         $categories = $this->category->getAllBy(['type' => 'event']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
-        self::renderEventsView( $configForm);
+        self::renderEventsView($configForm);
     }
 
 
@@ -78,7 +78,7 @@ class EventsController
         $view->assign('categories', $this->category->getAllBy(['type' => 'event']));
     }
 
-    public function renderEventsView( array $configForm)
+    public function renderEventsView(array $configForm)
     {
         $view = new View('admin/events/create', 'back');
         $view->assign('configFormEvent', $configForm);
@@ -114,17 +114,17 @@ class EventsController
                 $this->event->__set('start_date', $timestamp_start_date);
                 $this->event->__set('end_date', $timestamp_end_date);
                 isset($fileName) ? $this->event->__set('img_dir', $fileName) : null;
+              
                 $this->event->__set('details', trim($data['details']));
                 $this->event->__set('rate', (float) $data['rate']);
                 $this->event->__set('nbr_place', (int) $data['nbr_place']);
                 $this->event->__set('ticketing', trim($data['ticketing']));
 
-
-
                 // ADDRESS
                 $this->event->__set('address', $data['address']);
                 $this->event->__set('city', $data['city']);
                 $this->event->__set('postal_code', $data['postal_code']);
+
 
                 //  SEO
                 $this->event->__set('slug',  $data['slug']);
@@ -135,8 +135,10 @@ class EventsController
 
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] = 'Événement créé';
+                } else {
+
+                    $_SESSION['alert']['info'][] = 'Événement modifé';
                 }
-                $_SESSION['alert']['info'][] = 'Événement modifé';
             } else {
 
                 if (empty($errors)) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  jeu. 30 mai 2019 à 12:56
+-- Généré le :  mar. 09 juil. 2019 à 21:50
 -- Version du serveur :  5.7.25
 -- Version de PHP :  7.2.14
 
@@ -32,13 +32,23 @@ CREATE TABLE `Albums` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
-  `slug` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `date_published` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover` varchar(255) NOT NULL,
+  `cover_dir` varchar(255) DEFAULT NULL,
   `deezer` varchar(100) DEFAULT NULL,
   `spotify` varchar(100) DEFAULT NULL,
-  `likes` int(11) NOT NULL
+  `likes` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `comment_active` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Albums`
+--
+
+INSERT INTO `Albums` (`id`, `title`, `description`, `slug`, `date_published`, `cover_dir`, `deezer`, `spotify`, `likes`, `category_id`, `comment_active`) VALUES
+(1, '?', 'qsdqsdfsdf', '?', '2019-07-07 12:41:17', 'public/uploads/albums/screeshot7.jpg', '', '', NULL, 1, 1),
+(2, '17 cent', 'qsdqdq', '17-cent', '2019-07-07 16:11:43', 'public/uploads/albums/futurama-fr-memologie-2011.jpg', 'https://www.deezer.com/fr/playlist/3540765226', 'https://open.spotify.com/artist/4cOnXPSZlgiY4NkRws9KPa', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -58,13 +68,10 @@ CREATE TABLE `Categories` (
 --
 
 INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
-(44, 'categ_1', 'categ_1', 'article'),
-(45, 'categ_2', 'categ_2', 'article'),
-(46, 'Concert', NULL, 'event'),
-(47, 'Festival', NULL, 'event'),
-(48, 'sdfsdf', NULL, 'album'),
-(49, 'sdfsdfsdfsdfqsdddddddddddd', NULL, 'article'),
-(51, 'aaaa', NULL, 'album');
+(1, 'Hip-hop', NULL, 'album'),
+(2, 'Adventure', NULL, 'article'),
+(3, 'Festival', NULL, 'event'),
+(4, 'Concert', NULL, 'event');
 
 -- --------------------------------------------------------
 
@@ -74,21 +81,13 @@ INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
 
 CREATE TABLE `Comments` (
   `id` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `typeId` int(11) NOT NULL,
-  `confirm` tinyint(1) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL,
+  `confirm` tinyint(1) NOT NULL DEFAULT '0',
   `message` longtext CHARACTER SET utf8 NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `like` int(11) NOT NULL,
   `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `Comments`
---
-
-INSERT INTO `Comments` (`id`, `user`, `typeId`, `confirm`, `message`, `date_created`, `like`, `type`) VALUES
-(1, 1, 19, 0, 'un comment ', '2019-05-04 23:16:43', 0, 'article');
 
 -- --------------------------------------------------------
 
@@ -118,11 +117,8 @@ CREATE TABLE `Contents` (
 --
 
 INSERT INTO `Contents` (`id`, `type`, `slug`, `category_id`, `title`, `description`, `content`, `date_create`, `date_edit`, `author`, `img_dir`, `published`, `comment_active`, `indexed`) VALUES
-(20, 'article', 'test', 44, 'Comment faife le *****', 'my seo description', '<p>sdfsdfsdfsd</p>\r\n\r\n<p>sdfsdf<img alt=\"heart\" src=\"https://cdn.ckeditor.com/4.11.3/full/plugins/smiley/images/heart.png\" style=\"height:20px; width:20px\" title=\"heart\" /></p>\r\n\r\n<p><strong>fsd<span style=\"font-family:Arial,Helvetica,sans-serif\">&nbsp;sfdfsfs</span></strong></p>\r\n\r\n<p><strong><span style=\"font-family:Arial,Helvetica,sans-serif\">je croi pas mais quan mem&nbsp;</span></strong></p>', '2019-05-08 13:19:58', NULL, 1, 'public/uploads/contents/screeshot7.jpg', 1, 1, 0),
-(27, 'article', 'lolol', 45, 'xcvxvc', 'cxvxv', '<p>fghdgdfg</p>', '2019-05-08 15:40:32', '2019-05-08 17:21:35', 1, 'public/uploads/contents/Screenshot_8.png', 1, 0, 1),
-(28, 'page', 'page', NULL, 'Pge test', 'cvxcvbx', '<p>zerzerze</p>\r\n\r\n<p>zer</p>\r\n\r\n<p>ze</p>\r\n\r\n<p>rs</p>\r\n\r\n<p>dfs</p>', '2019-05-08 17:30:21', '2019-05-08 17:33:39', 1, 'public/uploads/contents/screeshot7.jpg', 1, 0, 1),
-(29, 'page', 'aaa', NULL, 'ayu', 'aaa', 'sdfsdf', '2019-05-16 19:10:53', NULL, 1, NULL, 1, 0, 0),
-(30, 'page', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, 'aaaaaaaaaaaaaaaaa', 'aaa', 'sdfsdf', '2019-05-16 19:11:18', NULL, 1, NULL, 1, 0, 0);
+(1, 'page', 'info', NULL, 'info', 'thththyhytyhth', '<p>tests de my page&nbsp;</p>', '2019-07-07 18:07:16', NULL, 6, 'Format n\'est pas bon.', 1, 0, 1),
+(2, 'article', 'mo-article-de-test', 2, 'mo article de test', 'qsdqsdsd', '<p>qsdqsdqsdqsdqs</p>', '2019-07-09 18:50:00', NULL, 6, 'public/uploads/contents/screeshot7.jpg', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -154,21 +150,29 @@ CREATE TABLE `Events` (
 --
 
 INSERT INTO `Events` (`id`, `displayName`, `type`, `status`, `start_date`, `end_date`, `img_dir`, `details`, `rate`, `nbr_place`, `address`, `city`, `postal_code`, `slug`, `description`, `ticketing`) VALUES
-(1, 'un nouveau events ', '46', 'ok', '2019-05-15 00:56:00', '2019-05-18 01:58:00', 'public/uploads/events/screeshot7.jpg', '    qdqsdqsdqsdqd', 123, 400, '15 rue du Docteur Pesque', 'Aubervilliers', '93300', 'event1', 'aeae', 'https://www.billetweb.fr/apocalypse-caf&src=agenda'),
-(2, 'un nouveau events 2', '47', 'ok', '2019-05-14 22:59:00', '2019-05-07 00:59:00', 'public/uploads/events/Screenshot_7.png', 'this is my description blaaaa', 92, 360, '15 rue du Docteur Pesque', 'Aubervilliers', '93300', 'event2', 'azeaze', 'https://www.billetweb.fr/apocalypse-caf&src=agenda'),
-(3, 'qsd qsd qs q d', '47', 'ok', '2019-05-30 00:57:00', '2019-05-14 23:58:00', 'public/uploads/events/Screenshot_6.png', 'qsdq qs d', 4, 100, '36 RUE CLAUDE TERRASSE', 'Paris 16', '75016', 'qsd-qsd-qs-q-d', 'qsdd qd q', 'non');
+(1, 'un nouveau events ', '3', 'ok', '2019-07-04 00:03:00', '2019-07-28 01:57:00', 'public/uploads/events/screeshot7.jpg', 'qsdfsdqdq', 1, 450, '36 RUE CLAUDE TERRASSE', 'Paris 16', '75016', 'un-nouveau-events', 'adaeazeaze', 'non');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Lyrics`
+-- Structure de la table `Likes`
 --
 
-CREATE TABLE `Lyrics` (
+CREATE TABLE `Likes` (
   `id` int(11) NOT NULL,
-  `date_published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `content` varchar(350) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `type_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Likes`
+--
+
+INSERT INTO `Likes` (`id`, `user_id`, `type`, `type_id`) VALUES
+(58, 5, 'songs', 22),
+(83, 5, 'songs', 20),
+(93, 6, 'songs', 20);
 
 -- --------------------------------------------------------
 
@@ -187,8 +191,8 @@ CREATE TABLE `Menus` (
 --
 
 INSERT INTO `Menus` (`id`, `title`, `data`) VALUES
-(2, 'Main Menu', '[{\"link\": \"http://3\", \"title\": \"SEO\"}, {\"link\": \"http://2\", \"title\": \"Support\"}, {\"link\": \"http://1\", \"title\": \"Index\"}, {\"link\": \"http://6\", \"title\": \"Contact\", \"children\": [{\"link\": \"http://5\", \"title\": \"Services\", \"children\": [{\"link\": \"http://4\", \"title\": \"Portfoion\"}]}]}, {\"link\": \"http://3\", \"title\": \"About Us\"}, {\"link\": \"http://1\", \"title\": \"Design\"}, {\"link\": \"http://5\", \"title\": \"Develope\"}]'),
-(3, 'Main Menu 2', '[{\"link\": \"http://5\", \"title\": \"Services\", \"children\": [{\"link\": \"http://1\", \"title\": \"Design\"}, {\"link\": \"http://5\", \"title\": \"Develope\"}, {\"link\": \"http://3\", \"title\": \"SEO\"}, {\"link\": \"http://3\", \"title\": \"About Us\"}, {\"link\": \"http://4\", \"title\": \"Portfoion\"}, {\"link\": \"http://2\", \"title\": \"Support\", \"children\": [{\"link\": \"http://6\", \"title\": \"Contact\"}]}]}, {\"link\": \"http://1\", \"title\": \"Index\"}]');
+(1, 'Exemple Menu header', '[{\"link\": \"http://localhost/\", \"title\": \"Accueil\"}, {\"link\": \"/evenement\", \"title\": \"Evenements\"}, {\"link\": \"/connexion\", \"title\": \"Mon compte\"}, {\"link\": \"/admin\", \"title\": \"Admin\"}]'),
+(2, 'Exemple Menu Footer', '[{\"link\": \"http://localhost/\", \"title\": \"Accueil\"}, {\"link\": \"http://localhost/\", \"title\": \"Nous contacter\"}, {\"link\": \"http://localhost/\", \"title\": \"Notre histoire\"}]');
 
 -- --------------------------------------------------------
 
@@ -219,9 +223,7 @@ CREATE TABLE `Roles` (
 --
 
 INSERT INTO `Roles` (`id`, `name`, `perms`) VALUES
-(1, 'Admin', '{\"role_add\": \"1\", \"role_del\": \"1\", \"user_add\": \"1\", \"user_del\": \"1\", \"all_perms\": \"1\", \"role_edit\": \"1\", \"role_view\": \"1\", \"user_edit\": \"1\"}'),
-(3, 'test role 2', '{\"all_perms\": \"1\"}'),
-(4, 'test rol', '{\"role_add\": \"1\", \"role_del\": \"1\", \"user_add\": \"1\", \"user_del\": \"1\"}');
+(1, 'SuperAdmin', '{\"all_perms\": \"1\"}');
 
 -- --------------------------------------------------------
 
@@ -240,20 +242,10 @@ CREATE TABLE `Settings` (
 --
 
 INSERT INTO `Settings` (`id`, `type`, `data`) VALUES
-(1, 'config', '{\"fb_url\": \"qsdqs\", \"insta_url\": \"link\", \"site_desc\": \"test\", \"site_name\": \"MAPAGE\", \"site_tags\": \"test\", \"twitter_url\": \"link/instagram\"}'),
-(2, 'header', '{\"header_menu\": \"2\"}'),
-(3, 'footer', '{\"copyright\": \"Test\", \"footer_menu\": {\"1\": \"3\", \"2\": \"2\"}, \"footer_menu_nb\": \"2\"}');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Slugs`
---
-
-CREATE TABLE `Slugs` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(1, 'header', '{\"header_menu\": \"1\"}'),
+(2, 'footer', '{\"copyright\": \"Copyright Songfolio 2019\", \"footer_menu\": {\"1\": \"2\", \"2\": \"2\"}, \"footer_menu_nb\": \"2\"}'),
+(4, 'template', '{\"link_color\": \"#a80000\", \"text_color\": \"#555555\", \"title_color\": \"#444444\", \"text_font_name\": \"Lato\", \"title_font_name\": \"Questrial\", \"footer_background\": \"#555555\", \"footer_link_color\": \"#c8c8c8\", \"header_background\": \"#ffffff\", \"header_link_color\": \"#717171\", \"footer_title_color\": \"#808080\"}'),
+(6, 'config', '{\"site_desc\": \"test description \", \"site_name\": \"Mon super site\", \"site_tags\": \"music, album, song\"}');
 
 -- --------------------------------------------------------
 
@@ -263,13 +255,27 @@ CREATE TABLE `Slugs` (
 
 CREATE TABLE `Songs` (
   `id` int(11) NOT NULL,
-  `album` int(11) NOT NULL,
-  `slug` int(11) NOT NULL,
-  `likes` int(11) NOT NULL,
-  `visual` varchar(255) NOT NULL,
-  `origin` varchar(50) NOT NULL,
-  `source` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `album_id` int(11) DEFAULT NULL,
+  `slug` varchar(255) NOT NULL,
+  `likes` int(11) NOT NULL DEFAULT '0',
+  `text` longtext NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `img_dir` varchar(255) DEFAULT NULL,
+  `youtube` varchar(255) DEFAULT NULL,
+  `deezer` varchar(255) DEFAULT NULL,
+  `spotify` varchar(255) DEFAULT NULL,
+  `date_published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Songs`
+--
+
+INSERT INTO `Songs` (`id`, `name`, `album_id`, `slug`, `likes`, `text`, `description`, `img_dir`, `youtube`, `deezer`, `spotify`, `date_published`) VALUES
+(20, 'Moonlight', NULL, 'moonlight', 0, '<p>fbf</p>', 'my btrain new song', NULL, '', '', '', '2019-07-07 10:37:01'),
+(21, 'Numb', 2, 'numb', 0, '<p>f</p>', 'sqdfqsfds', NULL, '', '', '', '2019-07-07 10:40:02'),
+(22, 'SAD!', 2, 'sad!', 0, '<p>dfsdf</p>', 'sqdfqsdfdqsfd', 'public/uploads/songs/screeshot7.jpg', 'https://www.youtube.com/watch?v=pgN-vvVVxMA', '', '', '2019-07-07 10:57:25');
 
 -- --------------------------------------------------------
 
@@ -279,26 +285,27 @@ CREATE TABLE `Songs` (
 
 CREATE TABLE `Users` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(250) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `password` varchar(60) DEFAULT NULL,
   `date_inserted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role_id` int(11) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '0',
   `date_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `login_token` varchar(255) DEFAULT NULL
+  `login_token` varchar(255) DEFAULT NULL,
+  `id_facebook` bigint(20) DEFAULT NULL,
+  `undeletable` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `Users`
 --
 
-INSERT INTO `Users` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `date_inserted`, `role_id`, `status`, `date_update`, `login_token`) VALUES
-(8, 'Test', 'qsd', 'qsd', 'ivan.naluzhnyi@gmail.com', '$2y$10$4cyg2G11ZL8rnzj253VnleSSevdZeCk4h96n8pOP/XOPDqkN.jWAS', '2019-05-21 17:20:08', 4, 0, NULL, '227de67949fef05edf1aaffc492ffc9b'),
-(10, 'Admin', 'Ivan', 'Naluzhnyi', 'ivan.naluzhnyi@gmail.com', '$2y$10$clVvHX3wGWQBVYbJqaHJ8.mMNVNaUcS/3Dt//Snw7QzZuVeaQbbt2', '2019-05-21 17:20:08', 1, 0, NULL, 'd04d36bf5bfba2b444c3ad6c75827bd3'),
-(11, 'Adminssdffsfqsdsd', 'Ivanqsdqds', 'Naluzhnyiqsdqds', 'ivan.naluzhnyi@gmail.com', '$2y$10$UtxDzLtbmfAS/j9DnKa50OV5.PpPgoJmmHsDwD2sz4NcK2yEi88A6', '2019-05-21 17:20:08', 1, 0, NULL, '377855b244ab32cd7ceb960bd8166cd5');
+INSERT INTO `Users` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `date_inserted`, `role_id`, `status`, `date_update`, `login_token`, `id_facebook`, `undeletable`) VALUES
+(5, NULL, 'Ivan', 'Naluzhnyi', 'ivan.naluzhnyi@gmail.com', '$2y$10$fOFbj9qsPBd75etkDunsXewLsxSKVCjij67cCSGaKEanMf/yRisXu', '2019-07-07 10:16:29', 1, 0, NULL, '5268b48edde7defcfdb801f149307079', NULL, 1),
+(6, NULL, 'John', 'Doe', 'ivan.naluzhnyi@uppli.fr', '$2y$10$5mEkk07W4ksm0VvpObeOd.A/dCeVqRDLQ4FVHEFDAy9PFPxu7Umj6', '2019-07-07 17:46:12', 1, 0, NULL, 'a9790485a5122b823f18a856d061f319', NULL, 0);
 
 --
 -- Index pour les tables déchargées
@@ -335,9 +342,9 @@ ALTER TABLE `Events`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `Lyrics`
+-- Index pour la table `Likes`
 --
-ALTER TABLE `Lyrics`
+ALTER TABLE `Likes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -365,12 +372,6 @@ ALTER TABLE `Settings`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `Slugs`
---
-ALTER TABLE `Slugs`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Index pour la table `Songs`
 --
 ALTER TABLE `Songs`
@@ -390,43 +391,43 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT pour la table `Albums`
 --
 ALTER TABLE `Albums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `Categories`
 --
 ALTER TABLE `Categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `Comments`
 --
 ALTER TABLE `Comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `Contents`
 --
 ALTER TABLE `Contents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `Events`
 --
 ALTER TABLE `Events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT pour la table `Lyrics`
+-- AUTO_INCREMENT pour la table `Likes`
 --
-ALTER TABLE `Lyrics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Likes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT pour la table `Menus`
 --
 ALTER TABLE `Menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `Permissions`
@@ -438,31 +439,25 @@ ALTER TABLE `Permissions`
 -- AUTO_INCREMENT pour la table `Roles`
 --
 ALTER TABLE `Roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `Settings`
 --
 ALTER TABLE `Settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT pour la table `Slugs`
---
-ALTER TABLE `Slugs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `Songs`
 --
 ALTER TABLE `Songs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

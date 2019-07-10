@@ -32,13 +32,14 @@ CREATE TABLE `Albums` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
-  `slug` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `date_published` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_dir` varchar(255) NOT NULL,
+  `cover_dir` varchar(255) DEFAULT NULL,
   `deezer` varchar(100) DEFAULT NULL,
   `spotify` varchar(100) DEFAULT NULL,
   `likes` int(11) DEFAULT NULL,
-  `category_id` int(11) DEFAULT NULL
+  `category_id` int(11) DEFAULT NULL,
+  `comment_active` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -151,6 +152,18 @@ CREATE TABLE `Permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
+--
+-- Structure de la table `Likes`
+--
+
+CREATE TABLE `Likes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Structure de la table `Roles`

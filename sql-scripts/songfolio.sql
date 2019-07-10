@@ -32,12 +32,14 @@ CREATE TABLE `Albums` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
-  `slug` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `date_published` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover` varchar(255) NOT NULL,
+  `cover_dir` varchar(255) DEFAULT NULL,
   `deezer` varchar(100) DEFAULT NULL,
   `spotify` varchar(100) DEFAULT NULL,
-  `likes` int(11) NOT NULL
+  `likes` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `comment_active` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -57,12 +59,6 @@ CREATE TABLE `Categories` (
 -- Déchargement des données de la table `Categories`
 --
 
-INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
-(44, 'categ_1', 'categ_1', 'article'),
-(45, 'categ_2', 'categ_2', 'article'),
-(46, 'Concert', NULL, 'event'),
-(47, 'Festival', NULL, 'event');
-
 -- --------------------------------------------------------
 
 --
@@ -71,21 +67,36 @@ INSERT INTO `Categories` (`id`, `name`, `slug`, `type`) VALUES
 
 CREATE TABLE `Comments` (
   `id` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `typeId` int(11) NOT NULL,
-  `confirm` tinyint(1) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL,
+  `confirm` tinyint(1) NOT NULL DEFAULT '0',
   `message` longtext CHARACTER SET utf8 NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `like` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Contents`
+--
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Comments`
+--
+
+CREATE TABLE `Comments` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL,
+  `confirm` tinyint(1) NOT NULL DEFAULT '0',
+  `message` longtext CHARACTER SET utf8 NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `Comments`
 --
-
-INSERT INTO `Comments` (`id`, `user`, `typeId`, `confirm`, `message`, `date_created`, `like`, `type`) VALUES
-(1, 1, 19, 0, 'un comment ', '2019-05-04 23:16:43', 0, 'article');
 
 -- --------------------------------------------------------
 
@@ -94,7 +105,7 @@ INSERT INTO `Comments` (`id`, `user`, `typeId`, `confirm`, `message`, `date_crea
 --
 
 CREATE TABLE `Contents` (
-  `id` int(11) NOT NULL,
+ `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `slug` text NOT NULL,
   `category_id` int(11) DEFAULT NULL,
@@ -110,14 +121,6 @@ CREATE TABLE `Contents` (
   `indexed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Déchargement des données de la table `Contents`
---
-
-INSERT INTO `Contents` (`id`, `type`, `slug`, `category_id`, `title`, `description`, `content`, `date_create`, `date_edit`, `author`, `img_dir`, `published`, `comment_active`, `indexed`) VALUES
-(20, 'article', 'test', 44, 'Comment faife le *****', 'my seo description', '<p>sdfsdfsdfsd</p>\r\n\r\n<p>sdfsdf<img alt=\"heart\" src=\"https://cdn.ckeditor.com/4.11.3/full/plugins/smiley/images/heart.png\" style=\"height:20px; width:20px\" title=\"heart\" /></p>\r\n\r\n<p><strong>fsd<span style=\"font-family:Arial,Helvetica,sans-serif\">&nbsp;sfdfsfs</span></strong></p>\r\n\r\n<p><strong><span style=\"font-family:Arial,Helvetica,sans-serif\">je croi pas mais quan mem&nbsp;</span></strong></p>', '2019-05-08 13:19:58', NULL, 1, 'public/uploads/contents/screeshot7.jpg', 1, 1, 0),
-(27, 'article', 'lolol', 45, 'xcvxvc', 'cxvxv', '<p>fghdgdfg</p>', '2019-05-08 15:40:32', '2019-05-08 17:21:35', 1, 'public/uploads/contents/Screenshot_8.png', 1, 0, 1),
-(28, 'page', 'page', NULL, 'Pge test', 'cvxcvbx', '<p>zerzerze</p>\r\n\r\n<p>zer</p>\r\n\r\n<p>ze</p>\r\n\r\n<p>rs</p>\r\n\r\n<p>dfs</p>', '2019-05-08 17:30:21', '2019-05-08 17:33:39', 1, 'public/uploads/contents/screeshot7.jpg', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -126,13 +129,22 @@ INSERT INTO `Contents` (`id`, `type`, `slug`, `category_id`, `title`, `descripti
 --
 
 CREATE TABLE `Events` (
-  `id` int(11) NOT NULL,
+   `id` int(11) NOT NULL,
   `displayName` varchar(500) NOT NULL,
   `type` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'ok',
   `start_date` timestamp NULL DEFAULT NULL,
   `end_date` timestamp NULL DEFAULT NULL,
-  `img_dir` varchar(255) DEFAULT NULL
+  `img_dir` varchar(255) DEFAULT NULL,
+  `details` longtext NOT NULL,
+  `rate` float NOT NULL,
+  `nbr_place` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `postal_code` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `ticketing` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -161,6 +173,19 @@ CREATE TABLE `Lyrics` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `Likes`
+--
+
+CREATE TABLE `Likes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `Menus`
 --
 
@@ -173,10 +198,6 @@ CREATE TABLE `Menus` (
 --
 -- Déchargement des données de la table `Menus`
 --
-
-INSERT INTO `Menus` (`id`, `title`, `data`) VALUES
-(2, 'Main Menu', '[{\"link\": \"http://3\", \"title\": \"SEO\"}, {\"link\": \"http://2\", \"title\": \"Support\"}, {\"link\": \"http://1\", \"title\": \"Index\"}, {\"link\": \"http://6\", \"title\": \"Contact\", \"children\": [{\"link\": \"http://5\", \"title\": \"Services\", \"children\": [{\"link\": \"http://4\", \"title\": \"Portfoion\"}]}]}, {\"link\": \"http://3\", \"title\": \"About Us\"}, {\"link\": \"http://1\", \"title\": \"Design\"}, {\"link\": \"http://5\", \"title\": \"Develope\"}]'),
-(3, 'Main Menu 2', '[{\"link\": \"http://5\", \"title\": \"Services\", \"children\": [{\"link\": \"http://1\", \"title\": \"Design\"}, {\"link\": \"http://5\", \"title\": \"Develope\"}, {\"link\": \"http://3\", \"title\": \"SEO\"}, {\"link\": \"http://3\", \"title\": \"About Us\"}, {\"link\": \"http://4\", \"title\": \"Portfoion\"}, {\"link\": \"http://2\", \"title\": \"Support\", \"children\": [{\"link\": \"http://6\", \"title\": \"Contact\"}]}]}, {\"link\": \"http://1\", \"title\": \"Index\"}]');
 
 -- --------------------------------------------------------
 
@@ -199,8 +220,7 @@ CREATE TABLE `Permissions` (
 CREATE TABLE `Settings` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
-  `name` varchar(150) NOT NULL,
-  `value` varchar(300) NOT NULL
+  `data` json DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -222,12 +242,17 @@ CREATE TABLE `Slugs` (
 
 CREATE TABLE `Songs` (
   `id` int(11) NOT NULL,
-  `album` int(11) NOT NULL,
-  `slug` int(11) NOT NULL,
-  `likes` int(11) NOT NULL,
-  `visual` varchar(255) NOT NULL,
-  `origin` varchar(50) NOT NULL,
-  `source` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `album_id` int(11) DEFAULT NULL,
+  `slug` varchar(255) NOT NULL,
+  `likes` int(11) NOT NULL DEFAULT '0',
+  `text` longtext NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `img_dir` varchar(255) DEFAULT NULL,
+  `youtube` varchar(255) DEFAULT NULL,
+  `deezer` varchar(255) DEFAULT NULL,
+  `spotify` varchar(255) DEFAULT NULL,
+  `date_published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -238,13 +263,18 @@ CREATE TABLE `Songs` (
 
 CREATE TABLE `Users` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(250) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `password` varchar(60) DEFAULT NULL,
   `date_inserted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `role` varchar(50) NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `date_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `role_id` int(11) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT '0',
+  `date_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `login_token` varchar(255) DEFAULT NULL,
+  `id_facebook` bigint(20) DEFAULT NULL,
+  `undeletable` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
