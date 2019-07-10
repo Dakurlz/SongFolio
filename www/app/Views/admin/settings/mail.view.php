@@ -7,6 +7,9 @@
     <div class="create-contents-page__form">
         <?php $this->addModal("form", $settingsForm) ?>
     </div>
+    <div class="create-contents-page__form">
+        <?php $this->addModal("form", $settingsForms) ?>
+    </div>
 
 
 </div>

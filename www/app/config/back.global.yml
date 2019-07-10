@@ -186,3 +186,8 @@ sidebar_items:
           controller: Settings
           action: footer
           label: Footer
+
+        mail_settings:
+          controller: Settings
+          action: mail
+          label: Mail

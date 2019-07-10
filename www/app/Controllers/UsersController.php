@@ -91,6 +91,8 @@ class UsersController
                         $this->user->__set('email', $data["email"]);
                         $this->user->__set('password', $data["password"]);
                         $this->user->save();
+                        $body="Bonjour<br><br> Nous vous confirmons votre inscription sur le site <br>Utiliser votre adresse mail pour vous connectez et le mot de passe que vous avez saissit lors de votre inscription.\"";
+                        $this->sendMail($data['email'],"Inscription",$body);
                         $_SESSION['alert']['success'][] = 'Votre compte à bien été créer.';
                         header('Location: ' . Routing::getSlug("users", "login"));
                     } else {
@@ -199,35 +201,20 @@ class UsersController
         if (!empty($_POST)) {
             $user = new Users(["email" => $_POST['user_email']]);
             if ($user->__get('id')==true) {
-
+                $test = $user->__get('id');
                 $token = $this->generateToken();
                 $user->__set('pwd_token',$token);
                 $user->save();
-                $mail = new PHPMailer();
-
-               // $mail->SMTPDebug = 3;                               // Enable verbose debug output
-
-                $mail->isSMTP();                                      // Set mailer to u=$mail->Host = SMTP_HOST;  // Specify main and backup SMTP servers
-                $mail->SMTPAuth = true;                               // Enable SMTP authentication
-
-                $mail->addAddress($user->__get('email'));     // Add a recipient
-               // $mail->addAddress('gatay.bryan@gmail.com');
-                $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = 'Here is the subject';
-                $mail->Body    = "Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. http://localhost/changer_mot_de_passe?t=$token";
-
-                if(!$mail->send()) {
-                    echo 'Message could not be sent.';
-                    echo 'Mailer Error: ' . $mail->ErrorInfo;
-                } else {
-                    $_SESSION['alert']['success'][] = "Un mail à été envoyé à l'adresse indiquée.";
-                }
+                $body="Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. http://localhost/changer_mot_de_passe?t=$token\"";
+                $this->sendMail($user->__get('email'),"Changement de mot de passe",$body);
 
             }else{
                  $_SESSION['alert']['danger'][] = "L'adresse mail n'a pas été trouvé";
             }
         }
     }
+
+
 
     public function createUsersAction()
     {
@@ -402,4 +389,21 @@ class UsersController
         }
         return $string;;
     }
+    public function  sendMail($adresse,$subject,$body){
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->addAddress($adresse);
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    =$body;
+
+        if(!$mail->send()) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            $_SESSION['alert']['success'][] = "Un mail à été envoyé à l'adresse indiquée.";
+        }
+    }
+
 }
