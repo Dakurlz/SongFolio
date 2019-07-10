@@ -435,11 +435,11 @@ class Settings extends BaseSQL
                         "label" => "Hôte SMTP",
                         "class" => "form-control",
                         "name" => "data[smtp_mail]",
-                        "value" => $this->getData('SMTPSecure'),
+                        "value" => $this->getData('smtp_mail'),
                     ],
                     "username_mail" => [
                         "type" => "text",
-                        "label" => "Nom du compte",
+                        "label" => "Adresse mail",
                         "class" => "form-control",
                         "name" => "data[username_mail]",
                         "value" => $this->getData('username_mail'),
@@ -452,7 +452,7 @@ class Settings extends BaseSQL
                         "value" => $this->getData('userpassword_mail'),
                     ], "SMTPSecure" => [
                         "type" => "text",
-                        "label" => "SMTPSecure",
+                        "label" => "Protocole de sécurité",
                         "class" => "form-control",
                         "name" => "data[SMTPSecure]",
                         "value" => $this->getData('SMTPSecure'),
@@ -464,9 +464,37 @@ class Settings extends BaseSQL
                         "name" => "data[Port]",
                         "value" => $this->getData('Port'),
                     ],
-
                 ];
                 break;
+            case "send_mail":
+                return [
+                    "config"=>[
+                        "action"=>Routing::getSlug("Settings", "mail"),
+                        "method"=>"POST",
+                        "class"=>"",
+                        "id"=>"",
+                        "submit"=>"Tester l'envoie de mail"
+                    ],
+                    "btn" => [
+                        "submit" => [
+                            "type" => "submit",
+                            "text" => "Envoyer un email de test",
+                            "class" => "btn btn-success-outline"
+                        ],
+                    ],
+                    "data"=>[
+                        "user_email"=>[
+                            "type"=>"email",
+                            "label" => "Adresse email",
+                            "placeholder"=>"Adresse email",
+                            "class"=>"form-control",
+                            "id"=>"user_email",
+                            "name"=>"user_email",
+                            "required"=>true,
+                            "error"=>"",
+                        ],
+                    ]
+                ];
 
 
         }
