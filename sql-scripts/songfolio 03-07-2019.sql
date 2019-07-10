@@ -279,9 +279,12 @@ CREATE TABLE `Settings` (
 --
 
 INSERT INTO `Settings` (`id`, `type`, `data`) VALUES
-(1, 'config', '{\"fb_url\": \"qsdqs\", \"insta_url\": \"link\", \"site_desc\": \"test\", \"site_name\": \"MAPAGE\", \"site_tags\": \"test\", \"twitter_url\": \"link/instagram\", \"oauth_id_Facebook\": \"2232449167069840\", \"oauth_secret_Facebook\": \"ec07adea3bce25a26d3fdcb3b5baa5f2\"}'),
+(1, 'config', '{\"fb_url\": \"qsdqs\", \"insta_url\": \"link\", \"site_desc\": \"test\", \"site_name\": \"MAPAGE\", \"site_tags\": \"test\", \"twitter_url\": \"link/instagram\", \"oauth_id_Facebook\": \"2232449167069840\", \"oauth_secret_Facebook\": \"ec07adea3bce25a26d3fdcb3b5baa5f2\",\"smtp_mail\": \"test\,\"username_mail\": \"test\",\"userpassword_mail\": \"test\",\"SMTPSecure\": \"test\",\"username_mail\": \"test\"}'),
 (2, 'header', '{\"header_menu\": \"2\"}'),
-(3, 'footer', '{\"copyright\": \"Test\", \"footer_menu\": {\"1\": \"3\", \"2\": \"2\"}, \"footer_menu_nb\": \"2\"}');
+(3, 'footer', '{\"copyright\": \"Test\", \"footer_menu\": {\"1\": \"3\", \"2\": \"2\"}, \"footer_menu_nb\": \"2\"}'),
+INSERT INTO `Settings` (`id`, `type`, `data`) VALUES
+INSERT INTO `Settings`(`id`, `type`, `data`) VALUES(8, 'mail', '{\"smtp_mail\": \"test\",\"username_mail\": \"test\",\"userpassword_mail\": \"test\",\"SMTPSecure\": \"test\",\"username_mail\": \"test\",\"Port\": \"test\"}');
+
 
 -- --------------------------------------------------------
 

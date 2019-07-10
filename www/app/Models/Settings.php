@@ -27,6 +27,7 @@ class Settings extends BaseSQL
             self::$settingsSingleton[$settings_type] = $setting;
         }
         return self::$settingsSingleton[$settings_type];
+
     }
 
     public function customSet($attr, $value)
@@ -69,6 +70,7 @@ class Settings extends BaseSQL
 
     public function getForm($setting_type)
     {
+
         $array = [
             "config" => [
                 "action" => Routing::getSlug('Settings', 'save'),
@@ -420,6 +422,53 @@ class Settings extends BaseSQL
                     $array['data']['footer_menu_4']['options'] = $array['data']['footer_menu_1']['options'];
                 }
                 break;
+            case 'mail' :
+                $array['data'] = [
+                    "setting_type" => [
+                        "type" => "hidden",
+                        "name" => "data[setting_type]",
+                        "value" => "mail",
+                        "required" => true
+                    ],
+                    "smtp_mail" => [
+                        "type" => "text",
+                        "label" => "Hôte SMTP",
+                        "class" => "form-control",
+                        "name" => "data[smtp_mail]",
+                        "value" => $this->getData('SMTPSecure'),
+                    ],
+                    "username_mail" => [
+                        "type" => "text",
+                        "label" => "Nom du compte",
+                        "class" => "form-control",
+                        "name" => "data[username_mail]",
+                        "value" => $this->getData('username_mail'),
+                    ],
+                    "userpassword_mail" => [
+                        "type" => "password",
+                        "label" => "Mot de passe",
+                        "class" => "form-control",
+                        "name" => "data[userpassword_mail]",
+                        "value" => $this->getData('userpassword_mail'),
+                    ], "SMTPSecure" => [
+                        "type" => "text",
+                        "label" => "SMTPSecure",
+                        "class" => "form-control",
+                        "name" => "data[SMTPSecure]",
+                        "value" => $this->getData('SMTPSecure'),
+                    ],
+                    "Port" => [
+                        "type" => "text",
+                        "label" => "Port",
+                        "class" => "form-control",
+                        "name" => "data[Port]",
+                        "value" => $this->getData('Port'),
+                    ],
+
+                ];
+                break;
+
+
         }
         return $array;
     }

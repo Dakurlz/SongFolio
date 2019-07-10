@@ -48,6 +48,10 @@
   action: forgetPassword
   needAuth: false
 
+'/changer_mot_de_passe':
+  controller: Users
+  action: changePassword
+
 '/connexion':
   controller: Users
   action: login
@@ -313,6 +317,11 @@
   controller: Settings
   action: footer
   needAuth: true
+  
+'/admin/settings/mail':
+    controller: Settings
+    action: mail
+    needAuth: true
 
 # EVENTS
 '/admin/events/create':
