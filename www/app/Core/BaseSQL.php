@@ -233,7 +233,7 @@ class BaseSQL
         return $query->fetch();
     }
 
-    public function getCustom(string $str,array $where)
+    public function getCustomSlug(string $str,array $where)
     {
         $sqlWhere = $this->sqlWhere($where);
         $sql =  $str." WHERE " . implode(" AND ", $sqlWhere) . ";";
@@ -242,7 +242,7 @@ class BaseSQL
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $query->execute($where);
 
-        return $query->fetchAll();
+        return $query->fetch();
     }
 
     public function getCustomWithoutWhere(string $str)

@@ -4,7 +4,7 @@ use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
 use Songfolio\Models\Likes;
-
+$currentU = new Users();
 
 ?>
 
@@ -96,8 +96,8 @@ use Songfolio\Models\Likes;
             </div>
             <table class="col-lg-10 col-12">
                 <?php $i = 0 ?>
-                <?php $currentU = new Users();
-                foreach ($songs as $song) : $nbLikesSongs  = Likes::displayLike($likesSongs, $song['id']); ?>
+                <?php
+                foreach ($songs as $song) : $nbLikesSongs = Likes::displayLike($likesSongs, $song['id']); ?>
                     <tr class="singles_list smart-top-select top-select-singles">
                         <td class="rank">
                             <?php echo ++$i; ?>.
@@ -153,7 +153,7 @@ use Songfolio\Models\Likes;
             </div>
             <table class="col-lg-10 col-12">
                 <?php $j = 0 ?>
-                <?php foreach ($albums as $album) : ?>
+                <?php foreach ($albums as $album) :   $nbLikesAlbums = Likes::displayLike($likesAlbums, $album['id']);?>
                     <tr class="albums_list smart-toggle smart-top-select top-select-albums">
                         <td class="rank">
                             <?php echo ++$j; ?>.
@@ -170,8 +170,18 @@ use Songfolio\Models\Likes;
                             <?= Helper::getFormatedDate($album['date_published']) ?>
                         </td>
 
-                        <td class="info">
-                            3.8M
+                        <td class="info likes">
+
+                            <span class="nbr_likes_span"><?php if ($nbLikesAlbums != 0) echo $nbLikesAlbums;
+                                                            else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
+
+                            <input type="hidden" class="nbr_likes" value="<?= $nbLikesAlbums ?>">
+                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesAlbums, $song['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                                                                                                            else echo 'public/img/heart-like.svg' ?>" alt="">
+                            <input type="hidden" class="type" value="albums">
+                            <input type="hidden" class="type_id" value="<?= $album['id'] ?>">
+                            <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
+
                         </td>
                     </tr>
 

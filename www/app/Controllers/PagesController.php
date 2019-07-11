@@ -39,13 +39,15 @@ class PagesController
         $likes = $this->like->getAllData();
 
         $likesSongs = [];
+        $likesAlbums = [];
         foreach ($likes as $like) {
             if ($like['type'] == 'songs') $likesSongs[] = $like;
+            if ($like['type'] == 'albums') $likesAlbums[] = $like;
         }
 
         $events = self::renderEvent();
         $albums = self::renderAlbum();
-        $songs = self::renderSong($albums, $likes);
+        $songs = self::renderSong($albums);
 
 
         $view = new View("home", "front");
@@ -54,6 +56,7 @@ class PagesController
         $view->assign('songs', $songs);
         $view->assign('albums', $albums);
         $view->assign('likesSongs', $likesSongs);
+        $view->assign('likesAlbums', $likesAlbums);
     }
 
     private function renderEvent(): array
@@ -117,6 +120,11 @@ class PagesController
 
     public function renderEventsPageAction(): void
     {
+
+        $likes = $this->like->getAllBy(['type' => 'events']);
+
+
+
         $events = $this->event->getAllData();
         $categories = $this->category->getAllBy(['type' => 'event']);
         foreach ($events as $key => $event) {
@@ -124,5 +132,6 @@ class PagesController
         }
         $view = new View("events", "front");
         $view->assign('events', $events);
+        $view->assign('likes', $likes);
     }
 }

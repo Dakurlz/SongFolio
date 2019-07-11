@@ -23,6 +23,14 @@ $(function() {
     hide_mobile_menu();
   });
 
+  // SEZRCH
+  $(".input-search").keyup(function() {
+    const value = $(this).val().toLowerCase();
+    $(".tbody tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
   //MENU
   $("header nav li").mouseover(function() {
     if (windowWidth > mobileMaxWidth) {

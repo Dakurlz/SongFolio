@@ -15,6 +15,10 @@ use Songfolio\Models\Users;
         <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Events', 'createEvents') ?>">Ajouter un événement</a>
     <?php endif;?>
 
+    <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">
+        <input  class="input-control input-control-success input-search" placeholder="Chercher un évéénement" />
+    </div>
+
     <table class="table col-12 ">
         <thead>
             <tr>
@@ -36,7 +40,7 @@ use Songfolio\Models\Users;
             </tr>
             </thead>
 
-            <tbody>
+            <tbody class="tbody">
                 <td><?php if (empty($listEvents)) echo 'Aucun événement.'; ?></td>
                 <?php foreach ($listEvents as $event):  ?>
                     <tr>
