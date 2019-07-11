@@ -114,7 +114,7 @@ class EventsController
                 $this->event->__set('start_date', $timestamp_start_date);
                 $this->event->__set('end_date', $timestamp_end_date);
                 isset($fileName) ? $this->event->__set('img_dir', $fileName) : null;
-              
+
                 $this->event->__set('details', trim($data['details']));
                 $this->event->__set('rate', (float) $data['rate']);
                 $this->event->__set('nbr_place', (int) $data['nbr_place']);
@@ -128,7 +128,7 @@ class EventsController
 
                 //  SEO
                 $this->event->__set('slug',  $data['slug']);
-                $this->event->__set('description',  trim($data['description']));
+                isset($$data['description']) ? $this->event->__set('description',  trim($data['description'])) : null;
 
                 $this->event->save();
 

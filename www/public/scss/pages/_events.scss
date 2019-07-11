@@ -4,52 +4,28 @@
   }
   .list-events {
     margin: auto;
+  }
 
-    .item {
-      height: 325px;
-      margin: 20px auto;
-      border: solid 1px $color-primary;
-      background-color: #eeeeee;
-      padding: 0;
-      max-width: 325px;
-
-      & > img {
-        width: 100% !important;
-        height: 150px !important  ;
-        max-width: 325px !important;
-      }
-
-      .info {
-        padding: 10px 20px;
-        & > p {
-            margin: 0;
-        }
-      }
-    }
+  .search-front-bar{
+    margin-bottom: 15px;
   }
 }
 
-
-
-.event-page{
-
-    .row {
-
-        .btn{
-            margin-top: 30px;
-        }
-        .second-block{
-            .display-name{
-                margin-top: 0 !important;
-            }
-
-            .details{
-                background-color: #eeeeee;
-                padding: 15px 5px;
-                width: 100%;
-            }
-        }
-
+.event-page {
+  .row {
+    .btn {
+      margin-top: 30px;
     }
+    .second-block {
+      .display-name {
+        margin-top: 0 !important;
+      }
 
+      .dtails {
+        background-color: #eeeeee;
+        padding: 15px 5px;
+        width: 100%;
+      }
+    }
+  }
 }

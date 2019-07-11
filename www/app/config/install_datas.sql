@@ -116,7 +116,8 @@ CREATE TABLE `Events` (
   `postal_code` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `description` longtext NOT NULL,
-  `ticketing` varchar(255) NOT NULL
+  `ticketing` varchar(255) NOT NULL,
+  `comment_active` tinyint(1) NOT NULL DEFAULT '1',
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

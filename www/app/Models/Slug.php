@@ -22,7 +22,7 @@ class Slug
         $tables = ['Albums', 'Contents', 'Events', 'Categories', 'Songs'];
 
         foreach ($tables as $tab) {
-            $ch = $base->getCustom('SELECT 1 FROM ' . $tab, ['slug' => $slug]);
+            $ch = $base->getCustomSlug('SELECT 1 FROM ' . $tab, ['slug' => $slug]);
             if (is_array($ch)) {
                 return true;
                 break;
