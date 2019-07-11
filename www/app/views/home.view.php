@@ -30,7 +30,7 @@ $currentU = new Users();
                             <h1><?= $articles[0]['title'] ?? 'Bientôt ...' ?></h1>
                             :!
                             <?php if (isset($articles[0])) : ?>
-                                <p><?= $articles[0]['date_create'] ?> <span class="muted">par <?= (new Users($articles[0]['author']))->__get('username') ?></span></p>
+                                <p><?= Helper::getFormatedDateWithTime($articles[0]['date_create']) ?> <span class="muted">par <?= (new Users($articles[0]['author']))->__get('username') ?></span></p>
                                 <?php if (isset($articles[0]['img_dir'])) : ?>
                                     <img src="<?= $articles[0]['img_dir'] ?>" />
                                 <?php endif; ?>
@@ -44,7 +44,7 @@ $currentU = new Users();
                         <a href="<?= $articles[1]['slug'] ?? '' ?>" class="event">
                             <h1><?= $articles[1]['title'] ?? 'Bientôt ...' ?></h1>
                             <?php if (isset($articles[1])) : ?>
-                                <p><?= $articles[1]['date_create'] ?> <span class="muted">par <?= (new Users($articles[1]['author']))->__get('username') ?></span></p>
+                                <p><?= Helper::getFormatedDateWithTime($articles[1]['date_create']) ?> <span class="muted">par <?= (new Users($articles[1]['author']))->__get('username') ?></span></p>
                                 <?php if (isset($articles[1]['img_dir'])) : ?>
                                     <img src="<?= $articles[1]['img_dir'] ?>" />
                                 <?php endif; ?>
@@ -53,7 +53,7 @@ $currentU = new Users();
                         <a href="<?= $articles[2]['slug'] ?? '' ?>" class="event">
                             <h1><?= $articles[2]['title'] ?? 'Bientôt ...' ?></h1>
                             <?php if (isset($articles[2])) : ?>
-                                <p><?= $articles[2]['date_create'] ?> <span class="muted">par <?= (new Users($articles[2]['author']))->__get('username') ?></span></p>
+                                <p><?= Helper::getFormatedDateWithTime($articles[2]['date_create']) ?> <span class="muted">par <?= (new Users($articles[2]['author']))->__get('username') ?></span></p>
                                 <?php if (isset($articles[2]['img_dir'])) : ?>
                                     <img src="<?= $articles[2]['img_dir'] ?>" />
                                 <?php endif; ?>

@@ -24,12 +24,14 @@
 '/singles':
   controller: Pages
   action: renderSongs
+  needAuth: false
 
 
 # ALBUMS FRONT 
 '/albums':
   controller: Pages
   action: renderAlbums
+  needAuth: false
 
 
 # USERS

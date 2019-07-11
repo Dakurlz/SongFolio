@@ -109,10 +109,21 @@ class PagesController
 
     public function renderSongsAction()
     {
+        $albums = $this->album->getAllData();
         $songs = $this->song->getAllData();
+        $likesSongs = $this->like->getAllBy(['type' => 'songs']);
 
-        $view = new View("songs/song", "front");
+        foreach ($songs as $key => $song) {
+            if ($song['album_id'] != null) {
+                $songs[$key]['album_name'] = Helper::searchInArray($albums, $song['album_id'], 'title');
+            }
+        }
+
+        $view = new View("songs/songs", "front");
         $view->assign('songs', $songs);
+
+        $view->assign('likesSongs', $likesSongs);
+
     }
 
 
