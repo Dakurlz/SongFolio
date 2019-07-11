@@ -8,7 +8,7 @@ use Songfolio\Models\Users;
 ?>
 
 
-<section id="content-banner" style="background-image:url(http://localhost/public/img/events/event2.jpg);">
+<section id="content-banner" style="background-image:url(http://localhost/public/img/img_front/event2.jpg);">
 
 </section>
 

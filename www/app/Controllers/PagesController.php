@@ -47,7 +47,7 @@ class PagesController
 
         $events = self::renderEvent();
         $albums = self::renderAlbum();
-        $songs = self::renderSong($albums);
+        $songs = self::renderSong();
 
 
         $view = new View("home", "front");
@@ -63,7 +63,7 @@ class PagesController
     {
         $categories = $this->category->getAllBy(['type' => 'event']);
 
-        $events = $this->event->getAllDataWithLimit(3);
+        $events = $this->event->getAllData();
         foreach ($events as $key => $event) {
             $events[$key]['type'] = Helper::searchInArray($categories, $event['type'], 'name');
         }
@@ -74,35 +74,35 @@ class PagesController
     {
         $categories = $this->category->getAllBy(['type' => 'album']);
 
-        $albums = $this->album->getAllData();
+        $albums = $this->album->getAllDataWithLimit(5);
         foreach ($albums as $key => $album) {
             $albums[$key]['category_name'] = Helper::searchInArray($categories,  $album['category_id'], 'name');
         }
         return $albums;
     }
 
-    private function renderSong(array $albums): array
+    private function renderSong(): array
     {
-
-        $songs = $this->song->getAllData();
+        $albums = $this->album->getAllData();
+        $songs = $this->song->getAllDataWithLimit(5);
 
         foreach ($songs as $key => $song) {
             if ($song['album_id'] != null) {
-                $songs[$key]['album_name'] = Helper::searchInArray(array_filter($albums, function ($key) {
-                    return $key == 'album';
-                }, ARRAY_FILTER_USE_KEY), $song['album_id'], 'title');
+                $songs[$key]['album_name'] = Helper::searchInArray($albums, $song['album_id'], 'title');
             }
         }
-
         return $songs;
     }
 
 
     public function renderAlbumsAction()
     {
-        $albums = $this->album->getAllData();
+        $albums = $this->renderAlbum();
+        $likesAlbums = $this->like->getAllBy(['type' => 'albums']);
 
         $view = new View("albums/albums", "front");
+
+        $view->assign('likesAlbums', $likesAlbums);
         $view->assign('albums', $albums);
     }
 

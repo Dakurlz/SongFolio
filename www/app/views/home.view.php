@@ -4,6 +4,7 @@ use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
 use Songfolio\Models\Likes;
+
 $currentU = new Users();
 
 ?>
@@ -153,7 +154,7 @@ $currentU = new Users();
             </div>
             <table class="col-lg-10 col-12">
                 <?php $j = 0 ?>
-                <?php foreach ($albums as $album) :   $nbLikesAlbums = Likes::displayLike($likesAlbums, $album['id']);?>
+                <?php foreach ($albums as $album) :   $nbLikesAlbums = Likes::displayLike($likesAlbums, $album['id']); ?>
                     <tr class="albums_list smart-toggle smart-top-select top-select-albums">
                         <td class="rank">
                             <?php echo ++$j; ?>.
@@ -176,7 +177,7 @@ $currentU = new Users();
                                                             else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
                             <input type="hidden" class="nbr_likes" value="<?= $nbLikesAlbums ?>">
-                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesAlbums, $song['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesAlbums, $album['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
                                                                                                                             else echo 'public/img/heart-like.svg' ?>" alt="">
                             <input type="hidden" class="type" value="albums">
                             <input type="hidden" class="type_id" value="<?= $album['id'] ?>">
@@ -205,20 +206,26 @@ $currentU = new Users();
                 </div>
                 <ul style="list-style: none;padding: 0;">
                     <?php
-                    if (isset($events)) :
-                        foreach ($events as $event) :
-                            ?>
-                            <li>
-                                <?php if (isset($event['img_dir'])) : ?>
-                                    <img src="<?= BASE_URL . $event['img_dir'] ?>" alt="">
-                                <?php endif ?>
-                                <div class="info">
-                                    <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
-                                    <p>le <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>
-                                </div>
-                            </li>
 
-                        <?php endforeach;
+                    if (isset($events)) :
+                        $i = 0;
+                        foreach ($events as $event) :
+                            if (strtotime($event['start_date']) >= strtotime(date('d-m-Y'))) :
+                                $i++;
+                                ?>
+                                <li>
+                                    <?php if (isset($event['img_dir'])) : ?>
+                                        <img src="<?= BASE_URL . $event['img_dir'] ?>" alt="">
+                                    <?php endif ?>
+                                    <div class="info">
+                                        <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
+                                        <p>le <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>
+                                    </div>
+                                </li>
+
+                            <?php endif;
+                            if ($i == 3) break;
+                        endforeach;
                     else : ?>
                         <li> Aucun événement prévu </li>
 
@@ -226,13 +233,6 @@ $currentU = new Users();
                 </ul>
                 <a href="<?= Routing::getSlug('pages', 'renderEventsPage') ?>" class="chevron">Voir tous les évènements</a>
             </div>
-            <!--<div class="col-sm-offset-1 col-lg-4 col-sm-5 col-12 group-info">
-                    <img src="<?php echo PUBLIC_DIR ?>img/photo_fm.jpg" />
-                    <h1>Freddie Mercury</h1>
-                    <p>Chanteur</p>
-                    <a href="#">Biographie de Freddie</a>
-                    <a href="#" class="chevron lexical">Tous les membres du groupe</a>
-            </div>-->
         </div>
     </div>
 </section>
