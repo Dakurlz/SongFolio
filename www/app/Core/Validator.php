@@ -51,7 +51,7 @@ class Validator
                     switch ($config['config']['action_type']) {
                         case 'update':
                             $obj =  $config['config']['current_object'];
-                            $values =  $obj->getByCustomQuery(['id' => $obj->__get('id')], 'id, slug');
+                            $values =  $obj->getByCustomQuery(['id' => $_GET['id']], 'id, slug');
                             if ($values['slug'] !== $data['slug']) $this->checkSlug($data['slug']);
 
                             continue;

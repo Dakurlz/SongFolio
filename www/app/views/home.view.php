@@ -5,6 +5,7 @@ use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
 use Songfolio\Models\Likes;
 
+$currentU = new Users();
 
 ?>
 
@@ -29,7 +30,7 @@ use Songfolio\Models\Likes;
                             <h1><?= $articles[0]['title'] ?? 'Bientôt ...' ?></h1>
                             :!
                             <?php if (isset($articles[0])) : ?>
-                                <p><?= $articles[0]['date_create'] ?> <span class="muted">par <?= (new Users($articles[0]['author']))->__get('username') ?></span></p>
+                                <p><?= Helper::getFormatedDateWithTime($articles[0]['date_create']) ?> <span class="muted">par <?= (new Users($articles[0]['author']))->__get('username') ?></span></p>
                                 <?php if (isset($articles[0]['img_dir'])) : ?>
                                     <img src="<?= $articles[0]['img_dir'] ?>" />
                                 <?php endif; ?>
@@ -43,7 +44,7 @@ use Songfolio\Models\Likes;
                         <a href="<?= $articles[1]['slug'] ?? '' ?>" class="event">
                             <h1><?= $articles[1]['title'] ?? 'Bientôt ...' ?></h1>
                             <?php if (isset($articles[1])) : ?>
-                                <p><?= $articles[1]['date_create'] ?> <span class="muted">par <?= (new Users($articles[1]['author']))->__get('username') ?></span></p>
+                                <p><?= Helper::getFormatedDateWithTime($articles[1]['date_create']) ?> <span class="muted">par <?= (new Users($articles[1]['author']))->__get('username') ?></span></p>
                                 <?php if (isset($articles[1]['img_dir'])) : ?>
                                     <img src="<?= $articles[1]['img_dir'] ?>" />
                                 <?php endif; ?>
@@ -52,7 +53,7 @@ use Songfolio\Models\Likes;
                         <a href="<?= $articles[2]['slug'] ?? '' ?>" class="event">
                             <h1><?= $articles[2]['title'] ?? 'Bientôt ...' ?></h1>
                             <?php if (isset($articles[2])) : ?>
-                                <p><?= $articles[2]['date_create'] ?> <span class="muted">par <?= (new Users($articles[2]['author']))->__get('username') ?></span></p>
+                                <p><?= Helper::getFormatedDateWithTime($articles[2]['date_create']) ?> <span class="muted">par <?= (new Users($articles[2]['author']))->__get('username') ?></span></p>
                                 <?php if (isset($articles[2]['img_dir'])) : ?>
                                     <img src="<?= $articles[2]['img_dir'] ?>" />
                                 <?php endif; ?>
@@ -96,8 +97,8 @@ use Songfolio\Models\Likes;
             </div>
             <table class="col-lg-10 col-12">
                 <?php $i = 0 ?>
-                <?php $currentU = new Users();
-                foreach ($songs as $song) : $nbLikesSongs  = Likes::displayLike($likesSongs, $song['id']); ?>
+                <?php
+                foreach ($songs as $song) : $nbLikesSongs = Likes::displayLike($likesSongs, $song['id']); ?>
                     <tr class="singles_list smart-top-select top-select-singles">
                         <td class="rank">
                             <?php echo ++$i; ?>.
@@ -153,7 +154,7 @@ use Songfolio\Models\Likes;
             </div>
             <table class="col-lg-10 col-12">
                 <?php $j = 0 ?>
-                <?php foreach ($albums as $album) : ?>
+                <?php foreach ($albums as $album) :   $nbLikesAlbums = Likes::displayLike($likesAlbums, $album['id']); ?>
                     <tr class="albums_list smart-toggle smart-top-select top-select-albums">
                         <td class="rank">
                             <?php echo ++$j; ?>.
@@ -170,8 +171,18 @@ use Songfolio\Models\Likes;
                             <?= Helper::getFormatedDate($album['date_published']) ?>
                         </td>
 
-                        <td class="info">
-                            3.8M
+                        <td class="info likes">
+
+                            <span class="nbr_likes_span"><?php if ($nbLikesAlbums != 0) echo $nbLikesAlbums;
+                                                            else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
+
+                            <input type="hidden" class="nbr_likes" value="<?= $nbLikesAlbums ?>">
+                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesAlbums, $album['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                                                                                                            else echo 'public/img/heart-like.svg' ?>" alt="">
+                            <input type="hidden" class="type" value="albums">
+                            <input type="hidden" class="type_id" value="<?= $album['id'] ?>">
+                            <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
+
                         </td>
                     </tr>
 
@@ -195,20 +206,26 @@ use Songfolio\Models\Likes;
                 </div>
                 <ul style="list-style: none;padding: 0;">
                     <?php
-                    if (isset($events)) :
-                        foreach ($events as $event) :
-                            ?>
-                            <li>
-                                <?php if (isset($event['img_dir'])) : ?>
-                                    <img src="<?= BASE_URL . $event['img_dir'] ?>" alt="">
-                                <?php endif ?>
-                                <div class="info">
-                                    <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
-                                    <p>le <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>
-                                </div>
-                            </li>
 
-                        <?php endforeach;
+                    if (isset($events)) :
+                        $i = 0;
+                        foreach ($events as $event) :
+                            if (strtotime($event['start_date']) >= strtotime(date('d-m-Y'))) :
+                                $i++;
+                                ?>
+                                <li>
+                                    <?php if (isset($event['img_dir'])) : ?>
+                                        <img src="<?= BASE_URL . $event['img_dir'] ?>" alt="">
+                                    <?php endif ?>
+                                    <div class="info">
+                                        <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
+                                        <p>le <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>
+                                    </div>
+                                </li>
+
+                            <?php endif;
+                            if ($i == 3) break;
+                        endforeach;
                     else : ?>
                         <li> Aucun événement prévu </li>
 
@@ -216,13 +233,6 @@ use Songfolio\Models\Likes;
                 </ul>
                 <a href="<?= Routing::getSlug('pages', 'renderEventsPage') ?>" class="chevron">Voir tous les évènements</a>
             </div>
-            <!--<div class="col-sm-offset-1 col-lg-4 col-sm-5 col-12 group-info">
-                    <img src="<?php echo PUBLIC_DIR ?>img/photo_fm.jpg" />
-                    <h1>Freddie Mercury</h1>
-                    <p>Chanteur</p>
-                    <a href="#">Biographie de Freddie</a>
-                    <a href="#" class="chevron lexical">Tous les membres du groupe</a>
-            </div>-->
         </div>
     </div>
 </section>

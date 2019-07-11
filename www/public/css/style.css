@@ -106,6 +106,16 @@ label {
 .form div {
   margin-bottom: 1.25rem; }
 
+.likes {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+  .likes > span {
+    margin-right: 10px; }
+  .likes > img {
+    cursor: pointer;
+    height: auto !important; }
+
 .wrapper {
   box-sizing: border-box;
   max-width: 1200px;
@@ -4273,21 +4283,9 @@ input:checked + .slider:before {
 
 #section-events .list-events {
   margin: auto; }
-  #section-events .list-events .item {
-    height: 325px;
-    margin: 20px auto;
-    border: solid 1px #B00000;
-    background-color: #eeeeee;
-    padding: 0;
-    max-width: 325px; }
-    #section-events .list-events .item > img {
-      width: 100% !important;
-      height: 150px !important;
-      max-width: 325px !important; }
-    #section-events .list-events .item .info {
-      padding: 10px 20px; }
-      #section-events .list-events .item .info > p {
-        margin: 0; }
+
+#section-events .search-front-bar {
+  margin-bottom: 15px; }
 
 .event-page .row .btn {
   margin-top: 30px; }
@@ -4295,7 +4293,7 @@ input:checked + .slider:before {
 .event-page .row .second-block .display-name {
   margin-top: 0 !important; }
 
-.event-page .row .second-block .details {
+.event-page .row .second-block .dtails {
   background-color: #eeeeee;
   padding: 15px 5px;
   width: 100%; }

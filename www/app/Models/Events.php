@@ -9,16 +9,28 @@ use Songfolio\Core\Helper;
 
 class Events extends BaseSQL
 {
+    private $comments;
+    private $categories;
+
     public function __construct($id = null)
     {
         parent::__construct($id);
+        $this->comments = new Comments();
+        $this->categories = new Categories();
     }
 
     public function show()
     {
         $v = new View("event", "front");
-        $categories = (new Categories)->getAllBy(['type' => 'event']);
+        $categories = $this->categories->getAllBy(['type' => 'event']);
         $this->__set('type', Helper::searchInArray($categories, $this->__get('type'), 'name'));
+
+        if ($this->__get('comment_active') === '1') {
+            $comments = $this->comments->prepareComments('event', $this->__get('id'));
+            $v->assign('comments', $comments);
+        }
+
+
         $v->assign('event', $this);
     }
 
@@ -55,7 +67,7 @@ class Events extends BaseSQL
                         'minlength' => 2,
                         'maxlength' => 200,
                         'error' => 'Votre titre doit faire entre 2 et 200 caractères',
-                        "class" => "input-control col-lg-5 col-md-5 col-sm-5 col-12",
+                        "class" => "input-control col-lg-5 col-md-5 col-sm-5 col-12 target-elment-to-slug",
 
                     ],
                     "category" => [
@@ -128,28 +140,7 @@ class Events extends BaseSQL
                         "label" => "Image de banière",
                         "class" => ""
                     ],
-                    'details' => [
-                        "type" => "textarea",
-                        "label" => "Détail",
-                        "id" => "details",
-                        "name" => "details",
-                        "placeholder" => "",
-                        "required" => true,
-                        "error" => ""
-                    ],
-                    "slug" => [
-                        "type" => "slug",
-                        "label" => "Lien permanent",
-                        "class" => "",
-                        "presed" => $_SERVER['SERVER_NAME'],
-                        "id" => "slug",
-                        "name" => "slug",
-                        "placeholder" => "",
-                        "required" => true,
-                        "minlength" => 2,
-                        "maxlength" => 100,
-                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
-                    ],
+
                     'rate' => [
                         'type' => 'number',
                         'name' => 'rate',
@@ -193,7 +184,37 @@ class Events extends BaseSQL
                         'name' => 'city',
                         'required' => true,
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                    ]
+                    ],
+                    'details' => [
+                        "type" => "textarea",
+                        "label" => "Détail",
+                        "id" => "details",
+                        "name" => "details",
+                        "placeholder" => "",
+                        "required" => true,
+                        "error" => ""
+                    ],
+                    "slug" => [
+                        "type" => "slug",
+                        "label" => "Lien permanent",
+                        "class" => "title-value-slug",
+                        "presed" => $_SERVER['SERVER_NAME'],
+                        "id" => "slug",
+                        "name" => "slug",
+                        "placeholder" => "",
+                        "required" => true,
+                        "minlength" => 2,
+                        "maxlength" => 100,
+                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                    ],
+                    'comment_active' => [
+                        'type' => 'checkbox',
+                        'id' => 'comment_active',
+                        "name" => "comment_active",
+                        'label' => 'Autoriser les commentaires',
+                        "div_class" => "smart-type type-article",
+                        "required" => false,
+                    ],
                 ]
             ],
             'update' => [
@@ -226,7 +247,7 @@ class Events extends BaseSQL
                         'minlength' => 2,
                         'maxlength' => 200,
                         'error' => 'Votre titre doit faire entre 2 et 200 caractères',
-                        "class" => "input-control col-lg-5 col-md-5 col-sm-5 col-12",
+                        "class" => "input-control col-lg-5 col-md-5 col-sm-5 col-12 target-elment-to-slug",
 
                     ],
                     "category" => [
@@ -299,14 +320,12 @@ class Events extends BaseSQL
                         "label" => "Image de banière",
                         "class" => ""
                     ],
-                    'details' => [
-                        "type" => "textarea",
-                        "label" => "Détail",
-                        "id" => "details",
-                        "name" => "details",
-                        "placeholder" => "",
-                        "required" => true,
-                        "error" => ""
+                    'ticketing' => [
+                        'type' => 'text',
+                        'name' => 'ticketing',
+                        'label' => 'Billetterie externe',
+                        'required' => true,
+                        'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
                     ],
                     'rate' => [
                         'type' => 'number',
@@ -344,7 +363,37 @@ class Events extends BaseSQL
                         'name' => 'city',
                         'required' => true,
                         'class' => 'form-control  col-lg-4 col-md-4 col-sm-4 col-12',
-                    ]
+                    ],
+                    'details' => [
+                        "type" => "textarea",
+                        "label" => "Détail",
+                        "id" => "details",
+                        "name" => "details",
+                        "placeholder" => "",
+                        "required" => true,
+                        "error" => ""
+                    ],
+                    "slug" => [
+                        "type" => "slug",
+                        "label" => "Lien permanent",
+                        "class" => "title-value-slug",
+                        "presed" => $_SERVER['SERVER_NAME'],
+                        "id" => "slug",
+                        "name" => "slug",
+                        "placeholder" => "",
+                        "required" => true,
+                        "minlength" => 2,
+                        "maxlength" => 100,
+                        "error" => "Votre titre doit faire entre 2 et 100 caractères"
+                    ],
+                    'comment_active' => [
+                        'type' => 'checkbox',
+                        'id' => 'comment_active',
+                        "name" => "comment_active",
+                        'label' => 'Autoriser les commentaires',
+                        "div_class" => "smart-type type-article",
+                        "required" => false,
+                    ],
                 ]
             ]
         ];
