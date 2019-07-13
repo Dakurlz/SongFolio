@@ -47,7 +47,7 @@ class Routing
         }
 
         //Si le cms est installé, on autorise pas l'accès à l'installation
-        if(Helper::isCmsInstalled() && $routes[$slug]["controller"] == 'Install'){
+        if(Helper::isCmsInstalled() && isset($routes[$slug]) && $routes[$slug]["controller"] == 'Install'){
             header('Location: /');
         }
 

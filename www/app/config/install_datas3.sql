@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le :  jeu. 04 juil. 2019 à 09:32
+-- Généré le :  jeu. 04 juil. 2019 à 10:12
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.8
 
@@ -32,12 +32,14 @@ CREATE TABLE `Albums` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
-  `slug` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `date_published` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_dir` varchar(255) NOT NULL,
+  `cover_dir` varchar(255) DEFAULT NULL,
   `deezer` varchar(100) DEFAULT NULL,
   `spotify` varchar(100) DEFAULT NULL,
-  `likes` int(11) DEFAULT NULL
+  `likes` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `comment_active` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -114,7 +116,8 @@ CREATE TABLE `Events` (
   `postal_code` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `description` longtext NOT NULL,
-  `ticketing` varchar(255) NOT NULL
+  `ticketing` varchar(255) NOT NULL,
+  `comment_active` tinyint(1) NOT NULL DEFAULT '1',
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -152,6 +155,18 @@ CREATE TABLE `Permissions` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `Likes`
+--
+
+CREATE TABLE `Likes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
 -- Structure de la table `Roles`
 --
 
@@ -187,7 +202,7 @@ CREATE TABLE `Settings` (
 INSERT INTO `Settings` (`id`, `type`, `data`) VALUES
 (1, 'header', '{\"header_menu\": \"1\"}'),
 (2, 'footer', '{\"copyright\": \"Copyright Songfolio 2019\", \"footer_menu\": {\"1\": \"2\", \"2\": \"2\"}, \"footer_menu_nb\": \"2\"}'),
-(3, 'template', '{\"link_color\": \"#a80000\", \"text_color\": \"#555555\", \"title_color\": \"#444444\", \"text_font_name\": \"Lato\", \"title_font_name\": \"Questrial\", \"footer_background\": \"#555555\", \"footer_link_color\": \"#c8c8c8\", \"header_background\": \"#ffffff\", \"header_link_color\": \"#717171\", \"footer_title_color\": \"#808080\"}');
+(4, 'template', '{\"link_color\": \"#a80000\", \"text_color\": \"#555555\", \"title_color\": \"#444444\", \"text_font_name\": \"Lato\", \"title_font_name\": \"Questrial\", \"footer_background\": \"#555555\", \"footer_link_color\": \"#c8c8c8\", \"header_background\": \"#ffffff\", \"header_link_color\": \"#717171\", \"footer_title_color\": \"#808080\"}');
 
 -- --------------------------------------------------------
 
@@ -197,14 +212,17 @@ INSERT INTO `Settings` (`id`, `type`, `data`) VALUES
 
 CREATE TABLE `Songs` (
   `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `album_id` int(11) DEFAULT NULL,
   `slug` varchar(255) NOT NULL,
   `likes` int(11) NOT NULL DEFAULT '0',
   `text` longtext NOT NULL,
-  `img_dir` varchar(255) NOT NULL,
-  `youtub` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `img_dir` varchar(255) DEFAULT NULL,
+  `youtube` varchar(255) DEFAULT NULL,
   `deezer` varchar(255) DEFAULT NULL,
-  `spotify` varchar(255) DEFAULT NULL
+  `spotify` varchar(255) DEFAULT NULL,
+  `date_published` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -337,7 +355,7 @@ ALTER TABLE `Events`
 -- AUTO_INCREMENT pour la table `Menus`
 --
 ALTER TABLE `Menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `Permissions`
@@ -349,13 +367,19 @@ ALTER TABLE `Permissions`
 -- AUTO_INCREMENT pour la table `Roles`
 --
 ALTER TABLE `Roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `Settings`
 --
 ALTER TABLE `Settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `Songs`
+--
+ALTER TABLE `Songs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `Songs`
@@ -367,7 +391,7 @@ ALTER TABLE `Songs`
 -- AUTO_INCREMENT pour la table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -17,9 +17,13 @@ class Validator
         foreach ($config["data"] as $name => $input) {
             //required
 
-            if ( ($input["required"] ?? false) && empty($data[$input['name']]) ) {
+            if(!isset($input['name'])){
+                return;
+            }
+
+            if ( $input["required"] && empty($data[$input['name']]) ) {
                 View::show404("Tentative de Faille XSS");
-            } elseif ( ($input["required"] ?? false) || !empty($data[$input['name']]) ) {
+            } elseif ( $input["required"] || !empty($data[$input['name']]) ) {
                 //Minlength
                 if (isset($input["minlength"]) && !self::checkMinLength($data[$input['name']], $input["minlength"])) {
                     $this->errors[] = $input["error"];
