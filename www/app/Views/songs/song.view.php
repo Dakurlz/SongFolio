@@ -1,9 +1,7 @@
 <?php
 
 use Songfolio\Core\Helper;
-use Songfolio\Models\Users;
 
-$currentU = new Users();
 ?>
 
 <section id="content-core">
@@ -29,11 +27,11 @@ $currentU = new Users();
                                                                         else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
                                         <input type="hidden" class="nbr_likes" value="<?= $nb_like ?>">
-                                        <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($checkUserLike) echo 'public/img/heart-like-active.svg';
+                                        <img class="<?php if ($user->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($checkUserLike) echo 'public/img/heart-like-active.svg';
                                                                                                                                         else echo 'public/img/heart-like.svg' ?>" alt="">
                                         <input type="hidden" class="type" value="songs">
                                         <input type="hidden" class="type_id" value="<?= $song->__get('id') ?>">
-                                        <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
+                                        <input type="hidden" class="user_id" value="<?= $user->__get('id') ?>">
 
                                     </div>
                                 </div>

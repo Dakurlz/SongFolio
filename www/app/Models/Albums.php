@@ -25,13 +25,13 @@ class Albums extends BaseSQL
 
         foreach ($songs as $key => $song) {
             $songs[$key]['nbLikesSongs'] = Likes::displayLike($likesSongs, $song['id']);
-            $songs[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesSongs, $song['id'], $user->__get('id'));
+            $songs[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesSongs,  (string) $song['id'], (string) $user->__get('id'));
         }
 
         $prepare = array_column($songs, 'nbLikesSongs');
         array_multisort($prepare, SORT_DESC, $songs);
 
-        $checkUserLike = Likes::checkIfUserLiked($likesAlbum, $this->__get('id'), $user->__get('id'));
+        $checkUserLike = Likes::checkIfUserLiked($likesAlbum, (string) $this->__get('id'), (string) $user->__get('id'));
 
         $view = new View("albums/album", "front");
 
