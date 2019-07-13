@@ -136,9 +136,10 @@ class PagesController
         $categories = $this->category->getAllBy(['type' => 'event']);
         foreach ($events as $key => $event) {
             $events[$key]['type'] = Helper::searchInArray($categories, $event['type'], 'name');
+            $events[$key]['nbLikesEvents'] = Likes::displayLike($likes, $event['id']);
+            $events[$key]['checkUserLike'] = Likes::checkIfUserLiked($likes, $event['id'], $this->user->__get('id'));
         }
         $view = new View("events", "front");
         $view->assign('events', $events);
-        $view->assign('likes', $likes);
     }
 }

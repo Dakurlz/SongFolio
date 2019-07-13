@@ -29,6 +29,9 @@ use Songfolio\Models\Users;
                     Type
                 </th>
                 <th>
+                    Lien permanent
+                </th>
+                <th>
                     Date de debut
                 </th>
                 <th>
@@ -50,6 +53,9 @@ use Songfolio\Models\Users;
                         <td>
                             <?= Helper::searchInArray($categories, $event['type'],'name') ?>
                         </td>
+                        <td>
+                        <a href="<?= BASE_URL . $event['slug'] ?>">/<?= $event['slug'] ?></a>
+                    </td>
                         <td>
                             <?= Helper::getFormatedDateWithTime($event['start_date']) ?>
                         </td>
