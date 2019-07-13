@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Songfolio\Models;
 
 use Songfolio\Core\BaseSQL;
-use Songfolio\Core\Routing;
 
 class Likes extends BaseSQL
 {
@@ -14,9 +13,13 @@ class Likes extends BaseSQL
         parent::__construct($id);
     }
 
+    public function getNbLikeByTypeAndId($type, $type_id): int
+    {
+        return count($this->getAllBy(['type' => $type, 'type_id' => $type_id]));
+    }
+
     public static function checkIfUserLiked(array $likes, string $type_id, string $user_id)
     {
-
 
         foreach ($likes as $like) {
             if ($like['type_id'] == $type_id && $like['user_id'] == $user_id) {

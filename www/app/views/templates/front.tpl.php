@@ -15,7 +15,7 @@ use Songfolio\Models\Menus;
     <meta name="keywords" content="<?= $settings['config']['site_tags'] ?? '' ?>">
     <title><?= $page_title ?? $settings['config']['site_name'] ?? 'Songfolio' ?></title>
 
-    <?php if(isset($indexed) && !$indexed): ?>
+    <?php if (isset($indexed) && !$indexed) : ?>
         <meta name="robots" content="noindex">
     <?php endif; ?>
 
@@ -140,7 +140,7 @@ use Songfolio\Models\Menus;
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="<?=Helper::host() . "public/js/front.js?v=" . filemtime("public/js/front.js"); ?>"></script>
+    <script src="<?= Helper::host() . "public/js/front.js?v=" . filemtime("public/js/front.js"); ?>"></script>
 </body>
 
 </html>
