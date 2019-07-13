@@ -76,8 +76,9 @@ return [
         $likesModel = $container[Likes::class]($container);
         $songModel = $container[Songs::class]($container);
         $albumModel = $container[Albums::class]($container);
+        $usersModel = $container[Users::class]($container);
 
-        return new PagesController($eventsModel, $categoryModel, $contentsModel, $songModel, $albumModel, $likesModel);
+        return new PagesController($usersModel,$eventsModel, $categoryModel, $contentsModel, $songModel, $albumModel, $likesModel);
     },
     SettingsController::class => function ($container) {
         return new SettingsController();

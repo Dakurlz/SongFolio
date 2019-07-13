@@ -1,7 +1,6 @@
 <?php
 
 use Songfolio\Core\Helper;
-use Songfolio\Models\Likes;
 use Songfolio\Models\Users;
 
 $currentU = new Users();
@@ -30,7 +29,7 @@ $currentU = new Users();
                     <table class="table col-12 ">
 
                         <tbody class="tbody">
-                            <?php foreach ($songs as $song) :  $nbLikesSongs = Likes::displayLike($likesSongs, $song['id']); ?>
+                            <?php foreach ($songs as $song) : ?>
                                 <tr>
 
                                     <td class="image">
@@ -49,11 +48,11 @@ $currentU = new Users();
 
                                         <div class="likes">
 
-                                            <span class="nbr_likes_span"><?php if ($nbLikesSongs != 0) echo $nbLikesSongs;
+                                            <span class="nbr_likes_span"><?php if ($song['nbLikesSongs'] != 0) echo $song['nbLikesSongs'];
                                                                             else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
-                                            <input type="hidden" class="nbr_likes" value="<?= $nbLikesSongs ?>">
-                                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesSongs, $song['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                            <input type="hidden" class="nbr_likes" value="<?= $song['nbLikesSongs'] ?>">
+                                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($song['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                                             else echo 'public/img/heart-like.svg' ?>" alt="">
                                             <input type="hidden" class="type" value="songs">
                                             <input type="hidden" class="type_id" value="<?= $song['id'] ?>">

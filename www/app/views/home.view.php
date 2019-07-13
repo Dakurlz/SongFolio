@@ -3,7 +3,6 @@
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Users;
-use Songfolio\Models\Likes;
 
 $currentU = new Users();
 
@@ -98,7 +97,7 @@ $currentU = new Users();
             <table class="col-lg-10 col-12">
                 <?php $i = 0 ?>
                 <?php
-                foreach ($songs as $song) : $nbLikesSongs = Likes::displayLike($likesSongs, $song['id']); ?>
+                foreach ($songs as $song) : if ($i ==  5) break; ?>
                     <tr class="singles_list smart-top-select top-select-singles">
                         <td class="rank">
                             <?php echo ++$i; ?>.
@@ -117,11 +116,11 @@ $currentU = new Users();
 
                         <td class="info likes">
 
-                            <span class="nbr_likes_span"><?php if ($nbLikesSongs != 0) echo $nbLikesSongs;
+                            <span class="nbr_likes_span"><?php if ($song['nbLikesSongs'] != 0) echo $song['nbLikesSongs'];
                                                             else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
-                            <input type="hidden" class="nbr_likes" value="<?= $nbLikesSongs ?>">
-                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesSongs, $song['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                            <input type="hidden" class="nbr_likes" value="<?= $song['nbLikesSongs'] ?>">
+                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($song['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                             else echo 'public/img/heart-like.svg' ?>" alt="">
                             <input type="hidden" class="type" value="songs">
                             <input type="hidden" class="type_id" value="<?= $song['id'] ?>">
@@ -154,7 +153,7 @@ $currentU = new Users();
             </div>
             <table class="col-lg-10 col-12">
                 <?php $j = 0 ?>
-                <?php foreach ($albums as $album) :   $nbLikesAlbums = Likes::displayLike($likesAlbums, $album['id']); ?>
+                <?php foreach ($albums as $album) :  if ($j == 5) break; ?>
                     <tr class="albums_list smart-toggle smart-top-select top-select-albums">
                         <td class="rank">
                             <?php echo ++$j; ?>.
@@ -173,11 +172,11 @@ $currentU = new Users();
 
                         <td class="info likes">
 
-                            <span class="nbr_likes_span"><?php if ($nbLikesAlbums != 0) echo $nbLikesAlbums;
+                            <span class="nbr_likes_span"><?php if ($album['nbLikesAlbums'] != 0) echo $album['nbLikesAlbums'];
                                                             else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
-                            <input type="hidden" class="nbr_likes" value="<?= $nbLikesAlbums ?>">
-                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesAlbums, $album['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                            <input type="hidden" class="nbr_likes" value="<?= $album['nbLikesAlbums'] ?>">
+                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($album['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                             else echo 'public/img/heart-like.svg' ?>" alt="">
                             <input type="hidden" class="type" value="albums">
                             <input type="hidden" class="type_id" value="<?= $album['id'] ?>">
