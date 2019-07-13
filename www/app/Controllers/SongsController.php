@@ -79,7 +79,7 @@ class SongsController
         $view->assign('albums', $album);
     }
 
-    private function renderSongsView($configForm): void
+    private function renderSongsView($configForm)
     {
         $view = new View('admin/songs/create', 'back');
         $view->assign('configFormSongs', $configForm);

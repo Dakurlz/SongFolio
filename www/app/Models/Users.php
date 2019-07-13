@@ -78,7 +78,7 @@ class Users extends BaseSQL
     }
 
     //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
-    public static function need(string $askedAction): void
+    public static function need(string $askedAction)
     {
         $user = new Users();
         if (!$user->can($askedAction)) {
@@ -119,7 +119,7 @@ class Users extends BaseSQL
         return false;
     }
 
-    public function needAuth(): void
+    public function needAuth()
     {
         if (!$this->is('connected')) {
             header('Location: ' . Routing::getSlug('Users', 'login') . '?redirect=' . urlencode($_SERVER[REQUEST_URI]));
@@ -127,7 +127,7 @@ class Users extends BaseSQL
         }
     }
 
-    public function needGroups($groups): void
+    public function needGroups($groups)
     {
         $this->needAuth();
 

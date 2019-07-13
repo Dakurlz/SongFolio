@@ -105,7 +105,7 @@ class BaseSQL
         return $this;
     }
 
-    public function save(): void
+    public function save()
     {
         $columns = $this->data;
 
@@ -129,7 +129,7 @@ class BaseSQL
         }
     }
 
-    public function remove(): void
+    public function remove()
     {
         if($this->id()){
             $sql = "DELETE FROM " . $this->table . " WHERE id=".$this->id().";";

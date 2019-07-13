@@ -76,7 +76,7 @@ class AlbumsController
     }
 
 
-    private function renderAlbumsView(array $configForm): void
+    private function renderAlbumsView(array $configForm)
     {
         $view = new View('admin/albums/create', 'back');
         $view->assign('configFormAlbum', $configForm);

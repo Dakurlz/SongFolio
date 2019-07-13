@@ -63,7 +63,7 @@ class Routing
             $controller = $controller . "Controller";
 
             $action = $routes[$slug]["action"] . "Action";
-            $controllerPath = 'app/controllers/' . $controller . '.php';
+            $controllerPath = 'app/Controllers/' . $controller . '.php';
 
             if(Helper::isCmsInstalled()){
                 $user = new Users();
@@ -88,7 +88,7 @@ class Routing
      * @param [string] $action
      * @return string|null
      */
-    public static function getSlug($controller, $action): ?string
+    public static function getSlug($controller, $action): string
     {
         //Récupération de toutes les routes dans le fichier yml
         $routes = yaml_parse_file('app/config/routes.yml');

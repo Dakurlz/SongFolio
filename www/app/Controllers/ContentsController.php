@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Songfolio\Controllers;
 
-use Songfolio\core\View;
+use Songfolio\Core\View;
 use Songfolio\Core\Validator;
-use Songfolio\core\Helper;
+use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Contents;
@@ -26,7 +26,7 @@ class ContentsController
         $this->user = $user;
     }
 
-    public function indexAction(): void
+    public function indexAction()
     {
         $nb_articles =  $this->contents->getByCustomQuery(['type' => 'article'], 'COUNT(*) as nb_articles');
         $nb_page =  $this->contents->getByCustomQuery(['type' => 'page'], 'COUNT(*) as nb_page');
@@ -35,7 +35,7 @@ class ContentsController
         $view->assign('nb_pages', $nb_page['nb_page']);
     }
 
-    public function createContentsAction(): void
+    public function createContentsAction()
     {
         Users::need('content_add');
 
@@ -49,7 +49,7 @@ class ContentsController
         self::renderContentsView($configForm);
     }
 
-    public function deleteAction(): void
+    public function deleteAction()
     {
         Users::need('content_del');
 
@@ -104,14 +104,14 @@ class ContentsController
     }
 
 
-    public function listesPagesAction(): void
+    public function listesPagesAction()
     {
         $pages = $this->contents->getAllBy(['type' => 'page']);
         $view = new View('admin/contents/pages_lists', 'back');
         $view->assign('pages', $pages);
     }
 
-    public function listesArticlesAction(): void
+    public function listesArticlesAction()
     {
         $articles = $this->contents->getAllBy(['type' => 'article']);
         $view = new View('admin/contents/article_lists', 'back');

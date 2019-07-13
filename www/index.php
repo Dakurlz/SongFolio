@@ -1,7 +1,7 @@
 <?php
-require "app/Config/conf.inc.php";
+require "app/config/conf.inc.php";
 require "app/Core/Autoloader.php";
-require "app/Lib/dev.conf.php";
+require "app/lib/dev.conf.php";
 
 use Songfolio\Core\View;
 use Songfolio\Core\Autoloader;
@@ -21,7 +21,7 @@ if (!empty($route)) {
     extract($route);
 
     $container = [];
-    $container += require 'app/Config/di.global.php';
+    $container += require 'app/config/di.global.php';
 
 
     if (file_exists($controllerPath)) {
