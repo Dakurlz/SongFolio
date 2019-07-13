@@ -306,7 +306,6 @@ INSERT INTO `Songs` (`id`, `name`, `album_id`, `slug`, `likes`, `text`, `descrip
 DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(250) NOT NULL,
@@ -324,8 +323,8 @@ CREATE TABLE `Users` (
 -- Déchargement des données de la table `Users`
 --
 
-INSERT INTO `Users` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `date_inserted`, `role_id`, `status`, `date_update`, `login_token`, `id_facebook`, `undeletable`) VALUES
-(7, NULL, 'Admin', 'Admin', 'admin@hotmail.fr', '$2y$10$n6RywGQxMQo7efq2htDB4.7CH/t3HJEny/5WqGKkTIaRQvJZVEqLu', '2019-07-13 17:17:20', 1, 0, NULL, '59a14ea9bbe3f6c079681b247eb3b807', NULL, 0);
+INSERT INTO `Users` (`id`, `first_name`, `last_name`, `email`, `password`, `date_inserted`, `role_id`, `status`, `date_update`, `login_token`, `id_facebook`, `undeletable`) VALUES
+(7, 'Admin', 'Admin', 'admin@hotmail.fr', '$2y$10$n6RywGQxMQo7efq2htDB4.7CH/t3HJEny/5WqGKkTIaRQvJZVEqLu', '2019-07-13 17:17:20', 1, 0, NULL, '59a14ea9bbe3f6c079681b247eb3b807', NULL, 0);
 
 --
 -- Index pour les tables déchargées
