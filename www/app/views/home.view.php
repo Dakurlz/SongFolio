@@ -27,7 +27,6 @@ $currentU = new Users();
                     <article class="event-full">
                         <a href="<?= $articles[0]['slug'] ?? '' ?>" class="event">
                             <h1><?= $articles[0]['title'] ?? 'Bientôt ...' ?></h1>
-                            :!
                             <?php if (isset($articles[0])) : ?>
                                 <p><?= Helper::getFormatedDateWithTime($articles[0]['date_create']) ?> <span class="muted">par <?= (new Users($articles[0]['author']))->getShowName() ?></span></p>
                                 <?php if (isset($articles[0]['img_dir'])) : ?>
