@@ -109,3 +109,16 @@ label {
     height: auto !important;
   }
 }
+
+.display-like-title{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.display-content{
+  padding: 10px 20px;
+  background-color: $color-gray;
+}

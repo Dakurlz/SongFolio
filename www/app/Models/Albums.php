@@ -9,38 +9,51 @@ use Songfolio\Models\Likes;
 
 class Albums extends BaseSQL
 {
-    private $comment;
-    private $song;
-    private $like;
-
     public function __construct($id = null)
     {
         parent::__construct($id);
-        $this->comment = new Comments();
-        $this->song = new Songs();
-        $this->like = new Likes();
     }
 
     public function show()
     {
 
-        $songs = $this->song->getAllBy(['album_id'=> $this->__get('id')]);
-        $likesSongs = $this->like->getAllBy(['type' => 'songs']);
+        $user = new Users();
+
+        $songs = (new Songs)->getAllBy(['album_id' => $this->__get('id')]);
+        $likesSongs = (new Likes())->getAllBy(['type' => 'songs']);
+        $likesAlbum = (new Likes())->getAllBy(['type' => 'albums', 'type_id'=> $this->__get('id')]);
+
+        foreach ($songs as $key => $song) {
+            $songs[$key]['nbLikesSongs'] = Likes::displayLike($likesSongs, $song['id']);
+            $songs[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesSongs, $song['id'], $user->__get('id'));
+        }
+
+        $prepare = array_column($songs, 'nbLikesSongs');
+        array_multisort($prepare, SORT_DESC, $songs);
+
+        $checkUserLike = Likes::checkIfUserLiked($likesAlbum, $this->__get('id'), $user->__get('id'));
 
         $view = new View("albums/album", "front");
-        if($this->__get('comment_active') === '1'){
-            $comments = $this->comment->prepareComments('album',$this->__get('id'));
-            $view->assign('comments',$comments);
+
+        if ($this->__get('category_id') != null) {
+            $category_name = (new Categories($this->__get('category_id')))->__get('name');
+            $view->assign('category_name', $category_name);
         }
+
+        if ($this->__get('comment_active') === '1') {
+            $comments = (new Comments)->prepareComments('albums', $this->__get('id'));
+            $view->assign('comments', $comments);
+        }
+
 
 
         $view->assign('album', $this);
         $view->assign('songs', $songs);
-        $view->assign('likesSongs', $likesSongs);
-
+        $view->assign('nb_like', count($likesAlbum));
+        $view->assign('checkUserLike', $checkUserLike);
     }
 
-    
+
     /**
      * @param array $categories
      * @return array
@@ -48,7 +61,7 @@ class Albums extends BaseSQL
     public static function prepareAlbumToSelect(array $albums): array
     {
         $arr = [];
-        foreach ($albums as $album){
+        foreach ($albums as $album) {
             $arr[] = ['label' => $album['title'], 'value' => $album['id']];
         }
 
