@@ -21,7 +21,7 @@ class Events extends BaseSQL
 
     public function show()
     {
-        $v = new View("event", "front");
+        $v = new View("events/event", "front");
         $categories = $this->categories->getAllBy(['type' => 'event']);
         $this->__set('type', Helper::searchInArray($categories, $this->__get('type'), 'name'));
 

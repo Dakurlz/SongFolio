@@ -57,6 +57,9 @@ $currentU = new Users();
                                     <?php if ($album->__get('spotify') != '') : ?>
                                         <a href="<?= $album->__get('spotify') ?>">Lien Spotify</a>
                                     <?php endif ?>
+
+                                    <hr>
+                                    <p><?=  $album->__get('description')?></p>
                                 </div>
                             </div>
 

@@ -15,7 +15,7 @@ use Songfolio\Core\Helper;
     <meta name="keywords" content="<?= $settings['config']['site_tags'] ?? '' ?>">
     <title><?= $page_title ?? $settings['config']['site_name'] ?? 'Songfolio' ?></title>
 
-    <?php if(isset($indexed) && !$indexed): ?>
+    <?php if (isset($indexed) && !$indexed) : ?>
         <meta name="robots" content="noindex">
     <?php endif; ?>
 
@@ -73,7 +73,7 @@ use Songfolio\Core\Helper;
                 </div>
 
                 <ul>
-                    <?php foreach ((new \Songfolio\Models\Menus($settings['header']['header_menu']))->__get('data') as $menu) : ?>
+                    <?php foreach ((new Menus($settings['header']['header_menu']))->__get('data') as $menu) : ?>
                         <li>
                             <a href="<?= $menu['link'] ?? '#' ?>"><?= $menu['title'] ?></a>
 
@@ -140,7 +140,7 @@ use Songfolio\Core\Helper;
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="<?=Helper::host() . "public/js/front.js?v=" . filemtime("public/js/front.js"); ?>"></script>
+    <script src="<?= Helper::host() . "public/js/front.js?v=" . filemtime("public/js/front.js"); ?>"></script>
 </body>
 
 </html>

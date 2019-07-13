@@ -140,7 +140,7 @@ class PagesController
             $events[$key]['checkUserLike'] = Likes::checkIfUserLiked($likes, $event['id'], $this->user->__get('id'));
         }
         
-        $view = new View("events", "front");
+        $view = new View("events/events", "front");
         $view->assign('events', $events);
     }
 }
