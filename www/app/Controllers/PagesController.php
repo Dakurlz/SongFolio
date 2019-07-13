@@ -75,7 +75,7 @@ class PagesController
     {
         $categories = $this->category->getAllBy(['type' => 'album']);
 
-        $albums = $this->album->getAllDataWithLimit(5);
+        $albums = $this->album->getAllData();
         foreach ($albums as $key => $album) {
             $albums[$key]['category_name'] = Helper::searchInArray($categories,  $album['category_id'], 'name');
             $albums[$key]['nbLikesAlbums'] = Likes::displayLike($likesAlbums, $album['id']);
@@ -131,14 +131,15 @@ class PagesController
     {
 
         $likes = $this->like->getAllBy(['type' => 'events']);
-
         $events = $this->event->getAllData();
         $categories = $this->category->getAllBy(['type' => 'event']);
+
         foreach ($events as $key => $event) {
             $events[$key]['type'] = Helper::searchInArray($categories, $event['type'], 'name');
             $events[$key]['nbLikesEvents'] = Likes::displayLike($likes, $event['id']);
             $events[$key]['checkUserLike'] = Likes::checkIfUserLiked($likes, $event['id'], $this->user->__get('id'));
         }
+        
         $view = new View("events", "front");
         $view->assign('events', $events);
     }

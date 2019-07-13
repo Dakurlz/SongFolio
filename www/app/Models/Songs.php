@@ -22,11 +22,23 @@ class Songs extends BaseSQL
 
     public function show()
     {
+        $user = new Users();
 
+        $likesSong = (new Likes())->getAllBy(['type' => 'songs', 'type_id'=> $this->__get('id')]);
+        $checkUserLike = Likes::checkIfUserLiked($likesSong, $this->__get('id'), $user->__get('id'));
 
         $view = new View("songs/song", "front");
+        if ($this->__get('album_id') != null) {
+            $album_name = (new Albums($this->__get('album_id')))->__get('title');
+            $view->assign('album_name', $album_name);
+        }
+
 
         $view->assign('song', $this);
+        $view->assign('nb_like', count($likesSong));
+        $view->assign('checkUserLike', $checkUserLike);
+
+
     }
 
     public function getFormSongs()
