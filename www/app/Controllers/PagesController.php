@@ -79,8 +79,7 @@ class PagesController
         foreach ($albums as $key => $album) {
             $albums[$key]['category_name'] = Helper::searchInArray($categories,  $album['category_id'], 'name');
             $albums[$key]['nbLikesAlbums'] = Likes::displayLike($likesAlbums, $album['id']);
-            $albums[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesAlbums, $album['id'], $this->user->__get('id'));
-
+            $albums[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesAlbums, (string) $album['id'], (string) $this->user->__get('id'));
         }
 
         $prepare = array_column($albums, 'nbLikesAlbums');
@@ -99,7 +98,7 @@ class PagesController
                 $songs[$key]['album_name'] = Helper::searchInArray($albums, $song['album_id'], 'title');
             }
             $songs[$key]['nbLikesSongs'] = Likes::displayLike($likesSongs, $song['id']);
-            $songs[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesSongs, $song['id'], $this->user->__get('id'));
+            $songs[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesSongs, (string) $song['id'], (string) $this->user->__get('id'));
         }
 
         $prepare = array_column($songs, 'nbLikesSongs');
@@ -109,7 +108,7 @@ class PagesController
     }
 
 
-    public function renderAlbumsAction()    
+    public function renderAlbumsAction()
     {
         $likesAlbums = $this->like->getAllBy(['type' => 'albums']);
         $albums = $this->renderAlbum($likesAlbums);
@@ -136,9 +135,9 @@ class PagesController
         foreach ($events as $key => $event) {
             $events[$key]['type'] = Helper::searchInArray($categories, $event['type'], 'name');
             $events[$key]['nbLikesEvents'] = Likes::displayLike($likes, $event['id']);
-            $events[$key]['checkUserLike'] = Likes::checkIfUserLiked($likes, $event['id'], $this->user->__get('id'));
+            $events[$key]['checkUserLike'] = Likes::checkIfUserLiked($likes, (string) $event['id'], (string) $this->user->__get('id'));
         }
-        
+
         $view = new View("events/events", "front");
         $view->assign('events', $events);
     }

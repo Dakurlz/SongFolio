@@ -6,9 +6,7 @@
 ?>
 
 <div class="admin_pages_liste">
-<?php
-    if (isset($alert)) $this->addModal('alert', $alert);
-?>
+
     <h2 class="col-12">Liste de pages</h2>
 
     <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">

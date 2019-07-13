@@ -6,9 +6,6 @@ use Songfolio\Models\Users;
 ?>
 
 <div class="admin-events-list">
-    <?php
-        if (isset($alert)) $this->addModal('alert', $alert);
-    ?>
 
     <h2 class="col-12">Liste des événements</h2>
     <?php if (empty($listEvents)): ?>
