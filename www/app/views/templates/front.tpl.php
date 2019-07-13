@@ -1,7 +1,7 @@
 <?php
 
-use \Songfolio\Models\Menus;
 use Songfolio\Core\Helper;
+use Songfolio\Models\Menus;
 
 ?>
 
@@ -73,7 +73,7 @@ use Songfolio\Core\Helper;
                 </div>
 
                 <ul>
-                    <?php foreach ((new \Songfolio\Models\Menus($settings['header']['header_menu']))->__get('data') as $menu) : ?>
+                    <?php foreach ((new Menus($settings['header']['header_menu']))->__get('data') as $menu) : ?>
                         <li>
                             <a href="<?= $menu['link'] ?? '#' ?>"><?= $menu['title'] ?></a>
 

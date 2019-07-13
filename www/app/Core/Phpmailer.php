@@ -2,6 +2,7 @@
 
 namespace Songfolio\Core;
 use Songfolio\Core\BaseSQL;
+use Songfolio\Core\SMTP;
 use Exception;
 use Songfolio\Models\Settings;
 
@@ -42,7 +43,7 @@ define("Pwd_mail",$settings['userpassword_mail']);
 define("SMTPSecure",$settings['SMTPSecure']);
 define("Port",$settings['Port']);
 
-class PHPMailer
+class PhpMailer
 {
 
 
