@@ -21,6 +21,7 @@ class Albums extends BaseSQL
 
         $songs = (new Songs)->getAllBy(['album_id' => $this->__get('id')]);
         $likesSongs = (new Likes())->getAllBy(['type' => 'songs']);
+        $likesAlbum = (new Likes())->getAllBy(['type' => 'albums', 'type_id'=> $this->__get('id')]);
 
         foreach ($songs as $key => $song) {
             $songs[$key]['nbLikesSongs'] = Likes::displayLike($likesSongs, $song['id']);
@@ -30,7 +31,7 @@ class Albums extends BaseSQL
         $prepare = array_column($songs, 'nbLikesSongs');
         array_multisort($prepare, SORT_DESC, $songs);
 
-        $checkUserLike = Likes::checkIfUserLiked($likesSongs, $this->__get('id'), $user->__get('id'));
+        $checkUserLike = Likes::checkIfUserLiked($likesAlbum, $this->__get('id'), $user->__get('id'));
 
         $view = new View("albums/album", "front");
 
@@ -40,7 +41,7 @@ class Albums extends BaseSQL
         }
 
         if ($this->__get('comment_active') === '1') {
-            $comments = (new Comments)->prepareComments('album', $this->__get('id'));
+            $comments = (new Comments)->prepareComments('albums', $this->__get('id'));
             $view->assign('comments', $comments);
         }
 
@@ -48,7 +49,7 @@ class Albums extends BaseSQL
 
         $view->assign('album', $this);
         $view->assign('songs', $songs);
-        $view->assign('nb_like', count($likesSongs));
+        $view->assign('nb_like', count($likesAlbum));
         $view->assign('checkUserLike', $checkUserLike);
     }
 
