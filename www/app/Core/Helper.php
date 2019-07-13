@@ -10,6 +10,20 @@ class Helper
 {
     public static $googleFonts;
 
+    /**
+     * @return mixed
+     */
+    public static function host()
+    {
+        $protocol = (!empty($_SERVER['HTTPS'])
+            && $_SERVER['HTTPS'] !== 'off'
+            || $_SERVER['SERVER_PORT'] == 443)
+            ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'] . '/';
+        return $protocol . $domainName;
+    }
+
+
     public static function isCmsInstalled(){
         if(file_exists('app/config/.installed')){
             return true;

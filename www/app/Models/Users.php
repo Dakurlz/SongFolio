@@ -5,6 +5,7 @@ namespace Songfolio\Models;
 
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
+use Songfolio\Core\Helper;
 
 class Users extends BaseSQL
 {
@@ -81,7 +82,7 @@ class Users extends BaseSQL
     {
         $user = new Users();
         if (!$user->can($askedAction)) {
-            header('Location: ' . BASE_URL);
+            header('Location: ' . Helper::host());
         }
     }
 
@@ -131,7 +132,7 @@ class Users extends BaseSQL
         $this->needAuth();
 
         if (!$this->is($groups) && !$this->is('admin')) {
-            header('Location: ' . BASE_URL);
+            header('Location: ' . Helper::host());
             exit;
         }
     }

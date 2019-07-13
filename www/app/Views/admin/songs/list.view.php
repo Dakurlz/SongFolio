@@ -51,7 +51,7 @@ use Songfolio\Models\Users;
                         <?= Helper::searchInArray($albums, $song['album_id'], 'title') ?>
                     </td>
                     <td>
-                        <a href="<?= BASE_URL . $song['slug'] ?>">/<?= $song['slug'] ?></a>
+                        <a href="<?=Helper::host() . $song['slug'] ?>">/<?= $song['slug'] ?></a>
                     </td>
                     <td>
                         <?= Helper::getFormatedDateWithTime($song['date_published']) ?>

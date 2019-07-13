@@ -4,6 +4,7 @@ namespace Songfolio\Controllers;
 
 use Songfolio\Core\Alert;
 use Songfolio\Core\View;
+use Songfolio\Core\Helper;
 use Songfolio\Core\Validator;
 use Songfolio\Models\Comments;
 use Songfolio\Models\Users;
@@ -22,9 +23,8 @@ class CommentsController
 
     public function createCommentsAction()
     {
-
         $redirect =  self::push();
-        header('Location: ' . BASE_URL . $redirect . '?status=success#comment-section');
+        header('Location: ' . Helper::host() . $redirect . '?status=success#comment-section');
     }
 
     public function listNotConfirmAction()
@@ -41,6 +41,8 @@ class CommentsController
         $this->comment->__set('confirm', 1);
         $this->comment->save();
 
+        $_SESSION['alert']['success'][] = 'Le commentaire a été validé, il est désormais en ligne.';
+
         self::listNotConfirmAction();
     }
 
@@ -50,10 +52,11 @@ class CommentsController
         $redirect = $_REQUEST['redirect_to'] ?? null;
         if (isset($id)) {
             $this->comment->delete(["id" => $id]);
+            $_SESSION['alert']['info'][] = 'Le commentaire a été refusé.';
         }
 
         if ($redirect !== null) {
-            header('Location: ' . BASE_URL . $redirect . '#comment-section');
+            header('Location: ' . Helper::host() . $redirect . '#comment-section');
         } else {
             self::listNotConfirmAction();
         }
@@ -77,7 +80,7 @@ class CommentsController
                     "type" => "textarea",
                     "name" => "message",
                     "required" => true,
-                    "error" => "Saisissez le massage"
+                    "error" => "Saisissez le message"
                 ],
             ]
         ];

@@ -57,7 +57,13 @@ class AdminController
             $role->__set('name', $_POST['name']);
             $role->__set('perms', $_POST['perms']);
             $role->save();
+
+            $_SESSION['alert']['success'][] = 'Le role a bien été ajouté.';
+
             header('Location: ' . Routing::getSlug('admin', 'rolesEdit') . '?role=' . $role->id());
+            exit;
+        }else if (!empty($_POST['perms']) || !empty($_POST['name'])){
+            $_SESSION['alert']['danger'][] = 'Vous devez renseigner un titre et un droit au minimum.';
         }
 
         $v = new View("admin/roles_edit", "back");
@@ -78,15 +84,14 @@ class AdminController
             $role->__set('name', $_POST['name']);
             $role->__set('perms', $_POST['perms']);
             $role->save();
-            $alert['success'][] = 'Le role a bien été modifié.';
+            $_SESSION['alert']['success'][] = 'Le role a bien été modifié.';
+        }else if (!empty($_POST['perms']) || !empty($_POST['name'])){
+            $_SESSION['alert']['danger'][] = 'Vous devez renseigner un titre et un droit au minimum.';
         }
 
         $v = new View("admin/roles_edit", "back");
         $v->assign('role', $role);
         $v->assign('permsList', $role->permsList());
-        if (isset($alert)) {
-            $v->assign('alert', $alert);
-        }
     }
     public function rolesDelAction()
     {
@@ -96,8 +101,14 @@ class AdminController
             View::show404();
         }
 
-        $menu = new Roles($_GET['role']);
-        $menu->remove();
+        $user = new Users(["role_id" => $_GET['role']]);
+        if(!$user->__get('id')){
+            $menu = new Roles($_GET['role']);
+            $menu->remove();
+            $_SESSION['alert']['info'][] = 'Le role a bien été supprimé.';
+        }else{
+            $_SESSION['alert']['danger'][] = 'Vous ne pouvez pas supprimer un groupe utilisé par un utilisateur.';
+        }
 
         header('Location: ' . Routing::getSlug('admin', 'roles'));
     }

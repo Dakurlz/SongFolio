@@ -1,3 +1,7 @@
+<?php
+use Songfolio\Core\Helper;
+?>
+
 <div class="contents-index-page">
 
     <div class=" row" style="margin-bottom: 60px" >
@@ -10,7 +14,7 @@
             <a href="<?= \Songfolio\Core\Routing::getSlug('Contents','listesPages') ?>">
 
                 <div style="background: #00A65A" class=" stats-block ">
-                    <img src="<?= BASE_URL."public/img/contents.svg"; ?>"
+                    <img src="<?=Helper::host()."public/img/contents.svg"; ?>"
                     />
                     <div>
                         <p> <?= $nb_pages?? '0' ?>  </p>
@@ -25,7 +29,7 @@
 
             <a href="<?= \Songfolio\Core\Routing::getSlug('Contents','listesArticles') ?>">
                 <div style="background: #02BBAB" class="stats-block ">
-                    <img src="<?= BASE_URL."public/img/article.svg"; ?>"
+                    <img src="<?=Helper::host()."public/img/article.svg"; ?>"
                     />
                     <div>
                         <p> <?= $nb_articles ?? '0' ?>  </p>

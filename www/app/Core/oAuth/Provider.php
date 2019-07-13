@@ -57,6 +57,6 @@ abstract class Provider implements ProviderInterface
     }
 
     public function getRedirectUrl(){
-        return urlencode(BASE_URL.'login/oauth?provider='.$this->getProviderName());
+        return urlencode(Helper::host().'login/oauth?provider='.$this->getProviderName());
     }
 }

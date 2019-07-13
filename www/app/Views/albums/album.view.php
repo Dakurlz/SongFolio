@@ -35,7 +35,7 @@ use Songfolio\Models\Likes;
                                 <?php echo ++$i; ?>.
                             </td>
                             <td class="image">
-                                <img src="<?= BASE_URL . $song['img_dir'] ?? '' ?>" alt="">
+                                <img src="<?=Helper::host() . $song['img_dir'] ?? '' ?>" alt="">
                             </td>
                             <td class="title">
                                 <a href="<?= $song['slug'] ?>">

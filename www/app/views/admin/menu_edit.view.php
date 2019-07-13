@@ -1,6 +1,7 @@
 <?php
     use Songfolio\Models\Contents;
     use Songfolio\Models\Menus;
+    use Songfolio\Core\Helper;
     use Songfolio\Core\Routing;
 ?>
 
@@ -78,7 +79,7 @@
         <button class="btn btn-success" type="submit">Enregistrer le menu</button>
 
         <?php if($menu->id()): ?>
-            <a href="<?=Routing::getSlug('admin', 'menusDel')?>?menu=<?=$menu->id()?>" class="btn btn-danger">Supprimer le menu</a>
+            <a href="<?=Routing::getSlug('menus', 'menusDel')?>?menu=<?=$menu->id()?>" class="btn btn-danger">Supprimer le menu</a>
         <?php endif; ?>
     </form>
 
@@ -104,14 +105,14 @@
             </div>
 
             <div class="form-group smart-menu-add menu-add-homepage">
-                <input type="hidden" id="menu-link" value="<?=BASE_URL?>">
+                <input type="hidden" id="menu-link" value="<?=Helper::host()?>">
             </div>
 
             <div class="form-group smart-menu-add menu-add-custom-page">
                 <label>Choisir une page</label>
                 <select class="select-control menu-custom-page" id="menu-link">
                 <?php foreach( (new Contents)->getAllData() as $page):?>
-                    <option value="<?=BASE_URL.$page['slug']?>"><?=$page['title']?></option>
+                    <option value="<?=$page['slug']?>"><?=$page['title']?></option>
                 <?php endforeach; ?>
                 </select>
             </div>

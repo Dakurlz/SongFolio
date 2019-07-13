@@ -40,7 +40,7 @@ $is_user = !empty($user->__get('id'));
 
                 <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] === 'success'): ?>
                     <div role="alert" style="padding: 0 10px " class="alert alert-info">
-                        <p>Votre commentaire sera afficher après la verification du moderateur</p>
+                        <p>Votre commentaire sera affiché après la verification d'un modérateur</p>
                     </div>
                 <?php endif; ?>
 
@@ -48,7 +48,7 @@ $is_user = !empty($user->__get('id'));
                     <div class="comments-data">
                         <?php foreach ($config['comments'] as $key => $comment) : ?>
                             <div class="comments-data__item">
-                                <img src="<?= BASE_URL ?>/public/img/comment-default.png" alt="">
+                                <img src="<?=Helper::host()?>public/img/comment-default.png" alt="">
                                 <div class="comments-data__item__content">
                                     <p><span><?= $comment['user_name'] ?></span> - <?= Helper::getTimeAgo($comment['date_created']) ?></p>
                                     <p><?= $comment['message'] ?></p>
@@ -60,7 +60,7 @@ $is_user = !empty($user->__get('id'));
                         <?php endforeach; ?>
                     </div>
                 <?php else : ?>
-                    <h3>Aucun commentair...</h3>
+                    <h3>Il n'y a pas encore de commentaire sur ce contenu!</h3>
                 <?php endif; ?>
             </div>
         </div>

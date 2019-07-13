@@ -4,6 +4,7 @@ namespace Songfolio\Models;
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 use Songfolio\Core\View;
+use Songfolio\Core\Helper;
 use Songfolio\Models\Comments;
 
 class Contents extends BaseSQL
@@ -43,6 +44,7 @@ class Contents extends BaseSQL
 
         $view->assign('page_title', $this->__get('title'));
         $view->assign('page_desc', $this->__get('description'));
+        $view->assign('indexed', $this->__get('indexed'));
         $view->assign('content', $this);
     }
 
@@ -182,7 +184,7 @@ class Contents extends BaseSQL
                         "type" => "slug",
                         "label" => "Lien permanent",
                         "class" => "title-value-slug",
-                        "presed" => $_SERVER['SERVER_NAME'],
+                        "presed" => Helper::host(),
                         "id" => "slug",
                         "name" => "slug",
                         "placeholder" => "",

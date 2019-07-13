@@ -23,7 +23,8 @@
     }
     .img-left, .img-right{
       margin: 10px;
-      width: 30%;
+      width: 30%!important;
+      height: auto!important;
     }
     .img-right{
       margin-right:0px;

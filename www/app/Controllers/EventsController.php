@@ -128,7 +128,7 @@ class EventsController
 
                 //  SEO
                 $this->event->__set('slug',  $data['slug']);
-                isset($$data['description']) ? $this->event->__set('description',  trim($data['description'])) : null;
+                isset($data['description']) ? $this->event->__set('description',  trim($data['description'])) : null;
 
                 $this->event->save();
 
