@@ -13,7 +13,7 @@ use Songfolio\Core\Routing;
                     <div class="row">
 
                         <div class="col-lg-5 col-md-5 col-12">
-                            <img src="<?= BASE_URL . $event->__get('img_dir') ?>" alt="">
+                            <img src="<?=Helper::host() . $event->__get('img_dir') ?>" alt="">
                             <h3>Adresse de l'événement</h3>
                             <address>
                                 <p><?= $event->__get('address') ?></p>

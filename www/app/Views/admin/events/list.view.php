@@ -74,7 +74,7 @@ use Songfolio\Models\Users;
                             </h3>
                             <hr>
                             <?php if( isset($event['img_dir'])) : ?>
-                                <img src="<?= BASE_URL . $event['img_dir']  ?>"   />
+                                <img src="<?=Helper::host() . $event['img_dir']  ?>"   />
                                 <hr>
                             <?php endif; ?>
 
@@ -90,7 +90,7 @@ use Songfolio\Models\Users;
                             <hr>
 
                             <div class="form-group">
-                                <a href="<?= BASE_URL.$event['slug'] ?>">/<?= $event['slug'] ?></a>
+                                <a href="<?=Helper::host().$event['slug'] ?>">/<?= $event['slug'] ?></a>
                             </div>
                             
                             <hr>

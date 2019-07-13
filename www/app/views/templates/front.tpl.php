@@ -1,6 +1,7 @@
 <?php
 
 use \Songfolio\Models\Menus;
+use Songfolio\Core\Helper;
 
 ?>
 
@@ -9,15 +10,19 @@ use \Songfolio\Models\Menus;
 
 <head>
     <meta charset="utf-8">
-    <meta data="description" content="<?= $settings['config']['site_desc'] ?? 'Made with Songfolio' ?>">
+    <meta data="description" content="<?= $page_desc ?? $settings['config']['site_desc'] ?? 'Made with Songfolio' ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="<?= $settings['config']['site_tags'] ?? '' ?>">
-    <title><?= $settings['config']['site_name'] ?? 'Songfolio' ?></title>
+    <title><?= $page_title ?? $settings['config']['site_name'] ?? 'Songfolio' ?></title>
+
+    <?php if(isset($indexed) && !$indexed): ?>
+        <meta name="robots" content="noindex">
+    <?php endif; ?>
 
     <!--Main css -->
-    <link rel="stylesheet" href="<?php echo BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>">
+    <link rel="stylesheet" href="<?php echo Helper::host() . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>">
     <?php if (file_exists('public/css/generated.css')) : ?>
-        <link rel="stylesheet" href="<?php echo BASE_URL . "public/css/generated.css?v=" . filemtime("public/css/generated.css"); ?>">
+        <link rel="stylesheet" href="<?php echo Helper::host() . "public/css/generated.css?v=" . filemtime("public/css/generated.css"); ?>">
     <?php endif; ?>
 </head>
 
@@ -25,22 +30,22 @@ use \Songfolio\Models\Menus;
     <header>
         <div class="container">
             <div class="row no-margin header-top between middle">
-                <a href="/" id="logo-image" style="background-image:url(<?= $settings['header']['header_logo'] ?? PUBLIC_DIR . 'img/logo_songfolio.png' ?>)"></a>
+                <a href="/" id="logo-image" style="background-image:url(<?= $settings['header']['header_logo'] ?? Helper::host() . 'public/img/logo_songfolio.png' ?>)"></a>
                 <a id="show-menu" href="#">&#9776;</a>
                 <ul>
                     <?php if (isset($settings['config']['fb_url'])) : ?>
                         <li>
-                            <a href="<?= $settings['config']['fb_url'] ?>"><img src="<?php echo PUBLIC_DIR ?>img/fb.jpg"></a>
+                            <a href="<?= $settings['config']['fb_url'] ?>"><img src="<?php echo Helper::host() ?>public/img/fb.jpg"></a>
                         </li>
                     <?php endif; ?>
                     <?php if (isset($settings['config']['twitter_url'])) : ?>
                         <li>
-                            <a href="<?= $settings['config']['twitter_url'] ?>"><img src="<?php echo PUBLIC_DIR ?>img/twitter.jpg"></a>
+                            <a href="<?= $settings['config']['twitter_url'] ?>"><img src="<?php echo Helper::host() ?>public/img/twitter.jpg"></a>
                         </li>
                     <?php endif; ?>
                     <?php if (isset($settings['config']['insta_url'])) : ?>
                         <li>
-                            <a href="<?= $settings['config']['insta_url'] ?>"><img src="<?php echo PUBLIC_DIR ?>img/instagram.jpg"></a>
+                            <a href="<?= $settings['config']['insta_url'] ?>"><img src="<?php echo Helper::host() ?>public/img/instagram.jpg"></a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -50,17 +55,17 @@ use \Songfolio\Models\Menus;
                     <ul>
                         <?php if (isset($settings['config']['fb_url'])) : ?>
                             <li>
-                                <a href="<?= $settings['config']['fb_url'] ?>"><img src="<?php echo PUBLIC_DIR ?>img/fb.jpg"></a>
+                                <a href="<?= $settings['config']['fb_url'] ?>"><img src="<?php echo Helper::host() ?>public/img/fb.jpg"></a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($settings['config']['twitter_url'])) : ?>
                             <li>
-                                <a href="<?= $settings['config']['twitter_url'] ?>"><img src="<?php echo PUBLIC_DIR ?>img/twitter.jpg"></a>
+                                <a href="<?= $settings['config']['twitter_url'] ?>"><img src="<?php echo Helper::host() ?>public/img/twitter.jpg"></a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($settings['config']['insta_url'])) : ?>
                             <li>
-                                <a href="<?= $settings['config']['insta_url'] ?>"><img src="<?php echo PUBLIC_DIR ?>img/instagram.jpg"></a>
+                                <a href="<?= $settings['config']['insta_url'] ?>"><img src="<?php echo Helper::host() ?>public/img/instagram.jpg"></a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -85,9 +90,6 @@ use \Songfolio\Models\Menus;
                             <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
-                    <li>
-                        <a href="#connecter">Mon compte</a>
-                    </li>
                 </ul>
             </nav>
         </div>
@@ -138,7 +140,7 @@ use \Songfolio\Models\Menus;
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="<?= BASE_URL . "public/js/front.js?v=" . filemtime("public/js/front.js"); ?>"></script>
+    <script src="<?=Helper::host() . "public/js/front.js?v=" . filemtime("public/js/front.js"); ?>"></script>
 </body>
 
 </html>

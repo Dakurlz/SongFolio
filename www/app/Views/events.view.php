@@ -8,7 +8,7 @@ use Songfolio\Models\Users;
 ?>
 
 
-<section id="content-banner" style="background-image:url(http://localhost/public/img/img_front/event2.jpg);">
+<section id="content-banner" style="background-image:url(<?=Helper::host()?>public/img/img_front/event2.jpg);">
 
 </section>
 
@@ -40,10 +40,10 @@ use Songfolio\Models\Users;
 
                                         <tr>
                                             <td>
-                                                <img style="max-width: 150px;" src="<?= BASE_URL . $event['img_dir'] ?>" alt="">
+                                                <img style="max-width: 150px;" src="<?=Helper::host() . $event['img_dir'] ?>" alt="">
                                             </td>
                                             <td>
-                                                <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
+                                                <h2 style="margin: 0;display: inline;"> <a class="link" href="<?=Helper::host() . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
                                             </td>
                                             <td>
                                                 <p>de <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>

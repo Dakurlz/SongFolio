@@ -1,9 +1,13 @@
+<?php
+use Songfolio\Core\Helper;
+?>
+
 <div class="dashboard">
   <div class="dashboard-content">
     <div class="row">
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
         <div class=" page stats-block ">
-          <img src="<?= BASE_URL."public/img/contents.svg"; ?>"
+          <img src="<?=Helper::host()."public/img/contents.svg"; ?>"
           />
           <div>
             <p> <?= $nb_articles ?? '0' ?>  </p>
@@ -13,7 +17,7 @@
       </div>
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
         <div class="stats-block user">
-          <img src="<?= BASE_URL."public/img/users.svg"; ?>"
+          <img src="<?=Helper::host()."public/img/users.svg"; ?>"
           />
           <div>
             <p><?= $nb_users ?? '0' ?></p>
@@ -23,7 +27,7 @@
       </div>
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
         <div class="stats-block comment">
-          <img src="<?= BASE_URL."public/img/comments.svg"; ?>" />
+          <img src="<?=Helper::host()."public/img/comments.svg"; ?>" />
           <div>
           <p><?= $nb_comments ?? '0' ?></p>
             <p>Commentaires</p>
@@ -32,7 +36,7 @@
       </div>
       <div class=" col-lg-3 col-md-6 col-sm-6 col-xs-6 col-12">
         <div class="stats-block daily-visit">
-          <img src="<?php echo BASE_URL."public/img/glass.svg"; ?>" />
+          <img src="<?php echo Helper::host()."public/img/glass.svg"; ?>" />
           <div>
             <p>48</p>
             <p>Visite quotidienne</p>

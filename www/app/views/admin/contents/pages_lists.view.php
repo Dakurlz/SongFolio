@@ -10,11 +10,9 @@
     if (isset($alert)) $this->addModal('alert', $alert);
 ?>
     <h2 class="col-12">Liste de pages</h2>
-    <?php if (empty($pages)): ?>
-        <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter le contenue</a>
-    <?php endif;?>
 
     <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">
+        <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter du contenu</a>
         <input  class="input-control input-control-success input-search" placeholder="Chercher une page" />
     </div>
 
@@ -50,7 +48,7 @@
                         <?= $page['title'] ?>
                     </td>
                     <td>
-                        <a href="<?= BASE_URL.$page['slug'] ?>">/<?= $page['slug'] ?></a>
+                        <a href="<?=Helper::host().$page['slug'] ?>">/<?= $page['slug'] ?></a>
                     </td>
                     <td>
                         <?= $page['published'] === '0' ? 'Non' : 'Oui' ?>
@@ -79,7 +77,7 @@
                         <hr>
                         <?php if( isset($page['img_dir'])) : ?>
                             <h2>Image</h2>
-                            <img src="<?= BASE_URL . $page['img_dir']  ?>"   />
+                            <img src="<?=Helper::host().$page['img_dir']  ?>"   />
                             <hr>
                         <?php endif; ?>
                         <div class="form-group">
@@ -90,4 +88,5 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
 </div>

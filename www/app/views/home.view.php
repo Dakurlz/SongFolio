@@ -12,9 +12,9 @@ $currentU = new Users();
 <section id="home-slider">
     <picture>
         <!-- Mobile 600x450 -->
-        <source srcset="<?php echo PUBLIC_DIR ?>img/slider-1-600w.jpg" media="(max-width: <?php echo MOBILE_MAX_WIDTH ?>px)" />
+        <source srcset="<?=(!empty($settings['header']['home_banner_mobile']) ? $settings['header']['home_banner_mobile'] : Helper::host().'public/img/slider-1-600w.jpg')?>" media="(max-width: <?php echo MOBILE_MAX_WIDTH ?>px)" />
         <!-- Desktop 1920x720-->
-        <img src="<?php echo PUBLIC_DIR ?>img/slider-1-1920w.jpg" />
+        <img src="<?=(!empty($settings['header']['home_banner_desktop']) ? $settings['header']['home_banner_desktop'] : Helper::host().'public/img/slider-1-1920w.jpg')?>" />
     </picture>
 </section>
 
@@ -30,7 +30,7 @@ $currentU = new Users();
                             <h1><?= $articles[0]['title'] ?? 'Bientôt ...' ?></h1>
                             :!
                             <?php if (isset($articles[0])) : ?>
-                                <p><?= Helper::getFormatedDateWithTime($articles[0]['date_create']) ?> <span class="muted">par <?= (new Users($articles[0]['author']))->__get('username') ?></span></p>
+                                <p><?= Helper::getFormatedDateWithTime($articles[0]['date_create']) ?> <span class="muted">par <?= (new Users($articles[0]['author']))->getShowName() ?></span></p>
                                 <?php if (isset($articles[0]['img_dir'])) : ?>
                                     <img src="<?= $articles[0]['img_dir'] ?>" />
                                 <?php endif; ?>
@@ -104,7 +104,7 @@ $currentU = new Users();
                             <?php echo ++$i; ?>.
                         </td>
                         <td class="image">
-                            <img src="<?= BASE_URL . $song['img_dir'] ?? '' ?>" alt="">
+                            <img src="<?=Helper::host() . $song['img_dir'] ?? '' ?>" alt="">
                         </td>
                         <td class="title">
                             <a href="<?= $song['slug'] ?>">
@@ -160,7 +160,7 @@ $currentU = new Users();
                             <?php echo ++$j; ?>.
                         </td>
                         <td class="image">
-                            <img src="<?= BASE_URL . $album['cover_dir'] ?? '' ?>" alt="">
+                            <img src="<?=Helper::host() . $album['cover_dir'] ?? '' ?>" alt="">
                         </td>
                         <td class="title">
                             <a href="<?= $album['slug'] ?>">
@@ -215,10 +215,10 @@ $currentU = new Users();
                                 ?>
                                 <li>
                                     <?php if (isset($event['img_dir'])) : ?>
-                                        <img src="<?= BASE_URL . $event['img_dir'] ?>" alt="">
+                                        <img src="<?=Helper::host() . $event['img_dir'] ?>" alt="">
                                     <?php endif ?>
                                     <div class="info">
-                                        <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
+                                        <h2 style="margin: 0;display: inline;"> <a class="link" href="<?=Helper::host() . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
                                         <p>le <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>
                                     </div>
                                 </li>

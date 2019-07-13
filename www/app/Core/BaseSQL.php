@@ -135,7 +135,7 @@ class BaseSQL
             $sql = "DELETE FROM " . $this->table . " WHERE id=".$this->id().";";
 
             $query = $this->pdo->prepare($sql);
-            $query->execute($where);
+            $query->execute();
         }
     }
 

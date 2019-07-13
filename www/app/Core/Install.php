@@ -26,7 +26,12 @@ class Install
         //Install datas
         $db = new \PDO('mysql:host='.$dbInfos['db_host'].';dbname='.$dbInfos['db_name'], $dbInfos['db_user'], $dbInfos['db_password']);
         $sql = file_get_contents('app/config/install_datas.sql');
-        $test = $db->exec($sql);
+        try{
+            $db->exec($sql);
+            return true;
+        }catch(\PDOException $e){
+            return false;
+        }
     }
 
     public function finishInstall(){

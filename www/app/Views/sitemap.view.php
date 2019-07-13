@@ -8,7 +8,7 @@ echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="htt
 
 foreach ($data as $item) {
     echo '<url>' . PHP_EOL;
-    echo '<loc>' . BASE_URL . $item . '/</loc>' . PHP_EOL;
+    echo '<loc>' . Helper::host() . $item . '/</loc>' . PHP_EOL;
     echo '<changefreq>daily</changefreq>' . PHP_EOL;
     echo '</url>' . PHP_EOL;
 }

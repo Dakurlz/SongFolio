@@ -8,7 +8,7 @@ $currentU = new Users();
 
 ?>
 
-<section id="content-banner" style="background-image:url(http://localhost/public/img/img_front/album.jpg);">
+<section id="content-banner" style="background-image:url(<?=Helper::host()?>public/img/img_front/album.jpg);">
 
 </section>
 
@@ -34,7 +34,7 @@ $currentU = new Users();
                                 <tr>
 
                                     <td class="image">
-                                        <img style="max-width: 150px;" src="<?= BASE_URL . $song['img_dir'] ?? '' ?>" alt="">
+                                        <img style="max-width: 150px;" src="<?=Helper::host() . $song['img_dir'] ?? '' ?>" alt="">
                                     </td>
                                     <td class="title">
                                         <a href="<?= $song['slug'] ?>">

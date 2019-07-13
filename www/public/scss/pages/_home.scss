@@ -5,6 +5,10 @@
       padding: 70px 0;
     }
 
+    &[id]{
+      padding: 20px 0!important;
+    }
+
     .nav {
       padding: 1rem;
       border-bottom: 2px solid $color-primary;

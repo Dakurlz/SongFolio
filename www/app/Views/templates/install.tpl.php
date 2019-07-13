@@ -1,3 +1,7 @@
+<?php
+use Songfolio\Core\Helper;
+?>
+
 <!DOCTYPE html>
 <html id="install-html">
 <head>
@@ -8,11 +12,11 @@
     <title>Songfolio - Installation</title>
 
     <!--Main css -->
-    <link rel="stylesheet" href="<?php echo BASE_URL."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>">
+    <link rel="stylesheet" href="<?php echo Helper::host()."public/css/style.css?v=".filemtime("public/css/style.css" ); ?>">
 </head>
 <body id="install-body">
     <header>
-        <img id="logo" src="<?=BASE_URL?>public/img/logo_songfolio.png">
+        <img id="logo" src="<?=Helper::host()?>public/img/logo_songfolio.png">
         <nav>
             <ul>
                 <li class="active">

@@ -28,9 +28,10 @@ class InstallController{
         if(!empty($_POST)){
             if($_POST['db']){
                 if(BaseSQL::tryConnection($_POST['db'])){
-                    $this->install->initDb($_POST['db']);
-                    header('Location: '.Routing::getSlug('install', 'config'));
-                    exit;
+                    if($this->install->initDb($_POST['db'])){
+                        header('Location: '.Routing::getSlug('install', 'config'));
+                        exit;
+                    }
                 }else{
                     $_SESSION['alert']['danger'][] = "Nous n'arrivons pas à nous connecter à votre base de donnée, merci de vérifier les informations mentionnées.";
                 }

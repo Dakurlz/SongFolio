@@ -33,7 +33,7 @@
         <button class="btn btn-success" type="submit">Enregistrer le role</button>
 
         <?php if($role->id()): ?>
-            <a href="<?=Routing::getSlug('admin', 'rolesDel')?>?role=<?=$role->id()?>" class="btn btn-danger">Supprimer le menu</a>
+            <a href="<?=Routing::getSlug('admin', 'rolesDel')?>?role=<?=$role->id()?>" class="btn btn-danger">Supprimer le role</a>
         <?php endif; ?>
     </form>
 </div>

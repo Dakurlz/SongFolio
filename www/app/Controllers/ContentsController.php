@@ -42,7 +42,9 @@ class ContentsController
         $configForm = self::published($this->contents->getFormContents()['create']);
         $categories = $this->categories->getAllBy(['type' => 'article']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
-        self::push($configForm, 'create');
+        if(!empty($_POST)){
+            self::push($configForm, 'create');
+        }
 
         self::renderContentsView($configForm);
     }
@@ -88,9 +90,10 @@ class ContentsController
         self::push($configForm,  'update');
         if ($_REQUEST) {
             if ($_REQUEST['type'] === 'page') {
-                self::listesPagesAction();
+                header('Location: '.Routing::getSlug('contents', 'listesPages'));
+            }else{
+                header('Location: '.Routing::getSlug('contents', 'listesArticles'));
             }
-            self::listesArticlesAction();
         }
     }
 
@@ -146,6 +149,8 @@ class ContentsController
 
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] =  $typeName . ' créé';
+                    header('Location: '.Routing::getSlug('contents', 'update').'?id='.$this->contents->__get('id'));
+                    exit;
                 } else {
 
                     $_SESSION['alert']['info'][] =  $typeName . ' modifé';

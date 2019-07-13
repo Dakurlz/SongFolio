@@ -205,7 +205,7 @@ class UsersController
                 $token = $this->generateToken();
                 $user->__set('pwd_token',$token);
                 $user->save();
-                $body="Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. http://localhost/changer_mot_de_passe?t=$token\"";
+                $body="Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. <?=Helper::host()?>changer_mot_de_passe?t=$token\"";
                 $this->sendMail($user->__get('email'),"Changement de mot de passe",$body);
 
             }else{
