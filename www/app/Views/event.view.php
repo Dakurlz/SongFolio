@@ -51,7 +51,7 @@ use Songfolio\Core\Routing;
 </section>
 
 <?php if (isset($comments)) $this->addModal('comment', [
-    'type' => 'article',
+    'type' => 'events',
     'type_id' => $event->__get('id'),
     'redirect' => $event->__get('slug'),
     'comments' => $comments

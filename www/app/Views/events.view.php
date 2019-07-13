@@ -22,7 +22,7 @@ use Songfolio\Models\Users;
                     Prochains évènements
                 </div>
 
-                <div  class="search-front-bar col-12 col-lg-6 col-md-6 col-sm-6">
+                <div class="search-front-bar col-12 col-lg-6 col-md-6 col-sm-6">
                     <input class="input-control input-control-danger input-search" placeholder="Chercher un événement" />
                 </div>
                 <div class="list-events" style="list-style: none;padding: 0;">
@@ -34,7 +34,7 @@ use Songfolio\Models\Users;
                             <?php
                             if (isset($events)) :
                                 $currentU = new Users();
-                                foreach ($events as $event) : $nbLikes  = Likes::displayLike($likes, $event['id']);
+                                foreach ($events as $event) :;
                                     if (strtotime($event['start_date']) >= strtotime(date('d-m-Y'))) :
                                         ?>
 
@@ -61,11 +61,11 @@ use Songfolio\Models\Users;
                                             <td>
 
                                                 <div class="likes">
-                                                    <span class="nbr_likes_span"><?php if ($nbLikes != 0) echo $nbLikes;
+                                                    <span class="nbr_likes_span"><?php if ($event['nbLikesEvents'] != 0) echo $event['nbLikesEvents'];
                                                                                     else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
-                                                    <input type="hidden" class="nbr_likes" value="<?= $nbLikes ?>">
-                                                    <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likes, $event['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                                    <input type="hidden" class="nbr_likes" value="<?= $event['nbLikesEvents'] ?>">
+                                                    <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($event['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                                                     else echo 'public/img/heart-like.svg' ?>" alt="">
                                                     <input type="hidden" class="type" value="events">
                                                     <input type="hidden" class="type_id" value="<?= $event['id'] ?>">

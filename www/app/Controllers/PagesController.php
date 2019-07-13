@@ -12,6 +12,7 @@ use Songfolio\Core\Helper;
 use Songfolio\Models\Songs;
 use Songfolio\Models\Albums;
 use Songfolio\Models\Likes;
+use Songfolio\Models\Users;
 
 class PagesController
 {
@@ -21,8 +22,9 @@ class PagesController
     private $song;
     private $like;
     private $album;
+    private $user;
 
-    public function __construct(Events $event, Categories $category, Contents $article, Songs $song, Albums $album, Likes $like)
+    public function __construct(Users $user, Events $event, Categories $category, Contents $article, Songs $song, Albums $album, Likes $like)
     {
         $this->event = $event;
         $this->category = $category;
@@ -30,6 +32,7 @@ class PagesController
         $this->song = $song;
         $this->album = $album;
         $this->like = $like;
+        $this->user = $user;
     }
 
 
@@ -46,8 +49,8 @@ class PagesController
         }
 
         $events = self::renderEvent();
-        $albums = self::renderAlbum();
-        $songs = self::renderSong();
+        $albums = self::renderAlbum($likesAlbums);
+        $songs = self::prepareSong($likesSongs);
 
 
         $view = new View("home", "front");
@@ -55,8 +58,6 @@ class PagesController
         $view->assign('articles', $articles);
         $view->assign('songs', $songs);
         $view->assign('albums', $albums);
-        $view->assign('likesSongs', $likesSongs);
-        $view->assign('likesAlbums', $likesAlbums);
     }
 
     private function renderEvent(): array
@@ -70,63 +71,60 @@ class PagesController
         return $events;
     }
 
-    private function renderAlbum(): array
+    private function renderAlbum($likesAlbums): array
     {
         $categories = $this->category->getAllBy(['type' => 'album']);
 
         $albums = $this->album->getAllDataWithLimit(5);
         foreach ($albums as $key => $album) {
             $albums[$key]['category_name'] = Helper::searchInArray($categories,  $album['category_id'], 'name');
+            $albums[$key]['nbLikesAlbums'] = Likes::displayLike($likesAlbums, $album['id']);
+            $albums[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesAlbums, $album['id'], $this->user->__get('id'));
+
         }
+
+        $prepare = array_column($albums, 'nbLikesAlbums');
+        array_multisort($prepare, SORT_DESC, $albums);
+
         return $albums;
     }
 
-    private function renderSong(): array
+    private function prepareSong($likesSongs): array
     {
         $albums = $this->album->getAllData();
-        $songs = $this->song->getAllDataWithLimit(5);
+        $songs = $this->song->getAllData();
 
         foreach ($songs as $key => $song) {
             if ($song['album_id'] != null) {
                 $songs[$key]['album_name'] = Helper::searchInArray($albums, $song['album_id'], 'title');
             }
+            $songs[$key]['nbLikesSongs'] = Likes::displayLike($likesSongs, $song['id']);
+            $songs[$key]['checkUserLike'] = Likes::checkIfUserLiked($likesSongs, $song['id'], $this->user->__get('id'));
         }
+
+        $prepare = array_column($songs, 'nbLikesSongs');
+        array_multisort($prepare, SORT_DESC, $songs);
+
         return $songs;
     }
 
 
-    public function renderAlbumsAction()
+    public function renderAlbumsAction()    
     {
-        $albums = $this->renderAlbum();
         $likesAlbums = $this->like->getAllBy(['type' => 'albums']);
-
+        $albums = $this->renderAlbum($likesAlbums);
         $view = new View("albums/albums", "front");
-
-        $view->assign('likesAlbums', $likesAlbums);
         $view->assign('albums', $albums);
     }
 
 
     public function renderSongsAction()
     {
-        $albums = $this->album->getAllData();
-        $songs = $this->song->getAllData();
         $likesSongs = $this->like->getAllBy(['type' => 'songs']);
-
-        foreach ($songs as $key => $song) {
-            if ($song['album_id'] != null) {
-                $songs[$key]['album_name'] = Helper::searchInArray($albums, $song['album_id'], 'title');
-            }
-        }
-
+        $songs =  $this->prepareSong($likesSongs);
         $view = new View("songs/songs", "front");
         $view->assign('songs', $songs);
-
-        $view->assign('likesSongs', $likesSongs);
-
     }
-
-
 
 
     public function renderEventsPageAction(): void
@@ -134,15 +132,14 @@ class PagesController
 
         $likes = $this->like->getAllBy(['type' => 'events']);
 
-
-
         $events = $this->event->getAllData();
         $categories = $this->category->getAllBy(['type' => 'event']);
         foreach ($events as $key => $event) {
             $events[$key]['type'] = Helper::searchInArray($categories, $event['type'], 'name');
+            $events[$key]['nbLikesEvents'] = Likes::displayLike($likes, $event['id']);
+            $events[$key]['checkUserLike'] = Likes::checkIfUserLiked($likes, $event['id'], $this->user->__get('id'));
         }
         $view = new View("events", "front");
         $view->assign('events', $events);
-        $view->assign('likes', $likes);
     }
 }

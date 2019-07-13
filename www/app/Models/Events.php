@@ -26,7 +26,7 @@ class Events extends BaseSQL
         $this->__set('type', Helper::searchInArray($categories, $this->__get('type'), 'name'));
 
         if ($this->__get('comment_active') === '1') {
-            $comments = $this->comments->prepareComments('event', $this->__get('id'));
+            $comments = $this->comments->prepareComments('events', $this->__get('id'));
             $v->assign('comments', $comments);
         }
 
