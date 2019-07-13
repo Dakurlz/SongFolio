@@ -1,7 +1,6 @@
 <?php
 
 use Songfolio\Core\Helper;
-use Songfolio\Core\Routing;
 ?>
 
 <?php if ($event->__get('img_dir')) : ?>

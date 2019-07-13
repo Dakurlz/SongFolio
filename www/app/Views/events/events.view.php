@@ -1,8 +1,6 @@
 <?php
 
 use Songfolio\Core\Helper;
-use Songfolio\Core\Routing;
-use Songfolio\Models\Likes;
 use Songfolio\Models\Users;
 
 ?>
@@ -33,7 +31,7 @@ use Songfolio\Models\Users;
 
                             <?php
                             if (isset($events)) :
-                                $currentU = new Users();
+                                $user = new Users();
                                 foreach ($events as $event) :;
                                     if (strtotime($event['start_date']) >= strtotime(date('d-m-Y'))) :
                                         ?>
@@ -65,11 +63,11 @@ use Songfolio\Models\Users;
                                                                                     else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
                                                     <input type="hidden" class="nbr_likes" value="<?= $event['nbLikesEvents'] ?>">
-                                                    <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($event['checkUserLike']) echo 'public/img/heart-like-active.svg';
+                                                    <img class="<?php if ($user->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($event['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                                                     else echo 'public/img/heart-like.svg' ?>" alt="">
                                                     <input type="hidden" class="type" value="events">
                                                     <input type="hidden" class="type_id" value="<?= $event['id'] ?>">
-                                                    <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
+                                                    <input type="hidden" class="user_id" value="<?= $user->__get('id') ?>">
                                                 </div>
 
                                             </td>

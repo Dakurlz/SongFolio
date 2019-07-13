@@ -25,7 +25,7 @@ class Songs extends BaseSQL
         $user = new Users();
 
         $likesSong = (new Likes())->getAllBy(['type' => 'songs', 'type_id'=> $this->__get('id')]);
-        $checkUserLike = Likes::checkIfUserLiked($likesSong, $this->__get('id'), $user->__get('id'));
+        $checkUserLike = Likes::checkIfUserLiked($likesSong, (string) $this->__get('id'),  (string) $user->__get('id'));
 
         $view = new View("songs/song", "front");
         if ($this->__get('album_id') != null) {

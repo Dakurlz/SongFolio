@@ -42,9 +42,7 @@ class MenusController
         $v = new View("admin/menu_edit", "back");
         $v->assign('menu', $menu);
         $v->assign('js', ['admin_menus']);
-        if(isset($alert)){
-            $v->assign('alert', $alert);
-        }
+
     }
 
     public function menusEditAction()
@@ -67,9 +65,7 @@ class MenusController
         $v = new View("admin/menu_edit", "back");
         $v->assign('menu', $menu);
         $v->assign('js', ['admin_menus']);
-        if(isset($alert)){
-            $v->assign('alert', $alert);
-        }
+ 
     }
 
     public function menusDelAction()
