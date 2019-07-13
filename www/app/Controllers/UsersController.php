@@ -5,15 +5,15 @@ declare (strict_types = 1);
 namespace Songfolio\controllers;
 
 use Songfolio\Core\Alert;
-use Songfolio\Core\Oauth\OAuthSDK;
-use Songfolio\core\View;
-use Songfolio\core\Routing;
-use Songfolio\core\Validator;
+use Songfolio\Core\OAuth\OAuthSDK;
+use Songfolio\Core\View;
+use Songfolio\Core\Routing;
+use Songfolio\Core\Validator;
 use Songfolio\models\Users;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Settings;
-use Songfolio\Core\Oauth\Facebook;
-use Songfolio\core\PhpMailer;
+use Songfolio\Core\OAuth\Facebook;
+use Songfolio\Core\PhpMailer;
 
 class UsersController
 {
@@ -28,12 +28,12 @@ class UsersController
     }
 
 
-    public function defaultAction(): void
+    public function defaultAction()
     {
         echo "User default";
     }
 
-    public function dashboardAction(): void
+    public function dashboardAction()
 
     {   
         $configForm = $this->user->getFormModifyPwd();
@@ -60,13 +60,13 @@ class UsersController
         }
     }
     
-    public function modifyPwdAction($pwd) : void
+    public function modifyPwdAction($pwd)
     {   
        $this->user->__set('password',$pwd);
        $this->user->save();
     }
 
-    public function registerAction(): void
+    public function registerAction()
     {
         if ($this->user->is('connected')) {
             header('Location: ' . Routing::getSlug('users', 'dashboard'));
@@ -108,7 +108,7 @@ class UsersController
         $v->assign("configFormRegister", $configForm);
     }
 
-    public function oauthAction(): void
+    public function oauthAction()
     {
         if($_GET['provider']){
             $providerClass = "Songfolio\Core\Oauth\Providers\\".$_GET['provider'];
@@ -132,7 +132,7 @@ class UsersController
         }
     }
 
-    public function loginAction(): void
+    public function loginAction()
     {
         if ($this->user->is('connected')) {
             header('Location: ' . Routing::getSlug('users', 'dashboard'));
@@ -184,7 +184,7 @@ class UsersController
         }
 
     }
-    public function logoutAction(): void
+    public function logoutAction()
     {
         unset($_SESSION['user']);
         setcookie('token', '', -1, '/');
@@ -192,7 +192,7 @@ class UsersController
         header('Location: ' . Routing::getSlug("users", "login"));
     }
 
-    public function forgetPasswordAction(): void
+    public function forgetPasswordAction()
     {
         $configForm = $this->user->forgetPassword();
         $v = new View("user_forgetPassword", "front");

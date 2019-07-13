@@ -201,7 +201,7 @@ DROP TABLE IF EXISTS `Menus`;
 CREATE TABLE `Menus` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `data` json DEFAULT NULL
+  `data` LONGTEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -235,7 +235,7 @@ DROP TABLE IF EXISTS `Roles`;
 CREATE TABLE `Roles` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `perms` json DEFAULT NULL
+  `perms` LONGTEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -255,7 +255,7 @@ DROP TABLE IF EXISTS `Settings`;
 CREATE TABLE `Settings` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
-  `data` json DEFAULT NULL
+  `data` LONGTEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

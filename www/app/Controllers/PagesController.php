@@ -33,7 +33,7 @@ class PagesController
     }
 
 
-    public function defaultAction(): void
+    public function defaultAction()
     {
         $articles = $this->article->getAllBy(['type' => 'article', 'published' => 1], ['orderBy' => 'date_create', 'orderTo' => 'DESC']);
         $likes = $this->like->getAllData();
@@ -129,7 +129,7 @@ class PagesController
 
 
 
-    public function renderEventsPageAction(): void
+    public function renderEventsPageAction()
     {
 
         $likes = $this->like->getAllBy(['type' => 'events']);

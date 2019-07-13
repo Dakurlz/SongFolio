@@ -70,7 +70,7 @@ class EventsController
         self::listEventsAction();
     }
 
-    public function listEventsAction(): void
+    public function listEventsAction()
     {
         $events = $this->event->getAllData();
         $view = new View('admin/events/list', 'back');

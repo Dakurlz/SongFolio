@@ -27,7 +27,7 @@ class View
     public function setView($view)
     {
         $this->view = $view;
-        $vPath = "app/views/" . $view . ".view.php";
+        $vPath = "app/Views/" . $view . ".view.php";
         if (file_exists($vPath)) {
             $this->view_path = $vPath;
         } else {
@@ -38,7 +38,7 @@ class View
     public function setTemplate($template)
     {
         $this->template = $template;
-        $templatePath = "app/views/templates/" . $template . ".tpl.php";
+        $templatePath = "app/Views/templates/" . $template . ".tpl.php";
         if ($template === null) {
             $this->template_path = null;
         } else {
@@ -59,7 +59,7 @@ class View
 
     public function addModal($modal, $config = [])
     {
-        $pathModal = "app/views/modals/" . $modal . ".mod.php";
+        $pathModal = "app/Views/modals/" . $modal . ".mod.php";
         if (file_exists($pathModal)) {
             include $pathModal;
         } else {

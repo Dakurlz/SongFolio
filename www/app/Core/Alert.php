@@ -60,7 +60,7 @@ class Alert
      * @param string $messages
      * @return string
      */
-    public static function setAlertError(string $message): void
+    public static function setAlertError(string $message)
     {
         $_SESSION['alert'] = [
             'type' => 'danger',
@@ -74,7 +74,7 @@ class Alert
      * @param string $messages
      * @return string
      */
-    public static function setAlertInfo(string $message): void
+    public static function setAlertInfo(string $message)
     {
         $_SESSION['alert'] = [
             'type' => 'info',
