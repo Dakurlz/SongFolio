@@ -3870,7 +3870,7 @@ input:checked + .slider:before {
     @media screen and (max-width: 590px) {
       #front-body main section {
         padding: 70px 0; } }
-    #front-body main section[id] {
+    #front-body main section[id=content-core], #front-body main section[id=comment-section] {
       padding: 20px 0 !important; }
     #front-body main section .nav {
       padding: 1rem;
