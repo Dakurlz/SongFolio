@@ -1,6 +1,7 @@
 <?php
 use Songfolio\Core\Routing;
 ?>
+<section>
 <div class="container">
     <h1><?php echo 'Bonjour '.$user->getShowName(); ?></h1>
 
@@ -12,7 +13,7 @@ use Songfolio\Core\Routing;
     </table>
 
 <?php if($user->can('access_admin')): ?>
-    <a href="<?=Routing::getSlug('admin', 'default')?>" class="btn btn-success">Acceder au panel admin</a>
+    <a href="<?=Routing::getSlug('admin', 'default')?>" class="btn btn-success-outline">Acceder au panel admin</a>
 <?php endif; ?>
 
 <div id="myModal" class="modal  <?php if(!empty($active)) echo $active  ?>">
@@ -38,7 +39,7 @@ use Songfolio\Core\Routing;
 
     
 </div>
-
+</section>
 
 
 
