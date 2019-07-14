@@ -89,9 +89,6 @@ $user = new Users();
 
             <div class="col-lg-10 col-12 nav">
                 <h2>Top singles</h2>
-                <a href="">Tout le temps</a>
-                <a href="" class="active">Ce mois</a>
-                <a href="">Aujourd'hui</a>
             </div>
             <table class="col-lg-10 col-12">
                 <?php $i = 0 ?>
@@ -146,9 +143,6 @@ $user = new Users();
 
             <div class="col-lg-10 col-12 nav">
                 <h2>Top albums</h2>
-                <a href="">Tout le temps</a>
-                <a href="" class="active">Ce mois</a>
-                <a href="">Aujourd'hui</a>
             </div>
             <table class="col-lg-10 col-12">
                 <?php $j = 0 ?>
