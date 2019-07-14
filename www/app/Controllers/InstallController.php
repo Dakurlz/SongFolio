@@ -22,6 +22,7 @@ class InstallController{
 
     public function indexAction(){
         $view = new View("install/index", "install");
+        $view->assign('install_part', 'presentation');
     }
 
     public function bddAction(){
@@ -39,6 +40,7 @@ class InstallController{
         }
         $view = new View("install/bdd", "install");
         $view->assign('formDb', $this->install->getFormDb());
+        $view->assign('install_part', 'database');
     }
 
     public function configAction(){
@@ -51,6 +53,7 @@ class InstallController{
         }
         $view = new View("install/config", "install");
         $view->assign('formConfig', $this->install->getFormConfig());
+        $view->assign('install_part', 'configuration');
     }
 
     public function userAction(){
@@ -84,5 +87,6 @@ class InstallController{
         }
         $view = new View("install/user", "install");
         $view->assign('formUser', $userForm);
+        $view->assign('install_part', 'administrator');
     }
 }

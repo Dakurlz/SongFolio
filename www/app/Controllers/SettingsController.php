@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Songfolio\Controllers;
 
-use Songfolio\core\View;
+use Songfolio\Core\View;
 use Songfolio\Core\Routing;
 use Songfolio\Core\Helper;
 use Songfolio\Models\Settings;
