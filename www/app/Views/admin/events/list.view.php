@@ -6,9 +6,6 @@ use Songfolio\Models\Users;
 ?>
 
 <div class="admin-events-list">
-    <?php
-        if (isset($alert)) $this->addModal('alert', $alert);
-    ?>
 
     <h2 class="col-12">Liste des événements</h2>
     <?php if (empty($listEvents)): ?>
@@ -27,6 +24,9 @@ use Songfolio\Models\Users;
                 </th>
                 <th>
                     Type
+                </th>
+                <th>
+                    Lien permanent
                 </th>
                 <th>
                     Date de debut
@@ -50,6 +50,9 @@ use Songfolio\Models\Users;
                         <td>
                             <?= Helper::searchInArray($categories, $event['type'],'name') ?>
                         </td>
+                        <td>
+                        <a href="<?= Helper::host() . $event['slug'] ?>">/<?= $event['slug'] ?></a>
+                    </td>
                         <td>
                             <?= Helper::getFormatedDateWithTime($event['start_date']) ?>
                         </td>
