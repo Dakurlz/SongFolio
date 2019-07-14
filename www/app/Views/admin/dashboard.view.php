@@ -439,7 +439,7 @@ use Songfolio\Core\Helper;
   var optionsAlbumComment = {
     title: {
       display: true,
-      text: "Nombre de commentaire d’un événement"
+      text: "Nombre d'événement d'une catégorie"
     },
     cutoutPercentage: 40,
     animation: {
@@ -491,7 +491,7 @@ use Songfolio\Core\Helper;
   var optionsAlbumComment = {
     title: {
       display: true,
-      text: "Nombre de commentaire d’un événement"
+      text: "Nombre d'article d'une catégorie"
     },
     cutoutPercentage: 40,
     animation: {
@@ -544,7 +544,7 @@ use Songfolio\Core\Helper;
   var optionsAlbumComment = {
     title: {
       display: true,
-      text: "Nombre de commentaire d’un événement"
+      text: "Nombre d'album d'une catégorie"
     },
     cutoutPercentage: 40,
     animation: {
