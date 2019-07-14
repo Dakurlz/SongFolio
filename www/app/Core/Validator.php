@@ -15,15 +15,10 @@ class Validator
     public function __construct($config, $data)
     {
         foreach ($config["data"] as $name => $input) {
-            //required
 
-            if(!isset($input['name'])){
-                return;
-            }
-
-            if ( $input["required"] && empty($data[$input['name']]) ) {
+            if (($input["required"] ?? false) && empty($data[$input['name']])) {
                 View::show404("Tentative de Faille XSS");
-            } elseif ( $input["required"] || !empty($data[$input['name']]) ) {
+            } elseif (($input["required"] ?? false)) {
                 //Minlength
                 if (isset($input["minlength"]) && !self::checkMinLength($data[$input['name']], $input["minlength"])) {
                     $this->errors[] = $input["error"];
@@ -54,10 +49,10 @@ class Validator
 
                     switch ($config['config']['action_type']) {
                         case 'update':
+
                             $obj =  $config['config']['current_object'];
                             $values =  $obj->getByCustomQuery(['id' => $_GET['id']], 'id, slug');
                             if ($values['slug'] !== $data['slug']) $this->checkSlug($data['slug']);
-
                             continue;
 
                         case 'create':

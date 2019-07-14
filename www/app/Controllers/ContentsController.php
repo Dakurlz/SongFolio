@@ -132,7 +132,7 @@ class ContentsController
             $typeName = $data['type'] === 'article' ? 'Article' : 'Page';
             $errors = $validator->getErrors();
 
-            if (empty($errors) && (!$this->contents->getOneBy(['slug' => $data['slug']]) || isset($_REQUEST['id']))) {
+            if (empty($errors) ) {
                 isset($_REQUEST['id']) ? $this->contents->__set('id', $_REQUEST['id']) : null;
                 $fileName = Helper::uploadImage('public/uploads/contents/', 'img_dir');
                 $this->contents->__set('type', $data['type']);

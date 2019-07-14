@@ -43,7 +43,8 @@ class Events extends BaseSQL
                     "action" => Routing::getSlug("Events", "createEvents"),
                     "method" => "POST",
                     'header' => 'Ajouter un nouvel évènement',
-                    'action_type' => 'create'
+                    'action_type' => 'create',
+
                 ],
                 "btn" => [
                     "submit" => [

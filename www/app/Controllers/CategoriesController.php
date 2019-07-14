@@ -147,7 +147,6 @@ class CategoriesController
                     $_SESSION['alert']['info'][] = 'Categorie modifé';
                 }
             } else {
-                debug($errors);
                 if (empty($errors)) {
                     $_SESSION['alert']['danger'][] = 'Categorie existe déjà';
                 }
