@@ -57,7 +57,7 @@ label {
 .lexical_br {
   position: absolute;
   bottom: 2px;
-  text-align:right;
+  text-align: right;
   width: 80%;
   right: 10px;
   color: $color-muted;
@@ -71,9 +71,6 @@ label {
   top: 2px;
   left: 5px;
 }
-
-
-
 
 .hide {
   display: none !important;
@@ -95,7 +92,6 @@ label {
   }
 }
 
-
 .likes {
   display: flex;
   flex-direction: row;
@@ -105,20 +101,28 @@ label {
   }
 
   & > img {
-    cursor: pointer;
     height: auto !important;
+  }
+
+  .connected {
+    cursor: pointer;
   }
 }
 
-.display-like-title{
+.display-like-title {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-
-.display-content{
+.display-content {
   padding: 10px 20px;
   background-color: $color-gray;
 }
+
+.page-404 {
+  padding: 190px 0;
+}
+
+

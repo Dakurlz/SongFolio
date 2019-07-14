@@ -113,8 +113,9 @@ label {
   .likes > span {
     margin-right: 10px; }
   .likes > img {
-    cursor: pointer;
     height: auto !important; }
+  .likes .connected {
+    cursor: pointer; }
 
 .display-like-title {
   display: flex;
@@ -125,6 +126,9 @@ label {
 .display-content {
   padding: 10px 20px;
   background-color: #E1E1E1; }
+
+.page-404 {
+  padding: 190px 0; }
 
 .wrapper {
   box-sizing: border-box;
@@ -4042,15 +4046,6 @@ input:checked + .slider:before {
         #front-body #section-top table td.title small {
           font-family: "Lato", sans-serif;
           font-weight: normal; }
-        #front-body #section-top table td.likes {
-          display: flex;
-          flex-direction: row;
-          align-items: center; }
-          #front-body #section-top table td.likes > span {
-            margin-right: 10px; }
-          #front-body #section-top table td.likes > img {
-            cursor: pointer;
-            height: auto !important; }
       #front-body #section-top table img {
         height: 100%; }
   @media screen and (max-width: 590px) {

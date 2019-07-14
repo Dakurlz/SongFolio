@@ -224,19 +224,6 @@
           font-weight: normal;
         }
 
-        &.likes {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          & > span {
-            margin-right: 10px;
-          }
-
-          & > img {
-            cursor: pointer;
-            height: auto !important;
-          }
-        }
       }
       img {
         height: 100%;

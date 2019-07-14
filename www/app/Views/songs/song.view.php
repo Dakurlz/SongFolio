@@ -27,7 +27,7 @@ use Songfolio\Core\Helper;
                                                                         else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
                                         <input type="hidden" class="nbr_likes" value="<?= $nb_like ?>">
-                                        <img class="<?php if ($user->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($checkUserLike) echo 'public/img/heart-like-active.svg';
+                                        <img class="<?php if ($user->__get('id')) echo 'add_like connected' ?>" height="18" width="18" src=" <?php if ($checkUserLike) echo 'public/img/heart-like-active.svg';
                                                                                                                                         else echo 'public/img/heart-like.svg' ?>" alt="">
                                         <input type="hidden" class="type" value="songs">
                                         <input type="hidden" class="type_id" value="<?= $song->__get('id') ?>">
