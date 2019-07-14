@@ -13,10 +13,6 @@ class Likes extends BaseSQL
         parent::__construct($id);
     }
 
-    public function getNbLikeByTypeAndId($type, $type_id): int
-    {
-        return count($this->getAllBy(['type' => $type, 'type_id' => $type_id]));
-    }
 
     public static function checkIfUserLiked(array $likes, string $type_id, string $user_id)
     {

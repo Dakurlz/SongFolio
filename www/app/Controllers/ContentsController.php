@@ -11,6 +11,7 @@ use Songfolio\Core\Routing;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Contents;
 use Songfolio\Models\Users;
+use Songfolio\Models\Slug;
 
 class ContentsController
 {
@@ -135,7 +136,7 @@ class ContentsController
                 isset($_REQUEST['id']) ? $this->contents->__set('id', $_REQUEST['id']) : null;
                 $fileName = Helper::uploadImage('public/uploads/contents/', 'img_dir');
                 $this->contents->__set('type', $data['type']);
-                $this->contents->__set('slug',  $data['slug']);
+                $this->contents->__set('slug',  Slug::rewrite($data['slug']));
                 $this->contents->__set('title', $data['title']);
                 $this->contents->__set('description', $data['description']);
                 $this->contents->__set('content', $data['content']);

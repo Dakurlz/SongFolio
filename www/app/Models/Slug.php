@@ -1,7 +1,9 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Songfolio\Models;
+
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
 
@@ -15,8 +17,8 @@ class Slug
      */
     public static function checkIfExist(string $slug)
     {
-        
-        if(Routing::isSlugExist($slug)) return true;
+
+        if (Routing::isSlugExist($slug)) return true;
 
         $base = new BaseSQL();
         $tables = ['Albums', 'Contents', 'Events', 'Categories', 'Songs'];
@@ -30,5 +32,15 @@ class Slug
         }
 
         return false;
+    }
+
+    public static function rewrite(string $slug): string
+    {
+        $array = require 'app/config/rewriteSlug.php';
+        $rewriteSlug = trim($slug);
+        $rewriteSlug = str_replace([' ', '\''], '_', $rewriteSlug);
+        $rewriteSlug = strtolower($rewriteSlug);
+        $rewriteSlug = strtr($rewriteSlug, $array );
+        return $rewriteSlug;
     }
 }

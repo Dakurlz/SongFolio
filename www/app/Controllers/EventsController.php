@@ -9,6 +9,7 @@ use Songfolio\Core\Helper;
 use Songfolio\Models\Events;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Users;
+use Songfolio\Models\Slug;
 
 class EventsController
 {
@@ -127,7 +128,7 @@ class EventsController
 
 
                 //  SEO
-                $this->event->__set('slug',  $data['slug']);
+                $this->event->__set('slug',  Slug::rewrite($data['slug']));
                 isset($data['description']) ? $this->event->__set('description',  trim($data['description'])) : null;
 
                 $this->event->save();

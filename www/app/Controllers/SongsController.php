@@ -11,6 +11,7 @@ use Songfolio\Models\Users;
 use Songfolio\Core\Validator;
 use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
+use Songfolio\Models\Slug;
 
 class SongsController
 {
@@ -107,7 +108,7 @@ class SongsController
             if (empty($errors)) {
 
                 $this->song->__set('name', $data['name']);
-                $this->song->__set('slug',  $data['slug']);
+                $this->song->__set('slug',  Slug::rewrite($data['slug']));
                 $this->song->__set('description',  trim($data['description']));
                 $this->song->__set('text',  trim($data['text']));
                 isset($data['album']) ? $this->song->__set('album_id', (int) $data['album']) : null;
