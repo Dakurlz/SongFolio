@@ -293,25 +293,48 @@ class UsersController
 
     public function changePasswordAction()
     {
-        if (!isset($_GET['t'])) {
-            $v = new View("404", "front");
-        }else{
-        $user = new Users(["pwd_token" => $_GET['t']]);
+
+        if($_POST){
+            $this->updatePwdAction($_POST);
+        }
+
+        //Si le token get est introuvable ou vide 
+        if (!isset($_GET['t']) || $_GET['t']=='') {
+            if (isset($_POST['token'])){
+                $user = new Users(["pwd_token" => $_POST['token']]);
+                var_dump('1');
+            }else{
+                View::show404("Désolé le token n'existe pas.");
+            }
+
+        }else {
+            $user = new Users(["pwd_token" => $_GET['t']]);
+        }
         if ($user->__get('id') == false) {
-            $v = new View("404", "front");
+            View::show404("Désolé le token n'existe pas.");
         } else {
             $v = new View("user_changePassword", "front");
             $configForm = $this->user->getFormNewPwd();
+            $configForm['data']['token']['value'] = $_GET['t'];
             $v->assign('configFormUsers', $configForm);
-        }
-        if (!empty($_POST)) {
+
+
+    }
+    }
+
+    public function updatePwdAction(){
+        $user = new Users(["pwd_token" =>$_POST['token']]);
+        if ($user->__get('id') == FALSE){
+            View::show404("Désolé le token n'existe passs.");
+        }else {
+            $configForm = $this->user->getFormNewPwd();
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
             $validator = new Validator($configForm, $data);
             $configForm["errors"] = $validator->getErrors();
             if (!empty($configForm["errors"])) {
                 foreach ($configForm["errors"] as $error) {
-                    $_SESSION['alert']['danger'][] = $error;
+                    return $_SESSION['alert']['danger'][] = $error;
                 }
             } else {
                 $user->__set('password', $_POST['valid_new_pwd']);
@@ -319,9 +342,7 @@ class UsersController
                 $user->save();
                 header('Location: ' . Routing::getSlug("users", "login"));
             }
-
         }
-    }
     }
 
     private function renderUsersView(array $configForm)

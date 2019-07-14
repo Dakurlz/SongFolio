@@ -579,6 +579,7 @@ class Users extends BaseSQL
                     "required"=>true,
                     "error"=>"",
                 ],
+
                 ]
             ];
     }
@@ -586,7 +587,7 @@ class Users extends BaseSQL
     public function getFormNewPwd(){
         return [
             "config"=>[
-                "action"=>Routing::getSlug("Users", "changePasswordAction"),
+                "action"=>Routing::getSlug("Users", "changePassword"),
                 "method"=>"POST",
                 "class"=>"",
                 "id"=>"",
@@ -622,6 +623,12 @@ class Users extends BaseSQL
                     "minlength"=>6,
                     "error"=>"La confirmation de votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres",
                     "error_not_same"=>"Le nouveau mot de passe saisit n'est pas identique."
+                ],
+                "token"=>[
+                    "type"=>"hidden",
+                    "id"=>"token",
+                    "name"=>"token",
+                    "value"=>""
                 ],
             ]
         ];

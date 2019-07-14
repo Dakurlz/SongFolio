@@ -316,6 +316,7 @@ CREATE TABLE `Users` (
   `date_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `login_token` varchar(255) DEFAULT NULL,
   `id_facebook` bigint(20) DEFAULT NULL,
+  'pwd_token' varchar(30) DEFAULT NULL,
   `undeletable` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
