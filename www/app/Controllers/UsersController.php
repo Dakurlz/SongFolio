@@ -57,6 +57,7 @@ class UsersController
             }else{
                 $this->modifyPwdAction($data['new_pwd']);
                 $v->assign('success', "Votre mot de passe à été modifier.");
+                $_SESSION['alert']['success'][] = "Votre mot de passe à été modifier.";
             }
         }
     }
@@ -298,7 +299,7 @@ class UsersController
             $this->updatePwdAction($_POST);
         }
 
-        //Si le token get est introuvable ou vide 
+        //Si le token get est introuvable ou vide
         if (!isset($_GET['t']) || $_GET['t']=='') {
             if (isset($_POST['token'])){
                 $user = new Users(["pwd_token" => $_POST['token']]);
