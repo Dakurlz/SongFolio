@@ -1,5 +1,4 @@
 <?php
-
 use Songfolio\Core\Helper;
 
 header("Content-Type: application/xml; charset=utf-8");

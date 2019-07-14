@@ -6,8 +6,6 @@ require "app/lib/dev.conf.php";
 use Songfolio\Core\View;
 use Songfolio\Core\Autoloader;
 use Songfolio\Core\Routing;
-use Songfolio\Models\Contents;
-use Songfolio\Models\Events;
 
 $autoloader = new Autoloader();
 $autoloader->addNamespace('Songfolio', 'app');

@@ -19,16 +19,16 @@ use Songfolio\Core\Helper;
         <img id="logo" src="<?=Helper::host()?>public/img/logo_songfolio.png">
         <nav>
             <ul>
-                <li class="active">
+                <li <?=(!empty($install_part) && $install_part == 'presentation' ? 'class="active"' : '')?>>
                     Présentation
                 </li>
-                <li>
+                <li <?=(!empty($install_part) && $install_part == 'database' ? 'class="active"' : '')?>>
                     Base de donnée
                 </li>
-                <li>
+                <li <?=(!empty($install_part) && $install_part == 'configuration' ? 'class="active"' : '')?>>
                     Configuration
                 </li>
-                <li>
+                <li <?=(!empty($install_part) && $install_part == 'administrator' ? 'class="active"' : '')?>>
                     Administrateur
                 </li>
             </ul>

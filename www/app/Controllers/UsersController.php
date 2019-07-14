@@ -302,7 +302,6 @@ class UsersController
         if (!isset($_GET['t']) || $_GET['t']=='') {
             if (isset($_POST['token'])){
                 $user = new Users(["pwd_token" => $_POST['token']]);
-                var_dump('1');
             }else{
                 View::show404("Désolé le token n'existe pas.");
             }

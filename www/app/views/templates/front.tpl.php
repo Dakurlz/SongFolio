@@ -1,14 +1,7 @@
 <?php
-
 use Songfolio\Core\Helper;
-use Songfolio\Models\Menus;
-use Songfolio\Models\Users;
 use Songfolio\Core\Routing;
-
-
-
-$user = new Users;
-$is_user = !empty($user->__get('id'));
+use Songfolio\Models\Menus;
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +89,7 @@ $is_user = !empty($user->__get('id'));
                             <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
-                    <?php if($is_user): ?>
+                    <?php if(!empty($user) && $user->is('connected')): ?>
                         <li><a href="<?=Routing::getSlug('users', 'dashboard')?>">Mon compte</a><br></li>
                         <li><a href="<?=Routing::getSlug('users', 'logout')?>">Déconnexion </a><br></li>
                     <?php endif ?>

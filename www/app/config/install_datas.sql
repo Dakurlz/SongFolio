@@ -209,7 +209,7 @@ CREATE TABLE `Menus` (
 --
 
 INSERT INTO `Menus` (`id`, `title`, `data`) VALUES
-(1, 'Exemple Menu header', '[{\"link\": \"http://localhost/\", \"title\": \"Accueil\"}, {\"link\": \"/evenement\", \"title\": \"Evenements\"}]'),
+(1, 'Exemple Menu header', '[{\"link\": \"/\", \"title\": \"Accueil\"}, {\"link\": \"/evenement\", \"title\": \"Evenements\"}]'),
 (2, 'Exemple Menu Footer', '[{\"link\": \"http://localhost/\", \"title\": \"Accueil\"}, {\"link\": \"http://localhost/\", \"title\": \"Nous contacter\"}, {\"link\": \"http://localhost/\", \"title\": \"Notre histoire\"}]');
 
 -- --------------------------------------------------------
