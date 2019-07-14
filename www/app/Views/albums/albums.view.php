@@ -50,7 +50,7 @@ use Songfolio\Core\Helper;
                                                                             else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
                                             <input type="hidden" class="nbr_likes" value="<?= $album['nbLikesAlbums'] ?>">
-                                            <img class="<?php if ($user->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($album['checkUserLike']) echo 'public/img/heart-like-active.svg';
+                                            <img class="<?php if ($user->__get('id')) echo 'add_like connected' ?>" height="18" width="18" src=" <?php if ($album['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                                             else echo 'public/img/heart-like.svg' ?>" alt="">
                                             <input type="hidden" class="type" value="albums">
                                             <input type="hidden" class="type_id" value="<?= $album['id'] ?>">

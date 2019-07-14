@@ -132,7 +132,7 @@ use Songfolio\Core\Helper;
 
               ?>],
     datasets: [{
-      label: "Nb de participants ",
+      label: "Commontaires",
       data: [<?php foreach ($articles_comments as $comment) {
                 echo '"' . $comment . '",';
               } ?>],

@@ -143,6 +143,7 @@ class AdminController
         $prepareCommentsArticles = [];
 
         foreach ($articles as $value) {
+            $prepareArticles[] = $value['title'];
             $prepareCommentsArticles[] = count($this->comment->prepareComments('article', $value['id']));
         }
 
