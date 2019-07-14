@@ -102,7 +102,7 @@ class AlbumsController
             if (empty($errors)) {
 
                 $this->album->__set('title', $data['title']);
-                $this->album->__set('slug',  $data['slug']);
+                $this->album->__set('slug',  Slug::rewrite($data['slug']));
                 $this->album->__set('description',  trim($data['description']));
                 isset($data['category_id']) ? $this->album->__set('category_id', (int) $data['category_id']) : null;
                 isset($fileName) ? $this->album->__set('cover_dir', $fileName) : null;

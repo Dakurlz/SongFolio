@@ -51,7 +51,7 @@ use Songfolio\Models\Users;
                             <?= Helper::searchInArray($categories, $event['type'],'name') ?>
                         </td>
                         <td>
-                        <a href="<?= BASE_URL . $event['slug'] ?>">/<?= $event['slug'] ?></a>
+                        <a href="<?= Helper::host() . $event['slug'] ?>">/<?= $event['slug'] ?></a>
                     </td>
                         <td>
                             <?= Helper::getFormatedDateWithTime($event['start_date']) ?>

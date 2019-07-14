@@ -2642,7 +2642,7 @@ label {
   display: inline-block;
   color: #fff;
   font-weight: 600;
-  padding: .5em;
+  padding: 0.5em;
   outline: none;
   text-decoration: none;
   font-size: 15px;
@@ -2661,6 +2661,9 @@ label {
     background-color: #6c757d; }
   .btn-success {
     background-color: #00A65A; }
+    .btn-success:hover {
+      color: #fff;
+      background-color: #00733e; }
     .btn-success-outline {
       background-color: #00A65A;
       color: #fff;
