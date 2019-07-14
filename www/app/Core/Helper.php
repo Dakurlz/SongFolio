@@ -5,8 +5,8 @@ declare (strict_types = 1);
 namespace Songfolio\Core;
 
 use mysql_xdevapi\Exception;
-
-class Helper
+use Songfolio\Core\mail\Phpmailer;
+class  Helper
 {
     public static $googleFonts;
 
@@ -207,6 +207,26 @@ class Helper
         curl_close($handle);
 
         return $result;
+    }
+
+    public static function  sendMail($adresse, $subject, $body)
+    {
+
+        $mail = new Phpmailer();
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->addAddress($adresse);
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        //$mail->SMTPDebug = 2 ;
+
+        if (!$mail->send()) {
+            $_SESSION['alert']['danger'][] = "Le message n'a pas pu être envoyé";
+            $_SESSION['alert']['danger'][] = ".$mail->ErrorInfo.";
+        } else {
+            $_SESSION['alert']['success'][] = "Un mail à été envoyé à l'adresse indiquée.";
+        }
     }
 
 }

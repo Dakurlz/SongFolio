@@ -13,7 +13,8 @@ use Songfolio\models\Users;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Settings;
 use Songfolio\Core\OAuth\Facebook;
-use Songfolio\Core\PhpMailer;
+use Songfolio\core\Helper;
+
 
 class UsersController
 {
@@ -86,13 +87,15 @@ class UsersController
                     $_SESSION['alert']['danger'][] = "L'adresse mail entré correspond déjà à un compte existant compte.";
                 } else {
                     if (empty($configForm["errors"])) {
+                        $settings = Settings::get('config')->__get('data');
+                        $site_name = $settings['site_name'];
                         $this->user->__set('first_name', $data["first_name"]);
                         $this->user->__set('last_name', $data["last_name"]);
                         $this->user->__set('email', $data["email"]);
                         $this->user->__set('password', $data["password"]);
                         $this->user->save();
-                        $body="Bonjour<br><br> Nous vous confirmons votre inscription sur le site <br>Utiliser votre adresse mail pour vous connectez et le mot de passe que vous avez saissit lors de votre inscription.\"";
-                        $this->sendMail($data['email'],"Inscription",$body);
+                        $body="Bonjour ".$data['last_name']." ! <br><br> Nous vous confirmons votre inscription sur le site $site_name <br>Utiliser votre adresse mail pour vous connectez et le mot de passe que vous avez saissit lors de votre inscription. <br><br> Lien pour vous connecter : http://$site_name\connexion";
+                        Helper::sendMail($data['email'],"Inscription",$body);
                         $_SESSION['alert']['success'][] = 'Votre compte à bien été créer.';
                         header('Location: ' . Routing::getSlug("users", "login"));
                     } else {
@@ -201,12 +204,15 @@ class UsersController
         if (!empty($_POST)) {
             $user = new Users(["email" => $_POST['user_email']]);
             if ($user->__get('id')==true) {
-                $test = $user->__get('id');
+                $settings = Settings::get('config')->__get('data');
+                $site_name = $settings['site_name'];
                 $token = $this->generateToken();
                 $user->__set('pwd_token',$token);
                 $user->save();
-                $body="Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. <?=Helper::host()?>changer_mot_de_passe?t=$token\"";
-                $this->sendMail($user->__get('email'),"Changement de mot de passe",$body);
+                $name = $user->__get('last_name');
+                $body="Bonjour $name !<br><br> Vous avez demandé à réinitialiser votre mot de passe. 
+                 Changez votre mot de passe en cliquant sur le lien ci-dessous :. http://$site_name/changer_mot_de_passe?t=$token\"<br><BT></BT>";
+                Helper::sendMail($user->__get('email'),"Changement de mot de passe",$body);
 
             }else{
                  $_SESSION['alert']['danger'][] = "L'adresse mail n'a pas été trouvé";
@@ -388,22 +394,6 @@ class UsersController
             $string .= $chars[rand(0, strlen($chars)-1)];
         }
         return $string;;
-    }
-    public function  sendMail($adresse,$subject,$body){
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->addAddress($adresse);
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = $subject;
-        $mail->Body    =$body;
-
-        if(!$mail->send()) {
-            echo 'Message could not be sent.';
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
-        } else {
-            $_SESSION['alert']['success'][] = "Un mail à été envoyé à l'adresse indiquée.";
-        }
     }
 
 }
