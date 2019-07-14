@@ -9,6 +9,7 @@ use Songfolio\Core\Helper;
 use Songfolio\Models\Events;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Users;
+use Songfolio\Models\Slug;
 
 class EventsController
 {
@@ -70,7 +71,7 @@ class EventsController
         self::listEventsAction();
     }
 
-    public function listEventsAction(): void
+    public function listEventsAction()
     {
         $events = $this->event->getAllData();
         $view = new View('admin/events/list', 'back');
@@ -125,10 +126,9 @@ class EventsController
                 $this->event->__set('city', $data['city']);
                 $this->event->__set('postal_code', $data['postal_code']);
 
-
                 //  SEO
-                $this->event->__set('slug',  $data['slug']);
-                isset($$data['description']) ? $this->event->__set('description',  trim($data['description'])) : null;
+                $this->event->__set('slug',  Slug::rewrite($data['slug']));
+                isset($data['details']) ? $this->event->__set('description',  trim($data['details'])) : null;
 
                 $this->event->save();
 

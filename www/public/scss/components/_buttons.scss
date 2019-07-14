@@ -2,7 +2,7 @@
   display: inline-block;
   color: $color-white;
   font-weight: 600;
-  padding: .5em;
+  padding: 0.5em;
   outline: none;
   text-decoration: none;
   font-size: 15px;
@@ -27,6 +27,10 @@
   }
   &-success {
     background-color: $color-button-success;
+    &:hover {
+      color: $color-white;
+      background-color: darken($color-button-success, 10%);
+    }
 
     &-outline {
       background-color: $color-button-success;

@@ -6,9 +6,6 @@ use Songfolio\Models\Users;
 ?>
 
 <div class="admin-events-list">
-    <?php
-        if (isset($alert)) $this->addModal('alert', $alert);
-    ?>
 
     <h2 class="col-12">Liste des événements</h2>
     <?php if (empty($listEvents)): ?>
@@ -27,6 +24,9 @@ use Songfolio\Models\Users;
                 </th>
                 <th>
                     Type
+                </th>
+                <th>
+                    Lien permanent
                 </th>
                 <th>
                     Date de debut
@@ -51,6 +51,9 @@ use Songfolio\Models\Users;
                             <?= Helper::searchInArray($categories, $event['type'],'name') ?>
                         </td>
                         <td>
+                        <a href="<?= Helper::host() . $event['slug'] ?>">/<?= $event['slug'] ?></a>
+                    </td>
+                        <td>
                             <?= Helper::getFormatedDateWithTime($event['start_date']) ?>
                         </td>
                         <td>
@@ -74,7 +77,7 @@ use Songfolio\Models\Users;
                             </h3>
                             <hr>
                             <?php if( isset($event['img_dir'])) : ?>
-                                <img src="<?= BASE_URL . $event['img_dir']  ?>"   />
+                                <img src="<?=Helper::host() . $event['img_dir']  ?>"   />
                                 <hr>
                             <?php endif; ?>
 
@@ -90,7 +93,7 @@ use Songfolio\Models\Users;
                             <hr>
 
                             <div class="form-group">
-                                <a href="<?= BASE_URL.$event['slug'] ?>">/<?= $event['slug'] ?></a>
+                                <a href="<?=Helper::host().$event['slug'] ?>">/<?= $event['slug'] ?></a>
                             </div>
                             
                             <hr>

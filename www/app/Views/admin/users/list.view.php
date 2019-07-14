@@ -9,9 +9,6 @@ use Songfolio\Models\Users;
 
     <h2 class="col-12">Liste des utilisateurs</h2>
 
-    <?php
-        if (isset($alert)) $this->addModal('alert', $alert);
-    ?>
     <div class="admin-users__main">
 
         <div style="margin-top: 0" class="admin-users__main__search-add-user">

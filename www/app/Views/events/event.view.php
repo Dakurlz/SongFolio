@@ -1,8 +1,12 @@
 <?php
 
 use Songfolio\Core\Helper;
-use Songfolio\Core\Routing;
 ?>
+
+<?php if ($event->__get('img_dir')) : ?>
+    <section id="content-banner" style="background-image:url(<?= $event->__get('img_dir') ?>);">
+    </section>
+<?php endif; ?>
 
 <section id="content-core">
     <div class="container">
@@ -13,19 +17,17 @@ use Songfolio\Core\Routing;
                     <div class="row">
 
                         <div class="col-lg-5 col-md-5 col-12">
-                            <img src="<?= BASE_URL . $event->__get('img_dir') ?>" alt="">
                             <h3>Adresse de l'événement</h3>
                             <address>
                                 <p><?= $event->__get('address') ?></p>
                                 <?= $event->__get('city') ?>
                                 <?= $event->__get('postal_code') ?>
                             </address>
-                            <a class=" btn btn-success-outline" href="<?= Routing::getSlug('Pages', 'renderEventsPage') ?>">Revenir sur la liste</a>
 
                         </div>
 
                         <div class="second-block col-lg-7 col-md-7 col-12">
-                            <h3 class="display-name"><?= $event->__get('type') ?> - <?= $event->__get('displayName') ?></h3>
+                            <h3><?= $event->__get('type') ?> - <?= $event->__get('displayName') ?></h3>
                             <hr>
                             <div class="row">
                                 <p class="col-3">Prix: <b><?= $event->__get('rate') ?>€</b> </p>
@@ -51,7 +53,7 @@ use Songfolio\Core\Routing;
 </section>
 
 <?php if (isset($comments)) $this->addModal('comment', [
-    'type' => 'article',
+    'type' => 'events',
     'type_id' => $event->__get('id'),
     'redirect' => $event->__get('slug'),
     'comments' => $comments

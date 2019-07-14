@@ -53,6 +53,7 @@
 '/changer_mot_de_passe':
   controller: Users
   action: changePassword
+  needAuth: false
 
 '/connexion':
   controller: Users

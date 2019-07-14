@@ -18,8 +18,8 @@ $sectionName = Helper::getCurrentPageName();
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-   <link rel="stylesheet" href="<?= BASE_URL . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
-   <link rel="stylesheet" href="<?= BASE_URL . "public/css/datetimepicker.css?v=" . filemtime("public/css/datetimepicker.css"); ?>" />
+   <link rel="stylesheet" href="<?=Helper::host() . "public/css/style.css?v=" . filemtime("public/css/style.css"); ?>" />
+   <link rel="stylesheet" href="<?=Helper::host() . "public/css/datetimepicker.css?v=" . filemtime("public/css/datetimepicker.css"); ?>" />
 
    <title>Admin</title>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
@@ -48,7 +48,7 @@ $sectionName = Helper::getCurrentPageName();
    <main class="main-back">
       <div class="sidebar">
          <div class="sidebar__admin-name">
-            <img class="logo" src="<?php echo BASE_URL . "public/img/user-image.svg"; ?>" />
+            <img class="logo" src="<?php echo Helper::host() . "public/img/user-image.svg"; ?>" />
             <div>
 
                <b>
@@ -69,7 +69,7 @@ $sectionName = Helper::getCurrentPageName();
                                                                                  $item['slug']['controller'],
                                                                                  $item['slug']['action']
                                                                               ) ?>'">
-                           <img src="<?= BASE_URL . "public/img/" . Helper::getNameAfterConfig($key) . ".svg"; ?> " />
+                           <img src="<?=Helper::host() . "public/img/" . Helper::getNameAfterConfig($key) . ".svg"; ?> " />
                            <p><?= $item['name'] ?></p>
                         </button>
                         <?php if (isset($item['dropdown'])) : ?>
@@ -104,7 +104,7 @@ $sectionName = Helper::getCurrentPageName();
          <div class="container-fluid">
 
             <div class="header">
-               <img src="<?= BASE_URL . 'public/img/' . $sectionName . '.svg' ?? 'default.svg'; ?>" />
+               <img src="<?=Helper::host() . 'public/img/' . $sectionName . '.svg' ?? 'default.svg'; ?>" />
                <p><?= Helper::getLabelFromMapping($sectionName ?? 'admin') ?></p>
             </div>
 
@@ -118,14 +118,14 @@ $sectionName = Helper::getCurrentPageName();
       </div>
    </main>
 
-   <script src="<?= BASE_URL . "public/js/jquery-3.3.1.min.js"; ?>"></script>
-   <script src="<?= BASE_URL . "public/js/datetimepicker.js"; ?>"></script>
-   <script src="<?= BASE_URL . "public/js/jquery-ui.min.js" ?>"></script>
-   <script src="<?= BASE_URL . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
-   <script src="<?= BASE_URL . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
+   <script src="<?=Helper::host() . "public/js/jquery-3.3.1.min.js"; ?>"></script>
+   <script src="<?=Helper::host() . "public/js/datetimepicker.js"; ?>"></script>
+   <script src="<?=Helper::host() . "public/js/jquery-ui.min.js" ?>"></script>
+   <script src="<?=Helper::host() . "public/js/modal.js?v=" . filemtime("public/js/modal.js"); ?>"></script>
+   <script src="<?=Helper::host() . "public/js/back.js?v=" . filemtime("public/js/back.js"); ?>"></script>
    <?php if (isset($js) && is_array($js)) : ?>
       <?php foreach ($js as $js_name) : ?>
-         <script src="<?= BASE_URL . "public/js/" . $js_name . ".js?v=" . filemtime("public/js/" . $js_name . ".js"); ?>"></script>
+         <script src="<?=Helper::host() . "public/js/" . $js_name . ".js?v=" . filemtime("public/js/" . $js_name . ".js"); ?>"></script>
       <?php endforeach; ?>
    <?php endif; ?>
 </body>

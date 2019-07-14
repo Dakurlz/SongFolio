@@ -1,14 +1,12 @@
 <?php
 
 use Songfolio\Core\Helper;
-use Songfolio\Core\Routing;
-use Songfolio\Models\Likes;
 use Songfolio\Models\Users;
 
 ?>
 
 
-<section id="content-banner" style="background-image:url(http://localhost/public/img/img_front/event2.jpg);">
+<section id="content-banner" style="background-image:url(<?=Helper::host()?>public/img/img_front/event2.jpg);">
 
 </section>
 
@@ -22,7 +20,7 @@ use Songfolio\Models\Users;
                     Prochains évènements
                 </div>
 
-                <div  class="search-front-bar col-12 col-lg-6 col-md-6 col-sm-6">
+                <div class="search-front-bar col-12 col-lg-6 col-md-6 col-sm-6">
                     <input class="input-control input-control-danger input-search" placeholder="Chercher un événement" />
                 </div>
                 <div class="list-events" style="list-style: none;padding: 0;">
@@ -33,17 +31,17 @@ use Songfolio\Models\Users;
 
                             <?php
                             if (isset($events)) :
-                                $currentU = new Users();
-                                foreach ($events as $event) : $nbLikes  = Likes::displayLike($likes, $event['id']);
+                                $user = new Users();
+                                foreach ($events as $event) :;
                                     if (strtotime($event['start_date']) >= strtotime(date('d-m-Y'))) :
                                         ?>
 
                                         <tr>
                                             <td>
-                                                <img style="max-width: 150px;" src="<?= BASE_URL . $event['img_dir'] ?>" alt="">
+                                                <img style="max-width: 150px;" src="<?=Helper::host() . $event['img_dir'] ?>" alt="">
                                             </td>
                                             <td>
-                                                <h2 style="margin: 0;display: inline;"> <a class="link" href="<?= BASE_URL . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
+                                                <h2 style="margin: 0;display: inline;"> <a class="link" href="<?=Helper::host() . $event['slug'] ?>"><?= ucfirst($event['type']) ?> - <?= $event['displayName'] ?></a> </h2>
                                             </td>
                                             <td>
                                                 <p>de <?= Helper::getFormatedDateWithTime($event['start_date']) ?></p>
@@ -61,15 +59,15 @@ use Songfolio\Models\Users;
                                             <td>
 
                                                 <div class="likes">
-                                                    <span class="nbr_likes_span"><?php if ($nbLikes != 0) echo $nbLikes;
+                                                    <span class="nbr_likes_span"><?php if ($event['nbLikesEvents'] != 0) echo $event['nbLikesEvents'];
                                                                                     else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
-                                                    <input type="hidden" class="nbr_likes" value="<?= $nbLikes ?>">
-                                                    <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likes, $event['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                                    <input type="hidden" class="nbr_likes" value="<?= $event['nbLikesEvents'] ?>">
+                                                    <img class="<?php if ($user->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if ($event['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                                                     else echo 'public/img/heart-like.svg' ?>" alt="">
                                                     <input type="hidden" class="type" value="events">
                                                     <input type="hidden" class="type_id" value="<?= $event['id'] ?>">
-                                                    <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
+                                                    <input type="hidden" class="user_id" value="<?= $user->__get('id') ?>">
                                                 </div>
 
                                             </td>

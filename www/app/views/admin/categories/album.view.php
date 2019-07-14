@@ -6,7 +6,6 @@ use Songfolio\Models\Users;
 <div class="row categories-page">
 
 <?php
-    if (isset($alert)) $this->addModal('alert', $alert);
     if(isset($configFormCategory)):
 
     if($configFormCategory['config']['action_type'] === 'create'): ?>

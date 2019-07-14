@@ -21,12 +21,12 @@ class Events extends BaseSQL
 
     public function show()
     {
-        $v = new View("event", "front");
+        $v = new View("events/event", "front");
         $categories = $this->categories->getAllBy(['type' => 'event']);
         $this->__set('type', Helper::searchInArray($categories, $this->__get('type'), 'name'));
 
         if ($this->__get('comment_active') === '1') {
-            $comments = $this->comments->prepareComments('event', $this->__get('id'));
+            $comments = $this->comments->prepareComments('events', $this->__get('id'));
             $v->assign('comments', $comments);
         }
 
@@ -43,7 +43,8 @@ class Events extends BaseSQL
                     "action" => Routing::getSlug("Events", "createEvents"),
                     "method" => "POST",
                     'header' => 'Ajouter un nouvel évènement',
-                    'action_type' => 'create'
+                    'action_type' => 'create',
+
                 ],
                 "btn" => [
                     "submit" => [

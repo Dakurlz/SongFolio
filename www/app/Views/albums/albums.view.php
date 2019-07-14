@@ -1,14 +1,11 @@
 <?php
 
 use Songfolio\Core\Helper;
-use Songfolio\Models\Likes;
-use Songfolio\Models\Users;
 
-$currentU = new Users();
 
 ?>
 
-<section id="content-banner" style="background-image:url(http://localhost/public/img/img_front/album.jpg);">
+<section id="content-banner" style="background-image:url(<?=Helper::host()?>public/img/img_front/album.jpg);">
 
 </section>
 
@@ -30,11 +27,11 @@ $currentU = new Users();
                     <table class="table col-12 ">
 
                         <tbody class="tbody">
-                            <?php foreach ($albums as $album) :  $nbLikesAlbums = Likes::displayLike($likesAlbums, $album['id']); ?>
+                            <?php foreach ($albums as $album) : ?>
                                 <tr>
 
                                     <td class="image">
-                                        <img style="max-width: 150px;" src="<?= BASE_URL . $album['cover_dir'] ?? '' ?>" alt="">
+                                        <img style="max-width: 150px;" src="<?=Helper::host() . $album['cover_dir'] ?? '' ?>" alt="">
                                     </td>
                                     <td class="title">
                                         <a href="<?= $album['slug'] ?>">
@@ -49,15 +46,15 @@ $currentU = new Users();
 
                                         <div class="likes">
 
-                                            <span class="nbr_likes_span"><?php if ($nbLikesAlbums != 0) echo $nbLikesAlbums;
+                                            <span class="nbr_likes_span"><?php if ($album['nbLikesAlbums'] != 0) echo $album['nbLikesAlbums'];
                                                                             else  echo '&nbsp;&nbsp;&nbsp;'; ?> </span>
 
-                                            <input type="hidden" class="nbr_likes" value="<?= $nbLikesAlbums ?>">
-                                            <img class="<?php if ($currentU->__get('id')) echo 'add_like' ?>" height="18" width="18" src=" <?php if (Likes::checkIfUserLiked($likesAlbums, $album['id'], $currentU->__get('id'))) echo 'public/img/heart-like-active.svg';
+                                            <input type="hidden" class="nbr_likes" value="<?= $album['nbLikesAlbums'] ?>">
+                                            <img class="<?php if ($user->__get('id')) echo 'add_like connected' ?>" height="18" width="18" src=" <?php if ($album['checkUserLike']) echo 'public/img/heart-like-active.svg';
                                                                                                                                             else echo 'public/img/heart-like.svg' ?>" alt="">
                                             <input type="hidden" class="type" value="albums">
                                             <input type="hidden" class="type_id" value="<?= $album['id'] ?>">
-                                            <input type="hidden" class="user_id" value="<?= $currentU->__get('id') ?>">
+                                            <input type="hidden" class="user_id" value="<?= $user->__get('id') ?>">
 
 
                                         </div>

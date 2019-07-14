@@ -113,8 +113,22 @@ label {
   .likes > span {
     margin-right: 10px; }
   .likes > img {
-    cursor: pointer;
     height: auto !important; }
+  .likes .connected {
+    cursor: pointer; }
+
+.display-like-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; }
+
+.display-content {
+  padding: 10px 20px;
+  background-color: #E1E1E1; }
+
+.page-404 {
+  padding: 190px 0; }
 
 .wrapper {
   box-sizing: border-box;
@@ -2632,7 +2646,7 @@ label {
   display: inline-block;
   color: #fff;
   font-weight: 600;
-  padding: .5em;
+  padding: 0.5em;
   outline: none;
   text-decoration: none;
   font-size: 15px;
@@ -2651,6 +2665,9 @@ label {
     background-color: #6c757d; }
   .btn-success {
     background-color: #00A65A; }
+    .btn-success:hover {
+      color: #fff;
+      background-color: #00733e; }
     .btn-success-outline {
       background-color: #00A65A;
       color: #fff;
@@ -2965,8 +2982,6 @@ table {
     display: -ms-flexbox;
     display: flex;
     height: 42px;
-    min-width: 120px;
-    max-width: 120px;
     -ms-flex-align: center;
     align-items: center;
     padding: 5px 10px;
@@ -3862,6 +3877,8 @@ input:checked + .slider:before {
     @media screen and (max-width: 590px) {
       #front-body main section {
         padding: 70px 0; } }
+    #front-body main section[id=content-core], #front-body main section[id=comment-section] {
+      padding: 20px 0 !important; }
     #front-body main section .nav {
       padding: 1rem;
       border-bottom: 2px solid #B00000;
@@ -4029,15 +4046,6 @@ input:checked + .slider:before {
         #front-body #section-top table td.title small {
           font-family: "Lato", sans-serif;
           font-weight: normal; }
-        #front-body #section-top table td.likes {
-          display: flex;
-          flex-direction: row;
-          align-items: center; }
-          #front-body #section-top table td.likes > span {
-            margin-right: 10px; }
-          #front-body #section-top table td.likes > img {
-            cursor: pointer;
-            height: auto !important; }
       #front-body #section-top table img {
         height: 100%; }
   @media screen and (max-width: 590px) {
@@ -4169,7 +4177,8 @@ input:checked + .slider:before {
 
 #front-body #content-core .img-left, #front-body #content-core .img-right {
   margin: 10px;
-  width: 30%; }
+  width: 30% !important;
+  height: auto !important; }
 
 #front-body #content-core .img-right {
   margin-right: 0px;

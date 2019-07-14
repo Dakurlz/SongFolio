@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Songfolio\Controllers;
 
-use Songfolio\Core\PHPMailer;
 use Songfolio\core\View;
 use Songfolio\Core\Routing;
 use Songfolio\Core\Helper;
@@ -87,27 +86,8 @@ class SettingsController
         $view->assign("settingsForm", $setting->getForm('mail'));
         $view->assign("settingsForms", $setting->getForm('send_mail'));
         if(!empty($_POST)){
-            $this->sendMail($_POST['user_email'],"Test d'envoie de mail","Bonjour<br><br> la configuration de l'envoie de mail fonctionne !");
+            Helper::sendMail($_POST['user_email'],"Test d'envoie de mail","Bonjour<br><br> la configuration de l'envoie de mail fonctionne !");
         }
 
     }
-    public function  sendMail($adresse,$subject,$body){
-
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->addAddress($adresse);
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = $subject;
-        $mail->Body    =$body;
-        //$mail->SMTPDebug = 2 ;
-
-        if(!$mail->send()) {
-            $_SESSION['alert']['danger'][] = "Le message n'a pas pu être envoyé";
-            $_SESSION['alert']['danger'][] = ".$mail->ErrorInfo.";
-        } else {
-            $_SESSION['alert']['success'][] = "Un mail à été envoyé à l'adresse indiquée.";
-        }
-    }
-
 }

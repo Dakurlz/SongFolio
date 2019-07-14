@@ -1,5 +1,5 @@
 <?php
-namespace Songfolio\Core;
+namespace Songfolio\Core\mail;
 /**
  * PHPMailer RFC821 SMTP email transport class.
  * PHP Version 5
@@ -25,7 +25,7 @@ namespace Songfolio\Core;
  * @author Chris Ryan
  * @author Marcus Bointon <phpmailer@synchromedia.co.uk>
  */
-class SMTP
+class smtp
 {
     /**
      * The PHPMailer SMTP version number.

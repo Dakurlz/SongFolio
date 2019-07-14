@@ -320,7 +320,21 @@ class Settings extends BaseSQL
                         "error" => "Choisissez un menu",
                         "selected" => $this->getData('header_menu'),
                         "options" => [],
-                    ]
+                    ],
+                    "home_banner_desktop" => [
+                        "type" => "text",
+                        "label" => "Bannière de la homepage sur ordinateur (1920x720 conseillé)",
+                        "class" => "form-control",
+                        "name" => "data[home_banner_desktop]",
+                        "value" => $this->getData('home_banner_desktop')
+                    ],
+                    "home_banner_mobile" => [
+                        "type" => "text",
+                        "label" => "Bannière de la homepage sur mobile (600x450px conseillé)",
+                        "class" => "form-control",
+                        "name" => "data[home_banner_mobile]",
+                        "value" => $this->getData('home_banner_mobile')
+                    ],
                 ];
                 foreach($menus as $menu){
                     $array['data']['header_menu']['options'][] = ["label" => $menu['title'], "value" => $menu['id']];

@@ -34,15 +34,15 @@ class MenusController
             $menu->__set('title', $_POST['title']);
             $menu->__set('data', $_POST['data']);
             $menu->save();
-            header('Location: '.Routing::getSlug('admin', 'menusEdit').'?menu='.$menu->id());
+            $_SESSION['alert']['success'][] = 'Le menu a bien été créé.';
+            header('Location: '.Routing::getSlug('menus', 'menusEdit').'?menu='.$menu->id());
+            exit;
         }
 
         $v = new View("admin/menu_edit", "back");
         $v->assign('menu', $menu);
         $v->assign('js', ['admin_menus']);
-        if(isset($alert)){
-            $v->assign('alert', $alert);
-        }
+
     }
 
     public function menusEditAction()
@@ -65,9 +65,7 @@ class MenusController
         $v = new View("admin/menu_edit", "back");
         $v->assign('menu', $menu);
         $v->assign('js', ['admin_menus']);
-        if(isset($alert)){
-            $v->assign('alert', $alert);
-        }
+ 
     }
 
     public function menusDelAction()
@@ -81,6 +79,8 @@ class MenusController
         $menu = new Menus($_GET['menu']);
         $menu->remove();
 
-        header('Location: '.Routing::getSlug('admin', 'menus'));
+        $_SESSION['alert']['info'][] = 'Le menu a été supprimé.';
+
+        header('Location: '.Routing::getSlug('menus', 'menus'));
     }
 }

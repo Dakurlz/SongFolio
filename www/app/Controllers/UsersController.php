@@ -5,15 +5,16 @@ declare (strict_types = 1);
 namespace Songfolio\controllers;
 
 use Songfolio\Core\Alert;
-use Songfolio\Core\Oauth\OAuthSDK;
-use Songfolio\core\View;
-use Songfolio\core\Routing;
-use Songfolio\core\Validator;
+use Songfolio\Core\OAuth\OAuthSDK;
+use Songfolio\Core\View;
+use Songfolio\Core\Routing;
+use Songfolio\Core\Validator;
 use Songfolio\models\Users;
 use Songfolio\Models\Roles;
 use Songfolio\Models\Settings;
-use Songfolio\Core\Oauth\Facebook;
-use Songfolio\core\PhpMailer;
+use Songfolio\Core\OAuth\Facebook;
+use Songfolio\core\Helper;
+
 
 class UsersController
 {
@@ -28,12 +29,12 @@ class UsersController
     }
 
 
-    public function defaultAction(): void
+    public function defaultAction()
     {
         echo "User default";
     }
 
-    public function dashboardAction(): void
+    public function dashboardAction()
 
     {   
         $configForm = $this->user->getFormModifyPwd();
@@ -60,13 +61,13 @@ class UsersController
         }
     }
     
-    public function modifyPwdAction($pwd) : void
+    public function modifyPwdAction($pwd)
     {   
        $this->user->__set('password',$pwd);
        $this->user->save();
     }
 
-    public function registerAction(): void
+    public function registerAction()
     {
         if ($this->user->is('connected')) {
             header('Location: ' . Routing::getSlug('users', 'dashboard'));
@@ -86,13 +87,15 @@ class UsersController
                     $_SESSION['alert']['danger'][] = "L'adresse mail entré correspond déjà à un compte existant compte.";
                 } else {
                     if (empty($configForm["errors"])) {
+                        $settings = Settings::get('config')->__get('data');
+                        $site_name = $settings['site_name'];
                         $this->user->__set('first_name', $data["first_name"]);
                         $this->user->__set('last_name', $data["last_name"]);
                         $this->user->__set('email', $data["email"]);
                         $this->user->__set('password', $data["password"]);
                         $this->user->save();
-                        $body="Bonjour<br><br> Nous vous confirmons votre inscription sur le site <br>Utiliser votre adresse mail pour vous connectez et le mot de passe que vous avez saissit lors de votre inscription.\"";
-                        $this->sendMail($data['email'],"Inscription",$body);
+                        $body="Bonjour ".$data['last_name']." ! <br><br> Nous vous confirmons votre inscription sur le site $site_name <br>Utiliser votre adresse mail pour vous connectez et le mot de passe que vous avez saissit lors de votre inscription. <br><br> Lien pour vous connecter : http://$site_name\connexion";
+                        Helper::sendMail($data['email'],"Inscription",$body);
                         $_SESSION['alert']['success'][] = 'Votre compte à bien été créer.';
                         header('Location: ' . Routing::getSlug("users", "login"));
                     } else {
@@ -108,7 +111,7 @@ class UsersController
         $v->assign("configFormRegister", $configForm);
     }
 
-    public function oauthAction(): void
+    public function oauthAction()
     {
         if($_GET['provider']){
             $providerClass = "Songfolio\Core\Oauth\Providers\\".$_GET['provider'];
@@ -132,7 +135,7 @@ class UsersController
         }
     }
 
-    public function loginAction(): void
+    public function loginAction()
     {
         if ($this->user->is('connected')) {
             header('Location: ' . Routing::getSlug('users', 'dashboard'));
@@ -184,7 +187,7 @@ class UsersController
         }
 
     }
-    public function logoutAction(): void
+    public function logoutAction()
     {
         unset($_SESSION['user']);
         setcookie('token', '', -1, '/');
@@ -192,7 +195,7 @@ class UsersController
         header('Location: ' . Routing::getSlug("users", "login"));
     }
 
-    public function forgetPasswordAction(): void
+    public function forgetPasswordAction()
     {
         $configForm = $this->user->forgetPassword();
         $v = new View("user_forgetPassword", "front");
@@ -201,12 +204,15 @@ class UsersController
         if (!empty($_POST)) {
             $user = new Users(["email" => $_POST['user_email']]);
             if ($user->__get('id')==true) {
-                $test = $user->__get('id');
+                $settings = Settings::get('config')->__get('data');
+                $site_name = $settings['site_name'];
                 $token = $this->generateToken();
                 $user->__set('pwd_token',$token);
                 $user->save();
-                $body="Bonjour<br><br> Cliquer sur le lien pour changer votre mot de passe. http://localhost/changer_mot_de_passe?t=$token\"";
-                $this->sendMail($user->__get('email'),"Changement de mot de passe",$body);
+                $name = $user->__get('last_name');
+                $body="Bonjour $name !<br><br> Vous avez demandé à réinitialiser votre mot de passe. 
+                 Changez votre mot de passe en cliquant sur le lien ci-dessous :. http://$site_name/changer_mot_de_passe?t=$token\"<br><BT></BT>";
+                Helper::sendMail($user->__get('email'),"Changement de mot de passe",$body);
 
             }else{
                  $_SESSION['alert']['danger'][] = "L'adresse mail n'a pas été trouvé";
@@ -287,25 +293,48 @@ class UsersController
 
     public function changePasswordAction()
     {
-        if (!isset($_GET['t'])) {
-            $v = new View("404", "front");
-        }else{
-        $user = new Users(["pwd_token" => $_GET['t']]);
+
+        if($_POST){
+            $this->updatePwdAction($_POST);
+        }
+
+        //Si le token get est introuvable ou vide 
+        if (!isset($_GET['t']) || $_GET['t']=='') {
+            if (isset($_POST['token'])){
+                $user = new Users(["pwd_token" => $_POST['token']]);
+                var_dump('1');
+            }else{
+                View::show404("Désolé le token n'existe pas.");
+            }
+
+        }else {
+            $user = new Users(["pwd_token" => $_GET['t']]);
+        }
         if ($user->__get('id') == false) {
-            $v = new View("404", "front");
+            View::show404("Désolé le token n'existe pas.");
         } else {
             $v = new View("user_changePassword", "front");
             $configForm = $this->user->getFormNewPwd();
+            $configForm['data']['token']['value'] = $_GET['t'];
             $v->assign('configFormUsers', $configForm);
-        }
-        if (!empty($_POST)) {
+
+
+    }
+    }
+
+    public function updatePwdAction(){
+        $user = new Users(["pwd_token" =>$_POST['token']]);
+        if ($user->__get('id') == FALSE){
+            View::show404("Désolé le token n'existe passs.");
+        }else {
+            $configForm = $this->user->getFormNewPwd();
             $method = $configForm["config"]["method"];
             $data = $GLOBALS["_" . $method];
             $validator = new Validator($configForm, $data);
             $configForm["errors"] = $validator->getErrors();
             if (!empty($configForm["errors"])) {
                 foreach ($configForm["errors"] as $error) {
-                    $_SESSION['alert']['danger'][] = $error;
+                    return $_SESSION['alert']['danger'][] = $error;
                 }
             } else {
                 $user->__set('password', $_POST['valid_new_pwd']);
@@ -313,9 +342,7 @@ class UsersController
                 $user->save();
                 header('Location: ' . Routing::getSlug("users", "login"));
             }
-
         }
-    }
     }
 
     private function renderUsersView(array $configForm)
@@ -388,22 +415,6 @@ class UsersController
             $string .= $chars[rand(0, strlen($chars)-1)];
         }
         return $string;;
-    }
-    public function  sendMail($adresse,$subject,$body){
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->addAddress($adresse);
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = $subject;
-        $mail->Body    =$body;
-
-        if(!$mail->send()) {
-            echo 'Message could not be sent.';
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
-        } else {
-            $_SESSION['alert']['success'][] = "Un mail à été envoyé à l'adresse indiquée.";
-        }
     }
 
 }

@@ -5,6 +5,7 @@ namespace Songfolio\Models;
 
 use Songfolio\Core\BaseSQL;
 use Songfolio\Core\Routing;
+use Songfolio\Core\Helper;
 
 class Users extends BaseSQL
 {
@@ -77,11 +78,11 @@ class Users extends BaseSQL
     }
 
     //Static User::need('permission') permet de vérifier si la permission est ou non dans le role de l'utilisteur CONNECTE et le redirige si ce n'est pas le cas.
-    public static function need(string $askedAction): void
+    public static function need(string $askedAction)
     {
         $user = new Users();
         if (!$user->can($askedAction)) {
-            header('Location: ' . BASE_URL);
+            header('Location: ' . Helper::host());
         }
     }
 
@@ -118,7 +119,7 @@ class Users extends BaseSQL
         return false;
     }
 
-    public function needAuth(): void
+    public function needAuth()
     {
         if (!$this->is('connected')) {
             header('Location: ' . Routing::getSlug('Users', 'login') . '?redirect=' . urlencode($_SERVER[REQUEST_URI]));
@@ -126,12 +127,12 @@ class Users extends BaseSQL
         }
     }
 
-    public function needGroups($groups): void
+    public function needGroups($groups)
     {
         $this->needAuth();
 
         if (!$this->is($groups) && !$this->is('admin')) {
-            header('Location: ' . BASE_URL);
+            header('Location: ' . Helper::host());
             exit;
         }
     }
@@ -578,6 +579,7 @@ class Users extends BaseSQL
                     "required"=>true,
                     "error"=>"",
                 ],
+
                 ]
             ];
     }
@@ -585,7 +587,7 @@ class Users extends BaseSQL
     public function getFormNewPwd(){
         return [
             "config"=>[
-                "action"=>Routing::getSlug("Users", "changePasswordAction"),
+                "action"=>Routing::getSlug("Users", "changePassword"),
                 "method"=>"POST",
                 "class"=>"",
                 "id"=>"",
@@ -621,6 +623,12 @@ class Users extends BaseSQL
                     "minlength"=>6,
                     "error"=>"La confirmation de votre mot de passe doit faire plus de 6 caractères avec des minuscules, majuscules et chiffres",
                     "error_not_same"=>"Le nouveau mot de passe saisit n'est pas identique."
+                ],
+                "token"=>[
+                    "type"=>"hidden",
+                    "id"=>"token",
+                    "name"=>"token",
+                    "value"=>""
                 ],
             ]
         ];

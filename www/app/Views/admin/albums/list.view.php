@@ -49,7 +49,7 @@ use Songfolio\Models\Users;
                         <?= Helper::searchInArray($categories, $album['category_id'], 'name') ?>
                     </td>
                     <td>
-                        <a href="<?= BASE_URL . $album['slug'] ?>">/<?= $album['slug'] ?></a>
+                        <a href="<?=Helper::host() . $album['slug'] ?>">/<?= $album['slug'] ?></a>
                     </td>
                     <td>
                         <?= Helper::getFormatedDateWithTime($album['date_published']) ?>
@@ -74,7 +74,7 @@ use Songfolio\Models\Users;
                         </h3>
                         <hr>
                         <?php if (isset($event['cover_dir'])) : ?>
-                            <img src="<?= BASE_URL . $album['cover_dir']  ?>" />
+                            <img src="<?=Helper::host() . $album['cover_dir']  ?>" />
                             <hr>
                         <?php endif; ?>
 
@@ -90,7 +90,7 @@ use Songfolio\Models\Users;
                         <hr>
 
                         <div class="form-group">
-                            <a href="<?= BASE_URL . $album['slug'] ?>">/<?= $album['slug'] ?></a>
+                            <a href="<?=Helper::host() . $album['slug'] ?>">/<?= $album['slug'] ?></a>
                         </div>
 
                         <hr>

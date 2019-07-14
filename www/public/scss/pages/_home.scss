@@ -5,6 +5,10 @@
       padding: 70px 0;
     }
 
+    &[id=content-core], &[id=comment-section]{
+      padding: 20px 0!important;
+    }
+
     .nav {
       padding: 1rem;
       border-bottom: 2px solid $color-primary;
@@ -220,19 +224,6 @@
           font-weight: normal;
         }
 
-        &.likes {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          & > span {
-            margin-right: 10px;
-          }
-
-          & > img {
-            cursor: pointer;
-            height: auto !important;
-          }
-        }
       }
       img {
         height: 100%;

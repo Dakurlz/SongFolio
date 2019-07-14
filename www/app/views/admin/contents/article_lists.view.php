@@ -8,11 +8,9 @@ use Songfolio\Models\Users;
 <div class="admin-articles-liste">
 
     <h2 class="col-12">Liste des articles</h2>
-    <?php if (empty($articles)): ?>
-        <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter le contenue</a>
-    <?php endif;?>
 
     <div style="margin-bottom: 25px" class="col-12 col-lg-6 col-md-6 col-sm-6">
+        <a style="margin-bottom: 20px" class="btn btn-success-outline" role="button"   href="<?= Routing::getSlug('Contents', 'createContents') ?>">Ajouter du contenu</a>
         <input  class="input-control input-control-success input-search" placeholder="Chercher un article" />
     </div>
 
@@ -57,7 +55,7 @@ use Songfolio\Models\Users;
                     <?= Helper::searchInArray($categories, $articl['category_id'],'name') ?>
                 </td>
                 <td>
-                    <a href="<?= BASE_URL.$articl['slug'] ?>">/<?= $articl['slug'] ?></a>
+                    <a href="<?=Helper::host().$articl['slug'] ?>">/<?= $articl['slug'] ?></a>
                 </td>
                 <td>
                     <?= $articl['published'] === '0' ? 'Non' : 'Oui' ?>
@@ -90,7 +88,7 @@ use Songfolio\Models\Users;
                     <hr>
                     <?php if( isset($articl['img_dir'])) : ?>
                         <h2>Image</h2>
-                        <img src="<?= BASE_URL . $articl['img_dir']  ?>"   />
+                        <img src="<?=Helper::host() . $articl['img_dir']  ?>"   />
                         <hr>
                     <?php endif; ?>
                     <div class="form-group">

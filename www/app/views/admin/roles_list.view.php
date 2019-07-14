@@ -29,5 +29,5 @@ use Songfolio\Core\Routing;
             </tr>
         <?php endforeach;?>
     </table>
-    <a href="<?=Routing::getSlug('admin', 'rolesAdd')?>" class="btn btn-success">+ Ajouter un menu</a>
+    <a href="<?=Routing::getSlug('admin', 'rolesAdd')?>" class="btn btn-success">+ Ajouter un role</a>
 </div>

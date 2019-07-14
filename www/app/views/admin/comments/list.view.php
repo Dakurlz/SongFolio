@@ -5,9 +5,6 @@ use Songfolio\Core\Routing;
 ?>
 
 <div class="comments-lists">
-    <?php
-        if (isset($alert)) $this->addModal('alert', $alert);
-    ?>
 
     <h2 class="col-12">Confirmation des commentaires</h2>
 

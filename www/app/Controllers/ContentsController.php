@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Songfolio\Controllers;
 
-use Songfolio\core\View;
+use Songfolio\Core\View;
 use Songfolio\Core\Validator;
-use Songfolio\core\Helper;
+use Songfolio\Core\Helper;
 use Songfolio\Core\Routing;
 use Songfolio\Models\Categories;
 use Songfolio\Models\Contents;
 use Songfolio\Models\Users;
+use Songfolio\Models\Slug;
 
 class ContentsController
 {
@@ -26,7 +27,7 @@ class ContentsController
         $this->user = $user;
     }
 
-    public function indexAction(): void
+    public function indexAction()
     {
         $nb_articles =  $this->contents->getByCustomQuery(['type' => 'article'], 'COUNT(*) as nb_articles');
         $nb_page =  $this->contents->getByCustomQuery(['type' => 'page'], 'COUNT(*) as nb_page');
@@ -35,19 +36,21 @@ class ContentsController
         $view->assign('nb_pages', $nb_page['nb_page']);
     }
 
-    public function createContentsAction(): void
+    public function createContentsAction()
     {
         Users::need('content_add');
 
         $configForm = self::published($this->contents->getFormContents()['create']);
         $categories = $this->categories->getAllBy(['type' => 'article']);
         $configForm['data']['category']['options'] = Categories::prepareCategoriesToSelect($categories);
-        self::push($configForm, 'create');
+        if(!empty($_POST)){
+            self::push($configForm, 'create');
+        }
 
         self::renderContentsView($configForm);
     }
 
-    public function deleteAction(): void
+    public function deleteAction()
     {
         Users::need('content_del');
 
@@ -88,9 +91,10 @@ class ContentsController
         self::push($configForm,  'update');
         if ($_REQUEST) {
             if ($_REQUEST['type'] === 'page') {
-                self::listesPagesAction();
+                header('Location: '.Routing::getSlug('contents', 'listesPages'));
+            }else{
+                header('Location: '.Routing::getSlug('contents', 'listesArticles'));
             }
-            self::listesArticlesAction();
         }
     }
 
@@ -101,14 +105,14 @@ class ContentsController
     }
 
 
-    public function listesPagesAction(): void
+    public function listesPagesAction()
     {
         $pages = $this->contents->getAllBy(['type' => 'page']);
         $view = new View('admin/contents/pages_lists', 'back');
         $view->assign('pages', $pages);
     }
 
-    public function listesArticlesAction(): void
+    public function listesArticlesAction()
     {
         $articles = $this->contents->getAllBy(['type' => 'article']);
         $view = new View('admin/contents/article_lists', 'back');
@@ -128,11 +132,11 @@ class ContentsController
             $typeName = $data['type'] === 'article' ? 'Article' : 'Page';
             $errors = $validator->getErrors();
 
-            if (empty($errors) && (!$this->contents->getOneBy(['slug' => $data['slug']]) || isset($_REQUEST['id']))) {
+            if (empty($errors) ) {
                 isset($_REQUEST['id']) ? $this->contents->__set('id', $_REQUEST['id']) : null;
                 $fileName = Helper::uploadImage('public/uploads/contents/', 'img_dir');
                 $this->contents->__set('type', $data['type']);
-                $this->contents->__set('slug',  $data['slug']);
+                $this->contents->__set('slug',  Slug::rewrite($data['slug']));
                 $this->contents->__set('title', $data['title']);
                 $this->contents->__set('description', $data['description']);
                 $this->contents->__set('content', $data['content']);
@@ -146,6 +150,8 @@ class ContentsController
 
                 if ($configForm['config']['action_type'] === 'create') {
                     $_SESSION['alert']['success'][] =  $typeName . ' créé';
+                    header('Location: '.Routing::getSlug('contents', 'update').'?id='.$this->contents->__get('id'));
+                    exit;
                 } else {
 
                     $_SESSION['alert']['info'][] =  $typeName . ' modifé';
