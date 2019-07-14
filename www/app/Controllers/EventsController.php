@@ -126,10 +126,9 @@ class EventsController
                 $this->event->__set('city', $data['city']);
                 $this->event->__set('postal_code', $data['postal_code']);
 
-
                 //  SEO
                 $this->event->__set('slug',  Slug::rewrite($data['slug']));
-                isset($data['description']) ? $this->event->__set('description',  trim($data['description'])) : null;
+                isset($data['details']) ? $this->event->__set('description',  trim($data['details'])) : null;
 
                 $this->event->save();
 

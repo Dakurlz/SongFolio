@@ -15,7 +15,7 @@ class Slug
      * @param string $slug
      * @return boolean
      */
-    public static function checkIfExist(string $slug)
+    public static function checkIfExist(string $slug): bool
     {
 
         if (Routing::isSlugExist($slug)) return true;
