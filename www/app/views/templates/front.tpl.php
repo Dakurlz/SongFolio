@@ -92,7 +92,9 @@ use Songfolio\Models\Menus;
                     <?php if(!empty($user) && $user->is('connected')): ?>
                         <li><a href="<?=Routing::getSlug('users', 'dashboard')?>">Mon compte</a><br></li>
                         <li><a href="<?=Routing::getSlug('users', 'logout')?>">Déconnexion </a><br></li>
-                    <?php endif ?>
+                    <?php else: ?>
+                        <li><a href="<?=Routing::getSlug('users', 'login')?>">Connexion</a><br></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>

@@ -32,6 +32,8 @@ class SettingsController
         if(!empty($_POST)){
             $settings->__set('data', $_POST['data']);
             $settings->save();
+
+            $_SESSION['alert']['success'][] = 'Les paramètres ont étés enregistrés.';
         }
 
         //Dans le cas ou on est dans le template, on lance l'action associé
