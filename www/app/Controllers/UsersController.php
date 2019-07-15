@@ -94,7 +94,7 @@ class UsersController
                         $this->user->__set('email', $data["email"]);
                         $this->user->__set('password', $data["password"]);
                         $this->user->save();
-                        $body="Bonjour ".$data['last_name']." ! <br><br> Nous vous confirmons votre inscription sur le site $site_name <br>Utiliser votre adresse mail pour vous connectez et le mot de passe que vous avez saissit lors de votre inscription. <br><br> Lien pour vous connecter : http://$site_name\connexion";
+                        $body="Bonjour ".$data['last_name']." ! <br><br> Nous vous confirmons votre inscription sur le site $site_name <br>Utiliser votre adresse mail pour vous connectez et le mot de passe que vous avez saissit lors de votre inscription. <br><br> Lien pour vous connecter : ". Helper::host() ."connexion";
                         Helper::sendMail($data['email'],"Inscription",$body);
                         $_SESSION['alert']['success'][] = 'Votre compte à bien été créer.';
                         header('Location: ' . Routing::getSlug("users", "login"));
@@ -205,13 +205,12 @@ class UsersController
             $user = new Users(["email" => $_POST['user_email']]);
             if ($user->__get('id')==true) {
                 $settings = Settings::get('config')->__get('data');
-                $site_name = $settings['site_name'];
                 $token = $this->generateToken();
                 $user->__set('pwd_token',$token);
                 $user->save();
                 $name = $user->__get('last_name');
                 $body="Bonjour $name !<br><br> Vous avez demandé à réinitialiser votre mot de passe. 
-                 Changez votre mot de passe en cliquant sur le lien ci-dessous :. http://$site_name/changer_mot_de_passe?t=$token\"<br><BT></BT>";
+                 Changez votre mot de passe en cliquant sur le lien ci-dessous :. ". Helper::host() ."changer_mot_de_passe?t=$token\"<br><BT></BT>";
                 Helper::sendMail($user->__get('email'),"Changement de mot de passe",$body);
 
             }else{
