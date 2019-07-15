@@ -156,7 +156,7 @@ class Settings extends BaseSQL
                         "value" => $this->getData('oauth/Facebook/client_id')
                     ],
                     "client_secret_Facebook" => [
-                        "type" => "text",
+                        "type" => "password",
                         "label" => "Clef secrete application facebook",
                         "class" => "form-control",
                         "name" => "data[oauth][Facebook][client_secret]",
@@ -174,7 +174,7 @@ class Settings extends BaseSQL
                         "value" => $this->getData('oauth/Google/client_id')
                     ],
                     "client_secret_Google" => [
-                        "type" => "text",
+                        "type" => "password",
                         "label" => "Clef secrete application Google",
                         "class" => "form-control",
                         "name" => "data[oauth][Google][client_secret]",

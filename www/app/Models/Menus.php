@@ -1,17 +1,15 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
+
 namespace Songfolio\Models;
+
 use Songfolio\Core\BaseSQL;
 
 class Menus extends BaseSQL
 {
-
     public function __construct($id = null)
     {
-        if (!isset($id) && isset($_SESSION['user'])) {
-            $id = $_SESSION['user'];
-        }
         parent::__construct($id);
     }
 
@@ -46,6 +44,8 @@ class Menus extends BaseSQL
                 return $this->show_menu_edit($this->__get('data'));
                 break;
         }
+
+        return '';
     }
 
     public function show_menu_edit($linklist)

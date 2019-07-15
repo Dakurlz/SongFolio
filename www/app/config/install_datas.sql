@@ -209,7 +209,7 @@ CREATE TABLE `Menus` (
 --
 
 INSERT INTO `Menus` (`id`, `title`, `data`) VALUES
-(1, 'Exemple Menu header', '[{\"link\": \"http://localhost/\", \"title\": \"Accueil\"}, {\"link\": \"/evenement\", \"title\": \"Evenements\"}]'),
+(1, 'Exemple Menu header', '[{\"link\": \"/\", \"title\": \"Accueil\"}, {\"link\": \"/evenement\", \"title\": \"Evenements\"}]'),
 (2, 'Exemple Menu Footer', '[{\"link\": \"http://localhost/\", \"title\": \"Accueil\"}, {\"link\": \"http://localhost/\", \"title\": \"Nous contacter\"}, {\"link\": \"http://localhost/\", \"title\": \"Notre histoire\"}]');
 
 -- --------------------------------------------------------
@@ -316,7 +316,7 @@ CREATE TABLE `Users` (
   `date_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `login_token` varchar(255) DEFAULT NULL,
   `id_facebook` bigint(20) DEFAULT NULL,
-  'pwd_token' varchar(30) DEFAULT NULL,
+  `pwd_token` varchar(30) DEFAULT NULL,
   `undeletable` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -324,8 +324,8 @@ CREATE TABLE `Users` (
 -- Déchargement des données de la table `Users`
 --
 
-INSERT INTO `Users` (`id`, `first_name`, `last_name`, `email`, `password`, `date_inserted`, `role_id`, `status`, `date_update`, `login_token`, `id_facebook`, `undeletable`) VALUES
-(7, 'Admin', 'Admin', 'admin@hotmail.fr', '$2y$10$n6RywGQxMQo7efq2htDB4.7CH/t3HJEny/5WqGKkTIaRQvJZVEqLu', '2019-07-13 17:17:20', 1, 0, NULL, '59a14ea9bbe3f6c079681b247eb3b807', NULL, 0);
+INSERT INTO `Users` (`id`, `first_name`, `last_name`, `email`, `password`, `date_inserted`, `role_id`, `status`, `date_update`, `login_token`, `id_facebook`, `pwd_token`, `undeletable`) VALUES
+(7, 'Admin', 'Admin', 'admintest@hotmail.fr', '$2y$10$n6RywGQxMQo7efq2htDB4.7CH/t3HJEny/5WqGKkTIaRQvJZVEqLu', '2019-07-13 17:17:20', 1, 0, NULL, '59a14ea9bbe3f6c079681b247eb3b807', NULL, NULL, 0);
 
 --
 -- Index pour les tables déchargées

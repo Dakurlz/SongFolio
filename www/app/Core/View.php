@@ -6,10 +6,6 @@ namespace Songfolio\Core;
 
 use Songfolio\Models\Settings;
 use Songfolio\Models\Users;
-use Songfolio\Models\Albums;
-use Songfolio\Models\Contents;
-use Songfolio\Models\Events;
-use Songfolio\Core\Helper;
 
 class View
 {
@@ -73,7 +69,6 @@ class View
         if ($reason) {
             $v->assign('reason', $reason);
         }
-        exit;
     }
 
     public function assign($key, $value)

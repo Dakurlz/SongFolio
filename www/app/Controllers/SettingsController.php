@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Songfolio\Controllers;
 
-use Songfolio\core\View;
+use Songfolio\Core\View;
 use Songfolio\Core\Routing;
 use Songfolio\Core\Helper;
 use Songfolio\Models\Settings;
@@ -32,6 +32,8 @@ class SettingsController
         if(!empty($_POST)){
             $settings->__set('data', $_POST['data']);
             $settings->save();
+
+            $_SESSION['alert']['success'][] = 'Les paramètres ont étés enregistrés.';
         }
 
         //Dans le cas ou on est dans le template, on lance l'action associé

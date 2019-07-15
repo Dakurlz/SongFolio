@@ -44,6 +44,7 @@ use Songfolio\Core\Routing;
 
 
 <script>
+
 // Get the modal
 var modal = document.getElementById('myModal');
 // Get the button that opens the modal
@@ -60,6 +61,13 @@ span.onclick = function() {
   modal.style.display = "none";
 }
 
+document.getElementById("old_pwd").value = "";
+document.getElementById("new_pwd").value = "";
+document.getElementById("valid_new_pwd").value = "";
+
+old_pwd.empty();
+new_pwd.empty();
+valid_new_pwd.empty();
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
