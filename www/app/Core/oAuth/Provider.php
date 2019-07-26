@@ -6,11 +6,10 @@ namespace Songfolio\Core\Oauth;
 
 use Songfolio\Models\Settings;
 use Songfolio\Core\Helper;
+use Songfolio\Core\Oauth\ProviderInterface;
 
 abstract class Provider implements ProviderInterface
 {
-    //protected $client_id = '2232449167069840';
-    //protected $client_secret = 'ec07adea3bce25a26d3fdcb3b5baa5f2';
     protected $client_id;
     protected $client_secret;
 
@@ -42,9 +41,14 @@ abstract class Provider implements ProviderInterface
     {
         if ($_GET['state'] === $_SESSION['state']) {
             $token_url = $this->tokenUrl."?client_id={$this->client_id}&redirect_uri={$this->getRedirectUrl()}&client_secret={$this->client_secret}&code={$code_parameter}&grant_type=authorization_code";
-
             $result = Helper::curl_request($token_url);
-
+            
+            // car github return string
+            if(!Helper::isJSON($result)){
+                $access_token_git = explode('=',explode('&',$result)[0])[1];
+                return $access_token_git;
+            }
+            
             return json_decode($result, true)['access_token'];
         }else{
             return 'State invalid';

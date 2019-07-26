@@ -22,7 +22,8 @@ class OAuthSDK
     public function loadProvider(){
     }
 
-    public function addProvider(){
+    public function addProvider(Provider $provider, string $provider_name){
+        $this->providers[$provider_name] = $provider;
     }
 
     public function getConnectionLinks(){
