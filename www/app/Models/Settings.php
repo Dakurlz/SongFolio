@@ -162,7 +162,7 @@ class Settings extends BaseSQL
                         "name" => "data[oauth][Facebook][client_secret]",
                         "value" => $this->getData('oauth/Facebook/client_secret')
                     ],
-                    "separator-oauth-fb" => [
+                    "separator-oauth-go" => [
                         "type" => "separator",
                         "after_title" => "Login with Google"
                     ],
@@ -179,6 +179,24 @@ class Settings extends BaseSQL
                         "class" => "form-control",
                         "name" => "data[oauth][Google][client_secret]",
                         "value" => $this->getData('oauth/Google/client_secret')
+                    ],
+                    "separator-oauth-gh" => [
+                        "type" => "separator",
+                        "after_title" => "Login with Github"
+                    ],
+                    "oauth_id_Github" => [
+                        "type" => "text",
+                        "label" => "ID application Github",
+                        "class" => "form-control",
+                        "name" => "data[oauth][Github][client_id]",
+                        "value" => $this->getData('oauth/Github/client_id')
+                    ],
+                    "client_secret_Github" => [
+                        "type" => "password",
+                        "label" => "Clef secrete application Github",
+                        "class" => "form-control",
+                        "name" => "data[oauth][Github][client_secret]",
+                        "value" => $this->getData('oauth/Github/client_secret')
                     ]
                 ];
                 break;

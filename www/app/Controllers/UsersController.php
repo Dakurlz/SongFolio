@@ -4,7 +4,6 @@ declare (strict_types = 1);
 
 namespace Songfolio\controllers;
 
-use Songfolio\Core\Alert;
 use Songfolio\Core\OAuth\OAuthSDK;
 use Songfolio\Core\View;
 use Songfolio\Core\Routing;

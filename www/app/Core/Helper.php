@@ -209,6 +209,37 @@ class  Helper
         return $result;
     }
 
+    public static function curl_get($url, $access_token)
+    {
+
+        
+        $headers = array(
+            'Content-Type: application/json',
+            sprintf('Authorization: Bearer %s', $access_token)
+          );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        if(curl_errno($ch))
+        {
+            echo 'Curl error: ' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        return $result;
+
+
+    }
+
+    public static function isJSON($string){
+        return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+     }
+
     public static function  sendMail($adresse, $subject, $body)
     {
 
